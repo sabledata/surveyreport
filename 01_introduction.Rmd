@@ -2,6 +2,8 @@
 
 A blah blah blah.  A reference [@edwards2013].
 
+Testing addition of text..
+
 \begin{equation}
   1 + 11
   \label{eq:test}
