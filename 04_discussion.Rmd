@@ -28,3 +28,11 @@ blah blah
    img <- paste('C:/DATA/PROJECTS/Survey_Report_Template/Rrnw_2018_2019/GIS_Projects/Report_S1_S5_',yr,'.png',sep="")
    knitr::include_graphics(img)
 ```
+```{r figure3, fig.cap=fig.3_cap, echo=FALSE, out.width = "700px", fig.align="center"}
+   img <- paste('C:/DATA/PROJECTS/Survey_Report_Template/Rrnw_2018_2019/GIS_Projects/Report_S1_S5_',yr+1,'.png',sep="")
+   knitr::include_graphics(img)
+```
+```{r figure4, fig.cap=fig.4_cap, out.width = "600px", echo=FALSE, fig.align="center"}
+  img <- paste('C:/DATA/PROJECTS/Survey_Report_Template/Rrnw_2018_2019/GIS_Projects/Report_Inlets_',yr+1,'.png',sep="")
+  knitr::include_graphics(img)
+```
