@@ -1,46 +1,14 @@
 # Methods
 
-```{r testfig, fig.cap = "Test figure with a caption will be numbered automatically."}
-plot(cars)
-```
+##SURVEY DESIGN
 
-```{r testtab}
-d <- structure(list(
-  Year = c("2018", "2019", "2020"), 
-  `Value 1` = c(1.12, 2.32, 3.67), 
-  `Value 2` = c(31.9, 2.8, 112.2)), 
-  row.names = c(NA, -3L), class = "data.frame")
+The methodology for `r yr` and `r yr+1` Sablefish research and assessment survey included a stratified random sampling design component, a traditional inlet component, a Rougheye/Blackspotted Rockfish research project and a benthic impacts study. 
 
-#csasdown::csas_table(d,
- # align = c("c", "r", "r"),
-  #caption = "Test table with a caption will be numbered automatically.")
-```
+Under the stratified random sampling design component, StRS fishing sets were conducted in randomly chosen 2 km x 2 km grid cells, nested within five spatial strata and three depth strata ( Figure \@ref(fig:figure1)).  The random design began on the 2003 survey, with the purpose of distributing tag releases at random, collecting biological samples and developing a catch-rate based index of abundance [@Wyeth2003].  It provided an alternative design to the historic traditional component (1990 to 2010) of the surveys.
 
-See Table \@ref(tab:testtab) for the example table.
+Standardized fishing sets under the traditional component of the surveys had specific gear and sampling protocols.  The purpose of the standardized sets were to collect catch rate data in order to index trends in abundance, tag fish and obtain biological samples.  Standardized fishing sets occurred within mainland inlet localities during the `r yr` and `r yr+1` survey.  The geographic boundaries of these localities are shown in Figure \@ref(fig:figure1).
 
-See Figure \@ref(fig:testfig) for the example figure.
+In order to evaluate the impact of fishing gear to the benthic habitat, camera sets were deployed during the 2012 through to 2017 Sablefish research and assessment surveys.  Nuytco autonomous camera systems were attached to traps to capture video and still imaging. In addition, accelerometers were also deployed on many sets to gather orientation and movement data.  During the `r yr` and `r yr+1` survey, only accelerometers were attached to traps.
 
-\clearpage
-
-<!-- clearpage ends the page, and also dumps out all floats.
-Floats are things like tables and figures. -->
-```{r widelong, results = "asis"}
-yrs <- 1:45
-ages <- 1:15
-widelong <- matrix(round(rnorm(length(yrs) * length(ages), 20), 4),
-  nr = length(yrs),
-  nc = length(ages),
-  dimnames = list(year = yrs, age = ages))
-widelong_df <- data.frame(cbind(yrs, widelong))
-
-# In landscape tables, you can change the font size if the table
-# is too large and overlaps the header and footer lines.
-csasdown::csas_table(widelong_df,
-  col.names = c("Year", as.character(ages)),
-  caption = "A long and wide table",
-  format = "latex",
-  landscape = TRUE,
-  font_size = 8)
-```
 
 \clearpage

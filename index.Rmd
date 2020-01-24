@@ -84,4 +84,265 @@ options(kableExtra.latex.load_packages = FALSE)
 library(csasdown)
 message("year = ", rmarkdown::metadata$year)
 browser()
+library(RODBC)
+library(knitr)
+library(magick)
+library(excelR)
+library(gapminder)
+library(ggplot2)
+library(dplyr)        # transform and summarize tabular data
+library(xtable)       # produces tables
+library(kableExtra)   # produces html tables with scrollbars, etc
+library(pacman)       # produces numbered tables and figures in order to reference them
+ #  if (!require("pacman")) install.packages("pacman")
+ #  pacman::p_load(knitr, captioner, bundesligR, stringr)
+library(bookdown)
+
+#  ----   G L O B A L --- F U N C T I O N S---------------------------------
+  GetSQLData <- function(strSQL,strDbName) {    # connect to SQL Server
+     cnn <- odbcDriverConnect(paste("Driver={SQL Server};Server=DFBCV9TWVASP001;", 
+                                    "Database=",strDbName,";Trusted_Connection=Yes",sep=""))
+     dat <- sqlQuery(cnn, strSQL)
+     odbcClose(cnn)
+    return(dat) 
+    }
+  
+  panLab <- function( x, y, txt, ... ) {
+    # Allows text to be placed at 0<x<1, 0<y<1).
+    usr <- par( "usr" )
+    par( usr=c(0,1,0,1) )
+    text( x, y, txt, ... )
+    par( usr=usr )
+    return( NULL )
+    }
+  
+  cleanf <- function(x){     # function to remove duplicates
+    oldx <- c(FALSE, x[-1]==x[-length(x)])  
+    # is the value equal to the previous    
+    res <- x
+    res[oldx] <- NA
+    return(res)
+    } 
+  
+  simpleCap <- function(x) {  # add capital first letter to each word
+    s <- strsplit(x, " ")[[1]]
+    paste(toupper(substring(s, 1,1)), substring(s, 2),
+        sep="", collapse=" ")
+  }
+  
+  firstup <- function(x) {   # add capital first letter to first word
+     substr(x, 1, 1) <- toupper(substr(x, 1, 1))
+     x
+  }
+  
+  format_cells <- function(df, rows ,cols, value = c("italics", "bold", "strikethrough")){
+
+  # select the correct markup
+  map <- setNames(c("*", "**", "~~"), c("italics", "bold", "strikethrough"))
+  markup <- map[value]  
+
+  for (r in rows){
+    for(c in cols){
+
+      # Make sure values are not factors
+      df[[c]] <- as.character( df[[c]])
+      # Update formatting
+      df[r, c] <- paste0(markup, df[r, c], markup)
+    }
+  }
+
+  return(df)
+}
 ```
+```{r, echo=FALSE}
+  # for inline text where numbers are larger 
+  inline_hook <- function(x) {
+    if (is.numeric(x)) {
+      format(x, digits = 2)
+    } else x
+}
+knitr::knit_hooks$set(inline = inline_hook)
+```
+```{r SurveyDetails, echo=FALSE}
+   yr          <- 2018            # -- current survey year of report
+   details     <- paste("select VESSEL_NAME as Vessel, CAPTAIN, LEFT(CONVERT(varchar, START_DATE, 100), 7) + ' - ' ",
+                        "+ LEFT(CONVERT(varchar, END_DATE, 100), 7) AS [Trip Dates], ",
+                        "COUNT([SET]) AS [Count of Sets] from  dbo.GFBIO_RESEARCH_TRIPS where year IN( ",yr,",",yr+1,
+                        ") group by VESSEL_NAME, CAPTAIN,  ",
+                        "LEFT(CONVERT(varchar, START_DATE, 100), 7) + ' - ' + LEFT(CONVERT(varchar, END_DATE, 100), 7)",sep="")
+   sd          <- GetSQLData(details,"Sablefish")  # survey details
+   
+   boat        <- simpleCap(tolower(sd[1,1]))  # -- vessel name 1
+   boat2       <- simpleCap(tolower(sd[2,1]))  # -- vessel name 2
+   
+   captain     <- simpleCap(tolower(sd[1,2]))  # -- captain name 1
+   captain2    <- simpleCap(tolower(sd[2,2]))  # -- captain name 2
+   
+   dates       <- sd[1,3]           # -- survey start and end dates 1
+   dates2      <- sd[2,3]           # -- survey start and end dates 2
+   
+   setcnt      <- sd[1,4]           # -- survey set count 1
+   setcnt2     <- sd[2,4]           # -- survey set count 2
+   
+   avgC        <- paste("select ROUND(AVG(TOTAL), 0) AS YrAvg from dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",
+                        "where (year <= ", yr+1, ") and (year >= ",yr - 9,")",sep="")
+   avgTen      <- GetSQLData(avgC,"Sablefish") # average catch last 10 years
+   
+   tp          <- paste("select ROUND(TRAP / TOTAL * 100, 0) AS TrapPer from dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",  
+                        " where  (year = ", yr, ")  group by ROUND(TRAP / TOTAL * 100, 0), TOTAL",sep="")
+   trapP       <- GetSQLData(tp,"Sablefish")  # trap gear catch ratio
+   
+   lp          <-  paste("select  ROUND(LONGLINE / TOTAL * 100, 0) AS LonglinePer from ",  
+                         " dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2  where  (year = ", yr, 
+                         ") group by ROUND(LONGLINE / TOTAL * 100, 0), TOTAL",sep="")
+   LonglineP   <- GetSQLData(lp,"Sablefish")  #longline gear catch ratio
+
+   tp2          <- paste("select ROUND(TRAP / TOTAL * 100, 0) AS TrapPer from dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",  
+                        " where  (year = ", yr+1, ")  group by ROUND(TRAP / TOTAL * 100, 0), TOTAL",sep="")
+   trapP2       <- GetSQLData(tp2,"Sablefish")  # trap gear catch ratio
+   
+   lp2          <-  paste("select  ROUND(LONGLINE / TOTAL * 100, 0) AS LonglinePer from ",  
+                         " dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2  where  (year = ", yr+1, 
+                         ") group by ROUND(LONGLINE / TOTAL * 100, 0), TOTAL",sep="")
+   LonglineP2   <- GetSQLData(lp2,"Sablefish")  #longline gear catch ratio   
+
+   
+   #  TABLE CAPTIONS -----------------------------------------------
+   
+   
+   table1 <- paste("Count of random set locations selected from the set of 2x2km grid cells, within the five spatial ",
+                   "strata (S~1~-S~5~) and three depth strata (RD~1~-RD~3~) for all years the random survey component has been ",
+                   "conducted.  The five spatial strata can be seen in Figure 1, and the depth strata include RD~1~ " ,
+                   "(100-250 fathoms), RD~2~ (250-450 fathoms) and RD~3~ (450-750 fathoms).")
+   table2 <- paste("British Columbia Sablefish research and assessment surveys, 1988 to ", yr+1 , ".", sep="")
+   table3 <- paste("Components of the ", yr ," and ", yr + 1, " Sablefish research and assessment surveys.", sep="")
+   table4 <- paste("Summary of species captured during the ",yr, 
+                   " survey Type 3 tagging sets (StRS design) conducted by the ",boat, 
+                   ".  No value in the weight column indicates that the catch was not weighed.",  
+                   "  No value in both weight and count indicates a trace weight recorded ",
+                   "from a trap of less than 1 kg.", sep="")
+   table5 <- paste("Summary of species captured by the ", boat, " during the ",yr, 
+                   " survey standardized sets conducted at mainland inlet localities. ", 
+                   "  Null values indicate the catch was not counted or weighed.  No value ", 
+                   "in both weight and count indicates a trace weight recorded from a trap of ",
+                   "less than 1 kg.", sep="")
+   table6 <- paste("Summary of species captured during the ", yr+1, 
+                   " survey Type 3 tagging sets (StRS design) conducted by the ",boat2, 
+                   ".  No value in the weight column indicates that the catch was not weighed.",  
+                   "  No value in both weight and count indicates a trace weight recorded ",
+                   "from a trap of less than 1 kg.", sep="")
+   table7 <- paste("Summary of species captured by the ", boat2, " during the ",yr+1, 
+                   " survey standardized sets conducted at mainland inlet localities. ", 
+                   "  Null values indicate the catch was not counted or weighed.  No value", 
+                   " in both weight and count indicates a trace weight recorded from a trap of",
+                   " less than 1 kg.", sep="")
+   table8 <- paste("Summary of Sablefish biological data collected during the ",yr,
+                   " stratified random sets by spatial and depth stratum.",sep="")
+   table9 <- paste("Summary of Sablefish biological data collected during the ",yr+1,
+                   " stratified random sets by spatial and depth stratum.",sep="")
+   table10<- paste("Count of tagged fish released since 1991 (including re-released) and counts ",
+                   "of verified tag recoveries by year until December ",yr+1, ", including any recoveries ",
+                   "that had no reported year. The total count of tag recoveries represent the sum of ",
+                   "all verified recoveries.",sep="")
+   table11 <- paste("Counts of tagged fish recoveries by Groundfish management unit area (GMU).")
+   
+   table_nums  <- captioner::captioner(prefix = "Table")
+   tab.1_cap   <- table_nums(name = "tab_1", caption   =  table1)
+   tab.2_cap   <- table_nums(name = "tab_2", caption   =  table2) 
+   tab.3_cap   <- table_nums(name = "tab_3", caption   =  table3)   
+   tab.4_cap   <- table_nums(name = "tab_4", caption   =  table4)   
+   tab.5_cap   <- table_nums(name = "tab_5", caption   =  table5)
+   tab.6_cap   <- table_nums(name = "tab_6", caption   =  table6)
+   tab.7_cap   <- table_nums(name = "tab_7", caption   =  table7)
+   tab.8_cap   <- table_nums(name = "tab_8", caption   =  table8)  
+   tab.9_cap   <- table_nums(name = "tab_9", caption   =  table9)
+   tab.10_cap  <- table_nums(name = "tab_10", caption  =  table10)
+   tab.11_cap  <- table_nums(name = "tab_11", caption  =  table11)
+   
+   f.ref <- function(x) {
+             stringr::str_extract(table_nums(x), "[^:]*")}
+   
+   #  F I G U R E   C A P T I O N S  -----------------------------------------------
+   figure1  <- paste("Location of the boundaries of the mainland inlet localities," ,
+                     "and the five spatial areas (S~1~-S~5~) of the stratified ",
+                     "random survey design. The three depths strata (RD~1~-RD~3~) are colour-coded, ",
+                     "nested within each of the five spatial strata.", sep="")
+   figure2  <- paste("Start locations of survey sets (red markers) conducted in  ", yr,
+                     " for the stratified random survey areas S~1~ through S~5~.", sep="")
+   figure3  <- paste("Start locations of survey sets (red markers) conducted in  ", yr+1,
+                     " for the stratified random survey areas S~1~ through S~5~.", sep="")
+   figure4  <- paste("Location of the traditional survey sets within the mainland inlet ",
+                     "localities since 1994.  The setlines for " ,yr," are shown in blue and setlines for " , yr+1,
+                     " are shown in red.", sep="")
+   figure5  <-       "Trap gear elements consisting of 25 baited traps snapped to beckets along a groundline. "
+   figure6  <- paste("Distribution of yearly catch rates for Type 3 tagging sets summarised by a boxplot.  ",
+                     "Each panel shows catch rates grouped by depth strata from shallow to deep (RD~1~-RD~3~) ",
+                     "for each year the StRS survey was conducted.  The filled circles show the mean catch rates ",
+                     "for each depth stratum.", sep="")
+   figure7 <-  paste("Left: Length frequencies for male Sablefish (blue-violet) and female Sablefish ",
+                     "(fuchsia) up to ", yr + 1," for all StRS sets.  The number of specimens is denoted by the ",
+                     "letter n, the mean indicated by the xbar and the standard deviation is represented ",
+                     "by the symbol sigma. Right: Average length of male and female Sablefish by year.", sep="")
+   figure8 <-  paste("Sablefish fork length (L in cm) vs weight (W in kg) for males and females for the ",
+                       yr, " and ", yr+1 ," surveys, where W=aL^b^", sep="")
+   
+   figure9 <-  paste("The percentage of sub-legal Sablefish (<55 cm fork length) sampled in the StRS survey 
+                     strata (S~1~,S~2~,S~3~,S~4~,S~5~) and depth strata (RD~1~,RD~2~,RD~3~) since 2003.", sep="")
+   figure10 <- paste("Bubble plot for male and female Sablefish ages by survey year from StRS sets that ",
+                     "have been aged.  The sizes of the circles are proportional to the number of fish ", 
+                     "with given ages. Fish age 35 and older are included in one bubble. The total number ", 
+                     "(n) of fish aged are listed across the top of each panel. The ages with the highest ",
+                     "ratios are posted to the right of each bubble.", sep="")
+   figure10  <- paste("Bubble plot for male Sablefish ages by survey year from offshore standardized sets, ",
+                     "to the time of this report. The sizes of the circles are proportional ",
+                     "to the number of fish with given ages. Fish age 35 and older are included in one bubble. ",
+                     "The total number (n) of fish aged are listed across the top of each panel. The ages ",
+                     "with the highest ratios are posted to the right of each bubble.", sep="")
+   figure11  <- paste("Coplot of average depth(m) vs average temperature (C) for a given 1-degree latitude  ",
+                     "range (blue bands).  The number of fishing sets deployed with a SBE 39 recorder are ",
+                     "represented by n.", sep="")
+   figure12 <- paste("Average temperatures as reported from the Sea-bird SBE 39 loggers at 1-degree ",
+                     "latitude intervals and three depth intervals: 100-250 fathoms (183  to 457 meters), ",
+                     "250-450 fathoms (458-823 meters) and 450-750 fathoms (824-1372 meters).", sep="")   
+   figure_nums <-   captioner::captioner(prefix = "Figure")
+   #fig.1_cap   <-   figure_nums(name = "fig_1", caption =  figure1) 
+   #fig.2_cap   <-   figure_nums(name = "fig_2", caption =  figure2)   
+
+   fg.ref      <-   function(x) {    # another method on how to number figures
+                                 stringr::str_extract(figure_nums(x), "[^.]*")  }
+   
+   fig.1_cap   <-   figure1 
+   fig.2_cap   <-   figure2
+   fig.3_cap   <-   figure3 
+   fig.4_cap   <-   figure4
+   fig.5_cap   <-   figure5 
+   fig.6_cap   <-   figure6
+   fig.7_cap   <-   figure7 
+   fig.8_cap   <-   figure8
+   fig.9_cap   <-   figure9
+   fig.10_cap  <-   figure10
+   fig.11_cap  <-   figure11
+   fig.12_cap  <-   figure12
+
+   
+   #  A P P E N D I X   C A P T I O N S  ----------------------------------------------- not sure how to do ---  
+   appendix1    <- paste("Appendix A.  Details of sets completed during the ", yr ,
+                         " survey program (F/V ", boat ,"). Sets are listed by locality/stratum name, ",
+                         "set type, depth stratum, start date, end of gear deployment time and duration ", 
+                         "in minutes. The depth strata for type 3 tagging sets include RD1 (100-250 fathoms), ",
+                         "RD2 (250-450 fathoms) and RD3 (450-750 fathoms). The position data includes the major ",
+                         "area along with the start and end latitude and longitude in degrees decimal minutes.",
+                         "  The bottom depths (in meters) of the fishing set are shown with the mean bottom depth ",                                
+                         "calculated from recordings at one minute intervals between the start and end of the set.",
+                         "  The number of traps fished for each set excludes open traps, while holed or fouled traps",
+                         " have been included.  Sets that successfully deployed a Seabird ",
+                         "SBE temperature and pressure recorder and a Hobo accelerometer are indicated ",
+                         "with an 'x'.",sep="")
+
+   appendix_nums <- captioner::captioner(prefix = "Appendix")
+   app.1_cap   <- figure_nums(name = "app_A", caption =  appendix1)
+   
+   fap.ref <- function(x) {
+             stringr::str_extract(appendix_nums(x), "[^:]*")}
+```
+
