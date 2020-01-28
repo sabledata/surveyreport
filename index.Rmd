@@ -284,10 +284,10 @@ knitr::knit_hooks$set(inline = inline_hook)
                      "letter n, the mean indicated by the xbar and the standard deviation is represented ",
                      "by the symbol sigma. Right: Average length of male and female Sablefish by year.", sep="")
    figure8 <-  paste("Sablefish fork length (L in cm) vs weight (W in kg) for males and females for the ",
-                       yr, " and ", yr+1 ," surveys, where W=aL^b^", sep="")
+                       yr, " and ", yr+1 ," surveys, where", sep="")
    
    figure9 <-  paste("The percentage of sub-legal Sablefish (<55 cm fork length) sampled in the StRS survey 
-                     strata (S~1~,S~2~,S~3~,S~4~,S~5~) and depth strata (RD~1~,RD~2~,RD~3~) since 2003.", sep="")
+                     strata  and depth strata  since 2003.", sep="")
    figure10 <- paste("Bubble plot for male and female Sablefish ages by survey year from StRS sets that ",
                      "have been aged.  The sizes of the circles are proportional to the number of fish ", 
                      "with given ages. Fish age 35 and older are included in one bubble. The total number ", 

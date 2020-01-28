@@ -1,6 +1,6 @@
 # Methods
 
-##SURVEY DESIGN
+## SURVEY DESIGN
 
 The methodology for `r yr` and `r yr+1` Sablefish research and assessment survey included a stratified random sampling design component, a traditional inlet component, a Rougheye/Blackspotted Rockfish research project and a benthic impacts study. 
 
@@ -10,5 +10,30 @@ Standardized fishing sets under the traditional component of the surveys had spe
 
 In order to evaluate the impact of fishing gear to the benthic habitat, camera sets were deployed during the 2012 through to 2017 Sablefish research and assessment surveys.  Nuytco autonomous camera systems were attached to traps to capture video and still imaging. In addition, accelerometers were also deployed on many sets to gather orientation and movement data.  During the `r yr` and `r yr+1` survey, only accelerometers were attached to traps.
 
+### STRATIFIED RANDOM SAMPLING SURVEY COMPONENTS
+
+The main component of the `r yr` and `r yr+1` survey employed a stratified random sampling design (StRS).   Grid cells measuring 2 by 2 square kilometers were nested in each of five spatial strata (S~1~ to S~5~) and three depth strata (RD~1~ to RD~3~).   The three depth ranges included 100-250 fathoms, 250-450 fathoms and 450-750 fathoms.  The start locations of the `r yr` survey are shown in (Figure \@ref(fig:figure2)) and listed in detail in Appendix B. The start locations of the `r yr+1` survey are shown in (Figure \@ref(fig:figure3)) and listed in detail in Appendix C.  
+
+Historically, from 2003 through 2005, five grid cells were randomly selected in each spatial-depth stratum.   Then from 2006 through 2010, the number of grid cells randomly selected in each spatial-depth stratum was increased to six. After 2011, the grid cells were randomly chosen based on area and catch numbers (Table \@ref(tab:table1)).  
+
+### TRADITIONAL SURVEY COMPONENTS
+
+The traditional survey component in `r yr` and `r yr+1` included conducting standardized sets with specific bait and gear requirements at four mainland inlet localities.  A list of historic offshore indexing and tagging localities and a timeline marking the notable changes in these traditional components over the survey years is presented in Appendix A.  Sets were conducted in offshore indexing localities from 1988 through to 2010 and offshore tagging localities were conducted at these sites from 1996 through to 2007.  Trap gear was deployed near the center of each of the five localities in order to avoid the steep slopes characteristic of these channels/fjords.
+
+#### Portland Inlet Mainland Inlet Locality
+
+Portland Inlet was the most northerly mainland inlet locality. It is located just north of Prince Rupert and is approximately 40 kilometers long.  As with previous years, five standardized sets were conducted at this site during the `r yr` and `r yr+1` surveys.  The geo-referenced set polylines in Portland Inlet from 2003 to `r yr+1` are plotted in Figure \@ref(fig:figure4).  
+
+#### Gil Island Mainland Inlet Locality
+
+The Gil Island locality is located south west of Kitimat and is situated in the entrance to Douglas Channel. As with previous years, five standardized sets were conducted at the Gil Island locality during the `r yr` and `r yr+1` surveys.  The geo-referenced set polylines in Gil Island from 2003 to `r yr+1` are shown in Figure \@ref(fig:figure4). 
+
+#### Finlayson Channel Mainland Inlet Locality
+
+The Finlayson Channel locality extends north of Milbanke Sound and west of Roderick Island.  As with previous years, five standardized sets were conducted at the Finlayson Channel locality during the `r yr` and `r yr+1` surveys (Table 6).  The geo-referenced set polylines in Finlayson Channel from 2003 to `r yr+1` are plotted in Figure \@ref(fig:figure4).  
+
+#### Dean/Burke Channel Mainland Inlet Locality
+
+Dean Channel extends north east from Fisher Channel on the north side of King Island and west of Bella Coola. Burke Channel is on the south side of King Island and south west of Bella Coola. As with previous years, five standardized sets were conducted at the Dean/Burke Channel locality during the `r yr` and `r yr+1` surveys.  The geo-referenced set polylines in Dean/Burke Channel from 2003 to `r yr+1` are shown in Figure \@ref(fig:figure4). 
 
 \clearpage
