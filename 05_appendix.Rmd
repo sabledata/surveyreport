@@ -10,31 +10,76 @@ After that, all subsequent sections will be turned into appendices. -->
 
 # THE FIRST APPENDIX {#app:first-appendix}
 
-Content here.
-
-```{r test1, fig.cap="Test"}
-plot(1)
+```{r appendixAHistory}
+      if(knitr:::is_latex_output())
+      img <-  paste('C:/DATA/PROJECTS/Survey_Report_Template/Rnw_2019/AppendixSurveyHistory.png',sep="")
+      knitr::include_graphics(img)
 ```
-
-
-```{r test2, results='asis'}
-csasdown::csas_table(data.frame(x = c("a", "a", "b"), y = c(1, 2, 3)), caption = "Test")
-```
-
-\begin{equation}
-  1 + 1
-  \label{eq:test2}
-\end{equation}
-
-See Figure \@ref(fig:test1) for the example appendix figure.
-
-See Table \@ref(tab:test2) for the example appendix table.
 
 \clearpage
 
 # THE SECOND APPENDIX, FOR FUN {#app:second-appendix}
 
-More content.
+```{r appendixB}
+   options(knitr.kable.NA = '')  # get rid of NAs
+   srvyset <-  paste("dbo.procRReport_Survey_SetDetails ",yr,",1,",setcnt, sep="")
+   ssdat   <-  GetSQLData(srvyset,"Sablefish")
+   
+   latcnt  <-  length(ssdat[, 9])
+               for (i in 1:latcnt){ ssdat[i,9]= paste("$",ssdat[i,9],"^o", ssdat[i,10],"$",sep="")  }
+   latcnt  <-  length(ssdat[,11])
+               for (i in 1:latcnt){ ssdat[i,11]=paste("$",ssdat[i,11],"^o", ssdat[i,12],"$",sep="") }
+   latcnt  <-  length(ssdat[,13])
+               for (i in 1:latcnt){ ssdat[i,13]=paste("$",ssdat[i,13],"^o", ssdat[i,14],"$",sep="") }
+   latcnt<-length(ssdat[,15])
+               for (i in 1:latcnt){ ssdat[i,15]=paste("$",ssdat[i,15],"^o", ssdat[i,16],"$",sep="") }
+   
+   ssdat  <-  ssdat[,c(-10)]
+   ssdat  <-  ssdat[,c(-11)]
+   ssdat  <-  ssdat[,c(-12)]
+   ssdat  <-  ssdat[,c(-13)]
+   ssdat  <-  ssdat[,c(-20)]
+   
+   colnames(ssdat) <- c( "Spatial Stratum", "Set", "Type", "Depth Stratum", "Date", "Time", 
+                         "Duration", "Area","Latitude", "Longitude", "Latitude", "Longitude", 
+                         "Start","End","Mean","Traps Fished", "SBE39", "Hobo", "CTD")
+   kable(ssdat) %>%
+     add_header_above(c(" "= 8,"Start"=2, "End"=2, "Bottom Depth (m)"=3, " "= 4)) %>%
+     kable_styling(bootstrap_options = "striped",  full_width = T, font_size = 9) %>%
+     scroll_box(width = "98%", height = "600px")
+   
+    
+
+``` 
+```{r appendixC, echo=FALSE}
+   options(knitr.kable.NA = '')  # get rid of NAs
+   srvyset <-  paste("dbo.procRReport_Survey_SetDetails ",yr+1,",1,",setcnt, sep="")
+   ssdat   <-  GetSQLData(srvyset,"Sablefish")
+   
+   latcnt  <-  length(ssdat[, 9])
+               for (i in 1:latcnt){ ssdat[i,9]= paste("$",ssdat[i,9],"^o", ssdat[i,10],"$",sep="")  }
+   latcnt  <-  length(ssdat[,11])
+               for (i in 1:latcnt){ ssdat[i,11]=paste("$",ssdat[i,11],"^o", ssdat[i,12],"$",sep="") }
+   latcnt  <-  length(ssdat[,13])
+               for (i in 1:latcnt){ ssdat[i,13]=paste("$",ssdat[i,13],"^o", ssdat[i,14],"$",sep="") }
+   latcnt<-length(ssdat[,15])
+               for (i in 1:latcnt){ ssdat[i,15]=paste("$",ssdat[i,15],"^o", ssdat[i,16],"$",sep="") }
+   
+   ssdat  <-  ssdat[,c(-10)]
+   ssdat  <-  ssdat[,c(-11)]
+   ssdat  <-  ssdat[,c(-12)]
+   ssdat  <-  ssdat[,c(-13)]
+   ssdat  <-  ssdat[,c(-20)]
+    
+   colnames(ssdat) <- c( "Spatial Stratum", "Set", "Type", "Depth Stratum", "Date", "Time", 
+                         "Duration", "Area","Latitude", "Longitude", "Latitude", "Longitude", 
+                         "Start","End","Mean","Traps Fished", "SBE39", "Hobo", "CTD")
+   kable(ssdat) %>%
+     add_header_above(c(" "= 8,"Start" = 2, "End" = 2, "Bottom Depth (m)" = 3, " " = 4)) %>%
+     kable_styling(bootstrap_options = "striped",  full_width = T, font_size = 9) %>%
+     scroll_box(width = "98%", height = "600px")
+
+``` 
 
 <!-- At the end of your appendices add: -->
 `r if(knitr:::is_latex_output()) '% end csasdown appendix'`

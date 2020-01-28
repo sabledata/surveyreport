@@ -1,46 +1,503 @@
-# Discussion
-
-
-
-
-blah blah
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Figures and Tables
 
 
 ```{r figure1, fig.cap=figure1, out.width = "500px", echo=FALSE, fig.align="center"}
-  img <- paste('C:/DATA/PROJECTS/Survey_Report_Template/Rrnw_2018_2019/GIS_Projects/Report_Overview_survey_',yr+1,'.png',sep="") 
+  img <- paste('C:/github/surveyreport/figures/Report_Overview_survey_',yr+1,'.png',sep="") 
   knitr::include_graphics(img)
 ```
 
 ```{r figure2, fig.cap=fig.2_cap, echo=FALSE, out.width = "700px", fig.align="center"}
-   img <- paste('C:/DATA/PROJECTS/Survey_Report_Template/Rrnw_2018_2019/GIS_Projects/Report_S1_S5_',yr,'.png',sep="")
+   img <- paste('C:/github/surveyreport/figures/Report_S1_S5_',yr,'.png',sep="")
    knitr::include_graphics(img)
 ```
 
 ```{r figure3, fig.cap=fig.3_cap, echo=FALSE, out.width = "700px", fig.align="center"}
-   img <- paste('C:/DATA/PROJECTS/Survey_Report_Template/Rrnw_2018_2019/GIS_Projects/Report_S1_S5_',yr+1,'.png',sep="")
+   img <- paste('C:/github/surveyreport/figures/Report_S1_S5_',yr+1,'.png',sep="")
    knitr::include_graphics(img)
 ```
 
 ```{r figure4, fig.cap=fig.4_cap, out.width = "600px", echo=FALSE, fig.align="center"}
-  img <- paste('C:/DATA/PROJECTS/Survey_Report_Template/Rrnw_2018_2019/GIS_Projects/Report_Inlets_',yr+1,'.png',sep="")
+  img <- paste('C:/github/surveyreport/figures/Report_Inlets_',yr+1,'.png',sep="")
   knitr::include_graphics(img)
 ```
 
 ```{r figure5, fig.cap=fig.4_cap, out.width = "400px", echo=FALSE, fig.align="center"}
-  img <- paste('C:/DATA/PROJECTS/Survey_Report_Template/Rrnw_2018_2019/gearelements.png',sep="") 
+  img <- paste('C:/github/surveyreport/figures/gearelements.png',sep="") 
   knitr::include_graphics(img)
 ```
+```{r figure6, fig.cap=fig.6_cap, echo=FALSE, fig.width=12, fig.height=15}
+  dtStRS <- " select  * from dbo.GENERIC_GFBIO_TRAPS where [Spatial.Stratum] not like '%Quatsino Sound%' order by year"
+  datStRS<- GetSQLData(dtStRS,"Sablefish") 
+  odbcCloseAll()
+  #----------------------------------------------------------------------------
+  # set margins:  par(mar=c(bottom,left,top,right), cex=size of font)
+  par(mfcol=c(9,2), mar=c(2,2,1,1), oma=c(3,2,1,1))
+  #par(mfcol=c(9,2))
+  datRD <- datStRS[ datStRS$SABLE.SET.TYPE=="StRS", ] # pick out the random sets
+  dat   <- datRD[ ! is.na(datRD$SABLE.SET.TYPE), ]
+  yrs   <- unique(datRD$year) # get unique years
+  nyrs  <- length(yrs)
+  
+  data.cv <- data.frame( year = numeric(),
+                         value1 = numeric(),
+                         value2= numeric(),
+                         value3= numeric()
+                       )
+  data.mn <- data.frame( year = numeric(),
+                         value1 = numeric(),
+                         value2= numeric(),
+                         value3= numeric()
+                       )
+
+  # iterate through the years building depth boxplots
+  for (i in 1:nyrs)
+     {    yrdat <- datRD[datRD$year==yrs[i],]   # get the year dataset
+          #  split the data by depth for the boxplots
+          bxdat <- split(yrdat$CPUE.SABLE.COUNT / yrdat$CPUE.TRAPS,  as.character(yrdat$SABLE.DEPTH.GROUP))
+          #  create the depth boxplots
+          xpos <- boxplot(bxdat, boxwex = 0.20, medcol=c("black"), medlwd=1, outline=TRUE, ylim=c(0,80), cex=1.0)
+          text(3,90,c(yrs[i]),cex=1.0)
+
+          dpth.mean <- sapply(bxdat, mean, na.rm=T)  #  add the mean by depth  points
+          std.dev   <- sapply(bxdat, sd, na.rm=T)
+          # Coefficient of Variation Cv = Standard Deviation / Mean
+          # print(round(std.dev/dpth.mean,2))
+          names(data.cv)<- c("year", "RD1", "RD2", "RD3")  # store cv's
+          names(data.mn)<- c("year", "RD1", "RD2", "RD3")  # store mean counts by depth
+          data.cv <-rbind(data.cv,c(yrs[i],round(std.dev/dpth.mean,2)))
+          data.mn <-rbind(data.mn,c(yrs[i],round(dpth.mean,0)))
+          
+          points(dpth.mean, pch=16, col="red", cex=1)
+          abline(h=c(20,40,60,80), lty=2, col='gray50')    #  add some reference lines lty of 2 is dashed line
+          
+          par(usr=c(0,1,0,1))
+          text(0.89,0.9,paste(yrs[i]),cex=1.2)  # label the years
+          
+          if (i==1)     {   #  add labels
+          #mtext( side=4, line=2, outer=T, " RD1 100-250, RD2 250-450, RD2 450-750 fm" ,adj=0.5)
+          mtext( side=2, line=1, cex=1.0, outer=T, "count per trap" ,adj=0.5)
+          mtext( side=1, line=1, cex=1.0, outer=T, "depth stratum, StRS sets" ,adj=0.5) }
+        
+  }
+          par(usr=c(0,1,0,1))    
+          text(0.13,0.69, "RD1:  Shallow 100-250 fa")
+          text(0.13,0.8, "RD2:  Mid       250-450 fa")
+          text(0.13,0.9, "RD3:  Deep    450-750 fa")
+
+```
+
+```{r figure7, fig.cap=fig.7_cap, echo=FALSE, warning=FALSE, message=FALSE,comment=NA,results='hide', fig.height = 5, fig.width = 8} 
+      #  L E N G T H    H I S T O G R A M  
+      #  Sablefish.dbo.procReport_Survey_LenMF pulls length data from table GFBIO_SABLEBIO_VW 
+      #  from procedure Build_BIO_Sablefish_Tables 
+   
+      #  mar(bottom, left, top, and right)    
+      par(mfcol=c(1,2), mar=c(4,4,1,1), oma=c(3,2,1,1), cex=0.7)
+      # set up the histogram data for next year
+     	a2        <-   hist(females2, breaks = brk2, plot=F)
+    	b2        <-   hist(males2,   breaks = brk2, plot=F)  # draw the histogram with the specified number of bins
+    	
+    	plot(b2, col=rgb(0,0,1,0.5), border="white", main="", xlab="length(cm)", xlim=c(30,100))
+    	plot(a2, col=rgb(1,0,1,0.5), border="white", add = TRUE)
+    	box()
+      panLab(0.79,0.4,paste(" StRS sets",  sep=""), cex=1.1)
+    	panLab(0.19,0.98,"Sablefish males")
+    	panLab(0.79,0.98,"Sablefish females")
+    	panLab(0.19,0.9,bquote(bold(n)==.(tm2)))
+    	panLab(0.79,0.9,bquote(bold(n)==.(tf2)))
+    	panLab(0.19,0.8,bquote(bolditalic(bar(x))==.(mLm2)))
+    	panLab(0.79,0.8,bquote(bolditalic(bar(x))==.(mLf2)))
+    	panLab(0.19,0.7,bquote(bold(sigma)==.(stdm2)) )
+    	panLab(0.79,0.7,bquote(bold(sigma)==.(stdf2)) )
+
+     #  M E A N   L E N G T H   P L O T 
+     #  Sablefish.dbo.rocRReport_Survey_LenAvg pulls length data from table GFBIO_SABLEBIO_VW from 
+     #  procedure Build_BIO_Sablefish_Tables
+     lenstats  <- "exec procRReport_Survey_LenAvg"
+     dat       <- GetSQLData(lenstats,"Sablefish")
+     fdat      <- dat[dat$sex==2,]
+     mdat      <- dat[dat$sex==1,]
+     format(fdat$count/(fdat$count+mdat$count),digits=2)
+     format(mdat$count/(fdat$count+mdat$count),digits=2)
+     MxSeam    <- max(dat$AvL)
+    
+     plot(fdat$YEAR,fdat$AvL,pch=2, ylim=c(50,MxSeam+5),xlim=c(2003,yr+1), ylab="avg length (cm)",xlab="year", col=rgb(1,0,1,0.6))
+     lines(fdat$YEAR,fdat$AvL,lwd=1,lty=2, col=rgb(1,0,1,0.6))
+     points(mdat$YEAR,mdat$AvL,pch=16,col=rgb(0,0,1,0.6)) 
+     lines(mdat$YEAR,mdat$AvL,lwd=1,lty=1,col=rgb(0,0,1,0.6))
+
+     text(fdat$YEAR,fdat$AvL+1,fdat$count,cex=0.7)
+     text(mdat$YEAR,mdat$AvL+1,mdat$count,cex=0.7)
+     text(fdat$YEAR,53,format(mdat$count/fdat$count,digits=1),cex=0.8)
+     text(2003,51,"M:F",cex=0.8)
+     par(usr=c(0,1,0,1))  # set up the plot margins
+        
+     legend(0.035,1, c("  Sablefish Females","  Sablefish Males"), lty=c(2,1), lwd=1, bty="n", col=c(rgb(1,0,1,0.6), rgb(0,0,1,0.6)))
+     legend(0.035,1, c("",""), pch=c(2,16), bty="n", col=c(rgb(1,0,1,0.6),rgb(0,0,1,0.6)))
+     panLab(0.79,0.95,paste("StRS 2003-", yr+1, sep=""), cex=1.1)
+``` 
+
+```{r figure8, fig.cap=fig.8_cap, echo=FALSE, warning=FALSE, message=FALSE,comment=NA,results='hide', fig.height = 8, fig.width = 8} 
+    # L E N G T H     W E I G H T 
+    # Sablefish.dbo.procR_Survey_Sablefish_LenWt_shiny queries table GFBIO_SABLEBIO_VW for survey length data	
+    lenWT     <- "exec procR_Survey_Sablefish_LenWt_shiny"
+    lenWTdat1 <- GetSQLData(lenWT,"Sablefish")
+
+    par(mfcol = c(2,2))
+    lenWTdat  <- lenWTdat1[lenWTdat1$YEAR==yr,]
+
+    for (i in 1:2) {
+      ylim <- c(min(lenWTdat$weight),max(lenWTdat$weight))
+      xlim <- c(min(lenWTdat$length),max(lenWTdat$length))    
+      lbls <- c(paste(yr,":  Males","",sep=""),paste(yr,":  Females","",sep=""))
+   
+      t <- length(lenWTdat$length[lenWTdat$sex==i])                    
+      fit1 <- lm(log(weight)~log(length), data=lenWTdat[lenWTdat$sex==i ,])
+      a <- round(exp(fit1$coef[1]),7)
+      b <- round(fit1$coef[2],3)
+      Wt <- (a * (0:xlim[2])^b)  
+
+      plot(jitter(lenWTdat$length[lenWTdat$sex==i],2), 
+      jitter(lenWTdat$weight[lenWTdat$sex==i],2), pch=16, col="black", cex=0.5,
+         xlab="     Fork length (cm)", ylab="   Round weight (kg)", main=paste(lbls[i]), xlim=c(20,100), ylim=c(0,12))      
+         lines(0:xlim[2], Wt, col="darkgrey", lwd=2)      
+      mw   <-  format(round(mean(lenWTdat$weight[lenWTdat$sex==i],na.rm=T),1),nsmall=1)
+      par(usr=c(0,1,0,1))
+      text(0.3,0.9,bquote(bold(n)==.(t)))   # number
+      text(0.3,0.8,bquote(bolditalic(bar(W))==.(mw))) # mean weight
+      text(0.33,0.7,bquote(bold(a)==.(a)))  # a
+      text(0.32,0.6,bquote(bold(b)==.(b)))  # b
+    }
+    
+    
+    lenWTdat.2  <- lenWTdat1[lenWTdat1$YEAR==yr+1,]
+
+    for (i in 1:2) {
+      ylim.2 <- c(min(lenWTdat.2$weight),max(lenWTdat.2$weight))
+      xlim.2 <- c(min(lenWTdat.2$length),max(lenWTdat.2$length))    
+      lbls.2 <- c(paste(yr+1,":  Males","",sep=""),paste(yr+1,":  Females","",sep=""))
+   
+      t.2 <- length(lenWTdat.2$length[lenWTdat.2$sex==i])                    
+      fit1.2 <- lm(log(weight)~log(length), data=lenWTdat.2[lenWTdat.2$sex==i ,])
+      a.2 <- round(exp(fit1.2$coef[1]),7)
+      b.2 <- round(fit1.2$coef[2],3)
+      Wt.2 <- (a * (0:xlim.2[2])^b)  
+
+      plot(jitter(lenWTdat.2$length[lenWTdat.2$sex==i],2), 
+      jitter(lenWTdat.2$weight[lenWTdat.2$sex==i],2), pch=16, col="black", cex=0.5,
+         xlab="     Fork length (cm)", ylab="   Round weight (kg)", main=paste(lbls.2[i]), xlim=c(20,100), ylim=c(0,12))      
+         lines(0:xlim.2[2], Wt.2, col="darkgrey", lwd=2)      
+      mw.2   <-  format(round(mean(lenWTdat.2$weight[lenWTdat.2$sex==i],na.rm=T),1),nsmall=1)
+      par(usr=c(0,1,0,1))
+      text(0.3,0.9,bquote(bold(n)==.(t.2)))   # number
+      text(0.3,0.8,bquote(bolditalic(bar(W))==.(mw.2))) # mean weight                                                                                                                                                                                 
+      text(0.33,0.7,bquote(bold(a)==.(a.2)))  # a
+      text(0.32,0.6,bquote(bold(b)==.(b.2)))  # b
+      }
+```
+
+```{r figure9, fig.cap=fig.9_cap, echo=FALSE, warning=FALSE, message=FALSE,comment=NA,results='hide', fig.height = 10, fig.width = 9}
+# -----------Multiple plot function-----------------------------------
+# ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
+
+multiplot <- function(..., plotlist=NULL, file, cols=2, layout=NULL) {
+  library(grid)
+
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+
+  numPlots = length(plots)
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                    ncol = cols, nrow = ceiling(numPlots/cols))     }
+
+ if (numPlots==1) {
+    print(plots[[1]])
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+
+ sqlpolar  <- paste("select YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP, ROUND(countSub / total * 100, 1) AS subL, ",
+             " ROUND(countLeg / total * 100, 1) AS Leg, combo,combo + cast(YEAR as varchar) as combo2,(cast(right(sable_area_group,1) as int) + ", 
+             " cast(right(sable_area_group,1) as int) + cast(right(sable_depth_group,1) as int) + ", 
+             " cast(right(sable_area_group,1)  as int)-4 )  as polarorder from   ", 
+             " (select YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP, SUM(NULLIF (subl, 0.0)) AS countSub, ",
+             " SUM(NULLIF (leg, 0.0)) AS countLeg, SUM(subl) + SUM(leg) AS total, SABLE_AREA_GROUP + SABLE_DEPTH_GROUP as combo ",
+             " from (select YEAR, SABLEFISH_SURVEY_IND, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP, SPECIMEN_ID, SPECIMEN_SEX_CODE,  ",  
+             " CASE when Fork_Length <= 550 then 1.0 ELSE 0.0 END AS subl, CASE when Fork_Length > 550 THEN 1.0 ELSE 0.0 END AS leg  ",
+             " from dbo.GFBIO_SABLEBIO_VW where (SABLEFISH_SURVEY_IND = 1) AND  ",
+             " (SABLE_AREA_GROUP IN (N's1', N's2', N's3', N's4', N's5')) ) AS LS group by SABLE_AREA_GROUP, SABLE_DEPTH_GROUP, YEAR ) AS LS1 ",
+             " order by YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP")
+
+ polarsumm <-   paste("select YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP from  (select YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP,  ",
+                      " SUM(NULLIF (subl, 0.0)) AS countSub, SUM(NULLIF (leg, 0.0)) AS countLeg, SUM(subl) + SUM(leg) AS total,  ",
+                      " SABLE_AREA_GROUP + SABLE_DEPTH_GROUP AS combo from (select YEAR, SABLEFISH_SURVEY_IND, SABLE_AREA_GROUP, ",
+                      " SABLE_DEPTH_GROUP, SPECIMEN_ID, SPECIMEN_SEX_CODE, CASE WHEN Fork_Length <= 550 THEN 1.0 ELSE 0.0 END AS subl, ",
+                      " case WHEN Fork_Length > 550 THEN 1.0 ELSE 0.0 END AS leg from dbo.GFBIO_SABLEBIO_VW ",
+                      " where (SABLEFISH_SURVEY_IND = 1) AND (SABLE_AREA_GROUP IN (N's1', N's2', N's3', N's4', N's5'))) AS LS ",
+                      " group by SABLE_AREA_GROUP, SABLE_DEPTH_GROUP, YEAR) AS LS1 ",
+                      " where (ROUND(countSub / total * 100, 1) > 50)  group by YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP ",
+                      " order by YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP")
+
+ polar        <- GetSQLData(sqlpolar ,"Sablefish")
+ polarsummary <- GetSQLData(polarsumm ,"Sablefish")   # view the results to be able to type into the summary
+
+ linea<-25.0
+ lineb<-50.0
+ linec<-75.0
+
+ sublabel  <-   (c("S1RD1","S1RD2","S1RD3",
+                   "S2RD1","S2RD2","S3RD3",
+                   "S3RD1","S3RD2","S3RD3",
+                   "S4RD1","S4RD2","S4RD3",
+                   "S5RD1","S5RD2","S5RD3"))
+ 
+
+
+polar2019<-polar[polar$YEAR==2019,]
+plot2019 <-
+  ggplot(polar2019, aes(polarorder, subL)) + 
+  geom_bar(colour="grey", stat = "identity") + 
+  theme_minimal() +
+  scale_fill_brewer() +  xlab("2019 sublegals") +
+  ylab("") + theme(axis.text.y=element_blank()) +
+  theme(axis.text.x = element_text(size = 6)) +
+  coord_polar(start=-48/360) +
+  scale_x_continuous(limits=c(-0.5,14.5), breaks=0:14,
+                                 labels= sublabel) +
+  geom_hline(aes(yintercept=linea), colour="turquoise", linetype="dashed",size = 0.5) +  
+  geom_hline(aes(yintercept=lineb), colour="red",       linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=linec), colour="blue",      linetype="dashed",size = 0.5) +
+  geom_text(data=polar2019, aes( x=0, y=25, label='25'),    
+           color="turquoise",   size=3  ) +
+  geom_text(data=polar2019, aes( x=0, y=50, label='50'),    
+           color="red",         size=3  ) +
+  geom_text(data=polar2019, aes( x=0, y=75, label='75'),     
+           color="blue",         size=3  )
+  #polar2019
+  #plot2019
+
+polar2018<-polar[polar$YEAR==2018,]
+plot2018 <-
+  ggplot(polar2018, aes(polarorder, subL)) + 
+  geom_bar(colour="grey",stat = "identity") + 
+  theme_minimal() +
+  scale_fill_brewer() +  xlab("2018 sublegals") +
+  ylab("") + theme(axis.text.y=element_blank()) +
+  theme(axis.text.x = element_text(size = 6)) +
+  coord_polar(start=-48/360) +
+  scale_x_continuous(limits=c(-0.5,14.5), breaks=0:14,
+                                 labels= sublabel) +
+  geom_hline(aes(yintercept=linea), colour="turquoise", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=lineb), colour="red", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=linec), colour="blue", linetype="dashed",size = 0.5) +
+  geom_text(data=polar2018, aes( x=0, y=25, label='25'),    
+           color="turquoise",   size=3  ) +
+  geom_text(data=polar2018, aes( x=0, y=50, label='50'),    
+           color="red",         size=3  ) +
+  geom_text(data=polar2018, aes( x=0, y=75, label='75'),     
+           color="blue",         size=3  )
+
+polar2017<-polar[polar$YEAR==2017,]
+plot2017 <-
+  ggplot(polar2017, aes(polarorder, subL)) + 
+  geom_bar(colour="grey",stat = "identity") + 
+  theme_minimal() +
+  scale_fill_brewer() +  xlab("2017 sublegals") +
+  ylab("") + theme(axis.text.y=element_blank()) +
+  theme(axis.text.x = element_text(size = 6)) +
+  coord_polar(start=-48/360) +
+  scale_x_continuous(limits=c(-0.5,14.5), breaks=0:14,
+                                 labels= sublabel) +
+  geom_hline(aes(yintercept=linea), colour="turquoise", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=lineb), colour="red",       linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=linec), colour="blue",      linetype="dashed",size = 0.5) +
+  geom_text(data=polar2017, aes( x=0, y=25, label='25'),    
+           color="turquoise",   size=3  ) +
+  geom_text(data=polar2017, aes( x=0, y=50, label='50'),    
+           color="red",         size=3  ) +
+  geom_text(data=polar2017, aes( x=0, y=75, label='75'),     
+           color="blue",         size=3  )
+  #polar2017
+  #plot2017
+
+polar2016<-polar[polar$YEAR==2016,]
+plot2016 <-
+  ggplot(polar2016, aes(polarorder, subL)) + 
+  geom_bar(colour="grey",stat = "identity") + 
+  theme_minimal() +
+  scale_fill_brewer() +  xlab("2016 sublegals") +
+  ylab("") + theme(axis.text.y=element_blank()) +
+  theme(axis.text.x = element_text(size = 6)) +
+  coord_polar(start=-48/360) +
+  scale_x_continuous(limits=c(-0.5,14.5), breaks=0:14,
+                                 labels= sublabel) +
+  geom_hline(aes(yintercept=linea), colour="turquoise", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=lineb), colour="red", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=linec), colour="blue", linetype="dashed",size = 0.5) +
+  geom_text(data=polar2016, aes( x=0, y=25, label='25'),    
+           color="turquoise",   size=3  ) +
+  geom_text(data=polar2016, aes( x=0, y=50, label='50'),    
+           color="red",         size=3  ) +
+  geom_text(data=polar2016, aes( x=0, y=75, label='75'),     
+           color="blue",         size=3  )
+  #polar2016
+  #plot2016
+
+polar2015<-polar[polar$YEAR==2015,]
+plot2015 <-
+  ggplot(polar2015, aes(polarorder, subL)) + 
+  geom_bar(colour="grey",stat = "identity") + 
+  theme_minimal() +
+  scale_fill_brewer() +  xlab("2015 sublegals") +
+  ylab("") + theme(axis.text.y=element_blank()) +
+  theme(axis.text.x = element_text(size = 6)) +
+  coord_polar(start=-48/360) +
+  scale_x_continuous(limits=c(-0.5,14.5), breaks=0:14,
+                                 labels= sublabel) +
+  geom_hline(aes(yintercept=linea), colour="turquoise", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=lineb), colour="red", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=linec), colour="blue", linetype="dashed",size = 0.5) +
+  geom_text(data=polar2015, aes( x=0, y=25, label='25'),    
+           color="turquoise",   size=3  ) +
+  geom_text(data=polar2015, aes( x=0, y=50, label='50'),    
+           color="red",         size=3  ) +
+  geom_text(data=polar2015, aes( x=0, y=75, label='75'),     
+           color="blue",         size=3  )
+  #polar2015
+ # plot2015
+
+polar2014<-polar[polar$YEAR==2014,]
+plot2014 <-
+  ggplot(polar2014, aes(polarorder, subL)) + 
+  geom_bar(colour="grey",stat = "identity") + 
+  theme_minimal() +
+  scale_fill_brewer() +  xlab("2014 sublegals") +
+  ylab("") + theme(axis.text.y=element_blank()) +
+  theme(axis.text.x = element_text(size = 6)) +
+  coord_polar(start=-48/360) +
+  scale_x_continuous(limits=c(-0.5,14.5), breaks=0:14,
+                                 labels= sublabel) +
+  geom_hline(aes(yintercept=linea), colour="turquoise", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=lineb), colour="red", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=linec), colour="blue", linetype="dashed",size = 0.5) +
+   geom_text(data=polar2014, aes( x=0, y=25, label='25'),    
+           color="turquoise",   size=3  ) +
+  geom_text(data=polar2014, aes( x=0, y=50, label='50'),    
+           color="red",         size=3  ) +
+  geom_text(data=polar2014, aes( x=0, y=75, label='75'),     
+           color="blue",         size=3  )
+  #polar2014
+  #plot2014
+
+polar2013<-polar[polar$YEAR==2013,]
+plot2013 <-
+  ggplot(polar2013, aes(polarorder, subL)) + 
+  geom_bar(colour="grey",stat = "identity") + 
+  theme_minimal() +
+  scale_fill_brewer() +  xlab("2013 sublegals") +
+  ylab("") + theme(axis.text.y=element_blank()) +
+  theme(axis.text.x = element_text(size = 6)) +
+  coord_polar(start=-48/360) +
+  scale_x_continuous(limits=c(-0.5,14.5), breaks=0:14,
+                                 labels= sublabel) +
+  geom_hline(aes(yintercept=linea), colour="turquoise", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=lineb), colour="red", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=linec), colour="blue", linetype="dashed",size = 0.5) +
+  geom_text(data=polar2013, aes( x=0, y=25, label='25'),    
+           color="turquoise",   size=3  ) +
+  geom_text(data=polar2013, aes( x=0, y=50, label='50'),   
+           color="red",         size=3  ) +
+  geom_text(data=polar2013, aes( x=0, y=75, label='75'),     
+           color="blue",         size=3  )
+  #polar2013
+  #plot2013
+
+multiplot(plot2013,plot2016,plot2018,plot2014,plot2017,plot2019,plot2015,cols=3)
+```
+```{r figure10, fig.cap=fig.10_cap, echo=FALSE, fig.width=16, fig.height=9}
+   # dt <- ("exec procRKnitr_Survey_proportions_at_age")  run this procedure to create table first.
+   # sql server procedure:  procRReport_Survey_proportions_at_age which pulls age data from 
+   # GFBIOSQL.dbo.b21_samples and b22_specimens
+   dt   <-  paste("select * from Report_Survey_GFBIO_Age_MF_Prop where SetType='StRS' and Year<=",yr+1,sep="")
+   dat  <-  GetSQLData(dt,"Sablefish")
+
+   par(mfrow=c(1,2),cex=0.9)
+   involve  <-  c()
+   involve  <-  unique(dat$Year)
+   maxyr    <-  max(involve)
+   minyr    <-  min(involve)
+
+#  plot bubble
+   plot(dat$Year,dat$Age, type="n",xlab=" Year", ylab="",   main="Males", ylim=c(0,42), xlim=c(minyr,maxyr))      
+   #axis(2, at=c(0,20,40))  # need axis on the left to show up
+   symbols(dat$Year, dat$Age, circles=pi*(dat$Male_Proportion),inches=0.3, add=T,col="light grey")
+
+  for (maleyr in involve){
+    h      <-  unique(dat$Male_Yr_Total[dat$Year==maleyr])
+    text(maleyr+0.15,40,bquote(.(h)))    
+    text(maleyr+0.35,dat$Age[dat$m==1 & dat$Year==maleyr],dat$Age[dat$m==1 & dat$Year==maleyr],col="red",cex=1.3)}
+    
+   #  plot bubble
+   plot(dat$Year,dat$Age, type="n",xlab=" Year", ylab="",  main="Females", ylim=c(0,42), xlim=c(minyr,maxyr))      
+   #  need axis on the left to show up
+   #  axis(2, c(0,20,40))
+   symbols(dat$Year, dat$Age, circles=pi*(dat$Female_Proportion),inches=0.3, add=T,col="light grey")
+
+  for (femaleyr in involve){
+    h   <-   unique(dat$Female_Yr_Total[dat$Year==femaleyr])
+    text(femaleyr+0.15,40,bquote(.(h)))   
+    text(femaleyr+0.15,dat$Age[dat$f==1 & dat$Year==femaleyr],dat$Age[dat$f==1 & dat$Year==femaleyr],col="red",cex=1.3)}
+
+   mtext(paste("Age","",sep=""), SOUTH<-2,  line=-1, adj=0.5,cex=1.0,  outer=TRUE)  # outside label
+```
+```{r figure12, fig.cap=fig.12_cap, echo=FALSE,fig.width=14, fig.height=16}
+    # table SEABIRD_ReportLinePlot created in the Sablefish.dbo.Build_Seabird_tables procedure
+    ctddt  <-  "select * from SEABIRD_ReportLinePlot"
+    ctd    <-  GetSQLData(ctddt,"Sablefish") 
+  
+    # set margins:  par(mar=c(bottom,left,top,right), cex=size of font)
+    par(mfcol=c(7,2), mar=c(2,2,1,1), oma=c(3,2,1,1))
+    yrs    <-  unique(ctd$Year)
+
+  for (i in yrs){  
+    plot(ctd$avgtemp[ctd$depth  == "Shallow" & ctd$Year == i]~ctd$latitude[ctd$depth == "Shallow" & ctd$Year==i], 
+                            col =  "gray75", type="l",lwd=2, ylim=c(0,14), xlim=c(48,55))
+    points(ctd$avgtemp[ctd$depth  == "Shallow" & ctd$Year == i]~ctd$latitude[ctd$depth == "Shallow" & ctd$Year==i],col="gray75")
+    
+    lines(ctd$latitude[ctd$depth  == "Mid" & ctd$Year == i],ctd$avgtemp[ctd$depth == "Mid" & ctd$Year==i],col="gray45",lwd=2)
+    points(ctd$latitude[ctd$depth == "Mid" & ctd$Year == i],ctd$avgtemp[ctd$depth == "Mid" & ctd$Year==i],col="gray45")
+
+    lines(ctd$latitude[ctd$depth  == "Deep" & ctd$Year == i],ctd$avgtemp[ctd$depth == "Deep" & ctd$Year==i],col="black",lwd=2)
+    points(ctd$latitude[ctd$depth == "Deep" & ctd$Year == i],ctd$avgtemp[ctd$depth == "Deep" & ctd$Year==i],col="black")
+
+    par(usr=c(0,1,0,1))
+    text(0.89,0.9,paste(i),cex=1.2)
+    par(usr=c(0,1,0,1))    
+    legend(0.035,1, c("  Shallow 100-250 fa","  Mid 250-450 fa",  "  Deep 450-750 fa"), col=c("gray75","gray45","black"), 
+           lty=c(1,1,1), lwd=2, bty="n")
+    legend(0.035,1, c("","",""), pch=c(16,16,16), col=c("gray75","gray45", "black"),bty="n")
+    }
+
+    mtext( side=2, line=1, cex=1.0, outer=T, "average temperature" ,adj=0.5)
+    mtext( side=1, line=1, cex=1.0, outer=T, "latitude band" , adj=0.5)
+
+```
+
+

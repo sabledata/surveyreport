@@ -3,17 +3,15 @@ title: "Sablefish (*Latin Species Name*)"
 year: 2020
 report_number: nnn
 author: |
-  First. M. Last^1^ and
+  Lacko. C. Lisa^1^ and
   Alex B. Smith^2^
-author_list: "Last, F.M. and Smith, A.B."
+author_list: "Lacko, F.M. and Smith, A.B."
 region: Pacific Region
 isbn: ""
 address: |
   ^1^Pacific Biological Station\
      Fisheries and Oceans Canada, 3190 Hammond Bay Road\
      Nanaimo, British Columbia, V9T 6N7, Canada\
-  ^2^Far, far away\
-     Another Galaxy
 phone: "(555) 555-5555"
 author_footnote: "Email: First.Author@dfo-mpo.gc.ca | telephone: (250) 756-5555"
 abstract: |
@@ -82,8 +80,10 @@ options(kableExtra.latex.load_packages = FALSE)
 ```{r load-libraries, cache=FALSE}
 # add other packages here:
 library(csasdown)
-message("year = ", rmarkdown::metadata$year)
-browser()
+#message("year = ", rmarkdown::metadata$year)
+#browser()
+yr=2018
+
 library(RODBC)
 library(knitr)
 library(magick)
@@ -164,7 +164,7 @@ library(bookdown)
 knitr::knit_hooks$set(inline = inline_hook)
 ```
 ```{r SurveyDetails, echo=FALSE}
-   yr          <- 2018            # -- current survey year of report
+
    details     <- paste("select VESSEL_NAME as Vessel, CAPTAIN, LEFT(CONVERT(varchar, START_DATE, 100), 7) + ' - ' ",
                         "+ LEFT(CONVERT(varchar, END_DATE, 100), 7) AS [Trip Dates], ",
                         "COUNT([SET]) AS [Count of Sets] from  dbo.GFBIO_RESEARCH_TRIPS where year IN( ",yr,",",yr+1,
@@ -324,25 +324,5 @@ knitr::knit_hooks$set(inline = inline_hook)
    fig.11_cap  <-   figure11
    fig.12_cap  <-   figure12
 
-   
-   #  A P P E N D I X   C A P T I O N S  ----------------------------------------------- not sure how to do ---  
-   appendix1    <- paste("Appendix A.  Details of sets completed during the ", yr ,
-                         " survey program (F/V ", boat ,"). Sets are listed by locality/stratum name, ",
-                         "set type, depth stratum, start date, end of gear deployment time and duration ", 
-                         "in minutes. The depth strata for type 3 tagging sets include RD1 (100-250 fathoms), ",
-                         "RD2 (250-450 fathoms) and RD3 (450-750 fathoms). The position data includes the major ",
-                         "area along with the start and end latitude and longitude in degrees decimal minutes.",
-                         "  The bottom depths (in meters) of the fishing set are shown with the mean bottom depth ",                                
-                         "calculated from recordings at one minute intervals between the start and end of the set.",
-                         "  The number of traps fished for each set excludes open traps, while holed or fouled traps",
-                         " have been included.  Sets that successfully deployed a Seabird ",
-                         "SBE temperature and pressure recorder and a Hobo accelerometer are indicated ",
-                         "with an 'x'.",sep="")
 
-   appendix_nums <- captioner::captioner(prefix = "Appendix")
-   app.1_cap   <- figure_nums(name = "app_A", caption =  appendix1)
-   
-   fap.ref <- function(x) {
-             stringr::str_extract(appendix_nums(x), "[^:]*")}
 ```
-
