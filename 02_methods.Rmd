@@ -36,4 +36,49 @@ The Finlayson Channel locality extends north of Milbanke Sound and west of Roder
 
 Dean Channel extends north east from Fisher Channel on the north side of King Island and west of Bella Coola. Burke Channel is on the south side of King Island and south west of Bella Coola. As with previous years, five standardized sets were conducted at the Dean/Burke Channel locality during the `r yr` and `r yr+1` surveys.  The geo-referenced set polylines in Dean/Burke Channel from 2003 to `r yr+1` are shown in Figure \@ref(fig:figure4). 
 
+## CHARTERED VESSEL
+
+The F/V `r boat` , skippered by `r captain` and Mike Derry, completed a total of `r setcnt` sets between `r dates`, `r yr`.  The F/V `r boat2` , skippered by `r captain2`, completed a total of `r setcnt2` sets between `r dates2`, `r yr+1`.  Table \@ref(tab:table2) lists all the Sablefish research and assessment surveys conducted from 1988 to `r yr+1`.  This table includes a unique identifier (GFBIO Trip) required to reference the data stored in the Fisheries and Oceans Pacific Groundfish database, GFBIO.
+
+## FISHING GEAR
+
+The longline trap gear consisted of a groundline resting on the ocean floor with 25 baited traps attached to beckets at 150 foot intervals along its length and 90 pound anchors at each end.  The traps had a bottom hoop diameter of 54 inches and no escape rings. The trap web was a braided poly with an inner stretched mesh diameter of 2.5 inches. Inside, the tunnels were made of 2 inch green, braidless, knotless, rashell mesh.  The main gear elements are shown in Figure \@ref(fig:figure5).  
+
+Standard bait bags (6 by 12 inches) made of 1/8 inch web with a nylon drawstring and #7 stainless trolling snaps were included with the traps.  The bait methods for each survey component are listed in Table \@ref(tab:table3). 
+
+##DATA COLLECTION DURING GEAR DEPLOYMENT
+
+Gear was deployed on alternate days within the set target depth stratum and soaked between 22 and 26 hours.  A set log paper form was filled out on the deck stern by the science staff recorder who had maximum visibility of the crew setting the 25 traps over the stern rail.  The set log included the time and identity of the first and last buoys.  The beckets and traps were tallied using checked boxes (trap on becket) or Xed boxes (no trap on becket). The TDR and CTD serial numbers were recorded with the associated trap number.
+
+At the same time, a second science recorder in the wheelhouse completed the required fields in the EDAS (Electronic Data Acquisition Systems) bridge log tabular form series with the titles: header, fishing, spatial, gear specs, depths, environment, comments, usability and finish. The header tabular form included the details of the deployment set date, set number, gear and personel.  The fishing tabular form was used to record the start and end positions of each set at the time when the first and last traps were deployed over the stern. The geo-referenced positions were obtained from the Nobeltec Navigation ? software running on the bridge computer, delivered electronically through a NMEA data string. Next, the spatial tab fields were populated automatically with the details of the statistical fishing grounds of the set.  The gear specifications tabular form included static fields applicable to trap gear and bait, and manual entry of the number of traps set.  The depth tabular form recorded depths from the vessels depth sounder at one-minute intervals between the first and last traps being set.  at the end of the set, the average of these depths would be used to calculate the mean setting bottom depth.  The environment tabular form was completed with the manual entry of the water temperature, wind, sea and sky metrics during deployment. The remaining forms provided entry of comments, documentation of set usability and accounting of the total catch at the finish of the set. Details on electronic entry of the bridge log form is available in the GFBio Field User Guide 2018 and [@olsen2010]. 
+
+##CATCH PROCESSING
+
+The charter EDAS Sablefish Trap Catch form was completed during hauling by the science staff recorder positioned at the Marel platform scale and haul computer.  Each becket number, trap number, basket weight, count and basket use code (D = Discarded after weighing (processed as commercial catch), A = Sampled for LSMWO, T = Tagged and released, SD = Sublegal discarded, F= Frames, NA = No Sablefish catch/Trap missing) were recorded. Crew members would alert the recorder about any damage to a trap (i.e. holes) to enter in the EDAS Trap Usability form.  The use of the Sablefish catch in the `r yr` survey for each trap by StRS set is listed in Appendix D. Details on electronic entry of the trap catch form is available in the GFBio Field User Guide 2018 and [@olsen2010]. 
+
+##BIOLOGICAL SAMPLING
+
+Biological sampling were completed for Sablefish, Yelloweye Rockfish and Rougheye/Blackspotted specimens on the EDAS Fish Recording form. Measurements were electronically recorded for fork length (L), body weight (W), sex (S) and maturity level (M). Sagittal otoliths (O) were collected and stored for later age lab determination.  All legal-sized Sablefish (fork length > 55 cm) that were sacrificed for biological samples were dressed, frozen, and landed as commercial catch. 
+
+##SABLEFISH TAGGING
+
+Fish destined to be tagged were transferred from the sorting area to the tagging tank.  Fork length (mm) measurements taken by the science sampler were transported electronically to the EDAS Fish Recording form by the Scantrol measuring board.  Next, the sampler inserted a tag with a unique identifier (UID) on the left side of each fish, 1 cm below and 2-3 cm behind the anterior insertion of the first dorsal fin.  A Mark II Long Tagging gun loaded with Floy FD-94 T-bar anchor tags was used to tag the Sablefish specimens.   Before release, any sampling errors, injuries or damage to the fish were documented on the Fish Recording form.  Tag checks were performed systematically to ensure tag numbers on the data form matched those on the fish specimen.  
+
+##SABLEFISH TAG RECOVERY
+
+Any previously tagged fish that was were brought aboard may have been treated in one of several ways.  First, the tagged fish may have been re-released with a new tag, with the previous tag removed and stored in a vial.  Second, the tagged fish may have been retained for biological sampling if it had a tag from another country, or if it had sustained numerous injuries.  For these specimens, both the tag and otoliths were stored in a vial.  The Department later returns those tags released by foreign agencies.   The vial numbers are scanned into the EDAS Tag Recovery Entry form and the tag numbers are entered later during the tag processing step.  
+
+##OCEANOGRAPHIC SENSOR DATA COLLECTION
+
+A Sea-bird Bird SBE 39 temperature and pressure logger was placed in a protective plastic pipe and was attached to the inside of the middle or end traps on `r counter[1,2]` sets in `r yr` and `r counter2[1,2]` sets in `r yr+1` during gear deployment.    HOBO Pendant G Loggers, model UA-004-64, were also attached inside the same middle or end traps on `r counter[1,3]` sets (`r yr`) and `r counter2[1,3]` sets (`r yr+1`).  A single accelerometer was also placed just forward of the hauler post. These loggers use an internal three-axis accelerometer to measure acceleration in units of g-force (m/s^{2}).  
+
+A Concerto CTD (conductivity, temperature and depth) sensor was placed inside the middle or end traps on `r counter[1,4]` sets in `r yr` and `r counter2[1,4]` sets in `r yr+1`.  Data from the accelerometers, CTD sensors, SBE temperature and pressure loggers were processed after the set was complete using EDAS Upload Sensor Data form. 
+
+##ELECTRONIC MONITORING (EM) VIDEO DATA COLLECTION  
+
+At the time of hauling gear, the vessel's electronic monitoring (EM) system cameras were activated by the hydraulic sensor.  Three standard analog cameras were positioned at optimal viewing angles to record the survey activities.  Two analog cameras were positioned along the mast to record the catch as it was processed at the hopper. A third analog camera was positioned on the side of the wheelhouse to record the traps as they were brought over the rail. The video data from each set was reviewed by the catch recorder and an assistant shortly after the set to provide quality control.
+
+
+
+
 \clearpage

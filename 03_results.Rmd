@@ -649,7 +649,7 @@ Historic data from all samples lists the oldest female Sablefish at `r oldFem` y
     
 ```    
                                                                                                         
-##ACKNOWLEDGEMENTS
+## ACKNOWLEDGEMENTS
 
 The stock assessment survey and data report is the result of the collaborative efforts of many individuals.  The Canadian Sablefish Management has provided coordination and support of the annual Sablefish survey since 1994.  The scientific staff that conducted the `r yr` Sablefish research charter included `r credits[1,4]` of Archipelago Marine Research Ltd (AMR); and `r credits[2,4]` of Fisheries and Oceans, Canada. The scientific staff that conducted the `r yr+1` Sablefish research charter included `r credits2[1,4]` of Archipelago Marine Research Ltd (AMR); and `r credits2[2,4]` of Fisheries and Oceans, Canada.
 
