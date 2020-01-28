@@ -265,5 +265,43 @@
     mtext( side=1, line=1, cex=1.0, outer=T, "latitude band" , adj=0.5)
 
 ```
+```{r table1, out.width = "600px", echo=FALSE, warning=FALSE, message=FALSE,comment=NA}
+   options(knitr.kable.NA = '')       # change the NA to blank
+   par(mfrow=c(1,2))
+   
+   dtBW       <- paste("select * from Report_CountRandomSet where Year <= ",yr+1,
+                       " union select 2010,'Z',NULL,NULL,NULL,NULL ",
+                        "union select 2010,'Z2',NULL,NULL,NULL,NULL ",
+                        "union select 2010,'Z3',NULL,NULL,NULL,NULL ",
+                        "union select 2010,'Z4',NULL,NULL,NULL,NULL ",
+                        "union select 2010,'Z5',NULL,NULL,NULL,NULL ",
+                        "union select 2010,'Z6',NULL,NULL,NULL,NULL ",
+                        "from Report_CountRandomSet", sep="")
+   dat        <- GetSQLData(dtBW,"Sablefish")
+   
+   dat2       <- dat[dat$Year>=2011,]
+   dat1       <- dat[dat$Year<=2010,] 
+   cleandata2 <- dat2 
+   cleandata1 <- dat1
+   cleandata1[49,2] <- ' '
+   cleandata1[50,2] <- ' '
+   cleandata1[51,2] <- ' '
+   cleandata1[52,2] <- ' '
+   cleandata1[53,2] <- ' '
+   cleandata1[54,2] <- ' '
+   cleandata2$Year <- cleanf(cleandata2$Year) 
+   cleandata1$Year <- cleanf(cleandata1$Year)  #-- remove duplicates function
+   colnames(cleandata2) <- c( "Year", "Strata", "RD1","RD2","RD3","Total")
+   colnames(cleandata1) <- c( "Year", "Strata", "RD1","RD2","RD3","Total")
+   
+   new <- cbind(cleandata1, cleandata2)
+
+   kable(new, caption=table1)#%>%
+   #kable_styling("condensed","striped",full_width = T,font_size = 11) %>%
+        # column_spec(7, width = "10em")#%>%
+        # scroll_box(width = "65%", height = "400px")
+  
+```
+
 
 
