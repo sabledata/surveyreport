@@ -99,6 +99,7 @@ library(pacman)       # produces numbered tables and figures in order to referen
 library(bookdown)
 
 #  ----   G L O B A L --- F U N C T I O N S---------------------------------
+
   GetSQLData <- function(strSQL,strDbName) {    # connect to SQL Server
      cnn <- odbcDriverConnect(paste("Driver={SQL Server};Server=DFBCV9TWVASP001;", 
                                     "Database=",strDbName,";Trusted_Connection=Yes",sep=""))

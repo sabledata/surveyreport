@@ -268,7 +268,25 @@
 ```{r table1, out.width = "600px", echo=FALSE, warning=FALSE, message=FALSE,comment=NA}
    options(knitr.kable.NA = '')       # change the NA to blank
    par(mfrow=c(1,2))
+   library(RODBC)
+   library(kableExtra)
    
+     GetSQLData <- function(strSQL,strDbName) {    # connect to SQL Server
+     cnn <- odbcDriverConnect(paste("Driver={SQL Server};Server=DFBCV9TWVASP001;", 
+                                    "Database=",strDbName,";Trusted_Connection=Yes",sep=""))
+     dat <- sqlQuery(cnn, strSQL)
+     odbcClose(cnn)
+    return(dat) 
+    }
+    cleanf <- function(x){     # function to remove duplicates
+    oldx <- c(FALSE, x[-1]==x[-length(x)])  
+    # is the value equal to the previous    
+    res <- x
+    res[oldx] <- NA
+    return(res)
+    } 
+    
+    
    dtBW       <- paste("select * from Report_CountRandomSet where Year <= ",yr+1,
                        " union select 2010,'Z',NULL,NULL,NULL,NULL ",
                         "union select 2010,'Z2',NULL,NULL,NULL,NULL ",
@@ -296,12 +314,19 @@
    
    new <- cbind(cleandata1, cleandata2)
 
-   kable(new, caption=table1)#%>%
+   kable(new)#, caption=table1)#%>%
    #kable_styling("condensed","striped",full_width = T,font_size = 11) %>%
         # column_spec(7, width = "10em")#%>%
         # scroll_box(width = "65%", height = "400px")
   
 ```
-
+```{r table2, echo=FALSE}
+   dtBW   <- paste("exec dbo.procRKnitr_SurveyTrips ",yr+1,sep="")
+   trip   <- GetSQLData(dtBW,"Sablefish")
+   
+   kable(trip[order(-trip$Year),])#, caption = table2) %>%
+  # kable_styling(bootstrap_options = "striped","condensed", full_width = T, font_size = 10)%>%
+  # scroll_box(width = "80%", height = "400px")
+```
 
 
