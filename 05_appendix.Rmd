@@ -3,36 +3,46 @@
 After that, all subsequent sections will be turned into appendices. -->
 
 `r if(knitr:::is_latex_output()) '% begin csasdown appendix'`
-
 `r if(!knitr:::is_latex_output()) '# (APPENDIX) Appendix {-}'`
 
 \clearpage
 
-# THE FIRST APPENDIX {#app:first-appendix}
+
+# {#app:first-appendix}
+List of localities visited in the traditional component of the Sablefish research and assessment surveys from 1988 through `r yr+1`. Standardized sets (light blue boxes and half boxes) were conducted in offshore indexing localities from 1988 to 2010.  Sablefish were tagged and released (dark blue half boxes) from standardized sets at offshore indexing localities beginning in 1991 and ending in 2007.  In 1995, offshore tagging localities where only traditional tagging sets (red boxes) occurred were added in 1995 and discontinued in 2008.  Mainland Inlet localities where standardized sets (green boxes) were conducted began in 1994 and continued through to `r yr+1`.
 
 ```{r appendixAHistory}
       if(knitr:::is_latex_output())
-      img <-  paste('C:/DATA/PROJECTS/Survey_Report_Template/Rnw_2019/AppendixSurveyHistory.png',sep="")
-      knitr::include_graphics(img)
+      img <-  paste('c:/github/surveyreport/figures/AppendixSurveyHistory.png',sep="")
+      knitr::include_graphics(img) 
 ```
 
 \clearpage
 
-# THE SECOND APPENDIX, FOR FUN {#app:second-appendix}
+# {#app:sec-appendix}
+
+Details of sets completed during the `r yr` survey program (F/V `r boat`). Sets are listed by stratum/inlet name, set type, depth stratum, start date, end of gear deployment time and duration in minutes. The depth strata for type 3 tagging sets include RD~1~ (100-250 fathoms), RD~2~ (250-450 fathoms) and RD~3~ (450-750 fathoms). The position data includes the major area along with the start and end latitude and longitude in degrees decimal minutes. The bottom depths (in meters) of the fishing set are shown with the mean bottom depth calculated from recordings at one minute intervals between the start and end of the set. The number of traps fished for each set excludes open traps, while holed or fouled traps have been included.  Sets that successfully deployed a Seabird SBE temperature and pressure recorder, a Hobo accelerometer or a Concerto CTD are indicated with an 'x'. 
 
 ```{r appendixB}
+   library(kableExtra)
+
    options(knitr.kable.NA = '')  # get rid of NAs
    srvyset <-  paste("dbo.procRReport_Survey_SetDetails ",yr,",1,",setcnt, sep="")
-   ssdat   <-  GetSQLData(srvyset,"Sablefish")
+   #ssdat   <-  GetSQLData(srvyset,"Sablefish")
+   ssdat   <-  read.csv("c:/github/surveyreport/standaloneData/appendixB.csv",header=T)
    
    latcnt  <-  length(ssdat[, 9])
-               for (i in 1:latcnt){ ssdat[i,9]= paste("$",ssdat[i,9],"^o", ssdat[i,10],"$",sep="")  }
+               for (i in 1:latcnt)
+                      { ssdat[i,9]= paste("$",ssdat[i,9], "^o", ssdat[i,10],"$",sep="") }
    latcnt  <-  length(ssdat[,11])
-               for (i in 1:latcnt){ ssdat[i,11]=paste("$",ssdat[i,11],"^o", ssdat[i,12],"$",sep="") }
+               for (i in 1:latcnt)
+                      { ssdat[i,11]=paste("$",ssdat[i,11],"^o", ssdat[i,12],"$",sep="") }
    latcnt  <-  length(ssdat[,13])
-               for (i in 1:latcnt){ ssdat[i,13]=paste("$",ssdat[i,13],"^o", ssdat[i,14],"$",sep="") }
+               for (i in 1:latcnt)
+                      { ssdat[i,13]=paste("$",ssdat[i,13],"^o", ssdat[i,14],"$",sep="") }
    latcnt<-length(ssdat[,15])
-               for (i in 1:latcnt){ ssdat[i,15]=paste("$",ssdat[i,15],"^o", ssdat[i,16],"$",sep="") }
+               for (i in 1:latcnt)
+                      { ssdat[i,15]=paste("$",ssdat[i,15],"^o", ssdat[i,16],"$",sep="") }
    
    ssdat  <-  ssdat[,c(-10)]
    ssdat  <-  ssdat[,c(-11)]
@@ -40,30 +50,68 @@ After that, all subsequent sections will be turned into appendices. -->
    ssdat  <-  ssdat[,c(-13)]
    ssdat  <-  ssdat[,c(-20)]
    
-   colnames(ssdat) <- c( "Spatial Stratum", "Set", "Type", "Depth Stratum", "Date", "Time", 
-                         "Duration", "Area","Latitude", "Longitude", "Latitude", "Longitude", 
-                         "Start","End","Mean","Traps Fished", "SBE39", "Hobo", "CTD")
-   kable(ssdat) %>%
-     add_header_above(c(" "= 8,"Start"=2, "End"=2, "Bottom Depth (m)"=3, " "= 4)) %>%
-     kable_styling(bootstrap_options = "striped",  full_width = T, font_size = 9) %>%
-     scroll_box(width = "98%", height = "600px")
-   
-    
-
+   colnames(ssdat) <- c( "Spatial Stratum", "Set",  "Type",      
+                         "Depth Stratum",   "Date", "Time", 
+                         "Duration",    "Area", 
+                         "Latitude",    "Longitude", 
+                         "Latitude",    "Longitude", 
+                         "Start",       "End", "Mean", 
+                         "Traps Fished", 
+                         "SBE 39", "Hobo", "CTD")
+ 
+   kableExtra::kable(ssdat,
+                    booktabs  = TRUE, 
+                    longtable = T,
+                    linesep   = "",
+                    format    = "latex") %>%
+   kableExtra::kable_styling(font_size = 8, latex_options = "repeat_header",
+               repeat_header_text = "continued.", repeat_header_method = "replace") %>%
+   kableExtra::landscape() %>%
+      
+   column_spec(1,width    = "1.2cm") %>%
+   column_spec(2,width    = "0.5cm") %>%  # set
+   column_spec(3,width    = "0.4cm") %>%  # type 
+   column_spec(4,width    = "0.4cm") %>%  # depth stratum
+   column_spec(5,width    = "0.9cm") %>%  # date
+   column_spec(6,width    = "0.7cm") %>%  # time      
+   column_spec(7,width    = "0.7cm") %>%  # dur
+   column_spec(8,width    = "0.5cm") %>%  # area   
+   column_spec(9,width    = "1.3cm") %>%  # lat
+   column_spec(10,width   = "1.3cm") %>%
+   column_spec(11,width   = "1.3cm") %>%
+   column_spec(12,width   = "1.3cm") %>% 
+   column_spec(13,width   = "0.7cm") %>%  # start
+   column_spec(14,width   = "0.7cm") %>%      
+   column_spec(15,width   = "0.5cm") %>%  # mean
+   column_spec(16,width   = "0.6cm") %>%  # tf
+   column_spec(17,width   = "0.4cm") %>% 
+   column_spec(18,width   = "0.4cm") %>% 
+   column_spec(19,width   = "0.4cm")      # ctd 
 ``` 
+\clearpage
+
+# {#app:third-appendix} 
+
+Details of sets completed during the `r yr+1` survey program (F/V `r boat2`).  Sets are listed by stratum/inlet name, set type, depth stratum, start date, end of gear deployment time and duration in minutes. The depth strata for type 3 tagging sets include RD~1~ (100-250 fathoms), RD~2~ (250-450 fathoms) and RD~3~ (450-750 fathoms). The position data includes the major area along with the start and end latitude and longitude in degrees decimal minutes. The bottom depths (in meters) of the fishing set are shown with the mean bottom depth calculated from recordings at one minute intervals between the start and end of the set. The number of traps fished for each set excludes open traps, while holed or fouled traps have been included.  Sets that successfully deployed a Seabird SBE temperature and pressure recorder, a Hobo accelerometer or a Concerto CTD are indicated with an 'x'.
+
 ```{r appendixC, echo=FALSE}
    options(knitr.kable.NA = '')  # get rid of NAs
    srvyset <-  paste("dbo.procRReport_Survey_SetDetails ",yr+1,",1,",setcnt, sep="")
-   ssdat   <-  GetSQLData(srvyset,"Sablefish")
+   #ssdat   <-  GetSQLData(srvyset,"Sablefish")
+   ssdat   <-  read.csv("c:/github/surveyreport/standaloneData/appendixC.csv",header=T)
    
    latcnt  <-  length(ssdat[, 9])
-               for (i in 1:latcnt){ ssdat[i,9]= paste("$",ssdat[i,9],"^o", ssdat[i,10],"$",sep="")  }
+               for (i in 1:latcnt)
+                      { ssdat[i,9]= paste("$",ssdat[i,9],"^o", ssdat[i,10],"$",sep="")  }
    latcnt  <-  length(ssdat[,11])
-               for (i in 1:latcnt){ ssdat[i,11]=paste("$",ssdat[i,11],"^o", ssdat[i,12],"$",sep="") }
+               for (i in 1:latcnt)
+                      { ssdat[i,11]=paste("$",ssdat[i,11],"^o", ssdat[i,12],"$",sep="") }
    latcnt  <-  length(ssdat[,13])
-               for (i in 1:latcnt){ ssdat[i,13]=paste("$",ssdat[i,13],"^o", ssdat[i,14],"$",sep="") }
-   latcnt<-length(ssdat[,15])
-               for (i in 1:latcnt){ ssdat[i,15]=paste("$",ssdat[i,15],"^o", ssdat[i,16],"$",sep="") }
+               for (i in 1:latcnt)
+                      { ssdat[i,13]=paste("$",ssdat[i,13],"^o", ssdat[i,14],"$",sep="") }
+   latcnt  <-  length(ssdat[,15])
+               for (i in 1:latcnt)
+                      { ssdat[i,15]=paste("$",ssdat[i,15],"^o", ssdat[i,16],"$",sep="") }
    
    ssdat  <-  ssdat[,c(-10)]
    ssdat  <-  ssdat[,c(-11)]
@@ -71,15 +119,276 @@ After that, all subsequent sections will be turned into appendices. -->
    ssdat  <-  ssdat[,c(-13)]
    ssdat  <-  ssdat[,c(-20)]
     
-   colnames(ssdat) <- c( "Spatial Stratum", "Set", "Type", "Depth Stratum", "Date", "Time", 
-                         "Duration", "Area","Latitude", "Longitude", "Latitude", "Longitude", 
-                         "Start","End","Mean","Traps Fished", "SBE39", "Hobo", "CTD")
-   kable(ssdat) %>%
-     add_header_above(c(" "= 8,"Start" = 2, "End" = 2, "Bottom Depth (m)" = 3, " " = 4)) %>%
-     kable_styling(bootstrap_options = "striped",  full_width = T, font_size = 9) %>%
-     scroll_box(width = "98%", height = "600px")
+   colnames(ssdat) <- c( "Spatial Stratum", "Set",   "Type", 
+                         "Depth Stratum",   "Date",  "Time", 
+                         "Duration",   "Area",
+                         "Latitude",   "Longitude", 
+                         "Latitude",   "Longitude", 
+                         "Start",      "End",
+                         "Mean",       "Traps Fished", 
+                         "SBE 39",      "Hobo",      "CTD")
+   
+   kableExtra::kable(ssdat,
+                    booktabs = TRUE, 
+                    longtable = T,
+                    linesep   = "",
+                    format = "latex") %>%
+   kableExtra::kable_styling(font_size = 8, latex_options = "repeat_header",
+               repeat_header_text = "continued.", repeat_header_method = "replace") %>%
+   kableExtra::landscape() %>%
+      
+   column_spec(1,width    = "1.2cm") %>%
+   column_spec(2,width    = "0.5cm") %>%  # set
+   column_spec(3,width    = "0.4cm") %>%  # type 
+   column_spec(4,width    = "0.4cm") %>%  # depth stratum
+   column_spec(5,width    = "0.9cm") %>%  # date
+   column_spec(6,width    = "0.7cm") %>%  # time      
+   column_spec(7,width    = "0.7cm") %>%  # dur
+   column_spec(8,width    = "0.5cm") %>%  # area   
+   column_spec(9,width    = "1.3cm") %>%  # lat
+   column_spec(10,width   = "1.3cm") %>%
+   column_spec(11,width   = "1.3cm") %>%
+   column_spec(12,width   = "1.3cm") %>% 
+   column_spec(13,width   = "0.7cm") %>%  # start
+   column_spec(14,width   = "0.7cm") %>%      
+   column_spec(15,width   = "0.5cm") %>%  # mean
+   column_spec(16,width   = "0.6cm") %>%  # tf
+   column_spec(17,width   = "0.4cm") %>% 
+   column_spec(18,width   = "0.4cm") %>% 
+   column_spec(19,width   = "0.4cm")      # ctd 
 
 ``` 
+\clearpage
+
+# {#app:fourth-appendix} 
+Summary of Sablefish biological data collected in the `r yr` survey by set.
+
+```{r appendixD, echo=FALSE}
+   #  sql query for inline text
+   #  Sablefish.dbo.procReport_Survey_SampleDetails pulls data from table GFBIO_RESEARCH_SAMPLE_DETAILS built by     
+   #  procedure Sablefish.dbo.Build_BIO_Sablefish_Tables 
+   samples              <-  paste("dbo.procReport_Survey_SampleDetails ",yr,",1,",setcnt, sep="")
+   #surveyspec          <-  GetSQLData(samples,"Sablefish")
+   surveyspec           <-  read.csv("c:/github/surveyreport/standaloneData/appendixD.csv",header=T)
+   surveyspec$SET[setcnt]<-"Total"
+   
+   colnames(surveyspec) <-  c("", "kg", "Count", "Recover-Rerelease", "Deceased", "Released", 
+                              "Count",  "Mean", "Fork Length", "Sex", "Maturity", "Otoliths",
+                              "Weight", "Count", "Proportion Males", "Males", "Females")
+
+   kableExtra::kable(surveyspec,
+                     booktabs = TRUE, 
+                     longtable = T,
+                     linesep   = "",
+                     align=rep('r', 17),
+                     format = "latex") %>%
+   add_header_above(c("Set"= 1,
+                      "Total Catch" = 2, 
+                      "Tagged Fish Counts" = 3,  
+                      "Tagged Fork Lengths(mm)" = 2,
+                      "Specimen Count"= 6, 
+                      "Mean Fork Length(mm)" = 3)) %>%
+   kableExtra::kable_styling(font_size = 8, latex_options = "repeat_header",
+                    repeat_header_text = "continued.", repeat_header_method = "replace") %>%     
+   
+   kableExtra::landscape()  %>%
+   column_spec(1,width    = "0.4cm") %>%  # set
+   column_spec(2,width    = "0.7cm") %>%  # kg
+   column_spec(3,width    = "0.9cm") %>%  # count
+   column_spec(4,width    = "0.9cm") %>%  # rr
+   column_spec(5,width    = "0.9cm") %>%  # decease
+   column_spec(6,width    = "0.9cm") %>%  # rel     
+   column_spec(7,width    = "1.5cm") %>%  # count
+   column_spec(8,width    = "0.9cm") %>%  # mean
+   column_spec(9,width    = "0.7cm") %>%  # fl
+   column_spec(10,width   = "0.6cm") %>%  # sex
+   column_spec(11,width   = "0.6cm") %>%  # mat
+   column_spec(12,width   = "0.6cm") %>%  # oto 
+   column_spec(13,width   = "0.6cm") %>%  # wt
+   column_spec(14,width   = "0.6cm") %>%  # cnt
+   column_spec(15,width   = "0.9cm") %>%  # prop m
+   column_spec(16,width   = "0.7cm") %>%  # male         
+   column_spec(17,width   = "0.7cm") %>%  # fem
+   row_spec(setcnt-1,  hline_after = T)
+
+```
+\clearpage
+
+# {#app:fifth-appendix} 
+
+Summary of Sablefish biological data collected in the `r yr+1` survey by set.
+
+```{r appendixE, echo=FALSE}
+   #  sql query for inline text
+   #  Sablefish.dbo.procReport_Survey_SampleDetails pulls data from table GFBIO_RESEARCH_SAMPLE_DETAILS built by     
+   #  procedure Sablefish.dbo.Build_BIO_Sablefish_Tables 
+   samples       <-  paste("dbo.procReport_Survey_SampleDetails ",yr+1,",1,",setcnt, sep="")
+   #surveyspec   <-  GetSQLData(samples,"Sablefish")
+   surveyspec    <- read.csv("c:/github/surveyreport/standaloneData/appendixE.csv",header=T)
+   
+   colnames(surveyspec) <-  c("", "kg", "Count", "Recover-Rerelease", 
+                              "Deceased", "Released", "Count",  
+                              "Mean", "Fork Length", "Sex", "Maturity", "Otoliths",
+                              "Weight", "Count", 
+                              "Proportion Males", "Males", "Females")
+   
+   kableExtra::kable(surveyspec,
+                     booktabs = TRUE, 
+                     longtable = T,
+                     linesep   = "",
+                     align=rep('r', 17),
+                     format = "latex") %>%
+      
+   add_header_above(c("Set"= 1,
+                      "Total Catch" = 2, 
+                      "Tagged Fish Counts" = 3,  
+                      "Tagged Fork Lengths(mm)" = 2,
+                      "Specimen Count"= 6, 
+                      "Mean Fork Length(mm)" = 3)) %>%
+      
+   kableExtra::kable_styling(font_size = 8, 
+                     latex_options = "repeat_header",
+                     repeat_header_text = "continued.", 
+                     repeat_header_method = "replace") %>% 
+      
+   kableExtra::landscape()  %>%
+   column_spec(1,width    = "0.4cm") %>%  # set
+   column_spec(2,width    = "0.7cm") %>%  # kg
+   column_spec(3,width    = "0.9cm") %>%  # count
+   column_spec(4,width    = "0.9cm") %>%  # rr
+   column_spec(5,width    = "0.9cm") %>%  # decease
+   column_spec(6,width    = "0.9cm") %>%  # rel     
+   column_spec(7,width    = "1.5cm") %>%  # count
+   column_spec(8,width    = "0.9cm") %>%  # mean
+   column_spec(9,width    = "0.7cm") %>%  # fl
+   column_spec(10,width   = "0.6cm") %>%  # sex
+   column_spec(11,width   = "0.6cm") %>%  # mat
+   column_spec(12,width   = "0.6cm") %>%  # oto 
+   column_spec(13,width   = "0.6cm") %>%  # wt
+   column_spec(14,width   = "0.6cm") %>%  # cnt
+   column_spec(15,width   = "0.9cm") %>%  # prop m
+   column_spec(16,width   = "0.7cm") %>%  # male         
+   column_spec(17,width   = "0.7cm") %>%  # fem
+   row_spec(setcnt-1,  hline_after = T)
+```
+\clearpage
+# {#app:sixth-appendix} 
+
+Summary of the basket use by trap number for sets during the `r yr` Sablefish survey. Sets that did not retain Sablefish are not listed.  The set numbers highlighted in green indicate standardized sets at mainland inlet localities.  All other sets are of the StRS type.  The fate of the Sablefish catch for each set and trap is indicated using the following abbreviations:
+D = Discarded after weighing (processed as commercial catch), A = Sampled for LSMWO, T = Tagged and released, SD = Sublegal discarded, F= Frames, NA = No Sablefish catch/Trap missing. 
+
+```{r appendixF, echo=FALSE}
+   # Sablefish.dbo.procRReport_Survey_TrapUse procedure pulls data from table dbo.GFBIO_TRAPS_USE created by procedure 
+   # Sablefish.dbo.Build_BIO_Sablefish_Tables
+   options(knitr.kable.NA = '')
+   trap       <- paste("dbo.procRReport_Survey_TrapUse ",yr,",1,",setcnt, sep="")
+   #trapdat    <- GetSQLData(trap,"Sablefish")
+   
+   trapdat    <- read.csv("c:/github/surveyreport/standaloneData/appendixF.csv",header=T)
+   trapuse    <- trapdat[,c(-1)] 
+   trapuse2   <- trapuse[,c(-28)] 
+
+  
+   kableExtra::kable(trapuse2,
+                     booktabs = TRUE, 
+                     longtable = T,
+                     linesep   = "",
+                     format = "latex")   %>%
+      
+   kableExtra::kable_styling(font_size = 6, 
+                     latex_options = "repeat_header",
+                     repeat_header_text = "continued.", 
+                     repeat_header_method = "replace") %>%  
+      
+   kableExtra::landscape()  %>%
+       column_spec(1,width      = "0.3cm") %>%
+       column_spec(2,width      = "0.3cm") %>%
+       column_spec(3,width      = "0.3cm") %>%
+       column_spec(4,width      = "0.3cm") %>%
+       column_spec(5,width      = "0.3cm") %>%
+       column_spec(6,width      = "0.3cm") %>%
+       column_spec(7,width      = "0.3cm") %>%
+       column_spec(8,width      = "0.3cm") %>%   
+       column_spec(9,width      = "0.3cm") %>%   
+       column_spec(10,width     = "0.3cm") %>%
+       column_spec(11,width     = "0.4cm") %>%
+       column_spec(12,width     = "0.4cm") %>%
+       column_spec(13,width     = "0.4cm") %>%
+       column_spec(14,width     = "0.4cm") %>%
+       column_spec(15,width     = "0.4cm") %>%
+       column_spec(16,width     = "0.4cm") %>%
+       column_spec(17,width     = "0.4cm") %>%
+       column_spec(18,width     = "0.4cm") %>%
+       column_spec(19,width     = "0.4cm") %>%
+       column_spec(20,width     = "0.4cm") %>%
+       column_spec(21,width     = "0.4cm") %>%  
+       column_spec(22,width     = "0.4cm") %>% 
+       column_spec(23,width     = "0.4cm") %>%       
+       column_spec(24,width     = "0.4cm") %>% 
+       column_spec(25,width     = "0.4cm") %>%
+       column_spec(26,width     = "0.4cm") %>%      
+       column_spec(27,width     = "0.4cm") %>%  
+       column_spec(28,width     = "0.4cm") 
+```
+
+# {#app:seventh-appendix} 
+
+Summary of the basket use by trap number for sets during the `r yr+1` Sablefish survey. Sets that did not retain Sablefish are not listed.  The set numbers highlighted in green indicate standardized sets at mainland inlet localities.  All other sets are of the StRS type.  The fate of the Sablefish catch for each set and trap is indicated using the following abbreviations:
+D = Discarded after weighing (processed as commercial catch), A = Sampled for LSMWO, T = Tagged and released, SD = Sublegal discarded, F= Frames, NA = No Sablefish catch/Trap missing. 
+
+```{r appendixG, echo=FALSE}
+   # Sablefish.dbo.procRReport_Survey_TrapUse procedure pulls data from table dbo.GFBIO_TRAPS_USE created by procedure 
+   # Sablefish.dbo.Build_BIO_Sablefish_Tables
+   options(knitr.kable.NA = '')
+   trap       <- paste("dbo.procRReport_Survey_TrapUse ",yr+1,",1,",setcnt, sep="")
+   #trapdat    <- GetSQLData(trap,"Sablefish")
+   trapdat    <- read.csv("c:/github/surveyreport/standaloneData/appendixG.csv",header=T)
+   trapuse    <- trapdat[,c(-1)] 
+   trapuse2   <- trapuse[,c(-28)] 
+
+   kableExtra::kable(trapuse2,
+                     booktabs = TRUE, 
+                     longtable = T,
+                     linesep   = "",
+                     format = "latex") %>%
+      
+   kableExtra::kable_styling(font_size = 6, 
+                     latex_options = "repeat_header",
+                     repeat_header_text = "continued.", 
+                     repeat_header_method = "replace") %>%
+      
+   kableExtra::landscape()  %>%
+   column_spec(1,width      = "0.3cm") %>%
+   column_spec(2,width      = "0.3cm") %>%
+   column_spec(3,width      = "0.3cm") %>%
+   column_spec(4,width      = "0.3cm") %>%
+   column_spec(5,width      = "0.3cm") %>%
+   column_spec(6,width      = "0.3cm") %>%
+   column_spec(7,width      = "0.3cm") %>%
+   column_spec(8,width      = "0.3cm") %>%   
+   column_spec(9,width      = "0.3cm") %>%   
+   column_spec(10,width     = "0.3cm") %>%
+   column_spec(11,width     = "0.4cm") %>%
+   column_spec(12,width     = "0.4cm") %>%
+   column_spec(13,width     = "0.4cm") %>%
+   column_spec(14,width     = "0.4cm") %>%
+   column_spec(15,width     = "0.4cm") %>%
+   column_spec(16,width     = "0.4cm") %>%
+   column_spec(17,width     = "0.4cm") %>%
+   column_spec(18,width     = "0.4cm") %>%
+   column_spec(19,width     = "0.4cm") %>%
+   column_spec(20,width     = "0.4cm") %>%
+   column_spec(21,width     = "0.4cm") %>%  
+   column_spec(22,width     = "0.4cm") %>% 
+   column_spec(23,width     = "0.4cm") %>%       
+   column_spec(24,width     = "0.4cm") %>%
+   column_spec(25,width     = "0.4cm") %>%
+   column_spec(26,width     = "0.4cm") %>%      
+   column_spec(27,width     = "0.4cm") %>%  
+   column_spec(28,width     = "0.4cm") 
+```
+
+
 
 <!-- At the end of your appendices add: -->
 `r if(knitr:::is_latex_output()) '% end csasdown appendix'`

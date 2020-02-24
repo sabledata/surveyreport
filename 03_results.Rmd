@@ -2,48 +2,54 @@
 
 ```{r CatchRateText, echo=FALSE}
   # -- generate the lowest uncertainity and corresponding year for catch rate paragraph
-  dtStRS   <-   " select  * from dbo.GENERIC_GFBIO_TRAPS order by year"  # -- must usdate view GENERIC_GFBIO_TRAPS
-  datStRS  <-   GetSQLData(dtStRS,"Sablefish") 
+
+  dtStRS   <-   " select  * from dbo.GENERIC_GFBIO_TRAPS order by year"  # -- must update view GENERIC_GFBIO_TRAPS
+  #datStRS  <-   GetSQLData(dtStRS,"Sablefish") 
+   
+  datStRS  <-  read.csv("c:/github/surveyreport/standaloneData/generictraps.csv",header=T) 
+
   odbcCloseAll()
 
-  datRD    <-   datStRS[ datStRS$SABLE.SET.TYPE=="StRS", ] # pick out the random sets
+  datRD    <-   datStRS[ datStRS$SABLE.SET.TYPE=="StRS", ] # --  pick out the random sets
   dat      <-   datRD[ ! is.na(datRD$SABLE.SET.TYPE), ]
-  yrs      <-   unique(datRD$year) # get unique years
+  yrs      <-   unique(datRD$year)   # -- get unique years
   nyrs     <-   length(yrs)
   
-  data.cv  <- data.frame( year   = numeric(),
-                         value1 = numeric(),
-                         value2 = numeric(),
-                         value3 = numeric() )
-  data.mn <- data.frame( year   = numeric(),
-                         value1 = numeric(),
-                         value2 = numeric(),
-                         value3 = numeric() )
+  data.cv  <- data.frame( year   <- numeric(),
+                          value1 <- numeric(),
+                          value2 <- numeric(),
+                          value3 <- numeric() )
+  
+  data.mn <- data.frame(  year   <- numeric(),
+                          value1 <- numeric(),
+                          value2 <- numeric(),
+                          value3 <- numeric() )
 
-  # iterate through the years building depth boxplots to get needed values
+  # -- iterate through the years building depth boxplots to get cv's and mean counts
   for (i in 1:nyrs)
-     {    yrdat          <- datRD[datRD$year==yrs[i],]   # get the year dataset
-          bxdat          <- split(yrdat$CPUE.SABLE.COUNT / yrdat$CPUE.TRAPS, as.character(yrdat$SABLE.DEPTH.GROUP))  # split data by depth
-          dpth.mean      <- sapply(bxdat, mean, na.rm=T)  #  add the mean by depth  points
+     {    yrdat          <- datRD[datRD$year==yrs[i],]      # -- get the year dataset
+          bxdat          <- split(yrdat$CPUE.SABLE.COUNT / yrdat$CPUE.TRAPS, as.character(yrdat$SABLE.DEPTH.GROUP))  # -- split data by depth
+          dpth.mean      <- sapply(bxdat, mean, na.rm=T)    # -- add the mean by depth  points
           std.dev        <- sapply(bxdat, sd, na.rm=T)
-          names(data.cv) <- c("year", "RD1", "RD2", "RD3")  # store cv's
-          names(data.mn) <- c("year", "RD1", "RD2", "RD3")  # store mean counts by depth
+          names(data.cv) <- c("year", "RD1", "RD2", "RD3")  # -- store cv's
+          names(data.mn) <- c("year", "RD1", "RD2", "RD3")  # -- store mean counts by depth
           data.cv        <- rbind(data.cv,c(yrs[i],round(std.dev/dpth.mean,2)))
           data.mn        <- rbind(data.mn,c(yrs[i],round(dpth.mean,0)))
       }
   
-    RD1.cvlow   <- min(data.cv$RD1)
-    RD1.cvlowyr <- data.cv$year[data.cv$RD1==RD1.cvlow]
-    RD2.cvlow   <- min(data.cv$RD2)
-    RD2.cvlowyr <- data.cv$year[data.cv$RD2==RD2.cvlow]
-    RD3.cvlow   <- min(data.cv$RD3)
-    RD3.cvlowyr <- data.cv$year[data.cv$RD3==RD3.cvlow]
-    # type data.mn in the Console to view the shallow, middle and deep depth stratums catch rates for 
-    # descriptive paragraph below
+          RD1.cvlow      <- min(data.cv$RD1)
+          RD1.cvlowyr    <- data.cv$year[data.cv$RD1==RD1.cvlow]
+          RD2.cvlow      <- min(data.cv$RD2)
+          RD2.cvlowyr    <- data.cv$year[data.cv$RD2==RD2.cvlow]
+          RD3.cvlow      <- min(data.cv$RD3)
+          RD3.cvlowyr    <- data.cv$year[data.cv$RD3==RD3.cvlow]
+          
+    # -- type data.mn in the Console to view the shallow, middle and deep depth stratums catch rates for 
+    # -- descriptive paragraph below
   
 ```
 ## CATCH RATES
-The annual catch rates (number of Sablefish/number of traps) for StRS sets are summarized with boxplots in Figure \@ref(fig:figure6) for each depth stratum (RD~1~-RD~3~) since the stratified random sampling program began in 2003. 
+The annual catch rates (number of Sablefish/number of traps) for StRS sets are summarized with boxplots in Figure \@ref(fig:figure5) for each depth stratum (RD~1~-RD~3~) since the stratified random sampling program began in 2003. 
 
 ### Shallow depth stratum (RD~1~)
 Catch rates in the shallow depth stratum have shown a gradual decline from 2003 to 2009 (~`r data.mn[1,2]` to `r data.mn[7,2]` fish per trap). The catch rates rose again to an average of `r data.mn[8,2]` fish per trap in 2010 and gradually declined from 2011 to 2014 (~`r data.mn[9,2]` to `r data.mn[12,2]` fish per trap).  An increase occured in 2015 and 2016 (~`r data.mn[13,2]` and `r data.mn[14,2]` fish per trap, respectively).  The catch rates surged in 2017, 2018 and 2019 (~`r data.mn[15,2]`,`r data.mn[16,2]` and `r data.mn[17,2]` fish per trap, respectively).  In the shallow depth stratum  the uncertainty was lowest in `r RD1.cvlowyr` with a cv=`r RD1.cvlow`.
@@ -60,7 +66,8 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
                           from dbo.GFBIO_RESEARCH_CATCH group by SABLE_SET_TYPE, Year, SPECIES_CODE, SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME
                           having (SABLE_SET_TYPE = N'StRS') and (SPECIES_CODE <> N'455') and (Year = ",yr,")
                           order by catchkg DESC", sep="") 
-   topStRSsp    <- GetSQLData(topStRS,"Sablefish") 
+   #topStRSsp    <- GetSQLData(topStRS,"Sablefish") 
+   topStRSsp  <-  read.csv("c:/github/surveyreport/standaloneData/taxgroup.csv",header=T) 
    
    topStRSsp1   <- as.character(topStRSsp[1,1])                      # -- StRS top 5 species names
    topStRSsc1   <- firstup(tolower(as.character(topStRSsp[1,2])))    # -- StRS top 5 species science names
@@ -77,26 +84,35 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
    topInlet     <- paste("select top (2) SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME, sum(CATCH_WEIGHT) AS catchkg
                           from dbo.GFBIO_RESEARCH_CATCH 
                           group by SABLE_SET_TYPE, Year, SPECIES_CODE, SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME
-                          having (SABLE_SET_TYPE = N'INLET STandARDIZED') and (SPECIES_CODE <> N'455') and (Year = ",yr,")
+                          having (SABLE_SET_TYPE = N'INLET STANDARDIZED') and (SPECIES_CODE <> N'455') and (Year = ",yr,")
                           order by catchkg DESC", sep="") 
-   topInletsp   <- GetSQLData(topInlet,"Sablefish")  
+   
+   #topInletsp   <- GetSQLData(topInlet,"Sablefish")     
+   topInletsp   <-  read.csv("c:/github/surveyreport/standaloneData/taxgroupInlets.csv",header=T)    
+   
+   
    topInletsp1  <- as.character(topInletsp[1,1])                    # -- inlet top 2 species names
    topInletsc1  <- firstup(tolower(as.character(topInletsp[1,2])))  # -- inlet top 2 species science names
    topInletsp2  <- as.character(topInletsp[2,1])  
    topInletsc2  <- firstup(tolower(as.character(topInletsp[2,2])))  
 
  # -- species composition counts for StRS sets
-   spc          <- paste("select dbo.fnIntegerToWords(SUM(CAST(Roundfish AS int))) AS tRound,  ",
-                         "dbo.fnIntegerToWords(SUM(Rockfish)) AS tRock,  ",
-                         "dbo.fnIntegerToWords(SUM(Flatfish)) AS tFlat, dbo.fnIntegerToWords(SUM(Invertebrate)) AS tInvert,  ",
-                         "dbo.fnIntegerToWords(SUM(Mammal)) AS tMammal, dbo.fnIntegerToWords(SUM(Bird)) AS tBird,  ",
-                         "dbo.fnIntegerToWords(SUM(counter)) AS total ",
-                         "from (select CASE WHEN Fish = Rockfish OR Fish = Flatfish THEN 0 ELSE Fish END AS Roundfish, Fish, Rockfish, Flatfish,  ",
-                                "Invertebrate, Mammal, Bird, SABLE_SET_TYPE, TRIP_ID, 1 AS counter, Year, SPECIES_CODE from dbo.GFBIO_RESEARCH_CATCH ",
-                                "group by Fish, Rockfish, Flatfish, Invertebrate, Mammal, Bird, SABLE_SET_TYPE, Year, TRIP_ID,  ",
-                                "CASE WHEN Fish = Rockfish OR Fish = Flatfish THEN 0 ELSE Fish END, SPECIES_CODE  ",
-                                "having (SABLE_SET_TYPE = N'StRS') and (Year = ",yr,")) AS RC",sep="")
-   strsSpCom    <- GetSQLData(spc,"Sablefish")
+   spc          <- paste("select dbo.fnIntegerToWords(SUM(CAST(Roundfish as int))) as tRound,  ",
+                                "dbo.fnIntegerToWords(SUM(Rockfish))     as tRock,   ",
+                                "dbo.fnIntegerToWords(SUM(Flatfish))     as tFlat,   ",
+                                "dbo.fnIntegerToWords(SUM(Invertebrate)) as tInvert, ",
+                                "dbo.fnIntegerToWords(SUM(Mammal))       as tMammal, ",
+                                "dbo.fnIntegerToWords(SUM(Bird))         as tBird,   ",
+                                "dbo.fnIntegerToWords(SUM(counter))      as total    ",
+                                "from (select case when Fish = Rockfish or Fish = Flatfish then 0 ELSE Fish end AS Roundfish, ",
+                                "Fish, Rockfish, Flatfish, Invertebrate, Mammal, Bird, ",
+                                "SABLE_SET_TYPE, TRIP_ID, 1 AS counter, Year, SPECIES_CODE from dbo.GFBIO_RESEARCH_CATCH ",
+                                "group by ",
+                                "Fish, Rockfish, Flatfish, Invertebrate, Mammal, Bird, SABLE_SET_TYPE, Year, TRIP_ID,  ",
+                                "case when Fish = Rockfish or Fish = Flatfish then 0 ELSE Fish end, SPECIES_CODE  ",
+                                "having (SABLE_SET_TYPE = N'StRS') and (Year = ",yr,")) AS RC", sep="")
+   #strsSpCom    <- GetSQLData(spc,"Sablefish")
+   strsSpCom   <-  read.csv("c:/github/surveyreport/standaloneData/spcompStRS.csv",header=T) 
    
    roundfishS   <- strsSpCom[1,1]
    rockfishS    <- strsSpCom[1,2]
@@ -107,25 +123,31 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
    totalS       <- firstup(as.character(strsSpCom[1,7])) # taxonomic unit count for StRS
    
   # -- species composition counts inlet sets
-   spc          <- paste( "select dbo.fnIntegerToWords(SUM(CAST(Roundfish AS int))) AS tRound, ", 
-                          "dbo.fnIntegerToWords(SUM(Rockfish)) AS tRock, ",
-                          "dbo.fnIntegerToWords(SUM(Flatfish)) AS tFlat, dbo.fnIntegerToWords(SUM(Invertebrate)) AS tInvert, ",
-                          "dbo.fnIntegerToWords(SUM(Mammal)) AS tMammal, dbo.fnIntegerToWords(SUM(Bird)) AS tBird, ",
-                          "dbo.fnIntegerToWords(SUM(counter)) AS total ",
-                          "from (select case when Fish = Rockfish or Fish = Flatfish ",
-                          "then 0 ELSE Fish END AS Roundfish, Fish, Rockfish, Flatfish, Invertebrate, Mammal, Bird, SABLE_SET_TYPE, ",
-                          "TRIP_ID, 1 AS counter, Year, SPECIES_CODE from dbo.GFBIO_RESEARCH_CATCH ",
-                          "group by Fish, Rockfish, Flatfish, Invertebrate, Mammal, Bird, SABLE_SET_TYPE, Year, TRIP_ID, ",
-                          "CASE WHEN Fish = Rockfish OR Fish = Flatfish THEN 0 ELSE Fish END, SPECIES_CODE ",
-                          "having (SABLE_SET_TYPE = N'INLET STandARDIZED') and (Year = ",yr,")) AS RC",sep="")
-   strsSpCom    <- GetSQLData(spc,"Sablefish")
-   roundfishI   <- strsSpCom[1,1]
-   rockfishI    <- strsSpCom[1,2]
-   flatfishI    <- strsSpCom[1,3]
-   invertI      <- strsSpCom[1,4]
-   mammalI      <- strsSpCom[1,5]
-   birdI        <- strsSpCom[1,6]
-   totalI       <- firstup(as.character(strsSpCom[1,7]))       # taxonomic units count for inlets
+   spcI           <- paste("select dbo.fnIntegerToWords(SUM(CAST(Roundfish AS int))) AS tRound,   ",
+                                 "dbo.fnIntegerToWords(ISNULL(SUM(Rockfish),0))     AS tRock,    ",
+                                 "dbo.fnIntegerToWords(ISNULL(SUM(Flatfish),0))     AS tFlat,    ",
+                                 "dbo.fnIntegerToWords(ISNULL(SUM(Invertebrate),0)) AS tInvert,  ",
+                                 "dbo.fnIntegerToWords(ISNULL(SUM(Mammal),0))       AS tMammal,  ",
+                                 "dbo.fnIntegerToWords(ISNULL(SUM(Bird),0))         AS tBird,    ",
+                                 "dbo.fnIntegerToWords(SUM(counter))                AS total     ",    
+                         "from   (select CASE WHEN Fish = Rockfish or Fish = Flatfish THEN 0 ELSE Fish END AS Roundfish,  ",
+                                 "Fish, Rockfish, Flatfish, Invertebrate, Mammal, Bird,       ",
+                                 "SABLE_SET_TYPE, TRIP_ID, 1 AS counter, Year, SPECIES_CODE   ",
+                                 "from dbo.GFBIO_RESEARCH_CATCH  ",
+                                 "group by Fish, Rockfish, Flatfish, Invertebrate, Mammal, Bird, SABLE_SET_TYPE, Year, TRIP_ID, ",
+                                 "CASE WHEN Fish = Rockfish or Fish = Flatfish THEN 0 ELSE Fish END, SPECIES_CODE ",
+                                 "having (SABLE_SET_TYPE = N'INLET STandARDIZED')       ",
+                                 "and (Year = ",yr,")) AS RC",sep="")
+   #strsSpComI    <- GetSQLData(spcI,"Sablefish")
+   strsSpComI   <-  read.csv("c:/github/surveyreport/standaloneData/spcompInlet.csv",header=T) 
+   
+   roundfishI   <- strsSpComI[1,1]
+   rockfishI    <- strsSpComI[1,2]
+   flatfishI    <- strsSpComI[1,3]
+   invertI      <- strsSpComI[1,4]
+   mammalI      <- strsSpComI[1,5]
+   birdI        <- strsSpComI[1,6]
+   totalI       <- firstup(as.character(strsSpComI[1,7]))       # taxonomic units count for inlets
    
 ```
 ## CATCH COMPOSITION
@@ -135,12 +157,17 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
 `r totalI` taxonomic groups were represented in the catches from traditional standardized sets conducted at mainland inlet localities in `r yr[1]` (Table \@ref(tab:table5)).  These included `r roundfishI` roundfish species, `r rockfishI`  rockfish species, `r flatfishI` flatfish species and `r invertI` invertebrate species.  The most common species captured, in order of total weights, other than Sablefish were `r topInletsp1` (`r topInletsc1`) and  `r topInletsp2` (`r topInletsc2`). 
 
 ```{r SpeciesCompositionYear2, echo=FALSE}
-  # -- taxonomic group count StRS year two
+   # -- taxonomic group count StRS year two
    topStRS.2      <- paste("select top (5) SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME, sum(CATCH_WEIGHT) AS catchkg ",
-                          " from dbo.GFBIO_RESEARCH_CATCH group by SABLE_SET_TYPE, Year, SPECIES_CODE, SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME",
+                          " from dbo.GFBIO_RESEARCH_CATCH ",
+                          " group by ",
+                          " SABLE_SET_TYPE, Year, SPECIES_CODE, SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME",
                           " having (SABLE_SET_TYPE = N'StRS') and (SPECIES_CODE <> N'455') and (Year = ",yr+1,") ",
-                          " order by catchkg DESC", sep="") 
-   topStRSsp.2    <- GetSQLData(topStRS.2,"Sablefish") 
+                          " order by ",
+                          " catchkg DESC", sep="") 
+   #topStRSsp.2    <- GetSQLData(topStRS.2,"Sablefish") 
+   topStRSsp.2   <-  read.csv("c:/github/surveyreport/standaloneData/topspcomp2.csv",header=T)  
+   
    
    topStRSsp1.2   <- as.character(topStRSsp.2[1,1])                      # -- StRS top 5 species names
    topStRSsc1.2   <- firstup(tolower(as.character(topStRSsp.2[1,2])))    # -- StRS top 5 species science names
@@ -159,23 +186,33 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
                            "group by SABLE_SET_TYPE, Year, SPECIES_CODE, SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME ",
                            "having (SABLE_SET_TYPE = N'INLET STandARDIZED') and (SPECIES_CODE <> N'455') and (Year = ",yr+1,") ",
                            "order by catchkg DESC", sep="") 
-   topInletsp.2   <- GetSQLData(topInlet.2,"Sablefish")  
+  # topInletsp.2   <- GetSQLData(topInlet.2,"Sablefish")  
+   topInletsp.2   <-  read.csv("c:/github/surveyreport/standaloneData/topspcompINLET2.csv",header=T)
+      
    topInletsp1.2  <- as.character(topInletsp.2[1,1])                    # -- inlet top 2 species names
    topInletsc1.2  <- firstup(tolower(as.character(topInletsp.2[1,2])))  # -- inlet top 2 species science names
    topInletsp2.2  <- as.character(topInletsp.2[2,1])  
    topInletsc2.2  <- firstup(tolower(as.character(topInletsp.2[2,2])))  
 
  # -- species composition counts for StRS sets
-   spc.2         <- paste("select dbo.fnIntegerToWords(SUM(CAST(Roundfish AS int))) AS tRound, dbo.fnIntegerToWords(SUM(Rockfish)) AS tRock, 
-                          dbo.fnIntegerToWords(SUM(Flatfish)) AS tFlat, dbo.fnIntegerToWords(SUM(Invertebrate)) AS tInvert, 
-                          dbo.fnIntegerToWords(SUM(Mammal)) AS tMammal, dbo.fnIntegerToWords(SUM(Bird)) AS tBird, dbo.fnIntegerToWords(SUM(counter)) AS total
-                          from (select CASE WHEN Fish = Rockfish OR Fish = Flatfish THEN 0 ELSE Fish END AS Roundfish, Fish, Rockfish, Flatfish, 
-                                Invertebrate, Mammal, Bird, SABLE_SET_TYPE, TRIP_ID, 1 AS counter, Year, SPECIES_CODE from dbo.GFBIO_RESEARCH_CATCH
-                                group by Fish, Rockfish, Flatfish, Invertebrate, Mammal, Bird, SABLE_SET_TYPE, Year, TRIP_ID, 
-                                CASE WHEN Fish = Rockfish OR Fish = Flatfish THEN 0 ELSE Fish END, SPECIES_CODE 
-                                having (SABLE_SET_TYPE = N'StRS') and (Year = ",yr+1,")) AS RC",sep="")
-   strsSpCom.2    <- GetSQLData(spc.2,"Sablefish")
-   
+   spc.2        <- paste("select dbo.fnIntegerToWords(SUM(CAST(Roundfish AS int))) AS tRound,   ",
+                                 "dbo.fnIntegerToWords(ISNULL(SUM(Rockfish),0))     AS tRock,    ",
+                                 "dbo.fnIntegerToWords(ISNULL(SUM(Flatfish),0))     AS tFlat,    ",
+                                 "dbo.fnIntegerToWords(ISNULL(SUM(Invertebrate),0)) AS tInvert,  ",
+                                 "dbo.fnIntegerToWords(ISNULL(SUM(Mammal),0))       AS tMammal,  ",
+                                 "dbo.fnIntegerToWords(ISNULL(SUM(Bird),0))         AS tBird,    ",
+                                 "dbo.fnIntegerToWords(SUM(counter))                AS total     ",    
+                         "from   (select CASE WHEN Fish = Rockfish or Fish = Flatfish THEN 0 ELSE Fish END AS Roundfish,  ",
+                                 "Fish, Rockfish, Flatfish, Invertebrate, Mammal, Bird,       ",
+                                 "SABLE_SET_TYPE, TRIP_ID, 1 AS counter, Year, SPECIES_CODE   ",
+                                 "from dbo.GFBIO_RESEARCH_CATCH  ",
+                                 "group by Fish, Rockfish, Flatfish, Invertebrate, Mammal, Bird, SABLE_SET_TYPE, Year, TRIP_ID, ",
+                                 "CASE WHEN Fish = Rockfish or Fish = Flatfish THEN 0 ELSE Fish END, SPECIES_CODE ",
+                                 "having (SABLE_SET_TYPE = N'StRS')       ",
+                                 "and (Year = ",yr+1,")) AS RC",sep="")
+   #strsSpCom.2    <- GetSQLData(spc.2,"Sablefish")
+   strsSpCom.2   <-  read.csv("c:/github/surveyreport/standaloneData/topspcompSTRS2.csv",header=T) 
+
    roundfishS.2   <- strsSpCom.2[1,1]
    rockfishS.2    <- strsSpCom.2[1,2]
    flatfishS.2    <- strsSpCom.2[1,3]
@@ -185,17 +222,24 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
    totalS.2       <- firstup(as.character(strsSpCom.2[1,7]))        # taxonomic unit count for StRS
    
   # -- species composition counts inlet sets
-   spc.2          <- paste("select dbo.fnIntegerToWords(SUM(CAST(Roundfish AS int))) AS tRound, dbo.fnIntegerToWords(SUM(Rockfish)) AS tRock, 
-                          dbo.fnIntegerToWords(SUM(Flatfish)) AS tFlat, dbo.fnIntegerToWords(SUM(Invertebrate)) AS tInvert, 
-                          dbo.fnIntegerToWords(SUM(Mammal)) AS tMammal, dbo.fnIntegerToWords(SUM(Bird)) AS tBird, 
-                          dbo.fnIntegerToWords(SUM(counter)) AS total 
-                          from (select case when Fish = Rockfish OR Fish = Flatfish 
-                          THEN 0 ELSE Fish END AS Roundfish, Fish, Rockfish, Flatfish, Invertebrate, Mammal, Bird, SABLE_SET_TYPE, 
-                          TRIP_ID, 1 AS counter, Year, SPECIES_CODE from dbo.GFBIO_RESEARCH_CATCH
-                          group by Fish, Rockfish, Flatfish, Invertebrate, Mammal, Bird, SABLE_SET_TYPE, Year, TRIP_ID, 
-                          CASE WHEN Fish = Rockfish OR Fish = Flatfish THEN 0 ELSE Fish END, SPECIES_CODE
-                          having (SABLE_SET_TYPE = N'INLET STandARDIZED') and (Year = ",yr+1,")) AS RC",sep="")
-   strsSpCom.2    <- GetSQLData(spc.2,"Sablefish")
+   spc.2          <- paste("select dbo.fnIntegerToWords(SUM(CAST(Roundfish AS int))) AS tRound,   ",
+                                 "dbo.fnIntegerToWords(ISNULL(SUM(Rockfish),0))     AS tRock,    ",
+                                 "dbo.fnIntegerToWords(ISNULL(SUM(Flatfish),0))     AS tFlat,    ",
+                                 "dbo.fnIntegerToWords(ISNULL(SUM(Invertebrate),0)) AS tInvert,  ",
+                                 "dbo.fnIntegerToWords(ISNULL(SUM(Mammal),0))       AS tMammal,  ",
+                                 "dbo.fnIntegerToWords(ISNULL(SUM(Bird),0))         AS tBird,    ",
+                                 "dbo.fnIntegerToWords(SUM(counter))                AS total     ",    
+                         "from   (select CASE WHEN Fish = Rockfish or Fish = Flatfish THEN 0 ELSE Fish END AS Roundfish,  ",
+                                 "Fish, Rockfish, Flatfish, Invertebrate, Mammal, Bird,       ",
+                                 "SABLE_SET_TYPE, TRIP_ID, 1 AS counter, Year, SPECIES_CODE   ",
+                                 "from dbo.GFBIO_RESEARCH_CATCH  ",
+                                 "group by Fish, Rockfish, Flatfish, Invertebrate, Mammal, Bird, SABLE_SET_TYPE, Year, TRIP_ID, ",
+                                 "CASE WHEN Fish = Rockfish or Fish = Flatfish THEN 0 ELSE Fish END, SPECIES_CODE ",
+                                 "having (SABLE_SET_TYPE = N'INLET STANDARDIZED')       ",
+                                 "and (Year = ",yr+1,")) AS RC",sep="")
+   #strsSpCom.2    <- GetSQLData(spc.2,"Sablefish")
+   strsSpCom.2   <-  read.csv("c:/github/surveyreport/standaloneData/topspcompINLET2.csv",header=T) 
+   
    roundfishI.2   <- strsSpCom.2[1,1]
    rockfishI.2    <- strsSpCom.2[1,2]
    flatfishI.2    <- strsSpCom.2[1,3]
@@ -224,7 +268,8 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
                          "dbo.GFBIO_SABLEBIO_TRIP_SET2 AS rt ON " ,
                          "sd.TRIP_ID = rt.TRIP_ID AND  sd.[SET] = rt.SET_NUMBER " ,
                          "where (sd.Year =", yr,") group by rt.SABLE_SET_TYPE",sep="") 
-    countStRS   <- GetSQLData(catchStRS,"Sablefish")
+    #countStRS   <- GetSQLData(catchStRS,"Sablefish")
+    countStRS   <-  read.csv("c:/github/surveyreport/standaloneData/countingStRS.csv",header=T) 
     
     catchStRS2 <- paste("select rt.SABLE_SET_TYPE, ",
                          "SUM(sd.[Total Count])                           AS count, ",
@@ -237,29 +282,33 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
                          "dbo.GFBIO_SABLEBIO_TRIP_SET2 AS rt ON " ,
                          "sd.TRIP_ID = rt.TRIP_ID AND  sd.[SET] = rt.SET_NUMBER " ,
                          "where (sd.Year =", yr+1,") group by rt.SABLE_SET_TYPE",sep="") 
-    countStRS2   <- GetSQLData(catchStRS2,"Sablefish")
+    #countStRS2   <- GetSQLData(catchStRS2,"Sablefish")
+    countStRS2   <-  read.csv("c:/github/surveyreport/standaloneData/countingStRS2.csv",header=T) 
     
 
-      #  Sablefish.dbo.procReport_Survey_LenMF pulls length data from table GFBIO_SABLEBIO_VW 
-      #  from procedure Build_BIO_Sablefish_Tables for the histogram of lengths
+      # -- Sablefish.dbo.procReport_Survey_LenMF pulls length data from table GFBIO_SABLEBIO_VW 
+      # -- from procedure Build_BIO_Sablefish_Tables for the histogram of lengths
+    
       lendat     <-   "exec procReport_Survey_LenMF"
-      lendata    <-   GetSQLData(lendat,"Sablefish")
+      #lendata    <-   GetSQLData(lendat,"Sablefish")
+      lendata   <-    read.csv("c:/github/surveyreport/standaloneData/lengthData.csv",header=T) 
+      
       lenMF      <-   lendata[lendata$year <= yr,] 
       brk        <-   seq(min(lenMF$length)-1,max(lenMF$length)+1)
     	nosex      <-   length(lenMF$length[lenMF$sex==3])
-    	# set up the female data
+    	# -- set up the female data
     	females  <-   lenMF$length[lenMF$sex==2]
     	females  <-   females[!is.na(females)]
-    	tf       <-   length(females)
-    	mLf      <-   format(round(mean(females,na.rm=T),1),nsmall=1)
-    	stdf     <-   round(sd(females),1)
-    	# set up the male data
+    	tf       <-   length(females)                                 # -- count female lengths
+    	mLf      <-   format(round(mean(females,na.rm=T),1),nsmall=1) # -- mean female length
+    	stdf     <-   round(sd(females),1)                            # -- standard deviation
+    	#--  set up the male data
     	males    <-   lenMF$length[lenMF$sex==1]
-    	tm       <-   length(males)
-    	mLm      <-   format(round(mean(males,na.rm=T),1),nsmall=1)
-    	stdm     <-   round(sd(males),1)
+    	tm       <-   length(males)                                   # -- count male lengths
+    	mLm      <-   format(round(mean(males,na.rm=T),1),nsmall=1)   # -- mean male length
+    	stdm     <-   round(sd(males),1)                              # -- standard deviation
     	
-    	#  data for the next year...
+    	# -- data for the next year...
 
       lenMF2      <-   lendata[lendata$year <= yr+1,] 
       brk2        <-   seq(min(lenMF2$length)-1,max(lenMF2$length)+1)
@@ -267,24 +316,26 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
     	# set up the female data
     	females2  <-   lenMF2$length[lenMF2$sex==2]
     	females2  <-   females2[!is.na(females2)]
-    	tf2       <-   length(females2)
-    	mLf2      <-   format(round(mean(females2,na.rm=T),1),nsmall=1)
-    	stdf2     <-   round(sd(females2),1)
+    	tf2       <-   length(females2)                                # -- count female lengths
+    	mLf2      <-   format(round(mean(females2,na.rm=T),1),nsmall=1)# -- mean female length
+    	stdf2     <-   round(sd(females2),1)                           # -- standard deviation
     	# set up the male data
     	males2    <-   lenMF2$length[lenMF2$sex==1]
-    	tm2       <-   length(males2)
-    	mLm2      <-   format(round(mean(males2,na.rm=T),1),nsmall=1)
-    	stdm2     <-   round(sd(males2),1)
+    	tm2       <-   length(males2)                                  # -- count male lengths
+    	mLm2      <-   format(round(mean(males2,na.rm=T),1),nsmall=1)  # -- mean male length
+    	stdm2     <-   round(sd(males2),1)                             # -- standard deviation
     	
-    	# StRS year one
+    	# StRS year one by spatial and depth strata:  count/mean of samples for fork length and tagged fish fork lengths
       bio      <-   paste("select locality, depth, PropMales, PropFemales,MalesMnFkLen, FemalesMnFkLen, TaggedMnFkLen ",
                           "from gfbio_sable_bio_summary ",
                           "where depth is not null and year = ",yr," order by Locality,Depth", sep="")
-      biosumm  <-   GetSQLData(bio,"Sablefish")
+      #biosumm  <-   GetSQLData(bio,"Sablefish")
+      biosumm   <-    read.csv("c:/github/surveyreport/standaloneData/biosum.csv",header=T) 
 
       colnames(biosumm) <-  c("Spatial","Depth","Males","Females","Males","Females","Tagged")
       biosumm$Spatial   <-  cleanf(biosumm$Spatial)  #use the remove duplicates function
 
+      #  -- sum the count of length values 
       biosumm[16,3]     <-  round((biosumm[1,3] + biosumm[2,3] + biosumm[3,3])/ 3,2)
       biosumm[16,4]     <-  round((biosumm[1,4] + biosumm[2,4] + biosumm[3,4])/ 3,2)
       biosumm[16,5]     <-  round((biosumm[1,5] + biosumm[2,5] + biosumm[3,5])/ 3,0)
@@ -337,8 +388,8 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
       pS5 <- sum(pdiffS5 < 0.00)
       if (pS5 == 1)  {wS5="S5, "} else {wS5=""}
       stratafem    <- paste(wS1,wS2,wS3,wS4,wS5,sep="")
-      stratafema   <- substr(stratafem, 1, nchar(stratafem)-2)  # trim trailing comma
-      stratafemale <- sub(",([^,]*)$", " and\\1", stratafema)   # replace last comma with and
+      stratafema   <- substr(stratafem, 1, nchar(stratafem)-2)  # -- trim trailing comma
+      stratafemale <- sub(",([^,]*)$", " and\\1", stratafema)   # -- replace last comma with and
     
       #  More females than males were seen in the shallow depth stratum as per yearly trend
       shallS1 <- sum((biosumm[1,3] - biosumm[1,4])<0.00)
@@ -355,7 +406,7 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
       shallsfema   <- substr(shallsfem, 1, nchar(shallsfem)-2)  # trim trailing comma
       shallsfemale <- sub(",([^,]*)$", " and\\1", shallsfema)   # replace last comma with and
       
-      #  More males than females were seen in the mid depth stratum
+      # -- Assumption that more males than females were seen in the mid depth stratum
       midS1 <- sum((biosumm[2,3] - biosumm[2,4])>0.00)
       if (midS1 == 1)  {midwS1="S1, "} else {midwS1=""}
       midS2 <- sum((biosumm[5,3] - biosumm[5,4])>0.00)
@@ -370,7 +421,7 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
       midsma   <- substr(midsm, 1, nchar(midsm)-2)  # trim trailing comma
       midsmale <- sub(",([^,]*)$", " and\\1", midsma)   # replace last comma with and
       
-      #  More females than males were seen in the deep depth stratum
+      # -- Assumption that more females than males were seen in the deep depth stratum
       deepS1 <- sum((biosumm[3,3] - biosumm[3,4])<0.00)
       if (deepS1 == 1)  {deepwS1="S1, "} else {deepwS1=""}
       deepS2 <- sum((biosumm[6,3] - biosumm[6,4])<0.00)
@@ -385,11 +436,14 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
       deepsfema   <- substr(deepsfem, 1, nchar(deepsfem)-2)   # trim trailing comma
       deepsfemale <- sub(",([^,]*)$", " and\\1", deepsfema)   # replace last comma with and
       
-      # StRS year one
-      bio.2      <-   paste("select locality, depth, PropMales, PropFemales,MalesMnFkLen, FemalesMnFkLen, TaggedMnFkLen ",
-                          "from gfbio_sable_bio_summary ",
-                          "where depth is not null and year = ",yr+1," order by Locality,Depth", sep="")
-      biosumm.2  <-   GetSQLData(bio,"Sablefish")
+      # -- StRS year one
+      bio.2      <-   paste("select locality, depth, PropMales, PropFemales, ",
+                            "MalesMnFkLen, FemalesMnFkLen, TaggedMnFkLen ",
+                            "from gfbio_sable_bio_summary ",
+                            "where depth is not null and year = ",yr+1,
+                            " order by Locality,Depth", sep="")
+      #biosumm.2  <-   GetSQLData(bio,"Sablefish")
+      biosumm.2   <-    read.csv("c:/github/surveyreport/standaloneData/biosum2.csv",header=T) 
 
       colnames(biosumm.2) <-  c("Spatial","Depth","Males","Females","Males","Females","Tagged")
       biosumm.2$Spatial   <-  cleanf(biosumm.2$Spatial)  #use the remove duplicates function
@@ -428,37 +482,56 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
                                   biosumm.2[7:9,],   biosumm.2[18,], biosumm.2[10:12,],biosumm.2[19,], 
                                   biosumm.2[13:15,], biosumm.2[20,])
       newdata.2$Spatial   <-  cleanf(newdata.2$Spatial)
-      colnames(newdata.2) <-  c("Spatial","Depth","Males","Females","Males","Females","Tagged")
       
+      
+      colnames(newdata.2) <-  c("Spatial","Depth","Males","Females","Males","Females","Tagged")
       pdiffS1.2 <- biosumm.2[16,3] - biosumm.2[16,4] 
       pS1.2 <- sum(pdiffS1.2 < 0.00)
-      if (pS1.2 == 1)  {wS1.2="S1, "} else {wS1.2=""}
-      pdiffS2.2 <- biosumm.2[17,3] - biosumm.2[17,4] 
+      
+      if (pS1.2 == 1)  
+         {wS1.2="S1, "} else {wS1.2=""}
+      pdiffS2.2 <- biosumm.2[17,3] - biosumm.2[17,4]
       pS2.2<- sum(pdiffS2.2 < 0.00)
-      if (pS2.2 == 1)  {wS2.2="S2, "} else {wS2.2=""}
+      
+      #pS2.2 <- 1
+      if (pS2.2 == 1) 
+          {wS2.2="S2, "} else {wS2.2=""}
       pdiffS3.2 <- biosumm.2[18,3] - biosumm.2[18,4] 
       pS3.2 <- sum(pdiffS3.2 < 0.00)
-      if (pS3.2 == 1)  {wS3.2="S3, "} else {wS3.2=""}
+      
+      #pS3.2 <- 1
+      if (pS3.2 == 1)  
+         {wS3.2="S3, "} else {wS3.2=""}
       pdiffS4.2 <- biosumm.2[19,3] - biosumm.2[19,4] 
       pS4.2 <- sum(pdiffS4.2 < 0.00)
-      if (pS4.2 == 1)  {wS4.2="S4, "} else {wS4.2=""}
+      
+      #pS4.2 <- 1
+      if (pS4.2 == 1)  
+         {wS4.2="S4, "} else {wS4.2=""}
       pdiffS5.2 <- biosumm.2[20,3] - biosumm.2[20,4] 
       pS5.2 <- sum(pdiffS5.2 < 0.00)
-      if (pS5.2 == 1)  {wS5.2="S5, "} else {wS5.2=""}
+      
+      #pS5.2 <- 1
+      if (pS5.2 == 1)  
+         {wS5.2="S5, "} else {wS5.2=""}
       stratafem.2    <- paste(wS1.2,wS2.2,wS3.2,wS4.2,wS5.2,sep="")
-      stratafema.2   <- substr(stratafem.2, 1, nchar(stratafem.2)-2)  # trim trailing comma
-      stratafemale.2 <- sub(",([^,]*)$", " and\\1", stratafema.2)   # replace last comma with and
+      stratafema.2   <- substr(stratafem.2, 1, nchar(stratafem.2)-2)  # -- trim trailing comma
+      stratafemale.2 <- sub(",([^,]*)$", " and\\1", stratafema.2)     # -- replace last comma with and
     
-      #  More females than males were seen in the shallow depth stratum as per yearly trend
+      # -- More females than males were seen in the shallow depth stratum as per yearly trend
       shallS1.2 <- sum((biosumm.2[1,3] - biosumm.2[1,4])<0.00)
       if (shallS1.2 == 1)  {shallwS1.2="S1, "} else {shallwS1.2=""}
       shallS2.2 <- sum((biosumm.2[4,3] - biosumm.2[4,4])<0.00)
       if (shallS2.2 == 1)  {shallwS2.2="S2, "} else {shallwS2.2=""}
       shallS3.2 <- sum((biosumm.2[7,3] - biosumm.2[7,4])<0.00)
+      
+      #shallS3.2 <- 1
       if (shallS3.2 == 1)  {shallwS3.2="S3, "} else {shallwS3.2=""}      
       shallS4.2 <- sum((biosumm.2[10,3] - biosumm.2[10,4])<0.00)
+      #shallS4.2 <- 1
       if (shallS4.2 == 1)  {shallwS4.2="S4, "} else {shallwS4.2=""}  
       shallS5.2 <- sum((biosumm.2[13,3] - biosumm.2[13,4])<0.00)
+      #shallS5.2 <- 1
       if (shallS5.2 == 1)  {shallwS5.2="S5, "} else {shallwS5.2=""}
       shallsfem.2    <- paste(shallwS1.2,shallwS2.2,shallwS3.2,shallwS4.2,shallwS5.2,sep="")
       shallsfema.2   <- substr(shallsfem.2, 1, nchar(shallsfem.2)-2)  # trim trailing comma
@@ -496,10 +569,12 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
 
     
       # INLET SUMMARY year one
-      bio2    <-   paste("select locality, null as depth, PropMales, PropFemales,MalesMnFkLen, FemalesMnFkLen, TaggedMnFkLen ",
-                          "from  gfbio_sable_bio_summary ",
-                          "where depth is null and   year = ",yr," order by Locality", sep="")
-      biosumm2           <-  GetSQLData(bio2,"Sablefish")
+      bio2       <-   paste("select locality, null as depth, PropMales, PropFemales,",
+                            "MalesMnFkLen, FemalesMnFkLen, TaggedMnFkLen ",
+                            "from  gfbio_sable_bio_summary ",
+                            "where depth is null and   year = ",yr," order by Locality", sep="")
+      #biosumm2   <-   GetSQLData(bio2,"Sablefish")
+      biosumm2   <-    read.csv("c:/github/surveyreport/standaloneData/biosumInlet.csv",header=T)
 
       colnames(biosumm2) <-  c("Spatial","Depth", "Males","Females","Males","Females","Tagged")
 
@@ -513,6 +588,8 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
       inletfy <- sum((biosumm2[2,3] - biosumm2[2,4])<0.00)
       inletgl <- sum((biosumm2[3,3] - biosumm2[3,4])<0.00)
       inletpt <- sum((biosumm2[4,3] - biosumm2[4,4])<0.00)
+      
+      # -- determine the inlet wording for proportions
       if (inletdb == 1 && inletfy ==1 && inletgl==1 && inletpt==1)  {inletw="all"}
       if (inletdb == 1 && inletfy ==1 && inletgl==1 && inletpt==0)  
           {inletw="Dean/Burke Channel, Finlayson Channel and Gil Island"}
@@ -534,11 +611,12 @@ Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r dat
       femaleRange <- range(biosumm2[,4]) * 100
       
       # INLET SUMMARY year two
-      bio2.2    <-   paste("select locality, null as depth, PropMales, PropFemales,",
-                           "MalesMnFkLen, FemalesMnFkLen, TaggedMnFkLen ", 
-                           "from  gfbio_sable_bio_summary ",
-                           "where depth is null and   year = ",yr+1," order by Locality", sep="")
-      biosumm2.2           <-  GetSQLData(bio2.2,"Sablefish")
+      bio2.2      <-   paste("select locality, null as depth, PropMales, PropFemales,",
+                             "MalesMnFkLen, FemalesMnFkLen, TaggedMnFkLen ", 
+                             "from  gfbio_sable_bio_summary ",
+                             "where depth is null and   year = ",yr+1," order by Locality", sep="")
+      #biosumm2.2  <-   GetSQLData(bio2.2,"Sablefish")
+      biosumm2.2   <-    read.csv("c:/github/surveyreport/standaloneData/biosumInlet2.csv",header=T)
 
       colnames(biosumm2.2) <-  c("Spatial","Depth", "Males","Females","Males","Females","Tagged")
 
@@ -587,13 +665,13 @@ Out of the `r countStRS2[1,2]` Sablefish captured during the `r yr+1` traditiona
 
 Overall, the StRS design sets had a higher proportion of females to males over the spatial strata `r stratafemale.2` (Table \@ref(tab:table9)).  More females than males were seen in the shallow depth stratum within the spatial strata `r shallsfemale.2`.  In the mid depth stratum, there were more males than females in `r midsmale.2`.  The deepest depth stratum saw more females in spatial strata `r deepsfemale.2`.  More females than males were sampled in `r inletw.2` traditional mainland inlet localities and ranged from `r femaleRange.2[1]` to `r femaleRange.2[2]` percent females (Table \@ref(tab:table9)).  
 
-Figure \@ref(fig:figure7), left shows the length frequency histograms for the `r tf2` female (left) and `r tm2` male (right) Sablefish sampled for length and sex during the StRS portion of the 2003 - `r yr+1`  surveys.  Out of the `r tf2 + nosex2 + tm2` Sablefish sampled for length and sex, `r nosex2` were looked at but no sex could be determined. The mean fork length ($\bar{x}$) for females was `r mLf2` cm and the mean fork length ($\bar{x}$) for males was `r mLm2` cm.
+Figure \@ref(fig:figure6), left shows the length frequency histograms for the `r tf2` female (left) and `r tm2` male (right) Sablefish sampled for length and sex during the StRS portion of the 2003 - `r yr+1`  surveys.  Out of the `r tf2 + nosex2 + tm2` Sablefish sampled for length and sex, `r nosex2` were looked at but no sex could be determined. The mean fork length ($\bar{x}$) for females was `r mLf2` cm and the mean fork length ($\bar{x}$) for males was `r mLm2` cm.
 
-The length (cm) weight (kg) relationships for male and female Sablefish are shown by survey year in Figure \@ref(fig:figure8), right.   Female Sablefish grow faster and reach far greater size and weight compared to males.
+The length (cm) weight (kg) relationships for male and female Sablefish are shown by survey year in Figure \@ref(fig:figure7), right.   Female Sablefish grow faster and reach far greater size and weight compared to males.
 
 ## SABLEFISH SUB-LEGAL ENCOUNTERS
 
-The percentage of sub-legal Sablefish (<55 cm fork length) sampled in the StRS survey strata (S~1~,S~2~,S~3~,S~4~,S~5~) and depth strata (RD~1~,RD~2~,RD~3~) since 2003 are shown in Figure \@ref(fig:figure9).  More than half of the specimens that were sublegal were found in the southern strata (S~1~) within the mid-depth strata (RD~2~) in 2010 and 2012 through 2014.  In 2017 and 2018, the sublegal specimen count was above 50% in the northern strata (S~4~ and S~5~) and mid-depth strata (RD~2~).  In 2019, sublegal specimens dominated all StRS survey strata in the mid-depth strata (RD~2~).  Only in 2011 and 2015, more than half of the sublegal specimens were sampled in southern most survey strata S~1~ from the shallow waters (RD~1~).
+The percentage of sub-legal Sablefish (<55 cm fork length) sampled in the StRS survey strata (S~1~,S~2~,S~3~,S~4~,S~5~) and depth strata (RD~1~,RD~2~,RD~3~) since 2003 are shown in Figure \@ref(fig:figure8).  More than half of the specimens that were sublegal were found in the southern strata (S~1~) within the mid-depth strata (RD~2~) in 2010 and 2012 through 2014.  In 2017 and 2018, the sublegal specimen count was above 50% in the northern strata (S~4~ and S~5~) and mid-depth strata (RD~2~).  In 2019, sublegal specimens dominated all StRS survey strata in the mid-depth strata (RD~2~).  Only in 2011 and 2015, more than half of the sublegal specimens were sampled in southern most survey strata S~1~ from the shallow waters (RD~1~).
 
 ## OTHER FISH SAMPLING
 
@@ -604,18 +682,20 @@ The biological data collected during the `r yr` and `r yr+1` surveys from specie
 During the `r yr` and `r yr+1` sablefish surveys, a recovered Sablefish with a tag may have been treated in several ways.  First, the tagged fish may have been re-released with a new tag, and the previous tag removed.  Second, the tagged fish may have been retained if it was from another agency or if it had sustained numerous injuries.  Re-releases of recovered tagged fish have occurred during the survey years 1992 through 1997 and 2004 through `r yr+1`.
 
 Table \@ref(tab:table10) lists the counts of DFO tagged fish released and recovered from 1991 through `r yr[1]+1` up to the time of this report. The  highest number of recovered tags has occurred one year after release. Table \@ref(tab:table11) lists the number of tagged fish released by Groundfish management unit (GMU) area and the counts of tags recovered for the past `r yr[1] + 1 -2008` years.  For the locations of the GMU areas, see `r fg.ref("fig_1")`,inset.  In general, the highest recovery count of tagged fish has occurred in the same area of release with the exception of those released in area 5D, which saw the more recoveries in area 5E.
+
 ```{r SablefishAgesText, echo=FALSE}
-   # provides values for inline text, important to know the last year of ages completed
-   # sql server procedure:  procRReport_Survey_proportions_at_age which pulls age data from 
-   # GFBIOSQL.dbo.b21_samples and b22_specimens
+   # -- provides values for inline text, important to know the last year of ages completed
+   # -- sql server procedure:  procRReport_Survey_proportions_at_age which pulls age data from 
+   # -- GFBIOSQL.dbo.b21_samples and b22_specimens
    age         <-  paste("select Female_Yr_Total,Age from Report_Survey_GFBIO_Age_MF_Prop where ", 
                          "SetType='StRS' and f=1 and Year=",yr,sep="")
-   agedat      <-  GetSQLData(age,"Sablefish")    # --  female age total and count of most aged text captions
-
-   oldageF     <-  "exec procRReport_Survey_oldAgeFish 2"  # oldest female text caption
+   #agedat     <-  GetSQLData(age,"Sablefish")    # --  female age total and count of most aged text captions
+   agedat      <-    read.csv("c:/github/surveyreport/standaloneData/sableages.csv",header=T)
+   
+   oldageF     <-  "exec procRReport_Survey_oldAgeFish 2"  # -- oldest female text caption
    oldageFem   <-  GetSQLData(oldageF,"Sablefish") 
    
-   oldageM     <-  "exec procRReport_Survey_oldAgeFish 1"  # oldest male text caption
+   oldageM     <-  "exec procRReport_Survey_oldAgeFish 1"  # -- oldest male text caption
    oldageMale  <-  GetSQLData(oldageM,"Sablefish") 
    
    oldFem      <-  oldageFem[1,2]                # -- oldest female age
@@ -625,12 +705,13 @@ Table \@ref(tab:table10) lists the counts of DFO tagged fish released and recove
 ```
 
 
-##SABLEFISH AGES
-Figure \@ref(fig:figure10) show bubble plots for Sablefish that have been aged by year from StRS sets and offshore standardized sets, respectively.  The size of the circles in the bubble plots is proportional to the number of fish ages, with fish age 35 and older included in one bubble.  The numbers of fish aged for each year are stated at the top of each figure panel.  The age with the highest proportion has been posted to the right of the bubble symbols for each year. 
+## SABLEFISH AGES
 
-The highest proportion of male Sablefish sampled from StRS sets for the years 2003 through to 2011 showed a steady increment at 3, 5, 5, 6, 8, 8, 8, 10 and 12 years of age, respectively.  Then, another increment began in 2012 through to 2016 at 4, 5, 7, 7 and 8 years of age.  Last, the year 2017 was dominated by 3 year olds and 2018 by 5 year olds.  (Figure \@ref(fig:figure10), left).
+Figure \@ref(fig:figure9) show bubble plots for Sablefish that have been aged by year from StRS sets and offshore standardized sets, respectively.  The size of the circles in the bubble plots is proportional to the number of fish ages, with fish age 35 and older included in one bubble.  The numbers of fish aged for each year are stated at the top of each figure panel.  The age with the highest proportion has been posted to the right of the bubble symbols for each year. 
 
-The highest proportion of female Sablefish sampled from StRS sets for the years 2003 through to 2010 showed a steady increment at 3, 4, 5, 6, 7, 8, 9 and 10 years of age, respectively. Between 2011 and 2015, another increment started at 3, 4, 5, 6 and 7 years of age.  In 2016, 2017 and 2018, the highest proportion of female Sablefish were ages 3, 4 and 5 (Figure \@ref(fig:figure10), right).
+The highest proportion of male Sablefish sampled from StRS sets for the years 2003 through to 2011 showed a steady increment at 3, 5, 5, 6, 8, 8, 8, 10 and 12 years of age, respectively.  Then, another increment began in 2012 through to 2016 at 4, 5, 7, 7 and 8 years of age.  Last, the year 2017 was dominated by 3 year olds and 2018 by 5 year olds.  (Figure \@ref(fig:figure9), left).
+
+The highest proportion of female Sablefish sampled from StRS sets for the years 2003 through to 2010 showed a steady increment at 3, 4, 5, 6, 7, 8, 9 and 10 years of age, respectively. Between 2011 and 2015, another increment started at 3, 4, 5, 6 and 7 years of age.  In 2016, 2017 and 2018, the highest proportion of female Sablefish were ages 3, 4 and 5 (Figure \@ref(fig:figure9), right).
 
 In 1990, 1991 and 1992, male Sablefish from offshore standardized sets ages 4, 6 and 7 had accounted for the highest proportion of ages. Then, from 1993 through to 1999, the highest proportion of ages showed a steady increase at 3, 4, 6, 6, 7, 8 and 9 years of age, respectively.  In 2000, the age accounting for the highest proportion of male Sablefish were 5 year olds, and in 2001 and 2002 the highest proportion were 7 year olds. Another steady increment began in 2003 through to 2009 with ages of 5, 5, 6, 6, 7, 8 and 9, respectively. (Figure \@ref(fig:figure10), left). 
 
