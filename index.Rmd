@@ -4,9 +4,9 @@ year: 2020
 report_number: nnn
 author: |
   Lacko. C. Lisa^1^ and
-  Schon B. Acheson^1^ and
+  Schon M. Acheson^1^ and
   Brendan M. Connors^1^
-author_list: "Lacko, L.C. and Acheson, S.B. and Connors, B.M."
+author_list: "Lacko, L.C. and Acheson, S.M. and Connors, B.M."
 region: Pacific Region
 isbn: ""
 address: |
@@ -36,6 +36,7 @@ lof: true
 # Any extra LaTeX code for the header:
 # header-includes:
 # - \usepackage{tikz}
+header-includes: \usepackage{pdflscape}
 ---
 
 ```{r setup, echo=FALSE, cache=FALSE, message=FALSE, results='hide', warning=FALSE}
@@ -173,14 +174,14 @@ library(tableHTML)
                         "+ LEFT(CONVERT(varchar, END_DATE, 100), 7) AS [Trip Dates], ",
                         "COUNT([SET]) AS [Count of Sets] ",
                         "from  dbo.GFBIO_RESEARCH_TRIPS ",
-                        "where year IN( ",yr,",",yr+1,") ", 
+                        "where year IN( ", yr ,",", yr+1 ,") ", 
                         "group by ",
                         "VESSEL_NAME, CAPTAIN,  ",
                         "LEFT(CONVERT(varchar, START_DATE, 100),7) + ' - ' + ",
                         "LEFT(CONVERT(varchar, END_DATE, 100),7)", 
                          sep="")
-   sd          <- GetSQLData(details,"Sablefish")  # -- survey details
-   #sd         <- read.csv("c:/github/surveyreport/standaloneData/details.csv",header=T)
+   #sd          <- GetSQLData(details,"Sablefish")  # -- survey details
+   sd     <- read.csv("c:/github/surveyreport/standaloneData/details.csv",header=T)
    
    boat        <- simpleCap(tolower(sd[1,1]))      # -- vessel name 1
    boat2       <- simpleCap(tolower(sd[2,1]))      # -- vessel name 2
@@ -194,34 +195,35 @@ library(tableHTML)
    setcnt      <- sd[1,4]           # -- survey set count 1
    setcnt2     <- sd[2,4]           # -- survey set count 2
    
-   avgC        <- paste("select ROUND(AVG(TOTAL), 0) AS YrAvg from dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",
+   avgC        <- paste("select ROUND(AVG(TOTAL), 0) AS YrAvg ",
+                        "from   dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",
                         " where (year <= ", yr+1, ") and (year >= ",yr - 8,")", sep="")
-   #avgTen     <- GetSQLData(avgC,"Sablefish")    # -- average catch last 10 years
-   avgTen      <- read.csv("c:/github/surveyreport/standaloneData/avgcatch.csv",header=T)
+   avgTen      <- GetSQLData(avgC,"Sablefish")    # -- average catch last 10 years
+   #csv avgTen <- read.csv("c:/github/surveyreport/standaloneData/avgcatch.csv",header=T)
    
    
    tp          <- paste("select ROUND(TRAP / TOTAL * 100, 0) AS TrapPer from dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",  
                         " where  (year = ", yr, ")  group by ROUND(TRAP / TOTAL * 100, 0), TOTAL", sep="")
-   #trapP     <- GetSQLData(tp,"Sablefish")        # -- trap gear catch ratio
-   trapP      <- read.csv("c:/github/surveyreport/standaloneData/trapratio.csv",header=T)
+   trapP       <- GetSQLData(tp,"Sablefish")        # -- trap gear catch ratio
+   #csv trapP      <- read.csv("c:/github/surveyreport/standaloneData/trapratio.csv",header=T)
    
-   lp         <- paste("select  ROUND(LONGLINE / TOTAL * 100, 0) AS LonglinePer from ",  
+   lp          <- paste("select  ROUND(LONGLINE / TOTAL * 100, 0) AS LonglinePer from ",  
                          " dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2  where  (year = ", yr, 
                          ") group by ROUND(LONGLINE / TOTAL * 100, 0), TOTAL", sep="")
-   #LonglineP  <- GetSQLData(lp,"Sablefish")        # -- longline gear catch ratio
-   LonglineP   <- read.csv("c:/github/surveyreport/standaloneData/llratio.csv",header=T)
+   LonglineP   <- GetSQLData(lp,"Sablefish")        # -- longline gear catch ratio
+   #csv LonglineP   <- read.csv("c:/github/surveyreport/standaloneData/llratio.csv",header=T)
    
 
    tp2         <- paste("select ROUND(TRAP / TOTAL * 100, 0) AS TrapPer from dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",  
                         " where  (year = ", yr+1, ")  group by ROUND(TRAP / TOTAL * 100, 0), TOTAL", sep="")
-   #trapP2     <- GetSQLData(tp2,"Sablefish")      # -- trap gear catch ratio
-   trapP2      <- read.csv("c:/github/surveyreport/standaloneData/trapratio2.csv",header=T)
+   trapP2     <- GetSQLData(tp2,"Sablefish")      # -- trap gear catch ratio
+   #csv trapP2      <- read.csv("c:/github/surveyreport/standaloneData/trapratio2.csv",header=T)
    
    lp2         <-  paste("select  ROUND(LONGLINE / TOTAL * 100, 0) AS LonglinePer from ",  
                          " dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2  where  (year = ", yr+1, 
                          ") group by ROUND(LONGLINE / TOTAL * 100, 0), TOTAL", sep="")
-   #LonglineP2 <- GetSQLData(lp2,"Sablefish")      # -- longline gear catch ratio 
-   LonglineP2  <- read.csv("c:/github/surveyreport/standaloneData/llratio2.csv",header=T)
+   LonglineP2 <- GetSQLData(lp2,"Sablefish")      # -- longline gear catch ratio 
+   #csv LonglineP2  <- read.csv("c:/github/surveyreport/standaloneData/llratio2.csv",header=T)
    
    # -- F I G U R E   C A P T I O N S  ------------------------------------------------
    
@@ -235,13 +237,13 @@ library(tableHTML)
    
    figure3     <- paste("Location of the traditional survey sets within the mainland inlet ",
                         "localities since 1994.  The setlines for " , yr," are shown in blue and setlines for ", 
-                         yr+1," are shown in red.", sep="")
+                         yr + 1," are shown in red.", sep="")
    
    figure4     <- paste("Trap gear elements consisting of 25 baited traps snapped to beckets along a groundline. ", sep="")
    
    figure5     <- paste("Distribution of yearly catch rates for Type 3 tagging sets summarised by a boxplot.  ",
                         "Each panel shows catch rates grouped by depth strata from shallow to deep (RD~1~-RD~3~) ",
-                        "for each year the StRS survey was conducted.  The filled circles show the mean catch rates ",
+                        "for each year the past 10 years of the StRS survey.  The filled circles show the mean catch rates ",
                         "for each depth stratum.", sep="")
    
    figure6     <- paste("Top: Length frequencies for male Sablefish (blue-violet) and female Sablefish ",
@@ -250,7 +252,7 @@ library(tableHTML)
                         "by the symbol sigma. Bottom: Average length of male and female Sablefish by year.", sep="")
    
    figure7     <-  paste("Sablefish fork length (L in cm) vs weight (W in kg) for males and females for the ",
-                         yr, " and ", yr + 1 ," surveys, where", sep="")
+                         yr, " and ", yr + 1 ," surveys.", sep="")
    
    figure8     <-  paste("The percentage of sub-legal Sablefish (<55 cm fork length) sampled in the StRS survey ", 
                          "strata  and depth strata  since 2003.", sep="")
