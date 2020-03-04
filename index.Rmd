@@ -228,11 +228,6 @@ library(tableHTML)
    
    # -- F I G U R E   C A P T I O N S  ------------------------------------------------
    
-   figure1     <- paste("Location of the boundaries of the mainland inlet localities," ,
-                        "and the five spatial areas (S~1~-S~5~) of the stratified ",
-                        "random survey design. The three depths strata (RD~1~-RD~3~) are colour-coded, ",
-                        "nested within each of the five spatial strata.", sep="")
-   
    figure2     <- paste("Start locations of survey sets (red markers) conducted in  ", yr, "(top) and ", yr+1,
                         "(bottom) for the stratified random survey areas S~1~ through S~5~.", sep="")
    
