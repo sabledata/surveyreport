@@ -226,53 +226,7 @@ library(tableHTML)
    LonglineP2 <- GetSQLData(lp2,"Sablefish")      # -- longline gear catch ratio 
    #csv LonglineP2  <- read.csv("c:/github/surveyreport/standaloneData/llratio2.csv",header=T)
    
-   # -- F I G U R E   C A P T I O N S  ------------------------------------------------
-   
-   figure2     <- paste("Start locations of survey sets (red markers) conducted in  ", yr, "(top) and ", yr+1,
-                        "(bottom) for the stratified random survey areas S~1~ through S~5~.", sep="")
-   
-   figure3     <- paste("Location of the traditional survey sets within the mainland inlet ",
-                        "localities since 1994.  The setlines for " , yr," are shown in blue and setlines for ", 
-                         yr + 1," are shown in red.", sep="")
-   
-   figure4     <- paste("Trap gear elements consisting of 25 baited traps snapped to beckets along a groundline. ", sep="")
-   
-   figure5     <- paste("Distribution of yearly catch rates for Type 3 tagging sets summarised by a boxplot.  ",
-                        "Each panel shows catch rates grouped by depth strata from shallow to deep (RD~1~-RD~3~) ",
-                        "for each year the past 10 years of the StRS survey.  The filled circles show the mean catch rates ",
-                        "for each depth stratum.", sep="")
-   
-   figure6     <- paste("Top: Length frequencies for male Sablefish (blue-violet) and female Sablefish ",
-                        "(fuchsia) up to ", yr + 1," for all StRS sets.  The number of specimens is denoted by the ",
-                        "letter n, the mean indicated by the xbar and the standard deviation is represented ",
-                        "by the symbol sigma. Bottom: Average length of male and female Sablefish by year.", sep="")
-   
-   figure7     <-  paste("Sablefish fork length (L in cm) vs weight (W in kg) for males and females for the ",
-                         yr, " and ", yr + 1 ," surveys.", sep="")
-   
-   figure8     <-  paste("The percentage of sub-legal Sablefish (<55 cm fork length) sampled in the StRS survey ", 
-                         "strata  and depth strata  since 2003.", sep="")
-   
-   figure9     <-  paste("Bubble plot for male and female Sablefish ages by survey year from StRS sets that ",
-                         "have been aged.  The sizes of the circles are proportional to the number of fish ", 
-                         "with given ages. Fish age 35 and older are included in one bubble. The total number ", 
-                         "(n) of fish aged are listed across the top of each panel. The ages with the highest ",
-                         "ratios are posted to the right of each bubble.", sep="")
-   
-   figure10    <-  paste("Bubble plot for male Sablefish ages by survey year from offshore standardized sets, ",
-                         "to the time of this report. The sizes of the circles are proportional ",
-                         "to the number of fish with given ages. Fish age 35 and older are included in one bubble. ",
-                         "The total number (n) of fish aged are listed across the top of each panel. The ages ",
-                         "with the highest ratios are posted to the right of each bubble.", sep="")
-   
-   figure11    <-  paste("Coplot of average depth(m) vs average temperature (C) for a given 1-degree latitude  ",
-                         "range (blue bands) for ",yr," (top) and ",yr+1," (bottom).  The number of fishing ",
-                         "sets deployed with a SBE 39 recorder are represented by n.", sep="")
-   
-   figure12    <-  paste("Average temperatures as reported from the Sea-bird SBE 39 loggers at 1-degree ",
-                         "latitude intervals and three depth intervals: 100-250 fathoms (183  to 457 meters), ",
-                         "250-450 fathoms (458-823 meters) and 450-750 fathoms (824-1372 meters).", sep="") 
-   
+   # -- F I G U R E   C A P T I O N S  function ------------------------------------------------
    figure_nums <-  captioner::captioner(prefix = "Figure")
    fg.ref      <-  function(x) {    # another method on how to number figures
                                      stringr::str_extract(figure_nums(x), "[^.]*")}
