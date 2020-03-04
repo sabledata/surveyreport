@@ -188,6 +188,7 @@ library(tableHTML)
    
    captain     <- simpleCap(tolower(sd[1,2]))      # -- captain name 1
    captain2    <- simpleCap(tolower(sd[2,2]))      # -- captain name 2
+   captain2    <- "Albert (Deacon) Melnychuk"
    
    dates       <- sd[1,3]           # -- survey start and end dates 1
    dates2      <- sd[2,3]           # -- survey start and end dates 2
