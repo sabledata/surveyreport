@@ -16,7 +16,7 @@ address: |
 phone: "(555) 555-5555"
 author_footnote: "Email: Lisa.Lacko@dfo-mpo.gc.ca | telephone: (250) 756-5555"
 abstract: |
-  This document describes sampling activities and summmarizes results from the 2018 and 2019 British Columbia Sablefish research and assessment surveys. The two surveys utilized the same sampling strategies at stratified random (StRS) sites and all traditional inlet sites.   The random component was comprised of StRS sets at five depth-stratified areas and the traditional component employed standardized sets at four inlet localities on the mainland. 
+  This document describes sampling activities and summmarizes results from the 2018 and 2019 British Columbia Sablefish research and assessment surveys. It is also intended to provide a historical reference for researchers. The two surveys utilized the same sampling strategies at stratified random (StRS) sites and all traditional inlet sites.   The random component was comprised of StRS sets at five depth-stratified areas and the traditional component employed standardized sets at four inlet localities on the mainland. 
   
   As in previous surveys, biological sampling for sablefish included collection of length, weight, sex, maturity and age structures. Sablefish were randomly sampled from every third trap on all sets, up to  a maximum sample size of 60 sablefish. Biological samples (length, weight, sex, maturity and otoliths) were taken for yelloweye rockfish, shortraker rockfish and rougheye/blackspotted rockfish species from catch in all traps.  In addition, genetic samples were taken for the rougheye/blackspotted rockfish complex.  Length and weight measurements were collected from all Pacific halibut while only lengths were obtained from Pacific sleeper sharks. 
   
