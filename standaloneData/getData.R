@@ -16,6 +16,17 @@ GetSQLData <- function(strSQL,strDbName) {
    return(dat) 
 }
 
+# temporary -------------------------------
+
+history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo.SURVEY_SITE_HISTORIC.SURVEY_START_DATE) AS Year,  ",
+                       " dbo.SURVEY_SITE_HISTORIC.BLOCK_DESIGNATION,  dbo.SURVEY_SITE_HISTORIC.SELECTION_TYPE_CODE, dbo.SURVEY_SITE_HISTORIC.SELECTION_IND, ",
+                      "dbo.SITE_STATUS.SITE_STATUS_CODE AS Count,    dbo.SITE_STATUS.SITE_STATUS_DESCRIPTION  ", 
+                      "FROM     dbo.SURVEY_SITE_HISTORIC INNER JOIN  dbo.SITE_STATUS ON dbo.SURVEY_SITE_HISTORIC.STATUS_CODE ",
+                     "= dbo.SITE_STATUS.SITE_STATUS_CODE  WHERE  (dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID = 43)  AND ",
+                     "(YEAR(dbo.SURVEY_SITE_HISTORIC.SURVEY_START_DATE)  in(2018, 2019))", sep="")
+   hist          <- GetSQLData(history,"GFBioSQL")  
+   write.table( hist, file = paste(path,"history.csv",sep=''),row.names=FALSE, na="",col.names=TRUE,  sep=",")
+
 #index -----------------------------
 
    details     <- paste("select VESSEL_NAME as Vessel, CAPTAIN, ",
@@ -63,7 +74,7 @@ GetSQLData <- function(strSQL,strDbName) {
    write.table(trip, file = paste(path,"appendixA.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
    srvyset <-  paste("dbo.procRReport_Survey_SetDetails ",yr,",1,",setcnt, sep="")
-   #ssdat   <-  GetSQLData(srvyset,"Sablefish")
+   ssdat   <-  GetSQLData(srvyset,"Sablefish")
    write.table( ssdat, file = paste(path,"appendixC.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
    srvyset <-  paste("dbo.procRReport_Survey_SetDetails ",yr+1,",1,",setcnt, sep="")
@@ -131,16 +142,6 @@ GetSQLData <- function(strSQL,strDbName) {
    write.table( otherspec , file = paste(path,"appendixJ.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
 #---tables  -----------------------------------------------------------
-    dtBW            <- paste("select * from Report_CountRandomSet where Year <= ", yr+1,
-                             " union select 2010,'Z',NULL,NULL,NULL,NULL ",
-                              "union select 2010,'Z2',NULL,NULL,NULL,NULL ",
-                              "union select 2010,'Z3',NULL,NULL,NULL,NULL ",
-                              "union select 2010,'Z4',NULL,NULL,NULL,NULL ",
-                              "union select 2010,'Z5',NULL,NULL,NULL,NULL ",
-                              "union select 2010,'Z6',NULL,NULL,NULL,NULL ",
-                              "from Report_CountRandomSet", sep="")
-   dat              <- GetSQLData(dtBW,"Sablefish") 
-  write.table(dat, file = paste(path,"table01_RandomSets.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
   dtSP   <- paste("exec procRReport_SpeciesSummary ",yr," ,'StRS'",sep="")
   datSP  <- GetSQLData(dtSP,"Sablefish")
@@ -397,16 +398,17 @@ GetSQLData <- function(strSQL,strDbName) {
 
       bio      <-   paste("select locality, depth, PropMales, PropFemales,MalesMnFkLen, FemalesMnFkLen, TaggedMnFkLen ",
                           "from gfbio_sable_bio_summary ",
-                          "where depth is not null and year = ",yr," order by Locality,Depth", sep="")
+                          "where depth is not null and year = ",yr,
+                         " order by Locality,Depth", sep="")
       biosumm  <-   GetSQLData(bio,"Sablefish")
-      write.table( biosumm   , file = paste(path,"results13_BioSampleSummary.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+      write.table( biosumm , file = paste(path,"results13_BioSampleSummary.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
       bio.2      <-   paste("select locality, depth, PropMales, PropFemales, ",
                             "MalesMnFkLen, FemalesMnFkLen, TaggedMnFkLen ",
                             "from gfbio_sable_bio_summary ",
                             "where depth is not null and year = ",yr+1,
                             " order by Locality,Depth", sep="")
-      biosumm.2  <-   GetSQLData(bio,"Sablefish")
+      biosumm.2  <-   GetSQLData(bio.2,"Sablefish")
       write.table(  biosumm.2 , file = paste(path,"results14_BioSampleSummary.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
       bio2       <-   paste("select locality, null as depth, PropMales, PropFemales,",
