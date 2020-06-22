@@ -2279,7 +2279,13 @@
    #dat  <-  GetSQLData(dt,"Sablefish")
    dat  <-  read.csv("c:/github/surveyreport/standaloneData/figure13_AgeBubblePlot.csv",header=T)
 
-   par(mfrow=c(2,1),cex=1.1)     # -- two vertical plots
+   #par(mfrow=c(2,1),cex=1.1)     
+   par(mfrow=c(2,1))
+       sapply(LETTERS[1:2], function(x) {   # -- two vertical plots
+       plot(rnorm(100))
+       fig_label(x, cex=1.1) 
+       })
+   
    involve  <-  c()
    involve  <-  unique(dat$Year)
    maxyr    <-  max(involve)
@@ -2306,6 +2312,7 @@
     text(femaleyr + 0.15, dat$Age[dat$f==1 & dat$Year==femaleyr],dat$Age[dat$f==1 & dat$Year==femaleyr],col="red",cex=1.1, font=2)}
 
     mtext(paste("Age","",sep=""), SOUTH<-2,  line=-1, adj=0.5,cex=1.2,  outer=TRUE)  # -- outside label
+    
    
     while (!is.null(dev.list()))  dev.off()  
     img <-   paste('C:/github/surveyreport/figures/Figure_13_ages.png',sep="")   # -- retrieve png from figures folder
