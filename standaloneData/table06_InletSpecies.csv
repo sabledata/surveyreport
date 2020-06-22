@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "orderfield","Summary_sp","Year","TRIP_ID","Common_Name","Scientific_Name","Total_Count","Total_weight","SABLE_SET_TYPE"
 5,"Roundfish Species",2019,85230,"Sablefish","ANOPLOPOMA FIMBRIA",,30270,"INLET STANDARDIZED"
 5,"Roundfish Species",2019,85230,"Spiny dogfish","SQUALUS ACANTHIAS",,7,"INLET STANDARDIZED"
@@ -11,3 +12,18 @@
 2,"Invertebrate Species",2019,85230,"Mud star","CTENODISCUS CRISPATUS",,,"INLET STANDARDIZED"
 2,"Invertebrate Species",2019,85230,"Oregontriton","FUSITRITON OREGONENSIS",,,"INLET STANDARDIZED"
 2,"Invertebrate Species",2019,85230,"Vermillion starfish","MEDIASTER AEQUALIS",,,"INLET STANDARDIZED"
+=======
+"orderfield","Summary_sp","Year","TRIP_ID","Common_Name","Scientific_Name","Total_Count","Total_weight","SABLE_SET_TYPE"
+5,"Roundfish Species",2019,85230,"Sablefish","ANOPLOPOMA FIMBRIA",,30270,"INLET STANDARDIZED"
+5,"Roundfish Species",2019,85230,"Spiny dogfish","SQUALUS ACANTHIAS",,7,"INLET STANDARDIZED"
+5,"Roundfish Species",2019,85230,"Pacific sleeper shark","SOMNIOSUS PACIFICUS",1,,"INLET STANDARDIZED"
+3,"Flatfish Species",2019,85230,"Pacific halibut","HIPPOGLOSSUS STENOLEPIS",,247,"INLET STANDARDIZED"
+3,"Flatfish Species",2019,85230,"Arrowtooth flounder","ATHERESTHES STOMIAS",,1,"INLET STANDARDIZED"
+3,"Flatfish Species",2019,85230,"Dover sole","MICROSTOMUS PACIFICUS",,1,"INLET STANDARDIZED"
+2,"Invertebrate Species",2019,85230,,"NEPTUNEA",,,"INLET STANDARDIZED"
+2,"Invertebrate Species",2019,85230,"Heart urchins","ATELOSTOMATA",,,"INLET STANDARDIZED"
+2,"Invertebrate Species",2019,85230,"Inshore Tanner Crab","CHIONOECETES BAIRDI",,,"INLET STANDARDIZED"
+2,"Invertebrate Species",2019,85230,"Mud star","CTENODISCUS CRISPATUS",,,"INLET STANDARDIZED"
+2,"Invertebrate Species",2019,85230,"Oregontriton","FUSITRITON OREGONENSIS",,,"INLET STANDARDIZED"
+2,"Invertebrate Species",2019,85230,"Vermillion starfish","MEDIASTER AEQUALIS",,,"INLET STANDARDIZED"
+>>>>>>> 574a90f9915148371f45528aa5df2264bfc26ad9

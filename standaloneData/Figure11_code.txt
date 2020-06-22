@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 (ref:figure11) Bubble plot for male sablefish ages by survey year from offshore standardized sets, to the time of this report. The sizes of the circles are proportional to the number of fish with given ages.  Fish age 35 and older are included in one bubble.  The total number (n) of fish aged are listed across the top of each panel. The ages with the highest ratios are posted to the right of each bubble.
 
 ```{r figure11, fig.cap='(ref:figure11)',results='asis', out.width = "400px",out.height = "500px", fig.align="center"}
@@ -41,4 +42,49 @@
     img <-   paste('C:/github/surveyreport/figures/Figure_11_agesOF.png',sep="")   # -- retrieve png from figures folder
              knitr::include_graphics(img)
 ```
+=======
+(ref:figure11) Bubble plot for male sablefish ages by survey year from offshore standardized sets, to the time of this report. The sizes of the circles are proportional to the number of fish with given ages.  Fish age 35 and older are included in one bubble.  The total number (n) of fish aged are listed across the top of each panel. The ages with the highest ratios are posted to the right of each bubble.
+
+```{r figure11, fig.cap='(ref:figure11)',results='asis', out.width = "400px",out.height = "500px", fig.align="center"}
+
+   png("C:/github/surveyreport/figures/Figure_11_agesOF.png", width = 800, height = 924)  # -- starts writing a png to figure folder
+   # sql server procedure:  procRReport_Survey_proportions_at_age which pulls age data from 
+   # GFBIOSQL.dbo.b21_samples and b22_specimens
+   dt      <- paste("select * from Report_Survey_GFBIO_Age_MF_Prop where SetType='OFFSHORE STANDARDIZED' and Year<= 2009", sep="")
+   #dat     <- GetSQLData(dt,"Sablefish")
+   dat     <- read.csv("c:/github/surveyreport/standaloneData/figure11_AgeOffshoreStnd.csv",header=T)
+   
+   par(mfrow=c(2,1),cex=1.1)     # -- two vertical plots
+   involve  <-  c()
+   involve  <-  unique(dat$Year)
+   mxyr     <-  max(involve)
+   mnyr     <-  min(involve)
+
+   plot(dat$Year,dat$Age, type="n",xlab=" Year", ylab="", main="Males", ylim=c(0,42), xlim=c(mnyr,mxyr))  #  plot bubbles 
+   symbols(dat$Year, dat$Age, circles=pi*(dat$Male_Proportion),inches=0.3, add=T,col="light grey")
+   
+   # Males:  post total numbers of aged fish across the top and highest proportions label in red
+   for (maleyr in involve){
+         h   <-   unique(dat$Male_Yr_Total[dat$Year==maleyr])
+         text(maleyr+0.15,40,bquote(.(h)),cex=1.1)
+    if (maleyr!= 2010) {
+         text(maleyr+0.35,dat$Age[dat$m==1 & dat$Year==maleyr],dat$Age[dat$m==1 & dat$Year==maleyr],col="red",cex=1.1) }
+    }
+    
+   plot(dat$Year,dat$Age, type="n",xlab=" Year", ylab="", main="Females", ylim=c(0,42), xlim=c(mnyr,mxyr))   #  plot bubbles   
+   symbols(dat$Year, dat$Age, circles=pi*(dat$Female_Proportion),inches=0.3, add=T,col="light grey")
+   
+   # Females: post total numbers of aged fish across the top and highest proportions label in red
+   for (femaleyr in involve){
+     h <- unique(dat$Female_Yr_Total[dat$Year==femaleyr])
+     text(femaleyr + 0.15,40,bquote(.(h)),cex=1.1)   
+     text(femaleyr + 0.15,dat$Age[dat$f==1 & dat$Year==femaleyr],dat$Age[dat$f==1 & dat$Year==femaleyr],col="red",cex=1.1)    
+    }
+    mtext(paste("Age","",sep=""), SOUTH<-2,  line=-1, adj=0.5,cex=1.1,  outer=TRUE)  # outside label
+    while (!is.null(dev.list()))  dev.off() 
+    
+    img <-   paste('C:/github/surveyreport/figures/Figure_11_agesOF.png',sep="")   # -- retrieve png from figures folder
+             knitr::include_graphics(img)
+```
+>>>>>>> 574a90f9915148371f45528aa5df2264bfc26ad9
 \clearpage
