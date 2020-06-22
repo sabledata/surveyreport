@@ -1,0 +1,72 @@
+```{r figure5, fig.cap='(ref:figure5)',results='asis', out.width = "400px",out.height = "620px"}
+# results='asis',echo=FALSE,include=FALSE,warning=FALSE,message = FALSE,error= FALSE
+  png("C:/github/surveyreport/figures/Figure_6_cpue.png", width = 468, height = 668)  # write png to folder 
+
+  dtStRS   <- paste("select  * from dbo.GENERIC_GFBIO_TRAPS where [Spatial.Stratum] ",
+              "not like '%Quatsino Sound%' order by year", sep ="")
+  #datStRS <- GetSQLData(dtStRS,"Sablefish")
+  datStRS  <- read.csv("c:/github/surveyreport/standaloneData/figure06_TrapCPUE.csv",header=T)
+  
+ # odbcCloseAll()
+  #----------------------------------------------------------------------------
+  # set margins:  par(mar=c(bottom,left,top,right), cex=size of font)
+  par(mfcol=c(9,2), mar=c(0.5,1,0.5,1), oma=c(4,3,1,1))
+  
+  datRD <- datStRS[ datStRS$SABLE.SET.TYPE=="StRS", ] # pick out the random sets
+  dat   <- datRD[ ! is.na(datRD$SABLE.SET.TYPE), ]
+  yrs   <- unique(datRD$year)                             # get unique years
+  nyrs  <- length(yrs)
+  
+  data.cv <- data.frame( year   = numeric(),
+                         value1 = numeric(),
+                         value2 = numeric(),
+                         value3 = numeric()    )
+  data.mn <- data.frame( year   = numeric(),
+                         value1 = numeric(),
+                         value2 = numeric(),
+                         value3 = numeric()    )
+
+  # iterate through the years building depth boxplots
+  for (i in 1:nyrs)
+     {    yrdat <- datRD[datRD$year==yrs[i],]   # get the year dataset
+          #  split the data by depth for the boxplots
+          bxdat <- split(yrdat$CPUE.SABLE.COUNT / yrdat$CPUE.TRAPS,  as.character(yrdat$SABLE.DEPTH.GROUP))
+          #  create the depth boxplots
+          if (yrdat$year %in% c(2011,2019)) {
+                     xpos <- boxplot(bxdat, boxwex = 0.20, medcol=c("black"), medlwd=1, outline=TRUE, ylim=c(0,80))
+
+          } else {
+                     xpos <- boxplot(bxdat, boxwex = 0.20, medcol=c("black"), medlwd=1, outline=TRUE, ylim=c(0,80),  names=c("","",""))
+          }
+          text(3,90,c(yrs[i]),cex=0.8)
+
+          dpth.mean <- sapply(bxdat, mean, na.rm=T)  #  add the mean by depth  points
+          std.dev   <- sapply(bxdat, sd, na.rm=T)
+          # Coefficient of Variation Cv = Standard Deviation / Mean
+          # print(round(std.dev/dpth.mean,2))
+          names(data.cv)<- c("year", "RD1", "RD2", "RD3")  # store cv's
+          names(data.mn)<- c("year", "RD1", "RD2", "RD3")  # store mean counts by depth
+          data.cv <-rbind(data.cv,c(yrs[i],round(std.dev/dpth.mean,2)))
+          data.mn <-rbind(data.mn,c(yrs[i],round(dpth.mean,0)))
+          
+          points(dpth.mean, pch=16, col="red", cex=1)
+          abline(h=c(20,40,60,80), lty=2, col='gray70')    #  add some reference lines lty of 2 is dashed line
+          
+          par(usr=c(0,1,0,1))
+          text(0.89,0.9,paste(yrs[i]),cex=1.2)  # label the years
+          
+          if (i==1)     {   #  add labels
+          #mtext( side=4, line=2, outer=T, " RD1 100-250, RD2 250-450, RD3 450-750 fm" ,adj=0.5)
+          mtext( side=2, line=1, cex=1.0, outer=T, "count per trap" ,adj=0.5)
+          mtext( side=1, line=1, cex=1.0, outer=T, "depth stratum" ,adj=0.5) 
+          #text(0.13,0.5, "RD1:  Shallow 100-250 fa", cex=1.0)
+          #text(0.13,0.7, "RD2:  Mid       250-450 fa")
+          #text(0.13,0.9, "RD3:  Deep    450-750 fa")         
+          }
+          }
+          while (!is.null(dev.list()))  dev.off() 
+          img <- paste('C:/github/surveyreport/figures/Figure_6_cpue.png',sep="") 
+                 knitr::include_graphics(img)
+
+```
+\clearpage
