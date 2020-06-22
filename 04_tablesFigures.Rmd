@@ -629,9 +629,9 @@
     
 ```  
 
-(ref:figure9) a: Average weight of Sablefish per trap (mean +/- 95% CIs) at mainland Inlet localities. b: Average number of Sablefish per trap (mean +/- 95% CIs) at mainland Inlet localities.
+(ref:figure9) A: Average weight of Sablefish per trap (mean +/- 95% CIs) at mainland Inlet localities. B: Average number of Sablefish per trap (mean +/- 95% CIs) at mainland Inlet localities.
 
-```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width = "600px",out.height = "800px", fig.align="center"}
+```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width = "500px",out.height = "600px", fig.align="center"}
 
   png("C:/github/surveyreport/figures/Figure_9_InletCPUE.png", width=600, height=800) # write png to file
 
