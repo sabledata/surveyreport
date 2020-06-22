@@ -7,32 +7,56 @@ After that, all subsequent sections will be turned into appendices. -->
 
 \clearpage
 
-
-
 # LIST OF TRADITIONAL LOCALITIES. {#app:first-appendix}
 
-List of localities visited in the traditional component of the Sablefish research and assessment surveys from 1988 through `r yr+1`. Standardized sets (light blue boxes and half boxes) were conducted in offshore indexing localities from 1988 to 2010.  Sablefish were tagged and released (dark blue half boxes) from standardized sets at offshore indexing localities beginning in 1991 and ending in 2007.  In 1995, offshore tagging localities where only traditional tagging sets (red boxes) occurred were added in 1995 and discontinued in 2008.  Mainland Inlet localities where standardized sets (green boxes) were conducted began in 1994 and continued through to `r yr+1`.
+List of localities visited in the traditional component of the sablefish research and assessment surveys from 1988 through `r yr+1`. Standardized sets (light blue boxes and half boxes) were conducted in offshore indexing localities from 1988 to 2010.  Sablefish were tagged and released (dark blue half boxes) from standardized sets at offshore indexing localities beginning in 1991 and ending in 2007.  In 1995, offshore tagging localities where only traditional tagging sets (red boxes) occurred were added in 1995 and discontinued in 2008.  Mainland Inlet localities where standardized sets (green boxes) were conducted began in 1994 and continued through to `r yr+1`. Starting in 2002 (dark green), five standard fishing areas were chosen to ensure the consistency with the positions of sets conducted in previous years.
 
-```{r appendixAHistory,out.width = "400px", out.height = "400px", fig.align="center"}
+
+```{r appendixA,out.width = "400px", out.height = "400px", fig.align="center"}
 
       if(knitr:::is_latex_output())
-      img <-  paste('c:/github/surveyreport/figures/AppendixSurveyHistory.png',sep="")
+      img <-  paste('c:/github/surveyreport/figures/AppendixSurveyHistory2.png',sep="")
       knitr::include_graphics(img) 
+      
 ```
 \clearpage
 
 
-# SET DETAILS `r yr`. {#app:second-appendix}
+
+# LIST OF SABLEFISH RESEARCH AND ASSESSMENT SURVEYS. {#app:second-appendix}
+
+```{r appendixB, results="asis"}
+
+   dtBW   <- paste("exec dbo.procRKnitr_SurveyTrips ",yr+1,sep="")
+   #trip   <- GetSQLData(dtBW,"Sablefish")
+   trip   <-  read.csv("c:/github/surveyreport/standaloneData/appendixA.csv",header=T)
+   
+   kableExtra::kable(trip,
+                     booktabs = TRUE, 
+                     longtable = T,
+                     linesep   = "",
+                     format = "latex")  %>%
+   kableExtra::kable_styling(font_size = 7) %>%
+                     row_spec(0, bold = T)
+
+```
+
+\clearpage
+
+
+
+
+# SET DETAILS `r yr`. {#app:third-appendix}
 Details of sets completed during the `r yr` survey program (F/V `r boat`).  Sets are listed by stratum/inlet name, set type, depth stratum, start date, end of gear deployment time and duration in minutes. The depth strata for type 3 tagging sets include RD~1~ (100-250 fathoms), RD~2~ (250-450 fathoms) and RD~3~ (450-750 fathoms). The position data includes the major area along with the start and end latitude and longitude in degrees decimal minutes. The bottom depths (in meters) of the fishing set are shown with the mean bottom depth calculated from recordings at one minute intervals between the start and end of the set. The number of traps fished for each set excludes open traps, while holed or fouled traps have been included.  Sets that successfully deployed a Seabird SBE temperature and pressure recorder, a Hobo accelerometer or a Concerto CTD are indicated with an 'x'.
 
 
-```{r appendixB, results="asis"}
+```{r appendixC, results="asis"}
    library(kableExtra)
 
    options(knitr.kable.NA = '')  # get rid of NAs
    srvyset <-  paste("dbo.procRReport_Survey_SetDetails ",yr,",1,",setcnt, sep="")
    #ssdat   <-  GetSQLData(srvyset,"Sablefish")
-   ssdat   <-  read.csv("c:/github/surveyreport/standaloneData/appendixB.csv",header=T)
+   ssdat   <-  read.csv("c:/github/surveyreport/standaloneData/appendixC.csv",header=T)
    
    latcnt  <-  length(ssdat[, 9])
                for (i in 1:latcnt)
@@ -95,15 +119,15 @@ Details of sets completed during the `r yr` survey program (F/V `r boat`).  Sets
 
 \clearpage
 
-# SET DETAILS `r yr+1`. {#app:third-appendix} 
+# SET DETAILS `r yr+1`. {#app:fourth-appendix} 
 
 Details of sets completed during the `r yr+1` survey program (F/V `r boat2`).  Sets are listed by stratum/inlet name, set type, depth stratum, start date, end of gear deployment time and duration in minutes. The depth strata for type 3 tagging sets include RD~1~ (100-250 fathoms), RD~2~ (250-450 fathoms) and RD~3~ (450-750 fathoms). The position data includes the major area along with the start and end latitude and longitude in degrees decimal minutes. The bottom depths (in meters) of the fishing set are shown with the mean bottom depth calculated from recordings at one minute intervals between the start and end of the set. The number of traps fished for each set excludes open traps, while holed or fouled traps have been included.  Sets that successfully deployed a Seabird SBE temperature and pressure recorder, a Hobo accelerometer or a Concerto CTD are indicated with an 'x'.
 
-```{r appendixC, echo=FALSE}
+```{r appendixD, echo=FALSE}
    options(knitr.kable.NA = '')  # get rid of NAs
    srvyset <-  paste("dbo.procRReport_Survey_SetDetails ",yr+1,",1,",setcnt, sep="")
    #ssdat   <-  GetSQLData(srvyset,"Sablefish")
-   ssdat   <-  read.csv("c:/github/surveyreport/standaloneData/appendixC.csv",header=T)
+   ssdat   <-  read.csv("c:/github/surveyreport/standaloneData/appendixD.csv",header=T)
    
    latcnt  <-  length(ssdat[, 9])
                for (i in 1:latcnt)
@@ -165,19 +189,19 @@ Details of sets completed during the `r yr+1` survey program (F/V `r boat2`).  S
 ``` 
 
 \clearpage
-# SUMMARY OF BASKET USE BY TRAP `r yr`.{#app:sixth-appendix} 
+# SUMMARY OF BASKET USE BY TRAP `r yr`.{#app:fifth-appendix} 
 
-Summary of the basket use by trap number for sets during the `r yr` Sablefish survey. Sets that did not retain Sablefish are not listed.  The set numbers highlighted in green indicate standardized sets at mainland inlet localities.  All other sets are of the StRS type.  The fate of the Sablefish catch for each set and trap is indicated using the following abbreviations:
-D = Discarded after weighing (processed as commercial catch), A = Sampled for LSMWO, T = Tagged and released, SD = Sublegal discarded, F= Frames, NA = No Sablefish catch/Trap missing. 
+Summary of the basket use by trap number for sets during the `r yr` sablefish survey. Sets that did not retain sablefish are not listed.  The set numbers highlighted in green indicate standardized sets at mainland inlet localities.  All other sets are of the StRS type.  The fate of the sablefish catch for each set and trap is indicated using the following abbreviations:
+D = Discarded after weighing (processed as commercial catch), A = Sampled for LSMWO, T = Tagged and released, SD = Sublegal discarded, F= Frames, NA = No sablefish catch/Trap missing. 
 
-```{r appendixD, echo=FALSE}
+```{r appendixE, echo=FALSE}
    # Sablefish.dbo.procRReport_Survey_TrapUse procedure pulls data from table dbo.GFBIO_TRAPS_USE created by procedure 
    # Sablefish.dbo.Build_BIO_Sablefish_Tables
    options(knitr.kable.NA = '')
    trap       <- paste("dbo.procRReport_Survey_TrapUse ",yr,",1,",setcnt, sep="")
    #trapdat    <- GetSQLData(trap,"Sablefish")
    
-   trapdat    <- read.csv("c:/github/surveyreport/standaloneData/appendixF.csv",header=T)
+   trapdat    <- read.csv("c:/github/surveyreport/standaloneData/appendixE.csv",header=T)
    trapuse    <- trapdat[,c(-1)] 
    trapuse2   <- trapuse[,c(-28)] 
 
@@ -224,19 +248,19 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
        column_spec(28,width     = "0.4cm") 
 ```
 
-# SUMMARY OF BASKET USE BY TRAP `r yr+1`. {#app:seventh-appendix} 
+# SUMMARY OF BASKET USE BY TRAP `r yr+1`. {#app:sixth-appendix} 
 
-Summary of the basket use by trap number for sets during the `r yr+1` Sablefish survey. Sets that did not retain Sablefish are not listed.  The set numbers highlighted in green indicate standardized sets at mainland inlet localities.  All other sets are of the StRS type.  The fate of the Sablefish catch for each set and trap is indicated using the following abbreviations:
-D = Discarded after weighing (processed as commercial catch), A = Sampled for LSMWO, T = Tagged and released, SD = Sublegal discarded, F= Frames, NA = No Sablefish catch/Trap missing. 
+Summary of the basket use by trap number for sets during the `r yr+1` sablefish survey. Sets that did not retain sablefish are not listed.  The set numbers highlighted in green indicate standardized sets at mainland inlet localities.  All other sets are of the StRS type.  The fate of the sablefish catch for each set and trap is indicated using the following abbreviations:
+D = Discarded after weighing (processed as commercial catch), A = Sampled for LSMWO, T = Tagged and released, SD = Sublegal discarded, F= Frames, NA = No sablefish catch/Trap missing. 
 
 
-```{r appendixE, echo=FALSE}
+```{r appendixF, echo=FALSE}
    # Sablefish.dbo.procRReport_Survey_TrapUse procedure pulls data from table dbo.GFBIO_TRAPS_USE created by procedure 
    # Sablefish.dbo.Build_BIO_Sablefish_Tables
    options(knitr.kable.NA = '')
    trap       <- paste("dbo.procRReport_Survey_TrapUse ",yr+1,",1,",setcnt, sep="")
    #trapdat    <- GetSQLData(trap,"Sablefish")
-   trapdat    <- read.csv("c:/github/surveyreport/standaloneData/appendixG.csv",header=T)
+   trapdat    <- read.csv("c:/github/surveyreport/standaloneData/appendixF.csv",header=T)
    trapuse    <- trapdat[,c(-1)] 
    trapuse2   <- trapuse[,c(-28)] 
 
@@ -283,16 +307,16 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
 ```
 \clearpage
 
-# SUMMARY OF SABLEFISH BIOLOGICAL DATA `r yr` BY SET. {#app:fourth-appendix} 
+# SUMMARY OF SABLEFISH BIOLOGICAL DATA `r yr` BY SET. {#app:seventh-appendix} 
 
-```{r appendixF, echo=FALSE}
+```{r appendixG, echo=FALSE}
    #  sql query for inline text
    #  Sablefish.dbo.procReport_Survey_SampleDetails pulls data from table GFBIO_RESEARCH_SAMPLE_DETAILS built by     
    #  procedure Sablefish.dbo.Build_BIO_Sablefish_Tables 
    samples              <-  paste("dbo.procReport_Survey_SampleDetails ",yr,",1,",setcnt, sep="")
-   surveyspec           <-  GetSQLData(samples,"Sablefish")
-   #csv surveyspec           <-  read.csv("c:/github/surveyreport/standaloneData/appendixD.csv",header=T)
-   surveyspec$SET[setcnt]<-"Total"
+   #surveyspec           <-  GetSQLData(samples,"Sablefish")
+   surveyspec           <-  read.csv("c:/github/surveyreport/standaloneData/appendixG.csv",header=T)
+   surveyspec$SET[setcnt]<- "Total"
    
    colnames(surveyspec) <-  c("", "kg", "Count", "Recover-Rerelease", "Deceased", "Released", 
                               "Count",  "Mean", "Fork Length", "Sex", "Maturity", "Otoliths",
@@ -336,17 +360,17 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
 ```
 \clearpage
 
-# SUMMARY OF SABLEFISH BIOLOGICAL DATA `r yr+1` BY SET. {#app:fifth-appendix} 
+# SUMMARY OF SABLEFISH BIOLOGICAL DATA `r yr+1` BY SET. {#app:eighth-appendix} 
 
 
-```{r appendixG, echo=FALSE}
+```{r appendixH, echo=FALSE}
    #  sql query for inline text
    #  Sablefish.dbo.procReport_Survey_SampleDetails pulls data from table GFBIO_RESEARCH_SAMPLE_DETAILS built by     
    #  procedure Sablefish.dbo.Build_BIO_Sablefish_Tables 
    yr2 <- yr + 1
    samples2       <-  paste("dbo.procReport_Survey_SampleDetails ",yr2,",1,",setcnt2, sep="")
-   surveyspec2    <-  GetSQLData(samples2,"Sablefish")
-   #csv surveyspec2    <- read.csv("c:/github/surveyreport/standaloneData/appendixE.csv",header=T)
+   #surveyspec2    <-  GetSQLData(samples2,"Sablefish")
+   surveyspec2    <- read.csv("c:/github/surveyreport/standaloneData/appendixH.csv",header=T)
    surveyspec2$SET[setcnt2+1]<-"Total"
    
    colnames(surveyspec2) <-  c("", "kg", "Count", "Recover-Rerelease", 
@@ -395,12 +419,12 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
    row_spec(setcnt2,  hline_after = T)
 ```
 
-# SUMMARY OF BIOLOGICAL DATA `r yr` BY SET FOR OTHER FISH. {#app:seven-appendix} 
+# SUMMARY OF BIOLOGICAL DATA `r yr` BY SET FOR OTHER FISH. {#app:nineth-appendix} 
 <br>
 <br>
-```{r appendixH, echo=FALSE}
+```{r appendixI, echo=FALSE}
 
-   othersamples          <-  paste( "select species_name, [SET], [Len Sample Count], [Sex Sample Count], ",
+   othersamples          <-  paste( "select species_name, [SET], [Len Sample Count], [weight_count], [Sex Sample Count], ",
                                     "[Maturity Sample Count], [Otolith Sample Count], [DNA Sample Count], ",
                                     "Sample_count, [Proportion Males],  ",
                                     "round([Male Mean Fork Len(mm)],0) as malelen, round([Female Mean Fork Len(mm)],0) as femlen,  ", 
@@ -414,12 +438,16 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
                                     "SPECIMEN_ID ",
                                     "FROM  dbo.gfbio_species_guess) AS bs ",
                                     "GROUP BY year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE) AS bsre RIGHT OUTER JOIN ",
-                                    "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH ON bsre.TRIP_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.TRIP_ID ",
-                                    "AND bsre.FE_MAJOR_LEVEL_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.[SET] AND bsre.SPECIES_CODE = ",                                                        " dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.species ", 
-                                    " WHERE (dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.Year = ",yr, ") order by species,[SET]", sep="")
-   otherspec             <-  GetSQLData(othersamples,"Sablefish")
+                                    "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH ON bsre.TRIP_ID = ",              
+                                    "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.TRIP_ID ",
+                                    "AND bsre.FE_MAJOR_LEVEL_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.[SET] AND bsre.SPECIES_CODE = ",                                                               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.species ", 
+                                    "where (dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.Year = ",yr, 
+                                    ") order by species,[SET]", sep="")
+   #otherspec             <-  GetSQLData(othersamples,"Sablefish")
+   otherspec             <-  read.csv("c:/github/surveyreport/standaloneData/appendixI.csv",header=T)
+   
    otherspec$species_name<-  cleanf(otherspec$species_name) 
-   colnames(otherspec)   <-  c("Species Name", "Set", "Fork Length", "Sex", "Maturity", "Otolith", 
+   colnames(otherspec)   <-  c("Species Name", "Set", "Fork Length","Weight", "Sex", "Maturity", "Otolith", 
                                "DNA",  "Total Count", "Proportion Males",  "Males", "Females",  
                                "No sex", "Rougheye", "Blackspotted","Hybrid" )
    
@@ -427,11 +455,11 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
                      booktabs = TRUE, 
                      longtable = T,
                      linesep   = "",
-                     align=c('l', 'r','c','c','c','c','c','c','c','c','c','c','c','c','c'),
+                     align=c('l', 'r','c','c','c','c','c','c','c','c','c','c','c','c','c','c'),
                      format = "latex") %>%
       
       add_header_above(c(" "= 2,
-                      "Specimen Count"= 6, 
+                      "Specimen Count"= 7, 
                       "Mean Fork Length(mm)" = 4,
                       "Sampler Visual id Count" = 3)) %>%
    
@@ -444,29 +472,30 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
       column_spec(1,width     = "3.5cm") %>% # species
       column_spec(2,width     = "0.7cm") %>% # set
       column_spec(3,width     = "0.7cm") %>% # fl 
-      column_spec(4,width     = "0.7cm") %>% # sex 
-      column_spec(5,width     = "0.7cm") %>% # mat
-      column_spec(6,width     = "0.7cm") %>% # oto
-      column_spec(7,width     = "0.7cm") %>% # dna
-      column_spec(8,width     = "0.7cm") %>% # cnt        
-      column_spec(9,width     = "1.1cm") %>% # prop m
-      column_spec(10,width    = "0.7cm") %>% # male
-      column_spec(11,width    = "0.7cm") %>% # female
-      column_spec(12,width    = "0.7cm") %>% #  no sex  
-      column_spec(13,width    = "1.0cm") %>% # re
-      column_spec(14,width    = "1.2cm") %>% # bc
-      column_spec(15,width    = "0.8cm") %>%   #  hybrid 
+      column_spec(4,width     = "0.7cm") %>% # wt   
+      column_spec(5,width     = "0.7cm") %>% # sex 
+      column_spec(6,width     = "0.7cm") %>% # mat
+      column_spec(7,width     = "0.7cm") %>% # oto
+      column_spec(8,width     = "0.7cm") %>% # dna
+      column_spec(9,width     = "0.7cm") %>% # cnt        
+      column_spec(10,width     = "1.1cm") %>% # prop m
+      column_spec(11,width    = "0.7cm") %>% # male
+      column_spec(12,width    = "0.7cm") %>% # female
+      column_spec(13,width    = "0.7cm") %>% #  no sex  
+      column_spec(14,width    = "1.0cm") %>% # re
+      column_spec(15,width    = "1.2cm") %>% # bc
+      column_spec(16,width    = "0.8cm") %>%   #  hybrid 
       row_spec(19,  hline_after = T)     %>%
       row_spec(31,  hline_after = T)     %>%
       row_spec(43,  hline_after = T)
 ```
 
-# SUMMARY OF BIOLOGICAL DATA `r yr+1` BY SET FOR OTHER FISH. {#app:eight-appendix} 
+# SUMMARY OF BIOLOGICAL DATA `r yr+1` BY SET FOR OTHER FISH. {#app:tenth-appendix} 
 <br>
 <br>
-```{r appendixI, echo=FALSE}
+```{r appendixJ, echo=FALSE}
 
-   othersamples          <-  paste( "select species_name, [SET], [Len Sample Count], [Sex Sample Count], ",
+   othersamples          <-  paste( "select species_name, [SET], [Len Sample Count], [weight_count], [Sex Sample Count], ",
                                     "[Maturity Sample Count], [Otolith Sample Count], [DNA Sample Count], ",
                                     "Sample_count, [Proportion Males],  ",
                                     "round([Male Mean Fork Len(mm)],0) as malelen, round([Female Mean Fork Len(mm)],0) as femlen,  ", 
@@ -480,12 +509,15 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
                                     "SPECIMEN_ID ",
                                     "FROM  dbo.gfbio_species_guess) AS bs ",
                                     "GROUP BY year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE) AS bsre RIGHT OUTER JOIN ",
-                                    "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH ON bsre.TRIP_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.TRIP_ID ",
-                                    "AND bsre.FE_MAJOR_LEVEL_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.[SET] AND bsre.SPECIES_CODE = ",                                                        " dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.species ", 
+                                    "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH ON bsre.TRIP_ID = ", 
+                                    "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.TRIP_ID ",
+                                    "AND bsre.FE_MAJOR_LEVEL_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.[SET] AND bsre.SPECIES_CODE = ",                                        " dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.species ", 
                                     " WHERE (dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.Year = ",yr+1, ") order by species,[SET]", sep="")
-   otherspec             <-  GetSQLData(othersamples,"Sablefish")
+   #otherspec             <-  GetSQLData(othersamples,"Sablefish")
+   otherspec             <- read.csv("c:/github/surveyreport/standaloneData/appendixJ.csv",header=T)
+   
    otherspec$species_name<-  cleanf(otherspec$species_name) 
-   colnames(otherspec)   <-  c("Species Name", "Set", "Fork Length", "Sex", "Maturity", "Otolith", 
+   colnames(otherspec)   <-  c("Species Name", "Set", "Fork Length", "Weight", "Sex", "Maturity", "Otolith", 
                                "DNA",  "Total Count", "Proportion Males",  "Males", "Females",  
                                "No sex", "Rougheye", "Blackspotted","Hybrid" )
    
@@ -493,11 +525,11 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
                      booktabs = TRUE, 
                      longtable = T,
                      linesep   = "",
-                     align=c('l', 'r','c','c','c','c','c','c','c','c','c','c','c','c','c'),
+                     align=c('l', 'r','c','c','c','c','c','c','c','c','c','c','c','c','c','c'),
                      format = "latex") %>%
       
       add_header_above(c(" "= 2,
-                      "Specimen Count"= 6, 
+                      "Specimen Count"= 7, 
                       "Mean Fork Length(mm)" = 4,
                       "Sampler Visual id Count" = 3)) %>%
    
@@ -510,18 +542,19 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
       column_spec(1,width     = "3.5cm") %>% # species
       column_spec(2,width     = "0.7cm") %>% # set
       column_spec(3,width     = "0.7cm") %>% # fl 
-      column_spec(4,width     = "0.7cm") %>% # sex 
-      column_spec(5,width     = "0.7cm") %>% # mat
-      column_spec(6,width     = "0.7cm") %>% # oto
-      column_spec(7,width     = "0.7cm") %>% # dna
-      column_spec(8,width     = "0.7cm") %>% # cnt        
-      column_spec(9,width     = "1.1cm") %>% # prop m
-      column_spec(10,width    = "0.7cm") %>% # male
-      column_spec(11,width    = "0.7cm") %>% # female
-      column_spec(12,width    = "0.7cm") %>% #  no sex  
-      column_spec(13,width    = "1.0cm") %>% # re
-      column_spec(14,width    = "1.2cm") %>% # bc
-      column_spec(15,width    = "0.8cm") %>%   #  hybrid 
+      column_spec(4,width     = "0.7cm") %>% # wt   
+      column_spec(5,width     = "0.7cm") %>% # sex 
+      column_spec(6,width     = "0.7cm") %>% # mat
+      column_spec(7,width     = "0.7cm") %>% # oto
+      column_spec(8,width     = "0.7cm") %>% # dna
+      column_spec(9,width     = "0.7cm") %>% # cnt        
+      column_spec(10,width     = "1.1cm") %>% # prop m
+      column_spec(11,width    = "0.7cm") %>% # male
+      column_spec(12,width    = "0.7cm") %>% # female
+      column_spec(13,width    = "0.7cm") %>% #  no sex  
+      column_spec(14,width    = "1.0cm") %>% # re
+      column_spec(15,width    = "1.2cm") %>% # bc
+      column_spec(16,width    = "0.8cm") %>%   #  hybrid 
       row_spec(1,  hline_after = T)      %>% 
       row_spec(16,  hline_after = T)      %>%  
       row_spec(23,  hline_after = T)      %>%         
