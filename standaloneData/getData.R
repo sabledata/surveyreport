@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #  source("c:/github/surveyreport/standaloneData/getData.R")
 
 if(!(require(RODBC))) install.packages("RODBC") 
@@ -1198,6 +1197,3 @@ history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo
     credits2  <-  GetSQLData(names2,"Sablefish")
      write.table(credits2 , file = paste(path,"results25_Credits.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")   
 
-
-
->>>>>>> 574a90f9915148371f45528aa5df2264bfc26ad9

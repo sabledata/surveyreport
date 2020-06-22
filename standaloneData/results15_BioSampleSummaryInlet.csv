@@ -1,13 +1,5 @@
-<<<<<<< HEAD
 "locality","depth","PropMales","PropFemales","MalesMnFkLen","FemalesMnFkLen","TaggedMnFkLen"
 "Dean/Burke Channel",,0.34,0.66,487,539,521
 "Finlayson Channel",,0.42,0.58,516,560,541
 "Gil Island",,0.26,0.74,511,565,540
 "Portland Inlet",,0.29,0.71,528,567,546
-=======
-"locality","depth","PropMales","PropFemales","MalesMnFkLen","FemalesMnFkLen","TaggedMnFkLen"
-"Dean/Burke Channel",,0.34,0.66,487,539,521
-"Finlayson Channel",,0.42,0.58,516,560,541
-"Gil Island",,0.26,0.74,511,565,540
-"Portland Inlet",,0.29,0.71,528,567,546
->>>>>>> 574a90f9915148371f45528aa5df2264bfc26ad9
