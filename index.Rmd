@@ -24,13 +24,12 @@ abstract: |
   
   In total, 58,415 sablefish were caught in 2018, of which 5,741 were used for biological samples and 11,965 were tagged and released.  Of those released, 208 were recaptured tagged fish.  Five recaptured fish were retained for samples and the remaining 203 were fitted with a new tag and released back into the water. In 2019, a total of 78,836 sablefish were caught, of which 5,659 were used for biological samples and 12,042 were tagged and released.  Of those released, 154 were recaptured tagged fish.  Two recaptured fish were retained for samples and the remaining 152 were fitted with a new tag and released back into the water.  
   
-  Other than sablefish, 52 taxonomic groups and 17 taxonomic groups were represented in the 2018 catches from StRS sets and mainland inlet localities, respectively.  In 2019, 49 taxonomic groups and 11 taxonomic groups other than sablefish were captured from StRS sets and mainland inlet localities, respectively. 
+  Other than sablefish, 53 and 18 taxonomic groups were represented in the 2018 catches from StRS sets and mainland inlet localities, respectively.  In 2019, 50 and 12 taxonomic groups other than sablefish were captured from StRS sets and mainland inlet localities, respectively. 
+  Catch per unit effort (CPUE) is an important product from this survey. They can be used to infer population trends which are critical data elements used in stock assessment.  CPUE from stratified random sets in the shallow depth stratum have shown a gradual decline in numbers of fish per trap from 2003 to 2009. CPUE rose again in 2010 and gradually declined from 2011 through 2014 to levels seen in 2009. An increase occurred again in 2015 and 2016, similar to those in 2010 and 2011.   Last, CPUE surged in 2017, 2018 and 2019 to historic levels.  
   
-  Catch rates are an important product from this survey. They can be used to infer population trends which are critical data elements used in stock assessment.  Catch rates from stratified random sets in the shallow depth stratum have shown a gradual decline in numbers of fish per trap from 2003 to 2009. The catch rates rose again in 2010 and gradually declined from 2011 through 2014 to levels seen in 2009. An increase occurred again in 2015 and 2016, similar to those in 2010 and 2011.   Last, the catch rates surged in 2017, 2018 and 2019 to historic levels.  
+  Within all years, the highest CPUE was achieved in the middle depth stratum.  CPUE showed a gradual decline from 2003 to 2010, then an increase in 2011 to those levels seen in 2004.  CPUE dropped once again and fluctuated during 2012, 2013 and 2014.   In 2015, a significant rise in numbers of fish per trap occurred, followed by a drop in 2016 to levels seen in 2004.  Finally, a significant steady increase was seen in 2017, 2018 and 2019.  
   
-  Within all years, the highest catch rates were achieved in the middle depth stratum.  Catch rates showed a gradual decline from 2003 to 2010, then an increase in 2011 to those levels seen in 2004.  Catch rates dropped once again and fluctuated during 2012, 2013 and 2014.   In 2015, a significant rise in numbers of fish per trap occured, followed by a drop in 2016 to levels seen in 2004.  Finally, a significant steady increase was seen in 2017, 2018 and 2019.  
-  
-  Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 but declined in 2007.  From 2008 through 2016, catch rates declined and remained low.  A slight increase appeared in 2017, followed by another in 2018.  In 2019, catch rates returned to those seen in 2006.
+  CPUE in the deep depth stratum (RD3) increased from 2003 to 2006 but declined in 2007.  From 2008 through 2016, CPUE declined and remained low.  A slight increase appeared in 2017, followed by another in 2018.  In 2019, CPUE returned to those seen in 2006.
   
 
 abstract_other: |
@@ -116,6 +115,8 @@ library(pacman)       # produces numbered tables and figures in order to referen
  #  pacman::p_load(knitr, captioner, bundesligR, stringr)
 library(bookdown)
 library(tableHTML)
+library(Rmisc)
+library(cowplot)
 
 #  ----   G L O B A L --- F U N C T I O N S ---------------------------------
 
@@ -170,7 +171,9 @@ library(tableHTML)
                       }
                  }
            return(df)
-          }
+  }
+  
+
 ```
 
 ```{r, echo=FALSE}

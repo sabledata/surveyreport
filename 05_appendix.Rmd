@@ -11,6 +11,7 @@ After that, all subsequent sections will be turned into appendices. -->
 
 List of localities visited in the traditional component of the sablefish research and assessment surveys from 1988 through `r yr+1`. Standardized sets (light blue boxes and half boxes) were conducted in offshore indexing localities from 1988 to 2010.  Sablefish were tagged and released (dark blue half boxes) from standardized sets at offshore indexing localities beginning in 1991 and ending in 2007.  In 1995, offshore tagging localities where only traditional tagging sets (red boxes) occurred were added in 1995 and discontinued in 2008.  Mainland Inlet localities where standardized sets (green boxes) were conducted began in 1994 and continued through to `r yr+1`. Starting in 2002 (dark green), five standard fishing areas were chosen to ensure the consistency with the positions of sets conducted in previous years.
 
+
 ```{r appendixA,out.width = "400px", out.height = "400px", fig.align="center"}
 
       if(knitr:::is_latex_output())
@@ -118,7 +119,7 @@ Details of sets completed during the `r yr` survey program (F/V `r boat`).  Sets
 
 \clearpage
 
-# SET DETAILS `r yr+1`. {#app:forth-appendix} 
+# SET DETAILS `r yr+1`. {#app:fourth-appendix} 
 
 Details of sets completed during the `r yr+1` survey program (F/V `r boat2`).  Sets are listed by stratum/inlet name, set type, depth stratum, start date, end of gear deployment time and duration in minutes. The depth strata for type 3 tagging sets include RD~1~ (100-250 fathoms), RD~2~ (250-450 fathoms) and RD~3~ (450-750 fathoms). The position data includes the major area along with the start and end latitude and longitude in degrees decimal minutes. The bottom depths (in meters) of the fishing set are shown with the mean bottom depth calculated from recordings at one minute intervals between the start and end of the set. The number of traps fished for each set excludes open traps, while holed or fouled traps have been included.  Sets that successfully deployed a Seabird SBE temperature and pressure recorder, a Hobo accelerometer or a Concerto CTD are indicated with an 'x'.
 
@@ -359,7 +360,7 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
 ```
 \clearpage
 
-# SUMMARY OF SABLEFISH BIOLOGICAL DATA `r yr+1` BY SET. {#app:eigth-appendix} 
+# SUMMARY OF SABLEFISH BIOLOGICAL DATA `r yr+1` BY SET. {#app:eighth-appendix} 
 
 
 ```{r appendixH, echo=FALSE}

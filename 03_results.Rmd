@@ -12,15 +12,15 @@ history <-""
 The 2018 survey was 42 days long and divided into three legs of 14, 16 and 14 days for a total of 34 fishing days. 
 Inclement weather during the second leg required fishing to commence in Dean/Burke Channel, Finlayson Inlet and Gill Island prior to fishing the StRS sites in Queen Charlotte Sound.  This ensured that no fishing days were lost. 
 
-Of the 91 original blocks for the StRS portion of the survey, five were replaced at-sea.  One block was rejected after on-ground inspection and four were rejected based on lack of selected depth stratum.
+Of the 91 original blocks for the StRS portion of the survey, five were replaced at-sea.  One block was rejected after on-ground inspection and four were rejected based on absence of target depth requirements.
 
 ### 2019 Survey 
 
 The 2019 survey was 46 days long and divided into three legs of 17, 14 and 17 days for a total of 34 fishing days.
 Inclement weather during the survey caused a loss of seven fishing days, five during the first leg and two during the third leg. 
-Two blocks were left unfished in Strata five as the vessel moved to the inshore inlets.
+Two blocks were left unfished in strata five as the vessel moved to the inshore inlets.
 
-Of the 91 original blocks for the StRS portion of the survey, one was attempted but not successfully fished, one was replaced due to on-ground inspection, three were replaced due to skipper knowledge of unfishable habitat and two were replaced based on lack of selected depth stratum.
+Of the 91 original blocks for the StRS portion of the survey, one was attempted but not successfully fished, one was replaced due to on-ground inspection, three were replaced due to skipper knowledge (unfishable habitat) and two more were replaced based on absence of target depth requirements.
 
 
 ```{r CatchRateText, echo=FALSE}
@@ -65,28 +65,36 @@ Of the 91 original blocks for the StRS portion of the survey, one was attempted 
           RD3.cvlow      <- min(data.cv$RD3)
           RD3.cvlowyr    <- data.cv$year[data.cv$RD3==RD3.cvlow]
           
-    # -- type data.mn in the Console to view the shallow, middle and deep depth stratums catch rates for 
+    # -- type data.mn in the Console to view the shallow, middle and deep depth stratums CPUE for 
     # -- descriptive paragraph below
   
 ```
-## CATCH RATES
-The annual catch rates (number of sablefish/number of traps) for StRS sets are summarized in Figure \@ref(fig:figure5) for each depth stratum (RD~1~-RD~3~) since the stratified random sampling program began in 2003.   The annual catch rates at mainland inlet locations are also summarized since 1994 in Figure \@ref(fig:figure6).
+## CATCH PER UNIT EFFORT (CPUE) 
+
+Figure \@ref(fig:figure5)
+Figure \@ref(fig:figure6)
+Figure \@ref(fig:figure7)
+Figure \@ref(fig:figure8)
+
+
+The annual CPUE (number of sablefish/number of traps) for StRS sets are summarized in Figure \@ref(fig:figure5) for each depth stratum (RD~1~-RD~3~) since the stratified random sampling program began in 2003.   
+The annual CPUE at mainland inlet locations are summarized since 1994 in Figure \@ref(fig:figure9).
  
 ### Shallow depth stratum (RD~1~)
-Catch rates in the shallow depth stratum have showned gradual decline from 2003 to 2009 (~`r data.mn[1,2]` to `r data.mn[7,2]` fish per trap). The catch rates rose again to an average of `r data.mn[8,2]` fish per trap in 2010 and gradually declined from 2011 to 2014 (~`r data.mn[9,2]` to `r data.mn[12,2]` fish per trap).  An increase occurred in 2015 and 2016 (~`r data.mn[13,2]` and `r data.mn[14,2]` fish per trap, respectively) and then surged in 2017, 2018 and 2019 (~`r data.mn[15,2]`,`r data.mn[16,2]` and `r data.mn[17,2]` fish per trap, respectively). The shallow depth stratum tyically exhibited the least among block variability in catch rates with a cv=`r RD1.cvlow`.
+CPUE in the shallow depth stratum have shown gradual decline from 2003 to 2009 (~`r data.mn[1,2]` to `r data.mn[7,2]` fish per trap). CPUE rose again to an average of `r data.mn[8,2]` fish per trap in 2010 and gradually declined from 2011 to 2014 (~`r data.mn[9,2]` to `r data.mn[12,2]` fish per trap).  An increase occurred in 2015 and 2016 (~`r data.mn[13,2]` and `r data.mn[14,2]` fish per trap, respectively) and then surged in 2017, 2018 and 2019 (~`r data.mn[15,2]`,`r data.mn[16,2]` and `r data.mn[17,2]` fish per trap, respectively). The shallow depth stratum typically exhibited the least among block variability in CPUE with a cv=`r RD1.cvlow`.
 
 ### Middle depth stratum (RD~2~)
-Across all years the highest catch rates typically occured in the middle depth stratum \@ref(fig:figure5).  Catch rates in the middle depth stratum showned a gradual decline from 2003 to 2010 (~`r data.mn[1,3]` to `r data.mn[8,3]` fish per trap) but an increase in 2011 (~`r data.mn[9,3]` fish per trap).  Over 2012, 2013 and 2014 the catch rate fluctuated (~`r data.mn[10,3]`, `r data.mn[11,3]` and `r data.mn[12,3]` fish per trap, respectively).  In 2015, a significant rise to ~`r data.mn[13,3]` fish per trap occured, followed by a drop in 2016 (~`r data.mn[14,3]` fish per trap).  In the past three years, 2017, 2018 and 2019 a significant increase was observed (~`r data.mn[15,3]`, `r data.mn[16,3]` and `r data.mn[17,3]` fish per trap, respectively).  The middle depth stratum tyically exhibited the least among block variability in catch rates with a cv=`r RD2.cvlow`.
+Across all years the highest CPUE typically occured in the middle depth stratum (Figure \@ref(fig:figure)).  CPUE in the middle depth stratum showed a gradual decline from 2003 to 2010 (~`r data.mn[1,3]` to `r data.mn[8,3]` fish per trap) but an increase in 2011 (~`r data.mn[9,3]` fish per trap).  Over 2012, 2013 and 2014, CPUE fluctuated (~`r data.mn[10,3]`, `r data.mn[11,3]` and `r data.mn[12,3]` fish per trap, respectively).  In 2015, a significant rise to ~`r data.mn[13,3]` fish per trap occured, followed by a drop in 2016 (~`r data.mn[14,3]` fish per trap).  In the past three years, 2017, 2018 and 2019, a significant increase was observed (~`r data.mn[15,3]`, `r data.mn[16,3]` and `r data.mn[17,3]` fish per trap, respectively).  The middle depth stratum typically exhibited the least among block variability in CPUE with a cv=`r RD2.cvlow`.
 
 ### Deep depth stratum (RD~3~)
-Catch rates in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r data.mn[1,4]` to `r data.mn[4,4]` fish per trap) but declined in 2007 (~`r data.mn[5,4]` fish per trap).  They rose again in 2008 (~`r data.mn[6,4]` fish per trap) but showed a significant drop in 2009 (~`r data.mn[7,4]` fish per trap).  In 2010, 2011 and 2013, the catch rates averaged ~`r data.mn[8,4]` fish per trap, similar to those levels seen in the first two years of the survey. In 2012 and 2014, the catch rate dropped again to ~`r data.mn[12,4]` fish per trap.   During 2015, 2016 and 2017, the catch rates remained low (~`r data.mn[13,4]`, `r data.mn[14,4]` and `r data.mn[15,4]` fish per trap, respectively). Once again, the catch rates of ~`r data.mn[16,4]` fish per trap (2008) were seen in 2018.  In 2019, the catch rate was the highest at `r data.mn[17,4]` fish per trap. The deep depth stratum tyically exhibited the least among block variability in catch rates with a cv=`r RD3.cvlow`.
+CPUE in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r data.mn[1,4]` to `r data.mn[4,4]` fish per trap) but declined in 2007 (~`r data.mn[5,4]` fish per trap).  It rose again in 2008 (~`r data.mn[6,4]` fish per trap) but showed a significant drop in 2009 (~`r data.mn[7,4]` fish per trap).  In 2010, 2011 and 2013, CPUE averaged ~`r data.mn[8,4]` fish per trap, similar to those levels seen in the first two years of the survey. In 2012 and 2014, CPUE dropped again to ~`r data.mn[12,4]` fish per trap.   During 2015, 2016 and 2017, CPUE remained low (~`r data.mn[13,4]`, `r data.mn[14,4]` and `r data.mn[15,4]` fish per trap, respectively). Once again,  ~`r data.mn[16,4]` fish per trap (2008) were seen in 2018.  In 2019, CPUE was the highest at `r data.mn[17,4]` fish per trap. The deep depth stratum typically exhibited the least among block variability in CPUE with a cv=`r RD3.cvlow`.
 
 ### Mainland Inlets
-Catch rates in the mainlaind inlets have varied in an apparently predictable manner over time with peak catch rates occuring every 5-8 years (\@ref(fig:figure6).  The mean catch rates remained consistent in the mid 1990s, from 1994 through 1997 (~8 to 10 fish per trap), then increased in 1998 (~15 fish per trap) and again in 1999 (~23 fish per trap) before declining from 2000 through 2002 (~8 to 11 fish per trap). Catch rates peaked again in 2003 and 2004 (~20 and 21 fish per trap, respectively) and 2011 with lower catch rates in the intervening years. In 2018 catch rates retuned to the high rates seen in early years and 2019 say the highest catches rates of the 26 year time series (~35 fish per trap).. 
+CPUE in the mainlaind inlets have varied in a predictable manner over time with peak CPUE occuring every 5-8 years (Figure \@ref(fig:figure)).  The mean CPUE remained consistent in the mid 1990s, from 1994 through 1997 (~8 to 10 fish per trap), then increased in 1998 (~15 fish per trap) and again in 1999 (~23 fish per trap) before declining from 2000 through 2002 (~8 to 11 fish per trap). CPUE peaked again in 2003 and 2004 (~20 and 21 fish per trap, respectively) and 2011 (~22 fish per trap). In 2018, CPUE returned (~23 fish per trap) to the high rates seen in early years. In 2019, the highest catches rates of the 26 year time series were seen (~35 fish per trap).
 
 
 ```{r SpeciesCompositionText, echo=FALSE}
-  # -- taxonomic group count StRS year one
+  # -- taxonomic top 5 group count StRS year one
    topStRS      <- paste("select top (5) SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME, ",
                          "sum(CATCH_WEIGHT) AS catchkg ",
                          "from dbo.GFBIO_RESEARCH_CATCH ",
@@ -109,7 +117,7 @@ Catch rates in the mainlaind inlets have varied in an apparently predictable man
    topStRSsp5   <- as.character(topStRSsp[5,1])                      
    topStRSsc5   <- firstup(tolower(as.character(topStRSsp[5,2]))) 
 
-  # -- taxonomic group count Inlets 
+  # -- taxonomic group count Inlets year one
    topInlet     <- paste("select top (2) SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME, sum(CATCH_WEIGHT) AS catchkg
                           from dbo.GFBIO_RESEARCH_CATCH 
                           group by SABLE_SET_TYPE, Year, SPECIES_CODE, SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME
@@ -125,7 +133,7 @@ Catch rates in the mainlaind inlets have varied in an apparently predictable man
    topInletsp2  <- as.character(topInletsp[2,1])  
    topInletsc2  <- firstup(tolower(as.character(topInletsp[2,2])))  
 
- # -- species composition counts for StRS sets
+ # -- species composition counts for StRS sets year one
    spc          <- paste("select dbo.fnIntegerToWords(SUM(CAST(Roundfish as int))) as tRound,  ",
                                 "dbo.fnIntegerToWords(SUM(Rockfish))     as tRock,   ",
                                 "dbo.fnIntegerToWords(SUM(Flatfish))     as tFlat,   ",
@@ -149,9 +157,10 @@ Catch rates in the mainlaind inlets have varied in an apparently predictable man
    invertS      <- strsSpCom[1,4]
    mammalS      <- strsSpCom[1,5]
    birdS        <- strsSpCom[1,6]
-   totalS       <- firstup(as.character(strsSpCom[1,7])) # taxonomic unit count for StRS
+   #totalS       <- firstup(as.character(strsSpCom[1,7])) # taxonomic unit count for StRS with capital
+   totalS       <- as.character(strsSpCom[1,7]) # taxonomic unit count for StRS
    
-  # -- species composition counts inlet sets
+  # -- species composition counts inlet sets year one
    spcI           <- paste("select dbo.fnIntegerToWords(SUM(CAST(Roundfish AS int))) AS tRound,   ",
                                  "dbo.fnIntegerToWords(ISNULL(SUM(Rockfish),0))     AS tRock,    ",
                                  "dbo.fnIntegerToWords(ISNULL(SUM(Flatfish),0))     AS tFlat,    ",
@@ -176,7 +185,8 @@ Catch rates in the mainlaind inlets have varied in an apparently predictable man
    invertI      <- strsSpComI[1,4]
    mammalI      <- strsSpComI[1,5]
    birdI        <- strsSpComI[1,6]
-   totalI       <- firstup(as.character(strsSpComI[1,7]))       # taxonomic units count for inlets
+   totalI       <- firstup(as.character(strsSpComI[1,7]))       # taxonomic units count for inlets for StRS with capital
+   totalI       <- as.character(strsSpComI[1,7])       # taxonomic units count for inlets
    
 ```
 ## CATCH COMPOSITION
@@ -185,7 +195,7 @@ Catch rates in the mainlaind inlets have varied in an apparently predictable man
 
 A total of `r totalS[1]` taxonomic groups were represented in the catches in StRS sets in `r yr[1]` (Table \@ref(tab:table3)).  These included `r roundfishS[1]` roundfish species, `r rockfishS[1]` rockfish species, `r flatfishS[1]`  flatfish species and `r invertS[1]` invertebrate species. Other than sablefish, the most common species, by weight,  were  `r topStRSsp1[1]` (*`r topStRSsc1`*), `r topStRSsp2` (*`r topStRSsc2`*), `r topStRSsp3` (*`r topStRSsc3`*),   `r topStRSsp4` (*`r topStRSsc4`*) and  `r topStRSsp5` (*`r topStRSsc5`*).   
 
-A total of `r totalI` taxonomic groups were represented in the catches from traditional standardized sets conducted in mainland inlet localities in `r yr[1]` (Table \@ref(tab:table4)).  These included `r roundfishI` roundfish species, `r rockfishI`  rockfish species, `r flatfishI` flatfish species and `r invertI` invertebrate species.  The most common species captured, in order of total weights, other than sablefish were `r topInletsp1` (`r topInletsc1`) and  `r topInletsp2` (`r topInletsc2`). 
+A total of `r totalI` taxonomic groups were represented in the catches from traditional standardized sets conducted in mainland inlet localities in `r yr[1]` (Table \@ref(tab:table4)).  These included `r roundfishI` roundfish species, `r rockfishI`  rockfish species, `r flatfishI` flatfish species and `r invertI` invertebrate species.  The most common species captured, in order of total weights, other than sablefish were `r topInletsp1` (*`r topInletsc1`*) and  `r topInletsp2` (*`r topInletsc2`*). 
 
 ```{r SpeciesCompositionYear2, echo=FALSE}
    # -- taxonomic group count StRS year two
@@ -211,7 +221,7 @@ A total of `r totalI` taxonomic groups were represented in the catches from trad
    topStRSsp5.2   <- as.character(topStRSsp.2[5,1])                      
    topStRSsc5.2   <- firstup(tolower(as.character(topStRSsp.2[5,2]))) 
 
-  # -- taxonomic group count Inlets -- had to change to top 1 for 2019...
+  # -- taxonomic group count Inlets 
    topInlet.2     <- paste("select top (2) SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME, sum(CATCH_WEIGHT) AS catchkg ",
                            "from dbo.GFBIO_RESEARCH_CATCH  ",
                            "group by SABLE_SET_TYPE, Year, SPECIES_CODE, SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME ",
@@ -226,7 +236,7 @@ A total of `r totalI` taxonomic groups were represented in the catches from trad
    topInletsp2.2  <- as.character(topInletsp.2[2,1])  
    topInletsc2.2  <- firstup(tolower(as.character(topInletsp.2[2,2])))  
 
- # -- species composition counts for StRS sets
+ # -- species composition counts for StRS sets year two
    spc.2        <- paste("select dbo.fnIntegerToWords(SUM(CAST(Roundfish AS int))) AS tRound,    ",
                                  "dbo.fnIntegerToWords(ISNULL(SUM(Rockfish),0))     AS tRock,    ",
                                  "dbo.fnIntegerToWords(ISNULL(SUM(Flatfish),0))     AS tFlat,    ",
@@ -253,7 +263,8 @@ A total of `r totalI` taxonomic groups were represented in the catches from trad
    invertS.2      <- strsSpCom.2[1,4]
    mammalS.2      <- strsSpCom.2[1,5]
    birdS.2        <- strsSpCom.2[1,6]
-   totalS.2       <- firstup(as.character(strsSpCom.2[1,7]))        # taxonomic unit count for StRS
+   totalS.2       <- firstup(as.character(strsSpCom.2[1,7]))        # taxonomic unit count for StRS with capital letter
+   totalS.2       <- as.character(strsSpCom.2[1,7])        # taxonomic unit count for StRS
    
   # -- species composition counts inlet sets
    spcI.2          <- paste("select dbo.fnIntegerToWords(SUM(CAST(Roundfish AS int))) AS tRound, ",
@@ -283,13 +294,14 @@ A total of `r totalI` taxonomic groups were represented in the catches from trad
    mammalI.2      <- strsSpComI.2[1,5]
    birdI.2        <- strsSpComI.2[1,6]
    totalI.2       <- firstup(as.character(strsSpComI.2[1,7]))       # taxonomic units count for inlets
+   totalI.2       <- as.character(strsSpComI.2[1,7])      # taxonomic units count for inlets
    
 ```
 ### 2019 Survey
 
 A total of `r totalS.2[1]` taxonomic groups were represented in StRS sets in `r yr+1` (Table \@ref(tab:table5)).  These included `r roundfishS.2[1]` roundfish species, `r rockfishS.2[1]` rockfish species, `r flatfishS.2[1]`  flatfish species and `r invertS.2[1]` invertebrate species. Other than sablefish, the most common species, by weight, were  `r topStRSsp1.2[1]` (*`r topStRSsc1.2`*), `r topStRSsp2.2` (*`r topStRSsc2.2`*), `r topStRSsp3.2` (*`r topStRSsc3.2`*),   `r topStRSsp4.2` (*`r topStRSsc4.2`*) and  `r topStRSsp5.2` (*`r topStRSsc5.2`*).   
 
-A total of `r totalI.2` taxonomic groups were represented in the catches from traditional standardized sets conducted in mainland inlet localities in `r yr+1` (Table \@ref(tab:table6)).  These included `r roundfishI.2` roundfish species, `r rockfishI.2`  rockfish species, `r flatfishI.2` flatfish species and `r invertI.2` invertebrate species.  The most common species, by weight, other than sablefish were `r topInletsp1.2` (`r topInletsc1.2`) and `r topInletsp2.2` (`r topInletsc2.2`).
+A total of `r totalI.2` taxonomic groups were represented in the catches from traditional standardized sets conducted in mainland inlet localities in `r yr+1` (Table \@ref(tab:table6)).  These included `r roundfishI.2` roundfish species, `r rockfishI.2`  rockfish species, `r flatfishI.2` flatfish species and `r invertI.2` invertebrate species.  The most common species, by weight, other than sablefish were `r topInletsp1.2` (*`r topInletsc1.2`*) and `r topInletsp2.2` (*`r topInletsc2.2`*).
 
 ```{r SamplingWords, echo=FALSE}
     # inline text query Sablefish.dbo.GFBIO_RESEARCH_SAMPLE_DETAILS for the counts of Sablefish from StRS and Inlet sets
@@ -331,7 +343,7 @@ A total of `r totalI.2` taxonomic groups were represented in the catches from tr
     #lendata    <-   GetSQLData(lendat,"Sablefish")
     lendata   <-    read.csv("c:/github/surveyreport/standaloneData/results12_lengthMFData.csv",header=T) 
     # late addition for the average lengths per year in text
-    dat       <- read.csv("c:/github/surveyreport/standaloneData/figure08_MeanLength.csv",header=T)
+    dat       <- read.csv("c:/github/surveyreport/standaloneData/figure10_MeanLength.csv",header=T)
     mavgyr1   <- dat[dat$sex==1 & dat$YEAR==yr,]   # round(mavgyr1$AvL,1)
     mavgyr2   <- dat[dat$sex==1 & dat$YEAR==yr+1,] # round(mavgyr2$AvL,1)
     favgyr1   <- dat[dat$sex==2 & dat$YEAR==yr,]   # round(favgyr1$AvL,1)
@@ -741,33 +753,33 @@ A total of `r totalI.2` taxonomic groups were represented in the catches from tr
 ```
 ## SABLEFISH SAMPLING
 
-A breakdown of the use of sablefish catch, by trap, in the `r yr` and `r yr+1` survey is listed in Appendix E and Appendix F, respectively. 
+A breakdown of the use of sablefish catch, by trap, in the `r yr` and `r yr+1` survey is listed in Appendix \@ref(app:fifth-appendix) and Appendix \@ref(app:sixth-appendix), respectively. 
 
-During the `r yr` StRS, a total of `r format(countStRS[2,2], big.mark=",")` sablefish were caught.   Of that total, `r format(countStRS[2,5], big.mark=",")` were tagged and released and `r format(countStRS[2,7], big.mark=",")` were retained for biological sampling. Of the tagged fish, `r countStRS[2,3]` were previously tagged fish that were re-released with a new tag.  Another `r countStRS[2,4]` previously tagged fish were retained for sampling (Appendix G).
+During the `r yr` StRS, a total of `r format(countStRS[2,2], big.mark=",")` sablefish were caught.   Of that total, `r format(countStRS[2,5], big.mark=",")` were tagged and released and `r format(countStRS[2,7], big.mark=",")` were retained for biological sampling. Of the tagged fish, `r countStRS[2,3]` were previously tagged fish that were re-released with a new tag.  Another `r countStRS[2,4]` previously tagged fish were retained for sampling (Appendix \@ref(app:seventh-appendix)).
 
 Out of the `r format(countStRS[1,2], big.mark=",")` sablefish captured during the `r yr` traditional survey (inlet standardized sets), `r format(countStRS[1,5], big.mark=",")` were tagged and released, `r format(countStRS[1,7], big.mark=",")` were used for biological sampling and `r format(countStRS[1,3], big.mark=",")` were previously tagged fish re-released with a new tag.  
 
 Overall, the StRS sets had a higher proportion of females than males over the spatial strata `r stratafemale` with the exception of S~5 where the sex ratio was equal (Table \@ref(tab:table7)).  More females than males were seen in the shallow depth stratum within the spatial strata `r shallsfemale`.  In the mid depth stratum, there were more males than females in `r midsmale`.  The deepest depth stratum saw more females in spatial strata `r deepsfemale`.  More females than males were sampled in `r inletw` traditional mainland inlet localities and samples ranged from `r femaleRange[1]` to `r femaleRange[2]` percent females (Table \@ref(tab:table7)).  
 
-During the `r yr+1` StRS, a total of `r format(countStRS2[2,2], big.mark=",")` sablefish were caught.   Of that total, `r format(countStRS2[2,5], big.mark=",")` were tagged and released and `r format(countStRS2[2,7], big.mark=",")` were retained for biological sampling. Of the tagged fish, `r format(countStRS2[2,3], big.mark=",")` were previously tagged fish that were re-released with a new tag. Another `r format(countStRS2[2,4], big.mark=",")` previously tagged fish were retained for sampling (Appendix H).
+During the `r yr+1` StRS, a total of `r format(countStRS2[2,2], big.mark=",")` sablefish were caught.   Of that total, `r format(countStRS2[2,5], big.mark=",")` were tagged and released and `r format(countStRS2[2,7], big.mark=",")` were retained for biological sampling. Of the tagged fish, `r format(countStRS2[2,3], big.mark=",")` were previously tagged fish that were re-released with a new tag. Another `r format(countStRS2[2,4], big.mark=",")` previously tagged fish were retained for sampling (Appendix \@ref(app:eighth-appendix)).
 
 Out of the `r format(countStRS2[1,2], big.mark=",")` sablefish captured during the `r yr+1` traditional survey (inlet standardized sets), `r format(countStRS2[1,5], big.mark=",")` were tagged and released, `r format(countStRS2[1,7], big.mark=",")` were used for biological sampling and `r format(countStRS2[1,3], big.mark=",")` were previously tagged fish re-released with a new tag.  
 
 Overall, the StRS design sets had a higher proportion of females to males over the spatial strata `r stratafemale.2` (Table \@ref(tab:table8)).  The sex ratio was females biased in the shallow depth stratum within the spatial strata `r shallsfemale.2`.  In the mid depth stratum, there were more males than females in `r midsmale.2`.  The deepest depth stratum saw more females in spatial strata `r deepsfemale.2`.  More females than males were sampled in `r inletw.2` traditional mainland inlet localities and samples ranged from `r femaleRange.2[1]` to `r femaleRange.2[2]` percent females (Table \@ref(tab:table8)).  
 
-Figure \@ref(fig:figure7) (top) shows the length frequency histograms for the `r format(tf2, big.mark=",")` female and  `r format(tm2, big.mark=",")` male sablefish sampled for length and sex during the StRS portion of the 2003 - `r yr+1`  surveys.  Out of the `r format(tf2 + nosex2 + tm2, big.mark=",")` sablefish sampled for length and sex, `r nosex2` were looked at but no sex could be determined. The mean fork length ($\bar{x}$) for females was `r mLf2` cm and the mean fork length ($\bar{x}$) for males was `r mLm2` cm. 
+Figure \@ref(fig:figure10) (top) shows the length frequency histograms for the `r format(tf2, big.mark=",")` female and  `r format(tm2, big.mark=",")` male sablefish sampled for length and sex during the StRS portion of the 2003 - `r yr+1`  surveys.  Out of the `r format(tf2 + nosex2 + tm2, big.mark=",")` sablefish sampled for length and sex, `r nosex2` were looked at but no sex could be determined. The mean fork length ($\bar{x}$) for females was `r mLf2` cm and the mean fork length ($\bar{x}$) for males was `r mLm2` cm. 
 
-Figure \@ref(fig:figure7) (bottom) graphs the average length of male and female sablefish by year.  In `r yr`, the average mean fork length for the `r format(length(firstyrfem$sex), big.mark=",")` females was `r round(favgyr1$AvL,1)` cm  and the average mean fork length for the `r format(length(firstyrmal$sex), big.mark=",")` males was `r round(mavgyr1$AvL,1) ` cm. In `r yr+1`, the average mean fork length for the `r format(length(secondyrfem$sex), big.mark=",")` females was `r round(favgyr2$AvL,1)` cm and the average mean fork length for the `r format(length(secondyrmal$sex), big.mark=",")` males was `r round(mavgyr2$AvL,1)` cm.
+Figure \@ref(fig:figure10) (bottom) graphs the average length of male and female sablefish by year.  In `r yr`, the average mean fork length for the `r format(length(firstyrfem$sex), big.mark=",")` females was `r round(favgyr1$AvL,1)` cm  and the average mean fork length for the `r format(length(firstyrmal$sex), big.mark=",")` males was `r round(mavgyr1$AvL,1) ` cm. In `r yr+1`, the average mean fork length for the `r format(length(secondyrfem$sex), big.mark=",")` females was `r round(favgyr2$AvL,1)` cm and the average mean fork length for the `r format(length(secondyrmal$sex), big.mark=",")` males was `r round(mavgyr2$AvL,1)` cm.
 
-The length (cm) weight (kg) relationships for male and female sablefish are shown by the `r yr` survey year (Figure \@ref(fig:figure8), left) and the `r yr+1` survey year (Figure \@ref(fig:figure8), right).  These figures illustrate that on average female sablefish grow faster and reach flarger length and weight compared to males.
+The length (cm) weight (kg) relationships for male and female sablefish are shown by the `r yr` survey year (Figure \@ref(fig:figure11), left) and the `r yr+1` survey year (Figure \@ref(fig:figure11, right).  These figures illustrate that on average female sablefish grow faster and reach flarger length and weight compared to males.
 
 ## SABLEFISH SUB-LEGAL ENCOUNTERS
 
-The percentage of sub-legal sablefish (<55 cm fork length) sampled in each the StRS strata are shown in Figure \@ref(fig:figure9) since the winter of 2013-14, when a warm body of water dubbed “The Blob” was detected [@Bond2015].  More than half of the specimens that were sub-legal were found in the southern strata (S~1~) mid-depth waters (RD~2~) in 2014 and  shallow waters (RD~1~) in 2015.  The sub-legal specimen count was above 50% in both 2017 and 2018 in the northern strata of S~4~ and S~5~  mid-depth waters (RD~2~).  In 2019, the sub-legal specimens dominated with over 50% found in all StRS survey strata (S~1~ to S~5~) mid-depth waters (RD~2~). 
+The percentage of sub-legal sablefish (<55 cm fork length) sampled in each the StRS strata are shown in Figure \@ref(fig:figure15) since the winter of 2013-14, when a warm body of water dubbed “The Blob” was detected [@Bond2015].  More than half of the specimens that were sub-legal were found in the southern strata (S~1~) mid-depth waters (RD~2~) in 2014 and  shallow waters (RD~1~) in 2015.  The sub-legal specimen count was above 50% in both 2017 and 2018 in the northern strata of S~4~ and S~5~  mid-depth waters (RD~2~).  In 2019, the sub-legal specimens dominated with over 50% found in all StRS survey strata (S~1~ to S~5~) mid-depth waters (RD~2~). 
 
 ## OTHER FISH SAMPLING
 
-The biological data collected during the `r yr` and `r yr+1` surveys from species other than sablefish are listed in Appendix I and Appendix J, respectively.  Length, sex, maturity, otoliths and DNA samples were collected for `r otherfish[1,2]` (`r yr`) and `r otherfish2[2,2]` (`r yr+1`) specimens of the Rougheye/Blackspotted Rockfish complex.  Length, sex, maturity, otoliths were collected for `r otherfish[2,2]` (`r yr`) and `r otherfish2[3,2]` (`r yr+1`) Shortraker Rockfish.  In addition, length, sex, maturity, otoliths and DNA were collected for `r otherfish[3,2]` (`r yr`) and `r otherfish2[4,2]` (`r yr+1`)  Yelloweye Rockfish.  
+The biological data collected during the `r yr` and `r yr+1` surveys from species other than sablefish are listed in Appendix \@ref(app:nineth-appendix) and Appendix \@ref(app:tenth-appendix), respectively.  Length, sex, maturity, otoliths and DNA samples were collected for `r otherfish[1,2]` (`r yr`) and `r otherfish2[2,2]` (`r yr+1`) specimens of the Rougheye/Blackspotted Rockfish complex.  Length, sex, maturity, otoliths were collected for `r otherfish[2,2]` (`r yr`) and `r otherfish2[3,2]` (`r yr+1`) Shortraker Rockfish.  In addition, length, sex, maturity, otoliths and DNA were collected for `r otherfish[3,2]` (`r yr`) and `r otherfish2[4,2]` (`r yr+1`)  Yelloweye Rockfish.  
 
 For Pacific Halibut, only length samples were taken on `r otherfish[1,2]` (`r yr`) and `r otherfish2[5,2]` (`r yr+1`) specimens.  Last, a length sample was taken for `r otherfish2[1,2]` (`r yr+1`) Pacific Sleeper shark.
 
@@ -801,9 +813,9 @@ During the `r yr` and `r yr+1` sablefish surveys, `r countStRS[2,3] + countStRS[
 
 ## SABLEFISH AGES
 
-Figure \@ref(fig:figure10) show bubble plots for sablefish that have been aged by year from StRS sets.  The highest proportion of male ages in StRS sets for 2003 through to 2011 were 3, 5, 5, 6, 8, 8, 8, 10 and 12 years of age, respectively.  Then, another cohort appeared in 2012 through to 2016 showing up as 4, 5, 7, 7 and 8 year olds.  Lastly, another cohort appeared to arrive in 2017 which was dominated by 3 year olds and 2018 by 5 year olds.  (Figure \@ref(fig:figure10), top).
+The highest proportion of male ages in StRS sets for 2003 through to 2011 were 3, 5, 5, 6, 8, 8, 8, 10 and 12 years of age, respectively.  Another cohort appeared in 2012 through to 2016 as 4, 5, 7, 7 and 8 year olds.  Last, another cohort appeared to arrive in 2017 which was dominated by 3 year olds and 2018 by 5 year olds.  (Figure \@ref(fig:figure13), top).
 
-The highest proportion of female ages in the StRS sets for 2003 through to 2010 were 3, 4, 5, 6, 7, 8, 9 and 10 years of age, respectively. Then, another cohort appeared in 2011 through to 2015, showing up as 3, 4, 5, 6 and 7 year olds.  In 2016, 2017 and 2018, the highest proportion of female sablefish were ages 3, 4 and 5 (Figure \@ref(fig:figure10), bottom).
+The highest proportion of female ages in the StRS sets for 2003 through to 2010 were 3, 4, 5, 6, 7, 8, 9 and 10 years of age, respectively. Then, another cohort appeared in 2011 through to 2015, showing up as 3, 4, 5, 6 and 7 year olds.  In 2016, 2017 and 2018, the highest proportion of female sablefish were ages 3, 4 and 5 (Figure \@ref(fig:figure13), bottom).
 
 Historic data from all samples lists the oldest female sablefish at `r oldFem` years of age collected in `r oldFemYr` where as the oldest male sablefish with the age of `r oldMale` years old was documented for the year `r oldMaleYr`.
 
@@ -852,11 +864,9 @@ Historic data from all samples lists the oldest female sablefish at `r oldFem` y
 ```
 
 ## OCEANOGRAPHIC TEMPERATURES AND DEPTHS
-Co-plots of average temperatures and average depths by 1-degree latitude intervals from south-west Vancouver Island to northwest Haida Gwaii are shown for `r yr` and `r yr+1` in Figure \@ref(fig:figure11). Although the number of sets that deployed Sea-bird SBE 39 loggers varied in each 1-degree latitude zone, the general trend shows that the average temperatures decrease with increasing depth.   
+Co-plots of average temperatures and average depths by 1-degree latitude intervals from south-west Vancouver Island to northwest Haida Gwaii are depicted in Figure \@ref(fig:figure14). Although the number of sets that deployed Sea-bird SBE 39 loggers varied in each 1-degree latitude zone, the general trend shows that the average temperatures decrease with increasing depth.   
 
-Figure \@ref(fig:figure12) shows the average temperatures as reported from the Sea-bird SBE 39 temperature and depth loggers since 2006, at three depth intervals: 100-250 fathoms (183  to 457 meters), 250-450 fathoms (458-823 meters) and 450-750 fathoms (824-1372 meters).  In the shallow waters, the lowest average temperature was `r round(lavtmin,1)` $^\circ$C (`r lavtyr`) within the `r lavtband1`$^\circ$- `r lavtband2`$^\circ$ latitude band.  The highest average temperature was `r round(lavtmax,1)` $^\circ$C (`r lavtyrmx`) in the southern `r lavtband1mx`$^\circ$ - `r lavtband2mx`$^\circ$ latitude band.  
-
-Moving into the mid-depth waters, from 458-823 meters, the lowest average temperature was `r round(mavt,1)` $^\circ$C (`r mavtyr`) within the `r mavtband1`$^\circ$-`r mavtband2` $^\circ$ latitude band.  The highest average temperature was `r round(mavtmx,1)` $^\circ$C (`r mavtyrmx`) in the southern `r mavtband1mx`$^\circ$- `r mavtband2mx`$^\circ$ latitude band.  In the deepest waters, the lowest average temperature of `r round(davt,1)` $^\circ$C  (`r davtyr`) was found in the `r davtband1`$^\circ$- `r davtband2`$^\circ$ latitude band and the highest average temperature was `r round(davtmx,1)`$^\circ$C (`r davtyrmx`) in the southern `r davtband1mx`$^\circ$-`r davtband2mx`$^\circ$ latitude band.
+In the shallow waters, the lowest average temperature was `r round(lavtmin,1)` $^\circ$C (`r lavtyr`) within the `r lavtband1`$^\circ$- `r lavtband2`$^\circ$ latitude band.  The highest average temperature was `r round(lavtmax,1)` $^\circ$C (`r lavtyrmx`) in the southern `r lavtband1mx`$^\circ$ - `r lavtband2mx`$^\circ$ latitude band. Moving into the mid-depth waters, from 458-823 meters, the lowest average temperature was `r round(mavt,1)` $^\circ$C (`r mavtyr`) within the `r mavtband1`$^\circ$-`r mavtband2` $^\circ$ latitude band.  The highest average temperature was `r round(mavtmx,1)` $^\circ$C (`r mavtyrmx`) in the southern `r mavtband1mx`$^\circ$- `r mavtband2mx`$^\circ$ latitude band.  In the deepest waters, the lowest average temperature of `r round(davt,1)` $^\circ$C  (`r davtyr`) was found in the `r davtband1`$^\circ$- `r davtband2`$^\circ$ latitude band and the highest average temperature was `r round(davtmx,1)`$^\circ$C (`r davtyrmx`) in the southern `r davtband1mx`$^\circ$-`r davtband2mx`$^\circ$ latitude band (Figure \@ref(fig:figure15)).
 
 
 ```{r acknowledge, echo=FALSE}
@@ -874,6 +884,8 @@ Moving into the mid-depth waters, from 458-823 meters, the lowest average temper
                                                                                                         
 ## ACKNOWLEDGEMENTS
 
-The stock assessment survey and data report is the result of the collaborative efforts of many individuals.  Wild Canadian Sablefish has provided coordination and support of the annual Sablefish survey since 1994.  The scientific staff that conducted the `r yr` sablefish research charter included `r credits[1,4]` of Archipelago Marine Research Ltd (AMR); and `r credits[2,4]` of Fisheries and Oceans, Canada. The scientific staff that conducted the `r yr+1` sablefish research charter included `r credits2[1,4]` of Archipelago Marine Research Ltd (AMR); and `r credits2[2,4]` of Fisheries and Oceans, Canada.
+The stock assessment survey and data report is the result of the collaborative efforts of many individuals.  Wild Canadian Sablefish has provided coordination and support of the annual Sablefish survey since 1994.  The scientific staff that conducted the `r yr` sablefish research charter included `r credits[1,4]` of Archipelago Marine Research Ltd (AMR); and `r credits[2,4]` of Fisheries and Oceans, Canada. The scientific staff that conducted the `r yr+1` sablefish research charter included `r credits2[1,4]` of AMR; and `r credits2[2,4]` of Fisheries and Oceans, Canada.
 
 A special thanks to the skipper and crew of the F/V `r boat`, whose efforts made the `r yr[1]` survey successful. In `r yr[1]`, the crew consisted of `r credits[3,4]`. Also, much appreciation  to the skipper and crew of the F/V `r boat2`, whose efforts made the `r yr+1` survey successful. In `r yr+1`, the crew consisted of `r credits2[3,4]`.
+
+\clearpage
