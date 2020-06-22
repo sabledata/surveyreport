@@ -347,7 +347,7 @@ history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo
     polar        <- GetSQLData(sqlpolar ,"Sablefish")
     polarsummary <- GetSQLData(polarsumm ,"Sablefish")   # view the results to be able to type into the summary
 
-    write.table( polar , file = paste(path,"figure10_Polar.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+    write.table( polar , file = paste(path,"figure12_Polar.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
     write.table(polarsummary, file = paste(path,"figure12_PolarSummary.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
    dt   <-  paste("select * from Report_Survey_GFBIO_Age_MF_Prop where SetType='StRS' and Year<=", yr + 1, sep="")

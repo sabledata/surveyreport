@@ -2281,7 +2281,7 @@
 
    #par(mfrow=c(2,1),cex=1.1)     
    par(mfrow=c(2,1))
-       sapply(LETTERS[1:2], function(x) {   # -- two vertical plots
+       sapply(LETTERS[1:2], function(x) {   # -- two vertical plots with letters
        plot(rnorm(100))
        fig_label(x, cex=1.1) 
        })
