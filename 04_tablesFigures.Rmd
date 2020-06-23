@@ -1051,7 +1051,7 @@
 ```
 \clearpage
 
-(ref:figure13) Bubble plot for male and female sablefish ages by survey year from StRS sets that have been aged.  The sizes of the circles are proportional to the number of fish with given ages. Fish age 35 and older are included in one bubble. The total number(n) of fish aged are listed across the top of each panel. The ages with the highest ratios are posted to the right of each bubble.
+(ref:figure13) Bubble plot for male (A) and female (B) sablefish ages by survey year from StRS sets that have been aged.  The sizes of the circles are proportional to the number of fish with given ages. Fish age 35 and older are included in one bubble. The total number(n) of fish aged are listed across the top of each panel. The ages with the highest ratios are posted to the right of each bubble.
 
 ```{r figure13, fig.cap='(ref:figure13)',results='asis', out.width = "400px",out.height = "500px", fig.align="center"}
    # dt  <-  ("exec procRKnitr_Survey_proportions_at_age")  run this procedure to create table first.
@@ -1074,7 +1074,7 @@
 
    # -- plot bubbles for males
    plot(dat$Year, dat$Age, type="n", xlab=" Year", ylab="",main="Males", ylim=c(0,42), xlim=c(minyr,maxyr),xaxt="n")
-   axis(1, seq(2003,2019,1))      
+   axis(1, seq(2003,2018,1))      
    symbols(dat$Year, dat$Age, circles=pi*(dat$Male_Proportion),inches=0.3, add=T, col="light grey")
 
    for (maleyr in involve){
@@ -1095,7 +1095,7 @@
     
    # -- plot bubbles for females
    plot(dat$Year, dat$Age, type="n",xlab=" Year", ylab="", main="Females", ylim=c(0,42), xlim=c(minyr,maxyr),xaxt="n")
-   axis(1, seq(2003,2019,1))            
+   axis(1, seq(2003,2018,1))            
    symbols(dat$Year, dat$Age, circles=pi*(dat$Female_Proportion),inches=0.3, add=T,col="light grey")
 
    for (femaleyr in involve){

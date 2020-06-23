@@ -779,13 +779,12 @@ The percentage of sub-legal sablefish (<55 cm fork length) sampled in each the S
 
 ## OTHER FISH SAMPLING
 
-The biological data collected during the `r yr` and `r yr+1` surveys from species other than sablefish are listed in Appendix \@ref(app:nineth-appendix) and Appendix \@ref(app:tenth-appendix), respectively.  Length, sex, maturity, otoliths and DNA samples were collected for `r otherfish[1,2]` (`r yr`) and `r otherfish2[2,2]` (`r yr+1`) specimens of the Rougheye/Blackspotted Rockfish complex.  Length, sex, maturity, otoliths were collected for `r otherfish[2,2]` (`r yr`) and `r otherfish2[3,2]` (`r yr+1`) Shortraker Rockfish.  In addition, length, sex, maturity, otoliths and DNA were collected for `r otherfish[3,2]` (`r yr`) and `r otherfish2[4,2]` (`r yr+1`)  Yelloweye Rockfish.  
-
-For Pacific Halibut, only length samples were taken on `r otherfish[1,2]` (`r yr`) and `r otherfish2[5,2]` (`r yr+1`) specimens.  Last, a length sample was taken for `r otherfish2[1,2]` (`r yr+1`) Pacific Sleeper shark.
-
+Length, sex, maturity, otoliths and DNA samples were collected for the Rougheye/Blackspotted Rockfish complex.  Length, sex, maturity and otoliths were collected for Shortraker Rockfish.  In addition, length, sex, maturity, otoliths and DNA were collected for Yelloweye Rockfish.  For Pacific Halibut and Pacific Sleeper sharks, only length samples were collected (Appendix \@ref(app:nineth-appendix) and Appendix \@ref(app:tenth-appendix)).
 
 ## RECOVERED TAGGED SABLEFISH
-During the `r yr` and `r yr+1` sablefish surveys, `r countStRS[2,3] + countStRS[1,3]` and `r countStRS2[2,3] + countStRS2[1,3]` previously tagged fish were re-released live with a new tag, respectively.  Table \@ref(tab:table9) lists the counts of DFO tagged fish released and recovered from 1991 through `r yr[1]+1` up to the time of this report. Every year, the highest number of recovered tags has occurred one year after release. 
+
+During the `r yr` and `r yr+1` sablefish surveys, `r countStRS[2,3] + countStRS[1,3]` and `r countStRS2[2,3] + countStRS2[1,3]` previously tagged fish were re-released live with a new tag, respectively.  DFO has been tagging, releasing and recovering sablefish since 1991.  The highest recovery rate is within the first year of release (Table \@ref(tab:table9)).
+
 
 ```{r SablefishAgesText, echo=FALSE}
    # -- provides values for inline text, important to know the last year of ages completed
@@ -810,10 +809,9 @@ During the `r yr` and `r yr+1` sablefish surveys, `r countStRS[2,3] + countStRS[
    oldMaleYr   <-  oldageMale[1,3]               # -- year captured
 ```
 
-
 ## SABLEFISH AGES
 
-The highest proportion of male ages in StRS sets for 2003 through to 2011 were 3, 5, 5, 6, 8, 8, 8, 10 and 12 years of age, respectively.  Another cohort appeared in 2012 through to 2016 as 4, 5, 7, 7 and 8 year olds.  Last, one more cohort appeared to arrive in 2017 which was dominated by 3 year olds and 2018 by 5 year olds.  (Figure \@ref(fig:figure13)a).
+The highest proportion of male ages in StRS sets for 2003 through to 2011 were 3, 5, 5, 6, 8, 8, 8, 10 and 12 years of age, respectively.  Another cohort appeared in 2012 through to 2016 as 4, 5, 7, 7 and 8 year olds.  A cohort appeared to arrive in 2017 which was dominated by 3 year olds and in 2018 by 5 year olds (Figure \@ref(fig:figure13)a).
 
 The highest proportion of female ages in the StRS sets for 2003 through to 2010 were 3, 4, 5, 6, 7, 8, 9 and 10 years of age, respectively. Then, another cohort appeared in 2011 through to 2015, showing up as 3, 4, 5, 6 and 7 year olds.  In 2016, 2017 and 2018, the highest proportion of female sablefish were ages 3, 4 and 5 (Figure \@ref(fig:figure13)b).
 
@@ -864,7 +862,7 @@ Historic data from all samples lists the oldest female sablefish at `r oldFem` y
 ```
 
 ## OCEANOGRAPHIC TEMPERATURES AND DEPTHS
-Co-plots of average temperatures and average depths by 1-degree latitude intervals from south-west Vancouver Island to northwest Haida Gwaii are displayed in Figure \@ref(fig:figure14).  The `r yr` and `r yr+1` survey data exhibit a general trend of decreasing temperature with depth. 
+Co-plots of average temperatures and average depths by 1-degree latitude intervals from south-west Vancouver Island to northwest Haida Gwaii can be found in Figure \@ref(fig:figure14).  The `r yr` and `r yr+1` survey data exhibit a general trend of decreasing temperature with depth. 
 
 SBE 39 recorders have been placed on survey fishing sets since 2006. In the shallow waters, the lowest average temperature was `r round(lavtmin,1)` $^\circ$C (`r lavtyr`) within the `r lavtband1`$^\circ$- `r lavtband2`$^\circ$ latitude band.  The highest average temperature was `r round(lavtmax,1)` $^\circ$C (`r lavtyrmx`) in the southern `r lavtband1mx`$^\circ$ - `r lavtband2mx`$^\circ$ latitude band. Moving into the mid-depth waters, from 458-823 meters, the lowest average temperature was `r round(mavt,1)` $^\circ$C (`r mavtyr`) within the `r mavtband1`$^\circ$-`r mavtband2` $^\circ$ latitude band.  The highest average temperature was `r round(mavtmx,1)` $^\circ$C (`r mavtyrmx`) in the southern `r mavtband1mx`$^\circ$- `r mavtband2mx`$^\circ$ latitude band.  In the deepest waters, the lowest average temperature of `r round(davt,1)` $^\circ$C  (`r davtyr`) was found in the `r davtband1`$^\circ$- `r davtband2`$^\circ$ latitude band and the highest average temperature was `r round(davtmx,1)`$^\circ$C (`r davtyrmx`) in the southern `r davtband1mx`$^\circ$-`r davtband2mx`$^\circ$ latitude band (Figure \@ref(fig:figure15)).
 
