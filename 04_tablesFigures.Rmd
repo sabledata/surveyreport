@@ -690,7 +690,7 @@
 \clearpage
 
 
-(ref:figure10) Top: Length frequencies for male sablefish (blue-violet) and female sablefish (fuchsia) up to `r yr+1` for all StRS sets.  The number of specimens is denoted by the letter n, the mean indicated by the xbar $\overline{x}$ and the standard deviation is represented by the symbol sigma $\Sigma$. Bottom: Average length and ratios of male and female sablefish by year. Counts by sex are shown across the top of the lines.
+(ref:figure10) Length frequencies for male sablefish (blue-violet) and female sablefish (fuchsia) up to `r yr+1` for all StRS sets.  The number of specimens is denoted by the letter n, the mean indicated by the xbar $\overline{x}$ and the standard deviation is represented by the symbol sigma $\Sigma$ (A). Average length and ratios of male and female sablefish by year. Counts by sex are shown across the top of the lines (B).
 
 ```{r figure10, fig.cap='(ref:figure10)',results='asis', out.width = "400px",out.height = "500px", fig.align="center"}
 
@@ -739,8 +739,8 @@
      #  procedure:  Build_BIO_Sablefish_Tables
      
      lenstats  <- "exec procRReport_Survey_LenAvg"
-     #dat       <- GetSQLData(lenstats,"Sablefish")
-     dat       <- read.csv("c:/github/surveyreport/standaloneData/figure10_MeanLength.csv",header=T)
+     #dat       <- GetSQLData(lenstats,"Sablefish")                                                  # read from SQL Server
+     dat       <- read.csv("c:/github/surveyreport/standaloneData/figure10_MeanLength.csv",header=T) # read from csv
      
      
      fdat      <- dat[dat$sex==2,]
@@ -785,7 +785,7 @@
 ``` 
 \clearpage
 
-(ref:figure11) Sablefish fork length (L in cm) vs weight (W in kg) for males and females for the `r yr` (left) and `r yr+1` (right) surveys.
+(ref:figure11) Sablefish fork length (L in cm) vs weight (W in kg) for females and males for the `r yr` (A,C) and `r yr+1` (B,D) surveys.
 
 ```{r figure11, fig.cap='(ref:figure11)',results='asis', out.width = "400px",out.height = "500px", fig.align="center"}
     

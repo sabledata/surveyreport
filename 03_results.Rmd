@@ -769,7 +769,7 @@ Overall, the StRS design sets had a higher proportion of females to males over t
 
 Significant differences in length distributions between male and female sablefish are exhibited in the data collected from the StRS portion of the 2003 - 2019 surveys. The mean fork length ($\bar{x}$) for females was `r mLf2` cm and the mean fork length ($\bar{x}$) for males was `r mLm2` cm (Figure \@ref(fig:figure10)a). 
 
-Figure \@ref(fig:figure10) (bottom) graphs the average length of male and female sablefish by year.  In `r yr`, the average mean fork length for the `r format(length(firstyrfem$sex), big.mark=",")` females was `r round(favgyr1$AvL,1)` cm  and the average mean fork length for the `r format(length(firstyrmal$sex), big.mark=",")` males was `r round(mavgyr1$AvL,1) ` cm. In `r yr+1`, the average mean fork length for the `r format(length(secondyrfem$sex), big.mark=",")` females was `r round(favgyr2$AvL,1)` cm and the average mean fork length for the `r format(length(secondyrmal$sex), big.mark=",")` males was `r round(mavgyr2$AvL,1)` cm.
+In `r yr`, the average mean fork length for the `r format(length(firstyrfem$sex), big.mark=",")` females was `r round(favgyr1$AvL,1)` cm  and the average mean fork length for the `r format(length(firstyrmal$sex), big.mark=",")` males was `r round(mavgyr1$AvL,1) ` cm. In `r yr+1`, the average mean fork length for the `r format(length(secondyrfem$sex), big.mark=",")` females was `r round(favgyr2$AvL,1)` cm and the average mean fork length for the `r format(length(secondyrmal$sex), big.mark=",")` males was `r round(mavgyr2$AvL,1)` cm (Figure \@ref(fig:figure10)b).
 
 On average, female sablefish grow faster and reach far greater size (Figure \@ref(fig:figure11)a,b) compared to males (Figure \@ref(fig:figure11)c,d).
 
