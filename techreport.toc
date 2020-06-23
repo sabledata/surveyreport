@@ -36,7 +36,7 @@
 \contentsline {subsection}{\numberline {3.7}RECOVERED TAGGED SABLEFISH}{12}{subsection.3.7}%
 \contentsline {subsection}{\numberline {3.8}SABLEFISH AGES}{12}{subsection.3.8}%
 \contentsline {subsection}{\numberline {3.9}OCEANOGRAPHIC TEMPERATURES AND DEPTHS}{12}{subsection.3.9}%
-\contentsline {subsection}{\numberline {3.10}ACKNOWLEDGEMENTS}{13}{subsection.3.10}%
+\contentsline {subsection}{\numberline {3.10}ACKNOWLEDGEMENTS}{12}{subsection.3.10}%
 \contentsline {section}{\numberline {4}Tables and Figures}{14}{section.4}%
 \contentsline {section}{Appendices}{36}{section*.27}%
 \contentsline {section}{\numberline {A}LIST OF TRADITIONAL LOCALITIES.}{36}{appendix.1.A}%
