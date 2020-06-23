@@ -768,11 +768,11 @@
     # Sablefish.dbo.procR_Survey_Sablefish_LenWt_shiny queries table GFBIO_SABLEBIO_VW for survey length data	
     png("C:/github/surveyreport/figures/Figure_11_Lenwt.png", width = 800, height = 924) # -- starts writing a png to figure folder
     par(mfcol=c(2,2), mar=c(4,4,1,1), oma=c(2,2,3,1), cex=1.0)  # -- mar(bottom, left, top, and right)
+    par(xpd=NA)
 
     lenWT     <- "exec procR_Survey_Sablefish_LenWt_shiny"
-    #lenWTdat1 <- GetSQLData(lenWT,"Sablefish")
-    lenWTdat1 <- read.csv("c:/github/surveyreport/standaloneData/figure11_LengthWeight.csv",header=T)
-
+    #lenWTdat1 <- GetSQLData(lenWT,"Sablefish")                                                       # read from SQL Server
+    lenWTdat1 <- read.csv("c:/github/surveyreport/standaloneData/figure11_LengthWeight.csv",header=T) # read from csv
     lenWTdat  <- lenWTdat1[lenWTdat1$YEAR==yr,]
 
     for (i in 1:2) {
@@ -901,7 +901,7 @@
  #polar        <- GetSQLData(sqlpolar ,"Sablefish")
  #polarsummary <- GetSQLData(polarsumm ,"Sablefish")   # view the results to be able to type into the summary
  
- polar        <-  read.csv("c:/github/surveyreport/standaloneData/figure12_Polar.csv",header=T)
+ polar        <-  read.csv("c:/github/surveyreport/standaloneData/figure12_Polar.csv",header=T)        # read from csv
  polarsummary <-  read.csv("c:/github/surveyreport/standaloneData/figure12_PolarSummary.csv",header=T)
  
  linea<-25.0
