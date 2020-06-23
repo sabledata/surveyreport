@@ -1060,11 +1060,13 @@
 
    png("C:/github/surveyreport/figures/Figure_13_ages.png", width = 800, height = 924)  # -- starts writing a png to figure folder
 
-   dt   <-  paste("select * from Report_Survey_GFBIO_Age_MF_Prop where SetType='StRS' and Year<=", yr + 1, sep="")
-   #dat  <-  GetSQLData(dt,"Sablefish")
-   dat  <-  read.csv("c:/github/surveyreport/standaloneData/figure13_AgeBubblePlot.csv",header=T)
+   dt   <-  paste("select * from Report_Survey_GFBIO_Age_MF_Prop where SetType='StRS' and Year<", yr, sep="")
+   #dat  <-  GetSQLData(dt,"Sablefish")                                                            # read from SQL Server
+   dat  <-  read.csv("c:/github/surveyreport/standaloneData/figure13_AgeBubblePlot.csv",header=T) # read from csv
 
    par(mfrow=c(2,1),cex=1.1)     # -- two vertical plots
+   par(xpd=NA)
+   
    involve  <-  c()
    involve  <-  unique(dat$Year)
    maxyr    <-  max(involve)
@@ -1079,6 +1081,17 @@
     h      <-  unique(dat$Male_Yr_Total[dat$Year==maleyr])
     text(maleyr + 0.15, 40, bquote(.(h)))    
     text(maleyr + 0.35, dat$Age[dat$m==1 & dat$Year==maleyr],dat$Age[dat$m==1 & dat$Year==maleyr],col="red",cex=1.1, font=2)}
+   
+    di <- dev.size("in")
+    x  <- grconvertX(c(0, di[1]), from="in", to="user")
+    y  <- grconvertY(c(0, di[2]), from="in", to="user")
+    fig <- par("fig")
+    x <- x[1] + (x[2] - x[1]) * fig[1:2]
+    y <- y[1] + (y[2] - y[1]) * fig[3:4]
+    txt <- "A"
+    x <- x[1] + strwidth(txt, cex=3) / 2
+    y <- y[2] - strheight(txt, cex=3) / 2
+    text(x, y, txt, cex=1.5)
     
    # -- plot bubbles for females
    plot(dat$Year, dat$Age, type="n",xlab=" Year", ylab="", main="Females", ylim=c(0,42), xlim=c(minyr,maxyr),xaxt="n")
@@ -1091,6 +1104,17 @@
     text(femaleyr + 0.15, dat$Age[dat$f==1 & dat$Year==femaleyr],dat$Age[dat$f==1 & dat$Year==femaleyr],col="red",cex=1.1, font=2)}
 
     mtext(paste("Age","",sep=""), SOUTH<-2,  line=-1, adj=0.5,cex=1.2,  outer=TRUE)  # -- outside label
+    
+    di <- dev.size("in")
+    x  <- grconvertX(c(0, di[1]), from="in", to="user")
+    y  <- grconvertY(c(0, di[2]), from="in", to="user")
+    fig <- par("fig")
+    x <- x[1] + (x[2] - x[1]) * fig[1:2]
+    y <- y[1] + (y[2] - y[1]) * fig[3:4]
+    txt <- "B"
+    x <- x[1] + strwidth(txt, cex=3) / 2
+    y <- y[2] - strheight(txt, cex=3) *2
+    text(x, y, txt, cex=1.5)
    
     while (!is.null(dev.list()))  dev.off()  
     img <-   paste('C:/github/surveyreport/figures/Figure_13_ages.png',sep="")   # -- retrieve png from figures folder
