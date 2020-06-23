@@ -1098,7 +1098,7 @@
 ```
 \clearpage
 
-(ref:figure14) Coplot of average depth(m) vs average temperature ($^\circ$C) for a given 1-degree latitude range (blue bands) for `r yr` (top) and `r yr+1` (bottom).  The number of fishing sets deployed with a SBE 39 recorder are represented by n.
+(ref:figure14) Coplot of average depth (m) vs average temperature ($^\circ$C) for a given 1-degree latitude range (blue bands) for `r yr` and `r yr+1`.  The number of fishing sets deployed with a SBE 39 recorder are represented by n.
 
 ```{r figure14, fig.cap='(ref:figure14)',results='asis', out.width = "500px",out.height = "600px", fig.align="center"}
    png("C:/github/surveyreport/figures/Figure_14a_coplot.png", width=920, height=424) # write png to file
@@ -1108,7 +1108,7 @@
       #ctddat    <- GetSQLData(sbecp,"Sablefish")                                                         # read from SQL Server
       ctddat    <- read.csv("c:/github/surveyreport/standaloneData/figure14_SeaBirdCoplot.csv",header=T)  # read from csv
 
-      par(mar=c(1,1,1,1.4),cex=1.9)           # -- par(mar=c(bottom,left,top,right) 
+      par(mar=c(1,1,1,1.4),cex=2.2)           # -- par(mar=c(bottom,left,top,right) 
       yrdat     <-  ctddat[ctddat$Year==yr,]
       given.lat <-  matrix(c(48,48,49,49,50,50,51,51,52,52,53,53,54,54), nrow = 7, ncol=2, byrow=TRUE)
       coplot(temperature  ~ depth| lat, data = yrdat, 
@@ -1128,7 +1128,7 @@
 
       labels   <-   c(n48,n49,n50,n51,n52,n53,n54)
       for(j in 1:7) { text((280*j)-(100*(j-1)),8,paste("n=",labels[j],sep=""))  }
-      text(1350, 9,yr)
+      text(1350, 9, yr, font=2)                 # make year bold =2
       while (!is.null(dev.list()))  dev.off()
 
       png("C:/github/surveyreport/figures/Figure_14b_coplot.png", width = 920, height = 424) # write png to file
@@ -1151,7 +1151,7 @@
 
      labels <- c(n48,n49,n50,n51,n52,n53,n54)
      for(j in 1:7) { text((280*j)-(100*(j-1)),8,paste("n=",labels[j],sep=""))  }
-     text(1350, 9,yr + 1)
+     text(1350, 9, yr + 1, font=2) 
      while (!is.null(dev.list()))  dev.off()
      
      require('magick')   # in order to stack images
@@ -1195,7 +1195,7 @@
        facet_wrap(~Year,ncol=2)+
        ylab("Celcius")+
        xlab("Latitude band")+
-       theme_bw() + theme_grey(base_size = 18)
+       theme_bw(base_size = 18)
        
        while (!is.null(dev.list()))  dev.off()
        img <-   paste('C:/github/surveyreport/figures/Figure_15_seabirdavg.png',sep="")   # -- retrieve png 
