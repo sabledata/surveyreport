@@ -1115,7 +1115,8 @@
              col = "red",  pch = 19, xlim=c(200,1400), ylim=c(2,10),
              given.v = given.lat,
              show.given=FALSE, rows=1, cex=1.8,
-             xlab=c("Average Depth (m)",""),ylab="Average Temperature (C)")
+             xlab=c("Average Depth (m)",""),  
+             ylab= expression(Average~Temperature~degree~C))
 
              n48 <- length(unique(yrdat$Sets[yrdat$lat == 48]))  # count number of sets in lat band
              n49 <- length(unique(yrdat$Sets[yrdat$lat == 49]))
@@ -1137,7 +1138,8 @@
              col = "red",  pch = 19, xlim=c(200,1400), ylim=c(2,10),
              given.v = given.lat,
              show.given=FALSE, rows=1, cex=1.8,
-             xlab=c("Average Depth (m)",""),ylab="Average Temperature (C)")
+             xlab=c("Average Depth (m)",""),
+             ylab=expression(Average~Temperature~degree~C))
 
              n48<-length(unique(yrdat$Sets[yrdat$lat == 48]))  # count number of sets in lat band
              n49<-length(unique(yrdat$Sets[yrdat$lat == 49]))
