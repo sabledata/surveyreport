@@ -499,7 +499,7 @@
     #landmrkRAW<- GetSQLData(landmrk,"Sablefish")
     raw_survey_data <- read.csv("c:/github/surveyreport/standaloneData/figure05678_RawLandmarkSurveyData.csv",header=T)
     
-     # load survey data 
+    # load survey data 
     strs            <- subset(raw_survey_data,SABLE_SET_TYPE=="StRS")
     strs$sable_cpue <- strs$CPUE_SABLE_WEIGHT/strs$CPUE_TRAP            # changed from TOTAL_TRAP to CPUE_TRAP
     strs$strata     <- paste(strs$SABLE_AREA_GROUP,strs$SABLE_DEPTH_GROUP)
@@ -539,11 +539,9 @@
 
 ```{r figure6, fig.cap='(ref:figure6)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7, fig.align = "center"}
 
-    png("C:/github/surveyreport/figures/Figure_6_CPUES1S5.png", width=468, height=400) # write png to file
-    par(mfcol=c(1,1))
+     png("C:/github/surveyreport/figures/Figure_6_CPUES1S5.png", width=468, height=400) # write png to file
+     par(mfcol=c(1,1))
   
-    #  query----------raw survey datafile for Landmark fisheries----------------
-
      ggplot(tgc.2,aes(x=SET_YEAR,y=sable_cpue))+
      geom_errorbar(aes(ymin=sable_cpue-ci, ymax=sable_cpue+ci), width=0) +
      geom_line(col="grey") +
@@ -1107,8 +1105,8 @@
    
       # table SEABIRD_ReportCoplot created in the Sablefish.dbo.Build_Seabird_tables procedure
       sbecp     <- paste("select * from SEABIRD_ReportCoplot where Year in(",yr,",",yr+1,")",sep="")
-      #ctddat    <- GetSQLData(sbecp,"Sablefish") 
-      ctddat    <- read.csv("c:/github/surveyreport/standaloneData/figure14_SeaBirdCoplot.csv",header=T)
+      #ctddat    <- GetSQLData(sbecp,"Sablefish")                                                         # read from SQL Server
+      ctddat    <- read.csv("c:/github/surveyreport/standaloneData/figure14_SeaBirdCoplot.csv",header=T)  # read from csv
 
       par(mar=c(1,1,1,1.4),cex=1.9)           # -- par(mar=c(bottom,left,top,right) 
       yrdat     <-  ctddat[ctddat$Year==yr,]
@@ -1129,6 +1127,7 @@
 
       labels   <-   c(n48,n49,n50,n51,n52,n53,n54)
       for(j in 1:7) { text((280*j)-(100*(j-1)),8,paste("n=",labels[j],sep=""))  }
+      text(1350, 9,yr)
       while (!is.null(dev.list()))  dev.off()
 
       png("C:/github/surveyreport/figures/Figure_14b_coplot.png", width = 920, height = 424) # write png to file
@@ -1150,34 +1149,32 @@
 
      labels <- c(n48,n49,n50,n51,n52,n53,n54)
      for(j in 1:7) { text((280*j)-(100*(j-1)),8,paste("n=",labels[j],sep=""))  }
-     while (!is.null(dev.list()))  dev.off()  
-
-     require('magick')
-
+     text(1350, 9,yr + 1)
+     while (!is.null(dev.list()))  dev.off()
+     
+     require('magick')   # in order to stack images
      uno <- image_read("C:/github/surveyreport/figures/CoPlotTopMain.png")      # Read external images
      one <- image_read("C:/github/surveyreport/figures/Figure_14a_coplot.png")
      two <- image_read("C:/github/surveyreport/figures/Figure_14b_coplot.png")
      imgs = c(uno, one, two)
 
-  # concatenate them left-to-right (use 'stack=T' to do it top-to-bottom)
-    side_by_side = image_append(imgs, stack=T)
+     # concatenate them left-to-right (use 'stack=T' to do it top-to-bottom)
+     side_by_side = image_append(imgs, stack=T)
+     image_write(side_by_side, path = "C:/github/surveyreport/figures/Figure_14_coplot.png", format = "png")  # save png
 
-  # save the png
-    image_write(side_by_side, path = "C:/github/surveyreport/figures/Figure_14_coplot.png", format = "png")
-
-    while (!is.null(dev.list()))  dev.off()
-    img <-   paste('C:/github/surveyreport/figures/Figure_14_coplot.png',sep="")   # -- retrieve png 
-             knitr::include_graphics(img)
+     while (!is.null(dev.list()))  dev.off()
+     img <-   paste('C:/github/surveyreport/figures/Figure_14_coplot.png',sep="")   # -- retrieve png 
+              knitr::include_graphics(img)
 
 ```
 \clearpage
 
 (ref:figure15) Average temperatures as reported from the Sea-bird SBE 39 loggers at 1-degree latitude intervals and three depth intervals: shallow: 100-250 fathoms (183 to 457 meters), medium:  250-450 fathoms (458-823 meters) and deep:  450-750 fathoms (824-1372 meters). 
 
-```{r figure15, fig.cap='(ref:figure15)', results='asis', out.width = "400px",out.height = "580px", fig.align="center"}
-    # table SEABIRD_ReportLinePlot created in the Sablefish.dbo.Build_Seabird_tables procedure
+```{r figure15, fig.cap='(ref:figure15)', results='asis', out.width = "440px",out.height = "570px", fig.align = "center"}
+      # table SEABIRD_ReportLinePlot created in the Sablefish.dbo.Build_Seabird_tables procedure
     
-       png("C:/github/surveyreport/figures/Figure_15_seabirdavg.png", width=1000, height=1050) # write png to file
+       png("C:/github/surveyreport/figures/Figure_15_seabirdavg.png", width=800, height=1000) # write png to file
        ctddt  <-  "select * from SEABIRD_ReportLinePlot"
        #ctd   <-  GetSQLData(ctddt,"Sablefish")                                                            # read from SQL Server
        ctd    <-  read.csv("c:/github/surveyreport/standaloneData/figure15_SeaBirdLineplot.csv",header=T)  # read from csv
@@ -1196,7 +1193,7 @@
        facet_wrap(~Year,ncol=2)+
        ylab("Celcius")+
        xlab("Latitude band")+
-       theme_bw()
+       theme_bw() + theme_grey(base_size = 18)
        
        while (!is.null(dev.list()))  dev.off()
        img <-   paste('C:/github/surveyreport/figures/Figure_15_seabirdavg.png',sep="")   # -- retrieve png 
