@@ -768,14 +768,14 @@
     # Sablefish.dbo.procR_Survey_Sablefish_LenWt_shiny queries table GFBIO_SABLEBIO_VW for survey length data	
     png("C:/github/surveyreport/figures/Figure_11_Lenwt.png", width = 800, height = 924) # -- starts writing a png to figure folder
     par(mfcol=c(2,2), mar=c(4,4,1,1), oma=c(2,2,3,1), cex=1.0)  # -- mar(bottom, left, top, and right)
-    par(xpd=NA)
+    par(xpd=NA)  # for placement of A,B,C,D
 
     lenWT     <- "exec procR_Survey_Sablefish_LenWt_shiny"
     #lenWTdat1 <- GetSQLData(lenWT,"Sablefish")                                                       # read from SQL Server
     lenWTdat1 <- read.csv("c:/github/surveyreport/standaloneData/figure11_LengthWeight.csv",header=T) # read from csv
     lenWTdat  <- lenWTdat1[lenWTdat1$YEAR==yr,]
 
-    for (i in 1:2) {
+    for (i in c(2,1)) {
          ylim <- c(min(lenWTdat$weight),max(lenWTdat$weight))
          xlim <- c(min(lenWTdat$length),max(lenWTdat$length))    
          lbls <- c(paste(yr,":  Males","",sep=""),paste(yr,":  Females","",sep=""))
@@ -799,11 +799,23 @@
       text(0.3,0.8, bquote(bolditalic(bar(W))==.(mw))) # -- mean weight
       text(0.33,0.7,bquote(bold(a)==.(a)))  # -- a
       text(0.32,0.6,bquote(bold(b)==.(b)))  # -- b
+      
+      letter <- c("C","A")
+      di <- dev.size("in")
+      x  <- grconvertX(c(0, di[1]), from="in", to="user")
+      y  <- grconvertY(c(0, di[2]), from="in", to="user")
+      fig <- par("fig")
+      x <- x[1] + (x[2] - x[1]) * fig[1:2]
+      y <- y[1] + (y[2] - y[1]) * fig[3:4]
+      txt <- letter[i]
+      x <- x[1] + strwidth(txt, cex=3) / 2
+      y <- y[2] - strheight(txt, cex=3) *2
+      text(x, y, txt, cex=1.5)
     }
     
     lenWTdat.2  <- lenWTdat1[lenWTdat1$YEAR==yr+1,]
 
-    for (i in 1:2) {
+    for (i in c(2,1)) {
       ylim.2 <- c(min(lenWTdat.2$weight),max(lenWTdat.2$weight))
       xlim.2 <- c(min(lenWTdat.2$length),max(lenWTdat.2$length))    
       lbls.2 <- c(paste(yr+1,":  Males","",sep=""),paste(yr+1,":  Females","",sep=""))
@@ -824,7 +836,20 @@
       text(0.3,0.8,bquote(bolditalic(bar(W))==.(mw.2))) # mean weight                                                                                                                                                                                 
       text(0.33,0.7,bquote(bold(a)==.(a.2)))  # a
       text(0.32,0.6,bquote(bold(b)==.(b.2)))  # b
+    
+       letter <- c("D","B")
+       di <- dev.size("in")
+       x  <- grconvertX(c(0, di[1]), from="in", to="user")
+       y  <- grconvertY(c(0, di[2]), from="in", to="user")
+       fig <- par("fig")
+       x <- x[1] + (x[2] - x[1]) * fig[1:2]
+       y <- y[1] + (y[2] - y[1]) * fig[3:4]
+       txt <- letter[i]
+       x <- x[1] + strwidth(txt, cex=3) / 2
+       y <- y[2] - strheight(txt, cex=3) *2
+       text(x, y, txt, cex=1.5)
     }
+    
    while (!is.null(dev.list()))  dev.off() 
    
    img <- paste('C:/github/surveyreport/figures/Figure_11_Lenwt.png',sep="") 
@@ -833,7 +858,7 @@
 ```
 \clearpage
 
-(ref:figure12) The percentage of sub-legal sablefish (<55 cm fork length) sampled in the StRS survey strata and depth strata since the year 2014, denoted by the green (25%), red (50%) and blue (75%) dashed lines.
+(ref:figure12) The percentage of sub-legal sablefish (<55 cm fork length) sampled by area and depth strata since the year 2014. Sub-legal specimen count above 50% shown in steel blue.
 
 ```{r figure12, fig.cap='(ref:figure12)',results='asis', out.width = "500px",out.height = "600px", fig.align="center"}
 
@@ -903,6 +928,7 @@
  
  polar        <-  read.csv("c:/github/surveyreport/standaloneData/figure12_Polar.csv",header=T)        # read from csv
  polarsummary <-  read.csv("c:/github/surveyreport/standaloneData/figure12_PolarSummary.csv",header=T)
+ polar$cat    <-  ifelse(polar$subL>=50,">50%","<50%")
  
  linea<-25.0
  lineb<-50.0
@@ -915,10 +941,10 @@
                    "S5RD1","S5RD2","S5RD3"))
  
   polar2019  <-  polar[polar$YEAR==2019,]
-  plot2019   <-  ggplot(polar2019, aes(polarorder, subL)) + 
-                 geom_bar(colour="grey", stat = "identity") + 
+  plot2019   <-  ggplot(polar2019, aes(polarorder, subL, fill = cat)) + 
+                 geom_bar(stat = "identity") + 
                  theme_minimal() +
-                 scale_fill_brewer() +  xlab("2019 sublegals") +
+                 scale_fill_manual(values=c("lightgray","steelblue")) +  xlab("2019 sublegals") +
                  ylab("") + theme(axis.text.y=element_blank()) +
                  theme(axis.text.x = element_text(size = 10)) +
                  coord_polar(start=-48/360) +
@@ -937,10 +963,10 @@
 
   polar2018<-polar[polar$YEAR==2018,]
   plot2018 <-
-  ggplot(polar2018, aes(polarorder, subL)) + 
-  geom_bar(colour="grey",stat = "identity") + 
+  ggplot(polar2018, aes(polarorder, subL, fill = cat)) + 
+  geom_bar(stat = "identity") + 
   theme_minimal() +
-  scale_fill_brewer() +  xlab("2018 sublegals") +
+   scale_fill_manual(values=c("lightgray","steelblue")) +   xlab("2018 sublegals") +
   ylab("") + theme(axis.text.y=element_blank()) +
   theme(axis.text.x = element_text(size = 10)) +
   coord_polar(start=-48/360) +
@@ -958,10 +984,10 @@
 
   polar2017<-polar[polar$YEAR==2017,]
   plot2017 <-
-  ggplot(polar2017, aes(polarorder, subL)) + 
-  geom_bar(colour="grey",stat = "identity") + 
+  ggplot(polar2017, aes(polarorder, subL, fill = cat)) + 
+  geom_bar(stat = "identity") + 
   theme_minimal() +
-  scale_fill_brewer() +  xlab("2017 sublegals") +
+   scale_fill_manual(values=c("lightgray","steelblue")) +   xlab("2017 sublegals") +
   ylab("") + theme(axis.text.y=element_blank()) +
   theme(axis.text.x = element_text(size = 10)) +
   coord_polar(start=-48/360) +
@@ -980,10 +1006,10 @@
 
   polar2016<-polar[polar$YEAR==2016,]
   plot2016 <-
-  ggplot(polar2016, aes(polarorder, subL)) + 
-  geom_bar(colour="grey",stat = "identity") + 
+  ggplot(polar2016, aes(polarorder, subL, fill = cat)) + 
+  geom_bar(stat = "identity") + 
   theme_minimal() +
-  scale_fill_brewer() +  xlab("2016 sublegals") +
+  scale_fill_manual(values=c("lightgray","steelblue")) +  xlab("2016 sublegals") +
   ylab("") + theme(axis.text.y=element_blank()) +
   theme(axis.text.x = element_text(size = 10)) +
   coord_polar(start=-48/360) +
@@ -1002,10 +1028,10 @@
   
   polar2015<-polar[polar$YEAR==2015,]
   plot2015 <-
-  ggplot(polar2015, aes(polarorder, subL)) + 
-  geom_bar(colour="grey",stat = "identity") + 
+  ggplot(polar2015, aes(polarorder, subL, fill = cat)) + 
+  geom_bar(stat = "identity") + 
   theme_minimal() +
-  scale_fill_brewer() +  xlab("2015 sublegals") +
+   scale_fill_manual(values=c("lightgray","steelblue")) +   xlab("2015 sublegals") +
   ylab("") + theme(axis.text.y=element_blank()) +
   theme(axis.text.x = element_text(size = 10)) +
   coord_polar(start=-48/360) +
@@ -1023,10 +1049,10 @@
   
   polar2014<-polar[polar$YEAR==2014,]
   plot2014 <-
-  ggplot(polar2014, aes(polarorder, subL)) + 
-  geom_bar(colour="grey",stat = "identity") + 
+  ggplot(polar2014, aes(polarorder, subL, fill = cat)) + 
+  geom_bar(stat = "identity") + 
   theme_minimal() +
-  scale_fill_brewer() +  xlab("2014 sublegals") +
+  scale_fill_manual(values=c("lightgray","steelblue")) +  xlab("2014 sublegals") +
   ylab("") + theme(axis.text.y=element_blank()) +
   theme(axis.text.x = element_text(size = 10)) +
   coord_polar(start=-48/360) +
