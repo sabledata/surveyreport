@@ -1149,9 +1149,9 @@
     fig <- par("fig")
     x <- x[1] + (x[2] - x[1]) * fig[1:2]
     y <- y[1] + (y[2] - y[1]) * fig[3:4]
-    txt <- "B"
+    txt <- "A"
     x <- x[1] + strwidth(txt, cex=3) / 2
-    y <- y[2] - strheight(txt, cex=3) *2
+    y <- y[2] - strheight(txt, cex=3) / 2
     text(x, y, txt, cex=1.5)
     
        # -- plot bubbles for males
@@ -1170,9 +1170,9 @@
     fig <- par("fig")
     x <- x[1] + (x[2] - x[1]) * fig[1:2]
     y <- y[1] + (y[2] - y[1]) * fig[3:4]
-    txt <- "A"
+    txt <- "B"
     x <- x[1] + strwidth(txt, cex=3) / 2
-    y <- y[2] - strheight(txt, cex=3) / 2
+    y <- y[2] - strheight(txt, cex=3) * 2
     text(x, y, txt, cex=1.5)
    
     while (!is.null(dev.list()))  dev.off()  
