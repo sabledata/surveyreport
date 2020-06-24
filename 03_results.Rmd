@@ -71,26 +71,28 @@ Of the 91 original blocks for the StRS portion of the survey, one was attempted 
 ```
 ## CATCH PER UNIT EFFORT (CPUE) 
 
+Brendan section with new figures:
+
 Figure \@ref(fig:figure5)
 Figure \@ref(fig:figure6)
 Figure \@ref(fig:figure7)
 Figure \@ref(fig:figure8)
+Figure \@ref(fig:figure9)
 
 
-The annual CPUE (number of sablefish/number of traps) for StRS sets are summarized in Figure \@ref(fig:figure5) for each depth stratum (RD~1~-RD~3~) since the stratified random sampling program began in 2003.   
-The annual CPUE at mainland inlet locations are summarized since 1994 in Figure \@ref(fig:figure9).
- 
+*Delete: Shallow, Middle,Deep depth stratum sections and Mainland inlets section below...*
+
 ### Shallow depth stratum (RD~1~)
-CPUE in the shallow depth stratum have shown gradual decline from 2003 to 2009 (~`r data.mn[1,2]` to `r data.mn[7,2]` fish per trap). CPUE rose again to an average of `r data.mn[8,2]` fish per trap in 2010 and gradually declined from 2011 to 2014 (~`r data.mn[9,2]` to `r data.mn[12,2]` fish per trap).  An increase occurred in 2015 and 2016 (~`r data.mn[13,2]` and `r data.mn[14,2]` fish per trap, respectively) and then surged in 2017, 2018 and 2019 (~`r data.mn[15,2]`,`r data.mn[16,2]` and `r data.mn[17,2]` fish per trap, respectively). The shallow depth stratum typically exhibited the least among block variability in CPUE with a cv=`r RD1.cvlow`.
+*CPUE in the shallow depth stratum have shown gradual decline from 2003 to 2009 (~`r data.mn[1,2]` to `r data.mn[7,2]` fish per trap). CPUE rose again to an average of `r data.mn[8,2]` fish per trap in 2010 and gradually declined from 2011 to 2014 (~`r data.mn[9,2]` to `r data.mn[12,2]` fish per trap).  An increase occurred in 2015 and 2016 (~`r data.mn[13,2]` and `r data.mn[14,2]` fish per trap, respectively) and then surged in 2017, 2018 and 2019 (~`r data.mn[15,2]`,`r data.mn[16,2]` and `r data.mn[17,2]` fish per trap, respectively). The shallow depth stratum typically exhibited the least among block variability in CPUE with a cv=`r RD1.cvlow`.*
 
 ### Middle depth stratum (RD~2~)
-Across all years the highest CPUE typically occured in the middle depth stratum (Figure \@ref(fig:figure)).  CPUE in the middle depth stratum showed a gradual decline from 2003 to 2010 (~`r data.mn[1,3]` to `r data.mn[8,3]` fish per trap) but an increase in 2011 (~`r data.mn[9,3]` fish per trap).  Over 2012, 2013 and 2014, CPUE fluctuated (~`r data.mn[10,3]`, `r data.mn[11,3]` and `r data.mn[12,3]` fish per trap, respectively).  In 2015, a significant rise to ~`r data.mn[13,3]` fish per trap occured, followed by a drop in 2016 (~`r data.mn[14,3]` fish per trap).  In the past three years, 2017, 2018 and 2019, a significant increase was observed (~`r data.mn[15,3]`, `r data.mn[16,3]` and `r data.mn[17,3]` fish per trap, respectively).  The middle depth stratum typically exhibited the least among block variability in CPUE with a cv=`r RD2.cvlow`.
+*Across all years the highest CPUE typically occured in the middle depth stratum.  CPUE in the middle depth stratum showed a gradual decline from 2003 to 2010 (~`r data.mn[1,3]` to `r data.mn[8,3]` fish per trap) but an increase in 2011 (~`r data.mn[9,3]` fish per trap).  Over 2012, 2013 and 2014, CPUE fluctuated (~`r data.mn[10,3]`, `r data.mn[11,3]` and `r data.mn[12,3]` fish per trap, respectively).  In 2015, a significant rise to ~`r data.mn[13,3]` fish per trap occured, followed by a drop in 2016 (~`r data.mn[14,3]` fish per trap).  In the past three years, 2017, 2018 and 2019, a significant increase was observed (~`r data.mn[15,3]`, `r data.mn[16,3]` and `r data.mn[17,3]` fish per trap, respectively).  The middle depth stratum typically exhibited the least among block variability in CPUE with a cv=`r RD2.cvlow`.*
 
 ### Deep depth stratum (RD~3~)
-CPUE in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r data.mn[1,4]` to `r data.mn[4,4]` fish per trap) but declined in 2007 (~`r data.mn[5,4]` fish per trap).  It rose again in 2008 (~`r data.mn[6,4]` fish per trap) but showed a significant drop in 2009 (~`r data.mn[7,4]` fish per trap).  In 2010, 2011 and 2013, CPUE averaged ~`r data.mn[8,4]` fish per trap, similar to those levels seen in the first two years of the survey. In 2012 and 2014, CPUE dropped again to ~`r data.mn[12,4]` fish per trap.   During 2015, 2016 and 2017, CPUE remained low (~`r data.mn[13,4]`, `r data.mn[14,4]` and `r data.mn[15,4]` fish per trap, respectively). Once again,  ~`r data.mn[16,4]` fish per trap (2008) were seen in 2018.  In 2019, CPUE was the highest at `r data.mn[17,4]` fish per trap. The deep depth stratum typically exhibited the least among block variability in CPUE with a cv=`r RD3.cvlow`.
+*CPUE in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r data.mn[1,4]` to `r data.mn[4,4]` fish per trap) but declined in 2007 (~`r data.mn[5,4]` fish per trap).  It rose again in 2008 (~`r data.mn[6,4]` fish per trap) but showed a significant drop in 2009 (~`r data.mn[7,4]` fish per trap).  In 2010, 2011 and 2013, CPUE averaged ~`r data.mn[8,4]` fish per trap, similar to those levels seen in the first two years of the survey. In 2012 and 2014, CPUE dropped again to ~`r data.mn[12,4]` fish per trap.   During 2015, 2016 and 2017, CPUE remained low (~`r data.mn[13,4]`, `r data.mn[14,4]` and `r data.mn[15,4]` fish per trap, respectively). Once again,  ~`r data.mn[16,4]` fish per trap (2008) were seen in 2018.  In 2019, CPUE was the highest at `r data.mn[17,4]` fish per trap. The deep depth stratum typically exhibited the least among block variability in CPUE with a cv=`r RD3.cvlow`.*
 
 ### Mainland Inlets
-CPUE in the mainlaind inlets have varied in a predictable manner over time with peak CPUE occuring every 5-8 years (Figure \@ref(fig:figure)).  The mean CPUE remained consistent in the mid 1990s, from 1994 through 1997 (~8 to 10 fish per trap), then increased in 1998 (~15 fish per trap) and again in 1999 (~23 fish per trap) before declining from 2000 through 2002 (~8 to 11 fish per trap). CPUE peaked again in 2003 and 2004 (~20 and 21 fish per trap, respectively) and 2011 (~22 fish per trap). In 2018, CPUE returned (~23 fish per trap) to the high rates seen in early years. In 2019, the highest catches rates of the 26 year time series were seen (~35 fish per trap).
+*CPUE in the mainlaind inlets have varied in a predictable manner over time with peak CPUE occuring every 5-8 years.  The mean CPUE remained consistent in the mid 1990s, from 1994 through 1997 (~8 to 10 fish per trap), then increased in 1998 (~15 fish per trap) and again in 1999 (~23 fish per trap) before declining from 2000 through 2002 (~8 to 11 fish per trap). CPUE peaked again in 2003 and 2004 (~20 and 21 fish per trap, respectively) and 2011 (~22 fish per trap). In 2018, CPUE returned (~23 fish per trap) to the high rates seen in early years. In 2019, the highest catches rates of the 26 year time series were seen (~35 fish per trap).*
 
 
 ```{r SpeciesCompositionText, echo=FALSE}
@@ -106,15 +108,19 @@ CPUE in the mainlaind inlets have varied in a predictable manner over time with 
    #topStRSsp    <- GetSQLData(topStRS,"Sablefish") 
    topStRSsp  <-  read.csv("c:/github/surveyreport/standaloneData/results02_Top5GroupStRS.csv",header=T) 
    
-   topStRSsp1   <- as.character(topStRSsp[1,1])                      # -- StRS top 5 species names
+   topStRSsp1   <- tolower(as.character(topStRSsp[1,1]))                     # -- StRS top 5 species names
    topStRSsc1   <- firstup(tolower(as.character(topStRSsp[1,2])))    # -- StRS top 5 species science names
+   
    topStRSsp2   <- as.character(topStRSsp[2,1])                       
    topStRSsc2   <- firstup(tolower(as.character(topStRSsp[2,2])))   
-   topStRSsp3   <- as.character(topStRSsp[3,1])                      
-   topStRSsc3   <- firstup(tolower(as.character(topStRSsp[3,2])))   
-   topStRSsp4   <- as.character(topStRSsp[4,1])                      
-   topStRSsc4   <- firstup(tolower(as.character(topStRSsp[4,2])))   
-   topStRSsp5   <- as.character(topStRSsp[5,1])                      
+   
+   topStRSsp3   <- tolower(as.character(topStRSsp[3,1]))                      
+   topStRSsc3   <- firstup(tolower(as.character(topStRSsp[3,2])))
+   
+   topStRSsp4   <- tolower(as.character(topStRSsp[4,1]) )                    
+   topStRSsc4   <- firstup(tolower(as.character(topStRSsp[4,2])))  
+   
+   topStRSsp5   <- tolower(as.character(topStRSsp[5,1]))                      
    topStRSsc5   <- firstup(tolower(as.character(topStRSsp[5,2]))) 
 
   # -- taxonomic group count Inlets year one
@@ -128,8 +134,9 @@ CPUE in the mainlaind inlets have varied in a predictable manner over time with 
    topInletsp   <-  read.csv("c:/github/surveyreport/standaloneData/results03_Top2GroupInlets.csv",header=T)    
    
    
-   topInletsp1  <- as.character(topInletsp[1,1])                    # -- inlet top 2 species names
+   topInletsp1  <- tolower(as.character(topInletsp[1,1]))    # -- inlet top 2 species names
    topInletsc1  <- firstup(tolower(as.character(topInletsp[1,2])))  # -- inlet top 2 species science names
+   
    topInletsp2  <- as.character(topInletsp[2,1])  
    topInletsc2  <- firstup(tolower(as.character(topInletsp[2,2])))  
 
@@ -210,15 +217,21 @@ A total of `r totalI` taxonomic groups were represented in the catches from trad
    topStRSsp.2   <-  read.csv("c:/github/surveyreport/standaloneData/results06_Top5GroupStRS.csv",header=T)  
    
    
-   topStRSsp1.2   <- as.character(topStRSsp.2[1,1])                      # -- StRS top 5 species names
+   topStRSsp1.2   <- tolower(as.character(topStRSsp.2[1,1]))             # -- StRS top 5 species names
    topStRSsc1.2   <- firstup(tolower(as.character(topStRSsp.2[1,2])))    # -- StRS top 5 species science names
-   topStRSsp2.2   <- as.character(topStRSsp.2[2,1])                       
-   topStRSsc2.2   <- firstup(tolower(as.character(topStRSsp.2[2,2])))   
-   topStRSsp3.2   <- as.character(topStRSsp.2[3,1])                      
-   topStRSsc3.2   <- firstup(tolower(as.character(topStRSsp.2[3,2])))   
-   topStRSsp4.2   <- as.character(topStRSsp.2[4,1])                      
-   topStRSsc4.2   <- firstup(tolower(as.character(topStRSsp.2[4,2])))   
-   topStRSsp5.2   <- as.character(topStRSsp.2[5,1])                      
+   
+   topStRSsp2.2   <- as.character(topStRSsp.2[2,1])                      # -- does not go to lower case with 'Pacific'
+   topStRSsc2.2   <- firstup(tolower(as.character(topStRSsp.2[2,2])))
+   
+   topStRSsp3.2   <- tolower(as.character(as.character(topStRSsp.2[3,1])))                     
+   topStRSsc3.2   <- firstup(tolower(as.character(topStRSsp.2[3,2])))  
+   
+   topStRSsp4.2   <- as.character(topStRSsp.2[4,1])
+   topStRSsp4.2   <- "rougheye/blackspotted rockfish complex"            # -- unique fix for 2019, to be coded properly
+   topStRSsc4.2   <- firstup(tolower(as.character(topStRSsp.2[4,2]))) 
+   topStRSsc4.2   <- "Sebastes aleutianus/Sebastes melanostictus"
+   
+   topStRSsp5.2   <- tolower(as.character(as.character(topStRSsp.2[5,1])))                     
    topStRSsc5.2   <- firstup(tolower(as.character(topStRSsp.2[5,2]))) 
 
   # -- taxonomic group count Inlets 
@@ -233,7 +246,8 @@ A total of `r totalI` taxonomic groups were represented in the catches from trad
       
    topInletsp1.2  <- as.character(topInletsp.2[1,1])                    # -- inlet top 2 species names
    topInletsc1.2  <- firstup(tolower(as.character(topInletsp.2[1,2])))  # -- inlet top 2 species science names
-   topInletsp2.2  <- as.character(topInletsp.2[2,1])  
+   
+   topInletsp2.2  <- tolower(as.character(as.character(topInletsp.2[2,1])))  # -- put to lowercase
    topInletsc2.2  <- firstup(tolower(as.character(topInletsp.2[2,2])))  
 
  # -- species composition counts for StRS sets year two
@@ -412,7 +426,7 @@ A total of `r totalI.2` taxonomic groups were represented in the catches from tr
      biosumm[16,4]     <-  round((biosumm[1,4] + biosumm[2,4] + biosumm[3,4])/ 3, 2)  # --  females S1 average proportions
      biosumm[16,5]     <-  round((biosumm[1,5] + biosumm[2,5] + biosumm[3,5])/ 3, 0)  # --  males S1 average fork len
      biosumm[16,6]     <-  round((biosumm[1,6] + biosumm[2,6] + biosumm[3,6])/ 3, 0)  # --  females S1 average fork len 
-     biosumm[16,7]     <-  round((biosumm[1,7] + biosumm[2,7] + biosumm[3,7])/ 3, 0)  # -- tagged S1 average fork len
+     biosumm[16,7]     <-  round((biosumm[1,7] + biosumm[2,7] + biosumm[3,7])/ 3, 0)  # --  tagged S1 average fork len
       
      biosumm[17,3]     <-  round((biosumm[4,3] + biosumm[5,3] + biosumm[6,3])/ 3, 2)   # -- S2
      biosumm[17,4]     <-  round((biosumm[4,4] + biosumm[5,4] + biosumm[6,4])/ 3, 2)
@@ -767,9 +781,9 @@ Out of the `r format(countStRS2[1,2], big.mark=",")` sablefish captured during t
 
 Overall, the StRS design sets had a higher proportion of females to males over the spatial strata `r stratafemale.2` (Table \@ref(tab:table8)).  The sex ratio was females biased in the shallow depth stratum within the spatial strata `r shallsfemale.2`.  In the mid depth stratum, there were more males than females in `r midsmale.2`.  The deepest depth stratum saw more females in spatial strata `r deepsfemale.2`.  More females than males were sampled in `r inletw.2` traditional mainland inlet localities and samples ranged from `r femaleRange.2[1]` to `r femaleRange.2[2]` percent females (Table \@ref(tab:table8)).  
 
-Significant differences in length distributions between male and female sablefish are exhibited in the data collected from the StRS portion of the 2003 - 2019 surveys. The mean fork length ($\bar{x}$) for females was `r mLf2` cm and the mean fork length ($\bar{x}$) for males was `r mLm2` cm (Figure \@ref(fig:figure10)a). 
+Significant differences in length distributions between female and male sablefish are exhibited in the data collected from the StRS portion of the 2003 - 2019 surveys. The mean fork length ($\bar{x}$) for females was `r mLf2` cm and the mean fork length ($\bar{x}$) for males was `r mLm2` cm (Figure \@ref(fig:figure10)a). 
 
-In `r yr`, the average mean fork length for the `r format(length(firstyrfem$sex), big.mark=",")` females was `r round(favgyr1$AvL,1)` cm  and the average mean fork length for the `r format(length(firstyrmal$sex), big.mark=",")` males was `r round(mavgyr1$AvL,1) ` cm. In `r yr+1`, the average mean fork length for the `r format(length(secondyrfem$sex), big.mark=",")` females was `r round(favgyr2$AvL,1)` cm and the average mean fork length for the `r format(length(secondyrmal$sex), big.mark=",")` males was `r round(mavgyr2$AvL,1)` cm (Figure \@ref(fig:figure10)b).
+In `r yr`, the average mean fork length for the `r format(length(firstyrfem$sex), big.mark=",")` females was `r round(favgyr1$AvL,1)` cm  and the average mean fork length for the `r format(length(firstyrmal$sex), big.mark=",")` males was `r round(mavgyr1$AvL,1) ` cm. In `r yr+1`, the average mean fork length for the `r format(length(secondyrfem$sex), big.mark=",")` females was `r round(favgyr2$AvL,1)` cm and the average mean fork length for the `r format(length(secondyrmal$sex), big.mark=",")` males was `r round(mavgyr2$AvL,1)` cm.   The mean length of both females and males reached their lowest mean size since 2003 (Figure \@ref(fig:figure10)b). 
 
 On average, female sablefish grow faster and reach far greater size (Figure \@ref(fig:figure11)a,b) compared to males (Figure \@ref(fig:figure11)c,d).
 
