@@ -627,7 +627,7 @@
     
 ```  
 
-(ref:figure9) A: Average weight of Sablefish per trap (mean +/- 95% CIs) at mainland Inlet localities. B: Average number of Sablefish per trap (mean +/- 95% CIs) at mainland Inlet localities.
+(ref:figure9) Average weight of Sablefish per trap (mean +/- 95% CIs) at mainland Inlet localities (A). Average number of Sablefish per trap (mean +/- 95% CIs) at mainland Inlet localities (B).
 
 ```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width = "500px",out.height = "600px", fig.align="center"}
 
