@@ -690,7 +690,7 @@
 \clearpage
 
 
-(ref:figure10) Length frequencies for male sablefish (blue-violet) and female sablefish (fuchsia) up to `r yr+1` for all StRS sets.  The number of specimens is denoted by the letter n, the mean indicated by the xbar $\overline{x}$ and the standard deviation is represented by the symbol sigma $\Sigma$ (A). Average length and ratios of male and female sablefish by year. Counts by sex are shown across the top of the lines (B).
+(ref:figure10) Length frequencies for female (fuchsia) and male sablefish (blue-violet) and up to `r yr+1` for all StRS sets.  The number of specimens is denoted by the letter n, the mean indicated by the xbar $\overline{x}$ and the standard deviation is represented by the symbol sigma $\Sigma$ (A). Average length and ratios of male and female sablefish by year. Counts by sex are shown across the top of the lines (B).
 
 ```{r figure10, fig.cap='(ref:figure10)',results='asis', out.width = "400px",out.height = "500px", fig.align="center"}
 
@@ -1108,7 +1108,7 @@
 ```
 \clearpage
 
-(ref:figure13) Bubble plot for male (A) and female (B) sablefish ages by survey year from StRS sets that have been aged.  The sizes of the circles are proportional to the number of fish with given ages. Fish age 35 and older are included in one bubble. The total number(n) of fish aged are listed across the top of each panel. The ages with the highest ratios are posted to the right of each bubble.
+(ref:figure13) Bubble plot for female (A) and male (B) sablefish ages by survey year from StRS sets that have been aged.  The sizes of the circles are proportional to the number of fish with given ages. Fish age 35 and older are included in one bubble. The total number(n) of fish aged are listed across the top of each panel. The ages with the highest ratios are posted to the right of each bubble.
 
 ```{r figure13, fig.cap='(ref:figure13)',results='asis', out.width = "400px",out.height = "500px", fig.align="center"}
    # dt  <-  ("exec procRKnitr_Survey_proportions_at_age")  run this procedure to create table first.
