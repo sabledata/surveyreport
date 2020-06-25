@@ -52,6 +52,7 @@ lof: true
 # header-includes:
 # - \usepackage{tikz}
 header-includes: \usepackage{pdflscape}
+                 
 ---
 
 ```{r setup, echo=FALSE, cache=FALSE, message=FALSE, results='hide', warning=FALSE}
@@ -121,7 +122,7 @@ library(cowplot)
 #  ----   G L O B A L --- F U N C T I O N S ---------------------------------
 
   GetSQLData <- function(strSQL,strDbName) {    # connect to SQL Server
-            cnn <- odbcDriverConnect(paste("Driver={SQL Server};Server=DFBCV9TWVASP001;", 
+         cnn <- odbcDriverConnect(paste("Driver={SQL Server};Server=DFBCV9TWVASP001;", 
                                          "Database=",
                                           strDbName,";
                                           Trusted_Connection=Yes",
@@ -139,7 +140,7 @@ library(cowplot)
             #return( NULL )
             }
   
-  cleanf <- function(x){     # function to remove duplicates
+  cleanf <- function(x){                            # function to remove duplicates
             oldx <- c(FALSE, x[-1]==x[-length(x)])  # is the value equal to the previous
             res <- x
             res[oldx] <- NA
@@ -157,7 +158,6 @@ library(cowplot)
             substr(x, 1, 1) <- toupper(substr(x, 1, 1))
             x
   }
-  
   
   format_cells <- function(df, rows ,cols, value = c("italics", "bold", "strikethrough")){
 
@@ -283,9 +283,8 @@ library(cowplot)
    avgC        <- paste("select ROUND(AVG(TOTAL), 0) AS YrAvg ",
                         "from   dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",
                         "where (year <= ", yr+1, ") and (year >= ",yr - 8,")", sep="")
-   #avgTen      <- GetSQLData(avgC,"Sablefish")    # -- average catch last 10 years
+   #avgTen      <- GetSQLData(avgC,"Sablefish")    # -- average catch last 10 years               
    avgTen      <- read.csv("c:/github/surveyreport/standaloneData/index02_10YearAvgCatch.csv",header=T)
-   
    
    tp          <- paste("select ROUND(TRAP / TOTAL * 100, 0) AS TrapPer ",
                         "from dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",  
@@ -298,7 +297,6 @@ library(cowplot)
                          "where  (year = ", yr, ") group by ROUND(LONGLINE / TOTAL * 100, 0), TOTAL", sep="")
    #LonglineP   <- GetSQLData(lp,"Sablefish")        # -- longline gear catch ratio
    LonglineP   <- read.csv("c:/github/surveyreport/standaloneData/index04_LonglineRatio.csv",header=T)
-   
 
    tp2         <- paste("select ROUND(TRAP / TOTAL * 100, 0) AS TrapPer ",
                         "from dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",  

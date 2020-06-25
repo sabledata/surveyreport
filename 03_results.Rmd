@@ -27,8 +27,8 @@ Of the 91 original blocks for the StRS portion of the survey, one was attempted 
   # -- generate the lowest uncertainity and corresponding year for catch rate paragraph
 
   dtStRS   <-   " select  * from dbo.GENERIC_GFBIO_TRAPS order by year"  # -- must update view GENERIC_GFBIO_TRAPS
-  #datStRS  <-   GetSQLData(dtStRS,"Sablefish") 
-  datStRS  <-  read.csv("c:/github/surveyreport/standaloneData/results01_GenericTrapsCatchRates.csv",header=T) 
+  #datStRS  <-   GetSQLData(dtStRS,"Sablefish")                          # read from SQL Server
+  datStRS  <-  read.csv("c:/github/surveyreport/standaloneData/results01_GenericTrapsCatchRates.csv",header=T)  # read from csv
   #odbcCloseAll()
 
   datRD    <-   datStRS[ datStRS$SABLE.SET.TYPE=="StRS", ] # --  pick out the random sets

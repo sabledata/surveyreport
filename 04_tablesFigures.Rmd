@@ -17,7 +17,7 @@
        dataf    <- data.frame(Strata, RD1, RD2, RD3,Total) 
        colnames(dataf) <- c("Spatia Strata", "RD1     (100-250 fm) ","RD2     (250-450 fm)","RD3    (450-750 fm) ","Total")
    
-   kableExtra::kable(dataf, booktabs = TRUE,linesep = "",
+       kableExtra::kable(dataf, booktabs = TRUE,linesep = "",
                      format = "latex",
                      caption = "(ref:Table1Caption)") %>%
               row_spec(5, hline_after = T) %>%
@@ -377,10 +377,10 @@
 
 #   query----------raw survey datafile for Landmark fisheries----------------
 
-    landmrk <- paste("select FishingEventCatchCPUE.TRIP_ID, FishingEventCatchCPUE.VESSEL_ID, FishingEventCatchCPUE.SUFFIX, ",                                  "FishingEventCatchCPUE.CAPTAIN_ID, FishingEventCatchCPUE.FISHING_EVENT_ID, FishingEventCatchCPUE.FE_MAJOR_LEVEL_ID,",
-               "FishingEventCatchCPUE.SET_YEAR,   FishingEventCatchCPUE.SET_MONTH,        FishingEventCatchCPUE.SET_DAY, ",                                    "FishingEventCatchCPUE.SET_TIME,   FishingEventCatchCPUE.DURATION_MINUTES, FishingEventCatchCPUE.SABLE_DEPTH_GROUP, ",                          "FishingEventCatchCPUE.SABLE_AREA_GROUP, FishingEventCatchCPUE.SABLE_SET_TYPE, ", 
-               "FishingEventCatchCPUE.GROUPING_CODE,    FishingEventCatchCPUE.REASON_CODE, FishingEventCatchCPUE.FE_REASON_COMMENT, ",                         "FishingEventCatchCPUE.GEAR_CODE,        FishingEventCatchCPUE.NS_AREA, ",
-               "FishingEventCatchCPUE.INSHORE_IND,      FishingEventCatchCPUE.SEAMOUNT_IND, FishingEventCatchCPUE.MAJOR_STAT_AREA_CODE, ",                     "FishingEventCatchCPUE.MINOR_STAT_AREA_CODE, FishingEventCatchCPUE.LOCALITY_CODE, ",                                   
+    landmrk <- paste("select FishingEventCatchCPUE.TRIP_ID, FishingEventCatchCPUE.VESSEL_ID, FishingEventCatchCPUE.SUFFIX, ",                             "FishingEventCatchCPUE.CAPTAIN_ID, FishingEventCatchCPUE.FISHING_EVENT_ID, FishingEventCatchCPUE.FE_MAJOR_LEVEL_ID,",
+               "FishingEventCatchCPUE.SET_YEAR,   FishingEventCatchCPUE.SET_MONTH,        FishingEventCatchCPUE.SET_DAY, ",                               "FishingEventCatchCPUE.SET_TIME,   FishingEventCatchCPUE.DURATION_MINUTES, FishingEventCatchCPUE.SABLE_DEPTH_GROUP, ",                     "FishingEventCatchCPUE.SABLE_AREA_GROUP, FishingEventCatchCPUE.SABLE_SET_TYPE, ", 
+               "FishingEventCatchCPUE.GROUPING_CODE,    FishingEventCatchCPUE.REASON_CODE, FishingEventCatchCPUE.FE_REASON_COMMENT, ",                    "FishingEventCatchCPUE.GEAR_CODE,        FishingEventCatchCPUE.NS_AREA, ",
+               "FishingEventCatchCPUE.INSHORE_IND,      FishingEventCatchCPUE.SEAMOUNT_IND, FishingEventCatchCPUE.MAJOR_STAT_AREA_CODE, ",                "FishingEventCatchCPUE.MINOR_STAT_AREA_CODE, FishingEventCatchCPUE.LOCALITY_CODE, ",                                   
                "FishingEventCatchCPUE.FE_FISHING_GROUND_COMMENT, ",
                "FishingEventCatchCPUE.START_LATITUDE, FishingEventCatchCPUE.START_LONGITUDE, ",
                "FishingEventCatchCPUE.END_LATITUDE, FishingEventCatchCPUE.END_LONGITUDE, ",
@@ -399,8 +399,7 @@
                "FishingEventCatchCPUE.DepthStrataID, dbo.SurveyBlock_countWeight.nBlocks AS Nh, dbo.SurveyBlock_countWeight.Wh,", 
                "ISNULL(FishingEventCatchCPUE.CPUE_SABLE_WEIGHT / NULLIF (FishingEventCatchCPUE.CPUE_TRAPS, 0), 0) AS cpue,",   
                "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Proportion Males], ",
-               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Male Mean Fork Len(mm)], dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Female Mean Fork Len(mm)], ",    
-               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Tagged Mean Fork Len(mm)]  ",
+               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Male Mean Fork Len(mm)],dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Female Mean Fork Len(mm)], ",                "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Tagged Mean Fork Len(mm)]  ",
                "from (select trp.TRIP_ID, trp.VESSEL_ID, trp.SUFFIX, trp.CAPTAIN_ID, fe_1.FISHING_EVENT_ID, ",
                "fe_1.FE_MAJOR_LEVEL_ID, YEAR(dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, ",
                "fe_1.FE_END_DEPLOYMENT_TIME, fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME)) AS SET_YEAR,  ",     
@@ -449,7 +448,7 @@
                "(select  TRIP_ID         ",
                "from GFBioSQL.dbo.TRIP_ACTIVITY    ",
                "where (ACTIVITY_CODE = 19)) AS act ON trp.TRIP_ID = act.TRIP_ID INNER JOIN  ",
-               "(select TRIP_ID, FISHING_EVENT_ID, FE_PARENT_EVENT_ID, FE_MAJOR_LEVEL_ID, FE_SUB_LEVEL_ID, FE_MINOR_LEVEL_ID, EMPLOYEE_ID, ",                  "FE_BEGIN_DEPLOYMENT_TIME, FE_END_DEPLOYMENT_TIME, FE_BEGIN_RETRIEVAL_TIME, FE_END_RETRIEVAL_TIME,  ",
+               "(select TRIP_ID, FISHING_EVENT_ID, FE_PARENT_EVENT_ID, FE_MAJOR_LEVEL_ID, FE_SUB_LEVEL_ID, FE_MINOR_LEVEL_ID, EMPLOYEE_ID, ",             "FE_BEGIN_DEPLOYMENT_TIME, FE_END_DEPLOYMENT_TIME, FE_BEGIN_RETRIEVAL_TIME, FE_END_RETRIEVAL_TIME,  ",
                "GROUPING_CODE, REASON_CODE, FE_REASON_COMMENT, MAJOR_STAT_AREA_CODE, ",
                "MINOR_STAT_AREA_CODE, LOCALITY_CODE, DFO_STAT_AREA_CODE, DFO_STAT_SUBAREA_CODE, ",
                "LOC_VRFN_METHOD_CODE, FE_FISHING_GROUND_COMMENT, ",
@@ -677,10 +676,8 @@
           ylab("CPUE (count per trap)") +
           theme(axis.text = element_text(size = 10)) + 
           theme_bw()
-    
      
      plot_grid(p1, p, labels = "AUTO", nrow = 2)
-     
 
      while (!is.null(dev.list()))  dev.off()
      img <-  paste('C:/github/surveyreport/figures/Figure_9_InletCPUE.png',sep="")   # -- retrieve png 
@@ -948,7 +945,7 @@
                       " where (ROUND(countSub / total * 100, 1) > 50)  group by YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP ",
                       " order by YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP")
 
- #polar        <- GetSQLData(sqlpolar ,"Sablefish")
+ #polar        <- GetSQLData(sqlpolar ,"Sablefish")     # read from SQL Server
  #polarsummary <- GetSQLData(polarsumm ,"Sablefish")   # view the results to be able to type into the summary
  
  polar        <-  read.csv("c:/github/surveyreport/standaloneData/figure12_Polar.csv",header=T)        # read from csv
