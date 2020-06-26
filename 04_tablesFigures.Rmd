@@ -28,12 +28,10 @@
               add_header_above(c(" "= 1,
                                  "Depth Strata" = 3, 
                                  " " = 1)) %>%
-       kableExtra::kable_styling(font_size = 8, position = "left")
+       kableExtra::kable_styling(font_size = 8, position = "left",latex_options = "hold_position")
   
   
 ```
-<br>
-<br>
 (ref:Table2Caption) Components of the `r yr` and `r yr+1` sablefish research and assessment surveys.
 
 ```{r table2, echo=FALSE}
@@ -71,7 +69,7 @@
                booktabs = TRUE,linesep = "",
                format = "latex",  caption = "(ref:Table2Caption)") %>%
                row_spec(4,  hline_after = T) %>%
-               kableExtra::kable_styling(font_size = 8, position = "left")
+               kableExtra::kable_styling(font_size = 8, position = "left",latex_options = "hold_position")
 
 ```
 
@@ -98,8 +96,9 @@
                     row_spec(10,  hline_after = T) %>%
                     row_spec(23,  hline_after = T) %>%
                     row_spec(26,  hline_after = T) %>%
-                    kableExtra::kable_styling(font_size = 8, position = "left")
+                    kableExtra::kable_styling(font_size = 8, position = "left",latex_options = "hold_position")
 ```
+\clearpage
 
 (ref:Table4Caption) Summary of species captured by the `r boat` during the `r yr` survey standardized sets conducted at mainland inlet localities. Null values indicate the catch was not counted or weighed.  No value in both weight and count indicates trace weights of less than 1 kg recorded.
 
@@ -125,7 +124,7 @@
                     row_spec(2,  hline_after = T) %>%
                     row_spec(6,  hline_after = T) %>%
                     row_spec(8,  hline_after = T) %>%
-                    kableExtra::kable_styling(font_size = 8, position = "left")
+                    kableExtra::kable_styling(font_size = 8, position = "left",latex_options = "hold_position")
 
 ```
 (ref:Table5Caption) Summary of species captured during the `r yr+1` survey StRS sets conducted by the `r boat2`, No value in the weight column indicates that the catch was not weighed. No value in both weight and count indicates trace weights of less than 1 kg recorded.
@@ -151,7 +150,7 @@
               row_spec(11,  hline_after = T) %>%
               row_spec(24,  hline_after = T) %>%
               row_spec(28,  hline_after = T) %>%
-              kableExtra::kable_styling(font_size = 8, position = "left")
+              kableExtra::kable_styling(font_size = 8, position = "left",latex_options = "hold_position")
 ```
 
 (ref:Table6Caption) Summary of species captured by the `r boat2` during the `r yr + 1` survey standardized sets conducted at mainland inlet localities. Null values indicate the catch was not counted or weighed.  No value in both weight and count indicates trace weights of less than 1 kg recorded.
@@ -177,7 +176,7 @@
                     row_spec(2,  hline_after = T) %>%
                     row_spec(6,  hline_after = T) %>%
                     row_spec(8,  hline_after = T) %>%
-  kableExtra::kable_styling(font_size = 8, position = "left")
+  kableExtra::kable_styling(font_size = 8, position = "left",latex_options = "hold_position")
 
 ```
 
@@ -194,7 +193,7 @@
                         "Proportion" = 2, 
                         "Mean Fork Length (mm)" = 3)) %>%
       
-    kableExtra::kable_styling(font_size = 8, position = "left") %>%
+    kableExtra::kable_styling(font_size = 8, position = "left",latex_options = "hold_position") %>%
                 row_spec(3,    hline_after = T) %>%
                 row_spec(4,    bold = T, hline_after = T) %>%
                 row_spec(7,    hline_after = T) %>% 
@@ -222,7 +221,7 @@
     add_header_above(c("Depth Strata/Locality"= 2,
                       "Proportion" = 2, 
                       "Mean Fork Length (mm)" = 3)) %>%
-    kableExtra::kable_styling(font_size = 8, position = "left") %>%
+    kableExtra::kable_styling(font_size = 8, position = "left",latex_options = "hold_position") %>%
     row_spec(3,    hline_after = T) %>%
     row_spec(4,    bold = T, hline_after = T) %>%
     row_spec(7,    hline_after = T) %>% 
@@ -297,7 +296,7 @@
             repeat_header_text = "Continued...", 
             caption = "(ref:Table9Caption)") %>%
     
-   kableExtra::kable_styling(font_size = 7, position = "left") %>%
+   kableExtra::kable_styling(font_size = 7, position = "left",latex_options = "hold_position") %>%
               column_spec(1,width  = "0.3cm") %>%
               column_spec(2,width  = "0.5cm") %>%
               column_spec(3,width  = "0.5cm") %>%
@@ -337,7 +336,7 @@
 
 (ref:figure1) Location of the boundaries of the mainland inlet localities, and the five spatial areas (S~1~-S~5~) of the stratified random survey design. The three depths strata (RD~1~-RD~3~) are colour-coded and nested within each of the five spatial strata. 
 
-```{r figure1, fig.cap='(ref:figure1)', out.width = "400px", out.height = "500px", fig.align="center", warning=FALSE, echo=FALSE, message=FALSE, error=FALSE}
+```{r figure1, fig.cap='(ref:figure1)', out.width = "450px", out.height = "550px", fig.align="center", warning=FALSE, echo=FALSE, message=FALSE, error=FALSE}
       img <- paste('C:/github/surveyreport/figures/Figure_1_Report_Overview_survey_',yr+1,'.png',sep="") 
       knitr::include_graphics(img)
 ```
@@ -354,7 +353,7 @@
 
 (ref:figure3) Location of the traditional survey sets within the mainland inlet localities since 1994.  The setlines for `r yr` are shown in blue and setlines for `r yr+1` are shown in red.
 
-```{r figure3, fig.cap='(ref:figure3)', out.width = "400px", echo=FALSE, fig.align="center", warning=FALSE}
+```{r figure3, fig.cap='(ref:figure3)', out.width = "450px", out.height = "550px", echo=FALSE, fig.align="center", warning=FALSE}
       img  <- paste('C:/github/surveyreport/figures/Figure_3_Report_Inlets_',yr+1,'_2.png',sep="")
       knitr::include_graphics(img)
 ```
