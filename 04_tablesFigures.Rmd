@@ -1,6 +1,6 @@
 # Tables and Figures
 (ref:Table1Caption) Spatial strata allocation for the `r yr` and `r yr+1` sablefish research and assessment surveys. 
-```{r table1, echo=FALSE,font_size = 8, tab.align='left'}
+```{r table1, echo=FALSE}
 
        Strata   <- c("S1 (South West Coast Vancouver Island or SWCVI)",
                      "S2 (North West Coast Vancouver Island or NWCVI)",
@@ -14,28 +14,29 @@
        RD3      <- c(5,5,5,5,5,25)
        Total    <- c(19,18,19,17,18,91)
        dataf    <- data.frame(Strata, RD1, RD2, RD3,Total) 
-       colnames(dataf) <- c("Spatia Strata", "RD1     (100-250 fm) ","RD2     (250-450 fm)","RD3    (450-750 fm) ","Total")
+       colnames(dataf) <- c("Spatia Strata", "RD1      (100-250 fm) ","RD2     (250-450 fm)","RD3    (450-750 fm) ","Total")
    
        kableExtra::kable(dataf, booktabs = TRUE,linesep = "",
-                     format = "latex",
-                     caption = "(ref:Table1Caption)") %>%
+                   format = "latex",
+                   caption = "(ref:Table1Caption)") %>%
               row_spec(5, hline_after = T) %>%
-              column_spec(1, width  = "6.4cm") %>%
-              column_spec(2, width  = "1.9cm") %>%
+              #column_spec(1, width  = "6.6cm") %>%
+              column_spec(2, width  = "1.7cm") %>%
               column_spec(3, width  = "1.7cm") %>%
               column_spec(4, width  = "1.7cm") %>%
               column_spec(5, width  = "0.5cm") %>%
               add_header_above(c(" "= 1,
                                  "Depth Strata" = 3, 
                                  " " = 1)) %>%
-                     kableExtra::kable_styling(font_size = 8)
+       kableExtra::kable_styling(font_size = 8, position = "left")
   
   
 ```
-
+<br>
+<br>
 (ref:Table2Caption) Components of the `r yr` and `r yr+1` sablefish research and assessment surveys.
 
-```{r table2, echo=FALSE,font_size = 8}
+```{r table2, echo=FALSE}
 
    # --  Create a dataframe 4 columns wide, 2019 and beyond, no benthic impact study
    Component    <- c("Stratified random sampling (StRS)         ",
@@ -70,7 +71,7 @@
                booktabs = TRUE,linesep = "",
                format = "latex",  caption = "(ref:Table2Caption)") %>%
                row_spec(4,  hline_after = T) %>%
-               kableExtra::kable_styling(font_size = 8)
+               kableExtra::kable_styling(font_size = 8, position = "left")
 
 ```
 
