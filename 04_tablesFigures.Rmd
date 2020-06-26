@@ -1,7 +1,6 @@
 # Tables and Figures
-
 (ref:Table1Caption) Spatial strata allocation for the `r yr` and `r yr+1` sablefish research and assessment surveys. 
-```{r table1, echo=FALSE,font_size = 8}
+```{r table1, echo=FALSE,font_size = 8, tab.align='left'}
 
        Strata   <- c("S1 (South West Coast Vancouver Island or SWCVI)",
                      "S2 (North West Coast Vancouver Island or NWCVI)",
@@ -21,8 +20,8 @@
                      format = "latex",
                      caption = "(ref:Table1Caption)") %>%
               row_spec(5, hline_after = T) %>%
-              column_spec(1, width  = "6.5cm") %>%
-              column_spec(2, width  = "1.8cm") %>%
+              column_spec(1, width  = "6.4cm") %>%
+              column_spec(2, width  = "1.9cm") %>%
               column_spec(3, width  = "1.7cm") %>%
               column_spec(4, width  = "1.7cm") %>%
               column_spec(5, width  = "0.5cm") %>%
@@ -39,10 +38,10 @@
 ```{r table2, echo=FALSE,font_size = 8}
 
    # --  Create a dataframe 4 columns wide, 2019 and beyond, no benthic impact study
-   Component    <- c("Stratified random sampling (StRS)",
+   Component    <- c("Stratified random sampling (StRS)         ",
                      " ",
                      " ","",
-                     "Traditional Inlet Standardized"," ","","" )
+                     "Traditional Inlet Standardized            "," ","","" )
                  # , "Benthic impact","","","","") 
    Bait         <- c("2 lbs frozen squid", "(bagged)", 
                      "10 lbs Hake (loose)","",
@@ -344,7 +343,7 @@
 \clearpage
 
 
-(ref:figure2) Start locations of survey sets (red markers) conducted in `r yr` (top) and `r yr+1` (bottom) for the stratified random survey areas S~1~ through S~5~.
+(ref:figure2) Start locations of survey sets (red markers) conducted in `r yr` (A) and `r yr+1` (B) for the stratified random survey areas S~1~ through S~5~.
 
 ```{r figure2, fig.cap='(ref:figure2)', echo=FALSE, out.width = "350px",out.height = "600px", fig.align="center", warning=FALSE}
       img <- paste('C:/github/surveyreport/figures/Figure_2_Report_S1_S5_', yr,yr+1,'.png'  ,sep="")

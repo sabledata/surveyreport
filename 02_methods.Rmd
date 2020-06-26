@@ -18,7 +18,7 @@ Standardized fishing sets under the traditional component of the survey have spe
 
 ## VESSELS
 
-This survey is completed using a chartered commercial fishing vessel. The 2018 survey of `r setcnt` sets was conducted aboard the 35.66 meter F/V `r boat`, skippered by `r captain`  and Mike Derry between `r dates`, `r yr`. The `r yr+1` survey of `r setcnt2` sets was conducted aboard the 25.34 meter F/V `r boat2`, skippered by Albert (Deacon) Melnychuk between `r dates2`, `r yr+1`.  Images and information about the vessels can be found at [\underline{http://marinetraffic.com}](http://marinetraffic.com)   A complete list of vessels and sets on sablefish research and assessment surveys is found in Appendix \@ref(app:second-appendix).
+This survey was completed using a chartered commercial fishing vessel. The 2018 survey of `r setcnt` sets was conducted aboard the 35.66 meter F/V `r boat`, skippered by `r captain`  and Mike Derry between `r dates`, `r yr`. The `r yr+1` survey of `r setcnt2` sets was conducted aboard the 25.34 meter F/V `r boat2`, skippered by Albert (Deacon) Melnychuk between `r dates2`, `r yr+1`.  Images and information about the vessels can be found at [\underline{http://marinetraffic.com}](http://marinetraffic.com)   A complete list of vessels and sets on sablefish research and assessment surveys is found in Appendix \@ref(app:second-appendix).
 
 ## FISHING GEAR
 
