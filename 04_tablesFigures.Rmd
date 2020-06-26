@@ -98,7 +98,7 @@
                     row_spec(10,  hline_after = T) %>%
                     row_spec(23,  hline_after = T) %>%
                     row_spec(26,  hline_after = T) %>%
-                    kableExtra::kable_styling(font_size = 8)
+                    kableExtra::kable_styling(font_size = 8, position = "left")
 ```
 
 (ref:Table4Caption) Summary of species captured by the `r boat` during the `r yr` survey standardized sets conducted at mainland inlet localities. Null values indicate the catch was not counted or weighed.  No value in both weight and count indicates trace weights of less than 1 kg recorded.
@@ -125,7 +125,7 @@
                     row_spec(2,  hline_after = T) %>%
                     row_spec(6,  hline_after = T) %>%
                     row_spec(8,  hline_after = T) %>%
-                    kableExtra::kable_styling(font_size = 8)
+                    kableExtra::kable_styling(font_size = 8, position = "left")
 
 ```
 (ref:Table5Caption) Summary of species captured during the `r yr+1` survey StRS sets conducted by the `r boat2`, No value in the weight column indicates that the catch was not weighed. No value in both weight and count indicates trace weights of less than 1 kg recorded.
@@ -151,7 +151,7 @@
               row_spec(11,  hline_after = T) %>%
               row_spec(24,  hline_after = T) %>%
               row_spec(28,  hline_after = T) %>%
-              kableExtra::kable_styling(font_size = 8)
+              kableExtra::kable_styling(font_size = 8, position = "left")
 ```
 
 (ref:Table6Caption) Summary of species captured by the `r boat2` during the `r yr + 1` survey standardized sets conducted at mainland inlet localities. Null values indicate the catch was not counted or weighed.  No value in both weight and count indicates trace weights of less than 1 kg recorded.
@@ -177,7 +177,7 @@
                     row_spec(2,  hline_after = T) %>%
                     row_spec(6,  hline_after = T) %>%
                     row_spec(8,  hline_after = T) %>%
-  kableExtra::kable_styling(font_size = 8)
+  kableExtra::kable_styling(font_size = 8, position = "left")
 
 ```
 
@@ -194,7 +194,7 @@
                         "Proportion" = 2, 
                         "Mean Fork Length (mm)" = 3)) %>%
       
-    kableExtra::kable_styling(font_size = 8) %>%
+    kableExtra::kable_styling(font_size = 8, position = "left") %>%
                 row_spec(3,    hline_after = T) %>%
                 row_spec(4,    bold = T, hline_after = T) %>%
                 row_spec(7,    hline_after = T) %>% 
@@ -222,7 +222,7 @@
     add_header_above(c("Depth Strata/Locality"= 2,
                       "Proportion" = 2, 
                       "Mean Fork Length (mm)" = 3)) %>%
-    kableExtra::kable_styling(font_size = 8) %>%
+    kableExtra::kable_styling(font_size = 8, position = "left") %>%
     row_spec(3,    hline_after = T) %>%
     row_spec(4,    bold = T, hline_after = T) %>%
     row_spec(7,    hline_after = T) %>% 
@@ -297,7 +297,7 @@
             repeat_header_text = "Continued...", 
             caption = "(ref:Table9Caption)") %>%
     
-   kableExtra::kable_styling(font_size = 7) %>%
+   kableExtra::kable_styling(font_size = 7, position = "left") %>%
               column_spec(1,width  = "0.3cm") %>%
               column_spec(2,width  = "0.5cm") %>%
               column_spec(3,width  = "0.5cm") %>%
