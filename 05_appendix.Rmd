@@ -162,7 +162,7 @@ Details of sets completed during the `r yr+1` survey program (F/V `r boat2`).  S
                     longtable = T,
                     linesep   = "",
                     format = "latex") %>%
-   kableExtra::kable_styling(font_size = 8, latex_options = "repeat_header",
+   kableExtra::kable_styling(font_size = 8, latex_options = "repeat_header", 
                repeat_header_text = "continued.", repeat_header_method = "replace") %>%
    kableExtra::landscape() %>%
       

@@ -9,13 +9,13 @@
 \contentsline {subsection}{\numberline {2.2}VESSELS}{3}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}FISHING GEAR}{3}{subsection.2.3}%
 \contentsline {subsection}{\numberline {2.4}FISHING OPERATIONS}{3}{subsection.2.4}%
-\contentsline {subsubsection}{\numberline {2.4.1}Stratified Random Component}{4}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.1}Stratified Random Component (StRS)}{4}{subsubsection.2.4.1}%
 \contentsline {subsubsection}{\numberline {2.4.2}Traditional Standardized Inlet Component}{4}{subsubsection.2.4.2}%
 \contentsline {subsection}{\numberline {2.5}CATCH PROCESSING}{4}{subsection.2.5}%
 \contentsline {subsubsection}{\numberline {2.5.1}Sablefish Allocation Details}{4}{subsubsection.2.5.1}%
 \contentsline {subsection}{\numberline {2.6}BIOLOGICAL SAMPLING (LWSMO)}{5}{subsection.2.6}%
 \contentsline {subsection}{\numberline {2.7}SABLEFISH TAGGING}{5}{subsection.2.7}%
-\contentsline {subsection}{\numberline {2.8}SABLEFISH TAG RECOVERY}{6}{subsection.2.8}%
+\contentsline {subsection}{\numberline {2.8}SABLEFISH TAG RECOVERY}{5}{subsection.2.8}%
 \contentsline {subsection}{\numberline {2.9}OCEANOGRAPHIC SENSOR DATA COLLECTION}{6}{subsection.2.9}%
 \contentsline {subsection}{\numberline {2.10}ELECTRONIC MONITORING VIDEO DATA COLLECTION}{6}{subsection.2.10}%
 \contentsline {section}{\numberline {3}Results and Discussion}{7}{section.3}%

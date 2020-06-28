@@ -1,5 +1,8 @@
 # Tables and Figures
 (ref:Table1Caption) Spatial strata allocation for the `r yr` and `r yr+1` sablefish research and assessment surveys. 
+\ \
+\ \
+
 ```{r table1, echo=FALSE}
 
        Strata   <- c("S1 (South West Coast Vancouver Island or SWCVI)",
@@ -32,7 +35,14 @@
   
   
 ```
+\ \
+\ \
+\ \
+
 (ref:Table2Caption) Components of the `r yr` and `r yr+1` sablefish research and assessment surveys.
+\ \
+\ \
+
 
 ```{r table2, echo=FALSE}
 
@@ -74,7 +84,9 @@
 ```
 
 (ref:Table3Caption) Summary of species captured during the `r yr` survey StRS sets conducted by the `r boat`. No value in the weight column indicates that the catch was not weighed. No value in both weight and count indicates trace weights of less than 1 kg recorded.
-                    
+\ \
+\ \
+
 ```{r table3,  echo=FALSE}
 
   options(knitr.kable.NA = '')
@@ -101,6 +113,8 @@
 \clearpage
 
 (ref:Table4Caption) Summary of species captured by the `r boat` during the `r yr` survey standardized sets conducted at mainland inlet localities. Null values indicate the catch was not counted or weighed.  No value in both weight and count indicates trace weights of less than 1 kg recorded.
+\ \
+\ \
 
 
 ```{r table4, echo=FALSE}
@@ -127,8 +141,12 @@
                     kableExtra::kable_styling(font_size = 8, position = "left",latex_options = "hold_position")
 
 ```
+\clearpage
+
 (ref:Table5Caption) Summary of species captured during the `r yr+1` survey StRS sets conducted by the `r boat2`, No value in the weight column indicates that the catch was not weighed. No value in both weight and count indicates trace weights of less than 1 kg recorded.
-                   
+\ \
+\ \
+
 ```{r table5,  echo=FALSE}
 
   options(knitr.kable.NA = '')
@@ -152,8 +170,11 @@
               row_spec(28,  hline_after = T) %>%
               kableExtra::kable_styling(font_size = 8, position = "left",latex_options = "hold_position")
 ```
+\clearpage
 
 (ref:Table6Caption) Summary of species captured by the `r boat2` during the `r yr + 1` survey standardized sets conducted at mainland inlet localities. Null values indicate the catch was not counted or weighed.  No value in both weight and count indicates trace weights of less than 1 kg recorded.
+\ \
+\ \
 
 ```{r table6, echo=FALSE}
 
@@ -179,8 +200,13 @@
   kableExtra::kable_styling(font_size = 8, position = "left",latex_options = "hold_position")
 
 ```
+\ \
+\ \
+\ \
 
 (ref:Table7Caption) Summary of sablefish biological data collected during the `r yr` stratified random sets by spatial and depth stratum.
+\ \
+\ \
 
 ```{r table7, echo=FALSE}
 
@@ -208,8 +234,11 @@
                 row_spec(25,   bold = T)      
       
 ```
+\clearpage
 
 (ref:Table8Caption) Summary of sablefish biological data collected during the `r yr+1` stratified random sets by spatial and depth stratum.
+\ \
+\ \
 
 ```{r table8, echo=FALSE}
 
@@ -237,6 +266,8 @@
     
 ```
 (ref:Table9Caption) Count of tagged fish released since 1991 (including re-released fish) and counts of verified tag recoveries by year including any recoveries that had no reported year. The total count of tag recoveries represent the sum of all verified recoveries.
+\ \
+\ \
 
 ```{r table9,  echo=FALSE}
 
@@ -333,7 +364,6 @@
 ``` 
 \clearpage
 
-
 (ref:figure1) Location of the boundaries of the mainland inlet localities, and the five spatial areas (S~1~-S~5~) of the stratified random survey design. The three depths strata (RD~1~-RD~3~) are colour-coded and nested within each of the five spatial strata. 
 
 ```{r figure1, fig.cap='(ref:figure1)', out.width = "450px", out.height = "550px", fig.align="center", warning=FALSE, echo=FALSE, message=FALSE, error=FALSE}
@@ -341,7 +371,6 @@
       knitr::include_graphics(img)
 ```
 \clearpage
-
 
 (ref:figure2) Start locations of survey sets (red markers) conducted in `r yr` (A) and `r yr+1` (B) for the stratified random survey areas S~1~ through S~5~.
 
@@ -359,7 +388,7 @@
 ```
 \clearpage
 
-(ref:figure4) a: Trap elements.  b:  Trap gear elements consisting of 25 baited traps snapped to beckets along a groundline.
+(ref:figure4) Trap elements (A).  Trap gear elements consisting of 25 baited traps snapped to beckets along a groundline (B).
 
 ```{r figure4, fig.cap='(ref:figure4)', out.width = "400px", echo=FALSE, fig.align="center", warning=FALSE}
       img  <- paste('C:/github/surveyreport/figures/Figure_4_GearAB.png',sep="") 
@@ -372,7 +401,7 @@
 ```{r figure5, fig.cap='(ref:figure5)',echo=FALSE, fig.align = "center",warning=FALSE}
 
 #   results='asis',echo=FALSE,include=FALSE,warning=FALSE,message = FALSE,error= FALSE
-    png("C:/github/surveyreport/figures/Figure_5_cpuedepth.png", width = 468, height = 668)  # write png to folder 
+    png("C:/github/surveyreport/figures/Figure_5_cpuedepth.png", width = 448, height = 648)  # write png to folder 
 
 #   query----------raw survey datafile for Landmark fisheries----------------
 
@@ -484,7 +513,7 @@
                " GFBioSQL.dbo.TRAP_SPECS AS fets ON fe_1.FISHING_EVENT_ID = fets.FISHING_EVENT_ID LEFT OUTER JOIN ",
                "(select  fec.FISHING_EVENT_ID, CATCH_1.SPECIES_CODE, SUM(CATCH_1.CATCH_WEIGHT) AS CATCH_WEIGHT,  ",
                "SUM(CATCH_1.CATCH_COUNT) AS CATCH_COUNT, AVG(ISNULL(CATCH_1.CATCH_VERIFICATION_CODE, 0)) AS VERIFICATION_METHOD ",
-               "from GFBioSQL.dbo.FISHING_EVENT_CATCH AS fec INNER JOIN              ",                                                                        "GFBioSQL.dbo.CATCH AS CATCH_1 ON fec.CATCH_ID = CATCH_1.CATCH_ID ",
+               "from GFBioSQL.dbo.FISHING_EVENT_CATCH AS fec INNER JOIN              ",                                                                  "GFBioSQL.dbo.CATCH AS CATCH_1 ON fec.CATCH_ID = CATCH_1.CATCH_ID ",
                "where (CATCH_1.SPECIES_CODE = '455') ",
                "group by fec.FISHING_EVENT_ID, CATCH_1.SPECIES_CODE) AS fec_1 ON fe_1.FISHING_EVENT_ID = fec_1.FISHING_EVENT_ID ", 
                "where (YEAR(dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, fe_1.FE_END_DEPLOYMENT_TIME,  ",
@@ -532,15 +561,16 @@
   
 ```
 \clearpage
-
+\ \
+\ \
 (ref:figure6) Average Sablefish catch per unit effort (CPUE; mean +/- 95% CIs) by survey strata over time. Panels run deep to shallow (left to right) and north to south (top to bottom).
 
-```{r figure6, fig.cap='(ref:figure6)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7, fig.align = "center"}
+```{r figure6, fig.cap='(ref:figure6)', results='asis',echo=FALSE,out.width = "490px", out.height = "460px", fig.align = "center"}
 
      png("C:/github/surveyreport/figures/Figure_6_CPUES1S5.png", width=468, height=400) # write png to file
      par(mfcol=c(1,1))
-  
-     ggplot(tgc.2,aes(x=SET_YEAR,y=sable_cpue))+
+
+     ggplot(tgc.2,aes(x=SET_YEAR,y=sable_cpue)) +
      geom_errorbar(aes(ymin=sable_cpue-ci, ymax=sable_cpue+ci), width=0) +
      geom_line(col="grey") +
      geom_point() +
@@ -587,7 +617,7 @@
                                                                  "S1 RD3", "S1 RD2", "S1 RD1"))),strata)
 
     
-    ggplot(tgcwg,aes(x=SET_YEAR,y=sable_wg))+
+    ggplot(tgcwg,aes(x= SET_YEAR,y=sable_wg))+
     geom_errorbar(aes(ymin=sable_wg-ci, ymax=sable_wg+ci), width=0) +
     geom_line(col="grey") +
     geom_point() +
@@ -627,7 +657,7 @@
 
 (ref:figure9) Average weight of Sablefish per trap (mean +/- 95% CIs) at mainland Inlet localities (A). Average number of Sablefish per trap (mean +/- 95% CIs) at mainland Inlet localities (B).
 
-```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width = "500px",out.height = "600px", fig.align="center"}
+```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width = "450px",out.height = "560px", fig.align="center"}
 
   png("C:/github/surveyreport/figures/Figure_9_InletCPUE.png", width=600, height=800) # write png to file
 
@@ -661,7 +691,8 @@
                                                                                               2014,2015,2016,2017,
                                                                                               2018,2019))),year)
      
-     p1<- ggplot(inlet.2w, aes(x=year, y=CPUE.SABLE.WEIGHT/CPUE.TRAPS),position =  position_dodge2(width = 0.5, preserve = "single")) + 
+     p1<- ggplot(inlet.2w, aes(x=as.numeric(substr(as.character(year),3,4)), y=CPUE.SABLE.WEIGHT/CPUE.TRAPS),
+                           position =  position_dodge2(width = 0.5, preserve = "single")) + 
           geom_boxplot() +
           xlab("Year") +
           ylab("CPUE (kg per trap)") +
@@ -669,7 +700,8 @@
           theme_bw()
     
      
-     p <- ggplot(inlet.2, aes(x=year, y=CPUE.SABLE.COUNT/CPUE.TRAPS),position =  position_dodge2(width = 0.5, preserve = "single")) + 
+     p <- ggplot(inlet.2, aes(x=as.numeric(substr(as.character(year),3,4)), y=CPUE.SABLE.COUNT/CPUE.TRAPS),
+                          position =  position_dodge2(width = 0.5, preserve = "single")) + 
           geom_boxplot() +
           xlab("Year") +
           ylab("CPUE (count per trap)") +
@@ -688,7 +720,7 @@
 
 (ref:figure10) Length frequencies for female (fuchsia) and male sablefish (blue-violet) and up to `r yr+1` for all StRS sets.  The number of specimens is denoted by the letter n, the mean indicated by the xbar $\overline{x}$ and the standard deviation is represented by the symbol sigma $\Sigma$ (A). Average length and ratios of male and female sablefish by year. Counts by sex are shown across the top of the lines (B).
 
-```{r figure10, fig.cap='(ref:figure10)',results='asis', out.width = "400px",out.height = "500px", fig.align="center"}
+```{r figure10, fig.cap='(ref:figure10)',results='asis', out.width = "450px",out.height = "550px", fig.align="center"}
 
       knitr::opts_chunk$set(out.height = "\\textheight",  out.width = "\\textwidth")
       #  L E N G T H    H I S T O G R A M  
@@ -783,7 +815,7 @@
 
 (ref:figure11) Sablefish fork length (L in cm) vs weight (W in kg) for females and males for the `r yr` (A,C) and `r yr+1` (B,D) surveys.
 
-```{r figure11, fig.cap='(ref:figure11)',results='asis', out.width = "400px",out.height = "500px", fig.align="center"}
+```{r figure11, fig.cap='(ref:figure11)',results='asis', out.width = "450px",out.height = "550px", fig.align="center"}
     
     # L E N G T H     W E I G H T 
     # Sablefish.dbo.procR_Survey_Sablefish_LenWt_shiny queries table GFBIO_SABLEBIO_VW for survey length data	
@@ -877,6 +909,7 @@
           knitr::include_graphics(img)
           
 ```
+
 \clearpage
 
 (ref:figure12) The percentage of sub-legal sablefish (<55 cm fork length) sampled by area and depth strata since the year 2014. Sub-legal specimen count above 50% sampled shown in blue.
@@ -1106,7 +1139,7 @@
 
 (ref:figure13) Bubble plot for female (A) and male (B) sablefish ages by survey year from StRS sets that have been aged.  The sizes of the circles are proportional to the number of fish with given ages. Fish age 35 and older are included in one bubble. The total number(n) of fish aged are listed across the top of each panel. The ages with the highest ratios are posted to the right of each bubble.
 
-```{r figure13, fig.cap='(ref:figure13)',results='asis', out.width = "400px",out.height = "500px", fig.align="center"}
+```{r figure13, fig.cap='(ref:figure13)',results='asis', out.width = "450px",out.height = "570px", fig.align="center"}
    # dt  <-  ("exec procRKnitr_Survey_proportions_at_age")  run this procedure to create table first.
    # sql server procedure:  procRReport_Survey_proportions_at_age which pulls age data from 
    # GFBIOSQL.dbo.b21_samples and b22_specimens
