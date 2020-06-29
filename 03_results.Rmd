@@ -71,28 +71,14 @@ Of the 91 original blocks for the StRS portion of the survey, one was attempted 
 ```
 ## CATCH PER UNIT EFFORT (CPUE) 
 
-Brendan section with new figures:
-
-Figure \@ref(fig:figure5)
-Figure \@ref(fig:figure6)
-Figure \@ref(fig:figure7)
-Figure \@ref(fig:figure8)
-Figure \@ref(fig:figure9)
+### Stratified Random Set CPUE
+Across all years the highest annual CPUE (kg/trap) typically occured in the middle depths, with a rapid rise starting in 2017 (Figure \@ref(fig:figure5)).   In recent years, an increase in CPUE (kg/trap) occurred in the deep depth stratum (RD~3~) in area strata SD~2~, SD~3~ and SD~5~; in the middle depth stratum (RD~2~) across all area strata (SD~1~) to (SD~5~) ; and in the shallow depth stratum (RD~1~) in SD~1~ and SD~5~ (Figure \@ref(fig:figure6)).  There is a significant increase in the cpue (#fish/trap) and variability (+-95% CI) in recent years in the mid depth stratum across all area strata SD~1~ to SD~5~ (Figure \@ref(fig:figure7)).   In contrast, the average weight of sablefish in the mid-depth waters and all strata have decreased (Figure \@ref(fig:figure8)).
 
 
-*Delete: Shallow, Middle,Deep depth stratum sections and Mainland inlets section below...*
+### Mainland Inlet CPUE
 
-### Shallow depth stratum (RD~1~)
-*CPUE in the shallow depth stratum have shown gradual decline from 2003 to 2009 (~`r data.mn[1,2]` to `r data.mn[7,2]` fish per trap). CPUE rose again to an average of `r data.mn[8,2]` fish per trap in 2010 and gradually declined from 2011 to 2014 (~`r data.mn[9,2]` to `r data.mn[12,2]` fish per trap).  An increase occurred in 2015 and 2016 (~`r data.mn[13,2]` and `r data.mn[14,2]` fish per trap, respectively) and then surged in 2017, 2018 and 2019 (~`r data.mn[15,2]`,`r data.mn[16,2]` and `r data.mn[17,2]` fish per trap, respectively). The shallow depth stratum typically exhibited the least among block variability in CPUE with a cv=`r RD1.cvlow`.*
 
-### Middle depth stratum (RD~2~)
-*Across all years the highest CPUE typically occured in the middle depth stratum.  CPUE in the middle depth stratum showed a gradual decline from 2003 to 2010 (~`r data.mn[1,3]` to `r data.mn[8,3]` fish per trap) but an increase in 2011 (~`r data.mn[9,3]` fish per trap).  Over 2012, 2013 and 2014, CPUE fluctuated (~`r data.mn[10,3]`, `r data.mn[11,3]` and `r data.mn[12,3]` fish per trap, respectively).  In 2015, a significant rise to ~`r data.mn[13,3]` fish per trap occured, followed by a drop in 2016 (~`r data.mn[14,3]` fish per trap).  In the past three years, 2017, 2018 and 2019, a significant increase was observed (~`r data.mn[15,3]`, `r data.mn[16,3]` and `r data.mn[17,3]` fish per trap, respectively).  The middle depth stratum typically exhibited the least among block variability in CPUE with a cv=`r RD2.cvlow`.*
-
-### Deep depth stratum (RD~3~)
-*CPUE in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r data.mn[1,4]` to `r data.mn[4,4]` fish per trap) but declined in 2007 (~`r data.mn[5,4]` fish per trap).  It rose again in 2008 (~`r data.mn[6,4]` fish per trap) but showed a significant drop in 2009 (~`r data.mn[7,4]` fish per trap).  In 2010, 2011 and 2013, CPUE averaged ~`r data.mn[8,4]` fish per trap, similar to those levels seen in the first two years of the survey. In 2012 and 2014, CPUE dropped again to ~`r data.mn[12,4]` fish per trap.   During 2015, 2016 and 2017, CPUE remained low (~`r data.mn[13,4]`, `r data.mn[14,4]` and `r data.mn[15,4]` fish per trap, respectively). Once again,  ~`r data.mn[16,4]` fish per trap (2008) were seen in 2018.  In 2019, CPUE was the highest at `r data.mn[17,4]` fish per trap. The deep depth stratum typically exhibited the least among block variability in CPUE with a cv=`r RD3.cvlow`.*
-
-### Mainland Inlets
-*CPUE in the mainlaind inlets have varied in a predictable manner over time with peak CPUE occuring every 5-8 years.  The mean CPUE remained consistent in the mid 1990s, from 1994 through 1997 (~8 to 10 fish per trap), then increased in 1998 (~15 fish per trap) and again in 1999 (~23 fish per trap) before declining from 2000 through 2002 (~8 to 11 fish per trap). CPUE peaked again in 2003 and 2004 (~20 and 21 fish per trap, respectively) and 2011 (~22 fish per trap). In 2018, CPUE returned (~23 fish per trap) to the high rates seen in early years. In 2019, the highest catches rates of the 26 year time series were seen (~35 fish per trap).*
+CPUE (kg/trap and #fish/trap) in the mainlaind inlets have varied in a predictable manner over time with peak CPUE occuring every 5-8 years (Figure \@ref(fig:figure9) a,b).  In 2018 and 2019, the trend has increased to record levels.  In contrast, the average weight of sablefish in 2018 and 2019 have show record lows (Figure \@ref(fig:figure9) c).  
 
 
 ```{r SpeciesCompositionText, echo=FALSE}

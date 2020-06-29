@@ -455,7 +455,8 @@
                "fe_1.FE_MISC_COMMENT, fets.TRAP_MODIFICATIONS_CODE, fets.USABILITY_CODE AS FE_USABILITY, ",
                "CAST(CASE WHEN fe_1.REASON_CODE <> 14 AND fets.USABILITY_CODE <> 13 THEN isnull(traps.CPUE_WEIGHT, ",
                "CASE WHEN fets.USABILITY_CODE IN (1, 12) THEN CASE WHEN fec_1.catch_weight IS NULL AND ",
-               "isnull(fec_1.VERIFICATION_METHOD, 0) <> 9 THEN 0 ELSE fec_1.catch_weight END ELSE NULL END) ELSE NULL END AS numeric(7, 1)) ",
+               "isnull(fec_1.VERIFICATION_METHOD,0) <> 9 THEN 0 ELSE fec_1.catch_weight END ELSE NULL END)  ",
+               "else NULL end AS numeric(7,1)) ",
                "AS CPUE_SABLE_WEIGHT, CAST(CASE WHEN fe_1.REASON_CODE <> 14 AND fets.USABILITY_CODE <> 13 THEN isnull(traps.CPUE_COUNT, ",
                "CASE WHEN fets.USABILITY_CODE IN (1, 12) THEN CASE WHEN fec_1.catch_count IS NULL AND ",
                "isnull(fec_1.VERIFICATION_METHOD, 0) <> 3 THEN 0 ELSE fec_1.catch_count END ELSE NULL END) ELSE NULL END ",
@@ -476,7 +477,7 @@
                "(select  TRIP_ID         ",
                "from GFBioSQL.dbo.TRIP_ACTIVITY    ",
                "where (ACTIVITY_CODE = 19)) AS act ON trp.TRIP_ID = act.TRIP_ID INNER JOIN  ",
-               "(select TRIP_ID, FISHING_EVENT_ID, FE_PARENT_EVENT_ID, FE_MAJOR_LEVEL_ID, FE_SUB_LEVEL_ID, FE_MINOR_LEVEL_ID, EMPLOYEE_ID, ",             "FE_BEGIN_DEPLOYMENT_TIME, FE_END_DEPLOYMENT_TIME, FE_BEGIN_RETRIEVAL_TIME, FE_END_RETRIEVAL_TIME,  ",
+               "(select TRIP_ID,FISHING_EVENT_ID,FE_PARENT_EVENT_ID,FE_MAJOR_LEVEL_ID,FE_SUB_LEVEL_ID,FE_MINOR_LEVEL_ID,EMPLOYEE_ID, ",                  "FE_BEGIN_DEPLOYMENT_TIME, FE_END_DEPLOYMENT_TIME, FE_BEGIN_RETRIEVAL_TIME, FE_END_RETRIEVAL_TIME,  ",
                "GROUPING_CODE, REASON_CODE, FE_REASON_COMMENT, MAJOR_STAT_AREA_CODE, ",
                "MINOR_STAT_AREA_CODE, LOCALITY_CODE, DFO_STAT_AREA_CODE, DFO_STAT_SUBAREA_CODE, ",
                "LOC_VRFN_METHOD_CODE, FE_FISHING_GROUND_COMMENT, ",
@@ -493,24 +494,24 @@
                "FE_MIN_CAPTURE_DEPTH, FE_MAX_CAPTURE_DEPTH, FE_MODAL_CAPTURE_DEPTH,  ",
                "FE_BEGINNING_GEAR_DEPTH, FE_END_GEAR_DEPTH, FE_MIN_GEAR_DEPTH, FE_MAX_GEAR_DEPTH, FE_MODAL_GEAR_DEPTH,  ",  
                "FE_SURFACE_WATER_TEMPERATURE,  ",
-               " FE_SURFACE_WATER_TEMP_DEPTH, FE_SURFC_WATR_TEMP_TECH_CODE, FE_BOTTOM_WATER_TEMPERATURE,  ",
-               " FE_BOTTOM_WATER_TEMP_DEPTH, FE_BOTTM_WATR_TEMP_TECH_CODE,  ",
-               " FE_MODAL_DEPTH_TEMPERATURE, FE_GEAR_TEMP_TECH_CODE, FE_CTD_REF_NUMBER,  ",
-               " FE_WIND_DIRECTION, FE_WIND_SPEED, BEAUFORT_SCALE_CODE, FE_SWELL, TIDE_CODE,  ",
-               " FE_CLOUD_COVER, FE_LUMINESCENCE, FE_WEATHER_COMMENT, FE_SUN_SHINING_IND, GEAR_CODE,  ",
-               " EST_CATCH_METHOD_CODE, FE_TOTAL_CATCH_WEIGHT, FE_TOTAL_CATCH_PIECES,  ",
-               " FE_CATCH_WEIGHT_PER_PIECE, FE_SOUNDER_COMMENT, FE_EK500_TAPE_NUMBER,  ",
-               " FE_MISC_COMMENT, ROW_VERSION, BLOCK_DESIGNATION, FE_BEGIN_BOTTOM_CONTACT_TIME,  ",
-               " FE_END_BOTTOM_CONTACT_TIME, BOTTOM_CONTACT_METHOD_CODE, MODIFIED_DATE, MODIFIED_BY,  ",
-               " HAUL_RECORDER, FE_CATCH_COMMENT, PARTIAL_SORT_IND,  ",
-               " FE_CATCH_VERIFICATION_COMMENT, SCALE_ID, CAPTAIN_ID ",
-               " from GFBioSQL.dbo.FISHING_EVENT ",
-               " where (FE_PARENT_EVENT_ID IS NULL)) AS fe_1 ON trp.TRIP_ID = fe_1.TRIP_ID LEFT OUTER JOIN ",
-               " dbo.traps AS traps ON fe_1.TRIP_ID = traps.TRIP_ID AND fe_1.FE_MAJOR_LEVEL_ID = traps.FE_MAJOR_LEVEL_ID LEFT OUTER JOIN ",
-               " dbo.sablefish_locality AS sloc ON fe_1.MAJOR_STAT_AREA_CODE = sloc.MAJOR_STAT_AREA_CODE  ",
-               " AND fe_1.MINOR_STAT_AREA_CODE = sloc.MINOR_STAT_AREA_CODE AND  ",
-               " fe_1.LOCALITY_CODE = sloc.LOCALITY_CODE LEFT OUTER JOIN ",
-               " GFBioSQL.dbo.TRAP_SPECS AS fets ON fe_1.FISHING_EVENT_ID = fets.FISHING_EVENT_ID LEFT OUTER JOIN ",
+               "FE_SURFACE_WATER_TEMP_DEPTH, FE_SURFC_WATR_TEMP_TECH_CODE, FE_BOTTOM_WATER_TEMPERATURE,  ",
+               "FE_BOTTOM_WATER_TEMP_DEPTH, FE_BOTTM_WATR_TEMP_TECH_CODE,  ",
+               "FE_MODAL_DEPTH_TEMPERATURE, FE_GEAR_TEMP_TECH_CODE, FE_CTD_REF_NUMBER,  ",
+               "FE_WIND_DIRECTION, FE_WIND_SPEED, BEAUFORT_SCALE_CODE, FE_SWELL, TIDE_CODE,  ",
+               "FE_CLOUD_COVER, FE_LUMINESCENCE, FE_WEATHER_COMMENT, FE_SUN_SHINING_IND, GEAR_CODE,  ",
+               "EST_CATCH_METHOD_CODE, FE_TOTAL_CATCH_WEIGHT, FE_TOTAL_CATCH_PIECES,  ",
+               "FE_CATCH_WEIGHT_PER_PIECE, FE_SOUNDER_COMMENT, FE_EK500_TAPE_NUMBER,  ",
+               "FE_MISC_COMMENT, ROW_VERSION, BLOCK_DESIGNATION, FE_BEGIN_BOTTOM_CONTACT_TIME,  ",
+               "FE_END_BOTTOM_CONTACT_TIME, BOTTOM_CONTACT_METHOD_CODE, MODIFIED_DATE, MODIFIED_BY,  ",
+               "HAUL_RECORDER, FE_CATCH_COMMENT, PARTIAL_SORT_IND,  ",
+               "FE_CATCH_VERIFICATION_COMMENT, SCALE_ID, CAPTAIN_ID ",
+               "from GFBioSQL.dbo.FISHING_EVENT ",
+               "where (FE_PARENT_EVENT_ID IS NULL)) AS fe_1 ON trp.TRIP_ID = fe_1.TRIP_ID LEFT OUTER JOIN dbo.traps AS traps ",
+               "ON fe_1.TRIP_ID = traps.TRIP_ID AND fe_1.FE_MAJOR_LEVEL_ID = traps.FE_MAJOR_LEVEL_ID LEFT OUTER JOIN ",
+               "dbo.sablefish_locality AS sloc ON fe_1.MAJOR_STAT_AREA_CODE = sloc.MAJOR_STAT_AREA_CODE  ",
+               "and fe_1.MINOR_STAT_AREA_CODE = sloc.MINOR_STAT_AREA_CODE AND  ",
+               "fe_1.LOCALITY_CODE = sloc.LOCALITY_CODE LEFT OUTER JOIN ",
+               "GFBioSQL.dbo.TRAP_SPECS AS fets ON fe_1.FISHING_EVENT_ID = fets.FISHING_EVENT_ID LEFT OUTER JOIN ",
                "(select  fec.FISHING_EVENT_ID, CATCH_1.SPECIES_CODE, SUM(CATCH_1.CATCH_WEIGHT) AS CATCH_WEIGHT,  ",
                "SUM(CATCH_1.CATCH_COUNT) AS CATCH_COUNT, AVG(ISNULL(CATCH_1.CATCH_VERIFICATION_CODE, 0)) AS VERIFICATION_METHOD ",
                "from GFBioSQL.dbo.FISHING_EVENT_CATCH AS fec INNER JOIN              ",                                                                  "GFBioSQL.dbo.CATCH AS CATCH_1 ON fec.CATCH_ID = CATCH_1.CATCH_ID ",
@@ -527,24 +528,24 @@
     raw_survey_data <- read.csv("c:/github/surveyreport/standaloneData/figure05678_RawLandmarkSurveyData.csv",header=T)
     
     # load survey data 
-    strs            <- subset(raw_survey_data,SABLE_SET_TYPE=="StRS")
-    strs$sable_cpue <- strs$CPUE_SABLE_WEIGHT/strs$CPUE_TRAP            # changed from TOTAL_TRAP to CPUE_TRAP
-    strs$strata     <- paste(strs$SABLE_AREA_GROUP,strs$SABLE_DEPTH_GROUP)
-    strs2           <- arrange(transform(strs,strata=factor(strata,levels=rev(unique(strs$strata)))),strata)
-    tgc             <- summarySE(strs2, measurevar="sable_cpue", groupvars=c("SET_YEAR","strata"),na.rm = T)
-    tgc.2           <- arrange(transform(tgc,strata=factor(strata,levels = c("S5 RD3", "S5 RD2", "S5 RD1", 
+    strs01            <- subset(raw_survey_data,SABLE_SET_TYPE=="StRS")
+    strs01$sable_cpue <- strs01$CPUE_SABLE_WEIGHT/strs01$CPUE_TRAPS           # changed from TOTAL_TRAPS to CPUE_TRAPS
+    strs01$strata     <- paste(strs01$SABLE_AREA_GROUP,strs01$SABLE_DEPTH_GROUP)
+    strs02            <- arrange(transform(strs01,strata=factor(strata,levels=rev(unique(strs01$strata)))),strata)
+    tgc01             <- summarySE(strs02, measurevar="sable_cpue", groupvars=c("SET_YEAR","strata"),na.rm = T)
+    tgc.02            <- arrange(transform(tgc01,strata=factor(strata,levels = c("S5 RD3", "S5 RD2", "S5 RD1", 
                                                                              "S4 RD3", "S4 RD2", "S4 RD1", 
                                                                              "S3 RD3", "S3 RD2", "S3 RD1", 
                                                                              "S2 RD3", "S2 RD2", "S2 RD1",
                                                                              "S1 RD3", "S1 RD2", "S1 RD1" ))),strata)
   
     # drop 2003 and set panel ordering for aesthetics
-    strs.2<-arrange(transform(strs[strs$SET_YEAR>2003,],SET_YEAR=factor(SET_YEAR,levels=c(2004,2008,2012,2016,
+    strs.02<-arrange(transform(strs01[strs01$SET_YEAR>2003,],SET_YEAR=factor(SET_YEAR,levels=c(2004,2008,2012,2016,
                                                                                           2005,2009,2013,2017,
                                                                                           2006,2010,2014,2018,
                                                                                           2007,2011,2015,2019))),SET_YEAR)
     
-    ggplot(strs.2,aes(x=FE_MODAL_BOTTOM_DEPTH,y=CPUE_SABLE_WEIGHT/TOTAL_TRAPS))+
+    ggplot(strs.02,aes(x=FE_MODAL_BOTTOM_DEPTH,y=CPUE_SABLE_WEIGHT/CPUE_TRAPS))+
     geom_point(alpha = 1/5)+
     facet_wrap(~SET_YEAR,ncol=4)+
     scale_x_continuous(breaks = c(100,450,850,1400),limits=c(0,1500))+ 
@@ -565,12 +566,12 @@
 \ \
 (ref:figure6) Average Sablefish catch per unit effort (CPUE; mean +/- 95% CIs) by survey strata over time. Panels run deep to shallow (left to right) and north to south (top to bottom).
 
-```{r figure6, fig.cap='(ref:figure6)', results='asis',echo=FALSE,out.width = "490px", out.height = "460px", fig.align = "center"}
+```{r figure6, fig.cap='(ref:figure6)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7,  fig.align = "center"}
 
      png("C:/github/surveyreport/figures/Figure_6_CPUES1S5.png", width=468, height=400) # write png to file
      par(mfcol=c(1,1))
 
-     ggplot(tgc.2,aes(x=SET_YEAR,y=sable_cpue)) +
+     ggplot(tgc.02,aes(x=SET_YEAR,y=sable_cpue)) +
      geom_errorbar(aes(ymin=sable_cpue-ci, ymax=sable_cpue+ci), width=0) +
      geom_line(col="grey") +
      geom_point() +
@@ -584,39 +585,69 @@
               knitr::include_graphics(img)
 
 ```
-(ref:figure7) Average weight of Sablefish (mean +/- 95% CIs) by survey strata over time. Panels run shallow to deep (left to right) and south to north (top to bottom).
+
+
+(ref:figure7) Average number of Sablefish per trap (mean +/- 95% CIs) by survey strata over time. Panels run shallow to deep (left to right) and south to north (top to bottom).
 
 ```{r figure7, fig.cap='(ref:figure7)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7, fig.align = "center"}
 
-    png("C:/github/surveyreport/figures/Figure_7_.png", width=468, height=400) # write png to file
+    png("C:/github/surveyreport/figures/Figure_7_CPUE.png", width=468, height=400) # write png to file
     par(mfcol=c(1,1))
     
-    strs$sable_wg  <- (strs$TOTAL_SABLE_WEIGHT/strs$TOTAL_SABLE_COUNT)   # changed from CPUE_SABLE_WEIGHT to TOTAL
-    strs$sable_cnt <- (strs$TOTAL_SABLE_COUNT/strs$TOTAL_TRAP)
-    strs$strata    <-  paste(strs$SABLE_AREA_GROUP,strs$SABLE_DEPTH_GROUP)
-    
+    strs                   <- subset(raw_survey_data,SABLE_SET_TYPE=="StRS") 
+    strs$sable_cpue        <- strs$CPUE_SABLE_WEIGHT/strs$CPUE_TRAPS 
+    strs$sable_cnt         <- (strs$CPUE_SABLE_COUNT/strs$CPUE_TRAPS)
+    strs$sable_wg          <- (strs$CPUE_SABLE_WEIGHT/strs$CPUE_SABLE_COUNT) 
+    strs$sable_avwt_trap   <- (strs$sable_cpue/strs$sable_cnt)
+    strs$strata            <-  paste(strs$SABLE_AREA_GROUP,strs$SABLE_DEPTH_GROUP)
+ 
     strs2 <- arrange(transform(strs,strata=factor(strata,levels=rev(unique(strs$strata)))),strata)
-    tgc   <- summarySE(strs2, measurevar=("sable_cpue"), groupvars=c("SET_YEAR","strata"),na.rm = T)
-    tgcwg <- summarySE(strs2, measurevar=("sable_wg"),   groupvars=c("SET_YEAR","strata"),na.rm = T)
-    tgcnt <- summarySE(strs2, measurevar="sable_cnt",    groupvars=c("SET_YEAR","strata"),na.rm = T)
     
-    tgc   <- arrange(transform(tgc,strata=factor(strata,levels=c("S5 RD3", "S5 RD2", "S5 RD1", 
+    tgc   <- summarySE(strs2, measurevar=("sable_cpue"),         groupvars=c("SET_YEAR","strata"),na.rm = T)
+    tgcwg <- summarySE(strs2, measurevar=("sable_wg"),           groupvars=c("SET_YEAR","strata"),na.rm = T)
+    tgcnt <- summarySE(strs2, measurevar=("sable_cnt"),          groupvars=c("SET_YEAR","strata"),na.rm = T)
+
+        tgc   <- arrange(transform(tgc,strata=factor(strata,levels=c("S5 RD3", "S5 RD2", "S5 RD1", 
                                                                  "S4 RD3", "S4 RD2", "S4 RD1", 
                                                                  "S3 RD3", "S3 RD2", "S3 RD1", 
                                                                  "S2 RD3", "S2 RD2", "S2 RD1",
                                                                  "S1 RD3", "S1 RD2", "S1 RD1"))),strata)
+    
     tgcwg<-arrange(transform(tgcwg,strata=factor(strata,levels=c("S5 RD3", "S5 RD2", "S5 RD1", 
                                                                  "S4 RD3", "S4 RD2", "S4 RD1", 
                                                                  "S3 RD3", "S3 RD2", "S3 RD1", 
                                                                  "S2 RD3", "S2 RD2", "S2 RD1",
                                                                  "S1 RD3", "S1 RD2", "S1 RD1"))),strata)
+    
     tgcnt<-arrange(transform(tgcnt,strata=factor(strata,levels=c("S5 RD3", "S5 RD2", "S5 RD1", 
                                                                  "S4 RD3", "S4 RD2", "S4 RD1", 
                                                                  "S3 RD3", "S3 RD2", "S3 RD1", 
                                                                  "S2 RD3", "S2 RD2", "S2 RD1",
                                                                  "S1 RD3", "S1 RD2", "S1 RD1"))),strata)
 
+
+    ggplot(tgcnt,aes(x=SET_YEAR,y=sable_cnt))+
+    geom_errorbar(aes(ymin=sable_cnt-ci, ymax=sable_cnt+ci), width=0) +
+    geom_line(col="grey") +
+    geom_point() +
+    facet_wrap(~rev(strata),nrow=5,labeller = )+
+    coord_cartesian(ylim=c(0,60))+ 
+    xlab("Year")+
+    ylab("Mean CPUE (#fish/trap)")+
+    theme_bw()
     
+    while (!is.null(dev.list()))  dev.off()
+    img <-    paste('C:/github/surveyreport/figures/Figure_7_CPUE.png',sep="")   # -- retrieve png 
+              knitr::include_graphics(img)
+    
+``` 
+(ref:figure8) Average weight of Sablefish (mean +/- 95% CIs) by survey strata over time. Panels run shallow to deep (left to right) and south to north (top to bottom).
+
+```{r figure8, fig.cap='(ref:figure8)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7, fig.align = "center"}
+
+    png("C:/github/surveyreport/figures/Figure_8_.png", width=468, height=400) # write png to file
+    par(mfcol=c(1,1))
+
     ggplot(tgcwg,aes(x= SET_YEAR,y=sable_wg))+
     geom_errorbar(aes(ymin=sable_wg-ci, ymax=sable_wg+ci), width=0) +
     geom_line(col="grey") +
@@ -628,34 +659,11 @@
     theme_bw()
     
     while (!is.null(dev.list()))  dev.off()
-    img <-    paste('C:/github/surveyreport/figures/Figure_7_.png',sep="")   # -- retrieve png 
+    img <-    paste('C:/github/surveyreport/figures/Figure_8_.png',sep="")   # -- retrieve png 
               knitr::include_graphics(img)
 ```    
 
-(ref:figure8) Average number of Sablefish per trap (mean +/- 95% CIs) by survey strata over time. Panels run shallow to deep (left to right) and south to north (top to bottom).
-
-```{r figure8, fig.cap='(ref:figure8)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7, fig.align = "center"}
-
-    png("C:/github/surveyreport/figures/Figure_8_CPUE.png", width=468, height=400) # write png to file
-    par(mfcol=c(1,1))
-    
-    ggplot(tgcnt,aes(x=SET_YEAR,y=sable_cnt))+
-    geom_errorbar(aes(ymin=sable_cnt-ci, ymax=sable_cnt+ci), width=0) +
-    geom_line(col="grey") +
-    geom_point() +
-    facet_wrap(~rev(strata),nrow=5,labeller = )+
-    coord_cartesian(ylim=c(0,60))+ 
-    xlab("Year")+
-    ylab("Number of Sablefish per trap")+
-    theme_bw()
-    
-    while (!is.null(dev.list()))  dev.off()
-    img <-    paste('C:/github/surveyreport/figures/Figure_8_CPUE.png',sep="")   # -- retrieve png 
-              knitr::include_graphics(img)
-    
-```  
-
-(ref:figure9) Average weight of Sablefish per trap (mean +/- 95% CIs) at mainland Inlet localities (A). Average number of Sablefish per trap (mean +/- 95% CIs) at mainland Inlet localities (B).
+(ref:figure9) Average weight of Sablefish per trap (kg/trap) at mainland Inlet localities over time (A). Average number of sablefish per trap (#fish/trap) at mainland Inlet localities over time (B).  Annual average weight of Sablefish (kg) at mainland Inlets (C).
 
 ```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width = "450px",out.height = "560px", fig.align="center"}
 
@@ -673,6 +681,7 @@
     
     inlet$sable_cpuew <-  inlet$CPUE.SABLE.WEIGHT/inlet$CPUE.TRAPS
     itgcw             <-  summarySE(inlet, measurevar="sable_cpuew", groupvars=c("year"),na.rm = T) 
+    
     inlet.2w          <-  arrange(transform(inlet[inlet$year>1993,],year=factor(year,levels=c(1994,1995,1996,1997,
                                                                                               1998,1999,2000,2001,
                                                                                               2002,2003,2004,2005,
@@ -690,25 +699,44 @@
                                                                                               2010,2011,2012,2013,
                                                                                               2014,2015,2016,2017,
                                                                                               2018,2019))),year)
+    inlet$sable_cpuwg <-  inlet$CPUE.SABLE.WEIGHT/inlet$CPUE.SABLE.COUNT
+    itgcwg            <-  summarySE(inlet, measurevar="sable_cpuwg", groupvars=c("year"),na.rm = T) 
+    inlet.2wg         <-  arrange(transform(inlet[inlet$year>1993,],year=factor(year,levels=c(1994,1995,1996,1997,
+                                                                                              1998,1999,2000,2001,
+                                                                                              2002,2003,2004,2005,
+                                                                                              2006,2007,2008,2009,
+                                                                                              2010,2011,2012,2013,
+                                                                                              2014,2015,2016,2017,
+                                                                                              2018,2019))),year)
      
-     p1<- ggplot(inlet.2w, aes(x=as.numeric(substr(as.character(year),3,4)), y=CPUE.SABLE.WEIGHT/CPUE.TRAPS),
+     p <- ggplot(inlet.2w, aes(x=year, y=CPUE.SABLE.WEIGHT/CPUE.TRAPS),
                            position =  position_dodge2(width = 0.5, preserve = "single")) + 
           geom_boxplot() +
           xlab("Year") +
-          ylab("CPUE (kg per trap)") +
-          theme(axis.text = element_text(size = 10)) + 
+          ylab("CPUE (kg/trap)") +
+          scale_y_continuous(limits=c(0,100))+
+          theme(axis.text = element_text(size = 6)) + 
           theme_bw()
     
      
-     p <- ggplot(inlet.2, aes(x=as.numeric(substr(as.character(year),3,4)), y=CPUE.SABLE.COUNT/CPUE.TRAPS),
+     p1 <- ggplot(inlet.2, aes(x=year, y=CPUE.SABLE.COUNT/CPUE.TRAPS),
                           position =  position_dodge2(width = 0.5, preserve = "single")) + 
           geom_boxplot() +
           xlab("Year") +
-          ylab("CPUE (count per trap)") +
-          theme(axis.text = element_text(size = 10)) + 
+          ylab("CPUE (#fish/trap)") +
+          scale_y_continuous(limits=c(0,100))+
+          theme(axis.text = element_text(size = 6)) + 
           theme_bw()
      
-     plot_grid(p1, p, labels = "AUTO", nrow = 2)
+     p2 <- ggplot(inlet.2wg, aes(x=year, y=CPUE.SABLE.WEIGHT/CPUE.SABLE.COUNT),
+                          position =  position_dodge2(width = 0.5, preserve = "single")) + 
+          geom_boxplot() +
+          xlab("Year") +
+          ylab("Sablefish weight (kg)") +
+          theme(axis.text = element_text(size = 6)) + 
+          theme_bw()
+     
+     plot_grid(p, p1, p2, labels = "AUTO", nrow = 3)
 
      while (!is.null(dev.list()))  dev.off()
      img <-  paste('C:/github/surveyreport/figures/Figure_9_InletCPUE.png',sep="")   # -- retrieve png 
@@ -716,7 +744,6 @@
 
 ```
 \clearpage
-
 
 (ref:figure10) Length frequencies for female (fuchsia) and male sablefish (blue-violet) and up to `r yr+1` for all StRS sets.  The number of specimens is denoted by the letter n, the mean indicated by the xbar $\overline{x}$ and the standard deviation is represented by the symbol sigma $\Sigma$ (A). Average length and ratios of male and female sablefish by year. Counts by sex are shown across the top of the lines (B).
 
