@@ -71,9 +71,10 @@ Of the 91 original blocks for the StRS portion of the survey, one was attempted 
 ```
 ## CATCH PER UNIT EFFORT (CPUE) 
 
-The sablefish survey has observed significant changes in CPUE and fish average weight in recent years.
+The sablefish surveys of `r yr` and `r yr+1` have documented recent changes in the sablefish population structure.
 
 ### Stratified Random Set CPUE
+
 Across all years, the highest annual CPUE (kg/trap) typically occured in the middle depths (450-850 m). In recent years, an increase in CPUE started in 2015 and a consistent rise in CPUE began in 2017 (Figure \@ref(fig:figure5)).  This increase was observed in nearly all depth strata (RD~1~ to RD~2~) and area strata (SD~1~ to SD~5~) (Figure \@ref(fig:figure6)).  The observed catch by weight pattern was accompanied by an increase in the number of fish per trap.  However, the large estimated numbers of fish were highly variable (+-95% CI) (Figure \@ref(fig:figure7)).  The observed mean weights indicated a three year declining trend beginning in 2017 in half of the area-depth strata. Little or no trend was seen in the remaining strata (Figure \@ref(fig:figure8)).
 
 ### Mainland Inlet CPUE
