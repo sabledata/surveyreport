@@ -382,7 +382,7 @@
 
 (ref:figure3) Location of the traditional survey sets within the mainland inlet localities since 1994.  The setlines for `r yr` are shown in blue and setlines for `r yr+1` are shown in red.
 
-```{r figure3, fig.cap='(ref:figure3)', out.width = "450px", out.height = "550px", echo=FALSE, fig.align="center", warning=FALSE}
+```{r figure3, fig.cap='(ref:figure3)', out.width = "450px", out.height = "570px", echo=FALSE, fig.align="center", warning=FALSE}
       img  <- paste('C:/github/surveyreport/figures/Figure_3_Report_Inlets_',yr+1,'_2.png',sep="")
       knitr::include_graphics(img)
 ```
@@ -630,7 +630,7 @@
 
 ```{r figure6, fig.cap='(ref:figure6)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7,  fig.align = "center"}
 
-     png("C:/github/surveyreport/figures/Figure_6_CPUES1S5.png", width=468, height=400) # write png to file
+     png("C:/github/surveyreport/figures/Figure_6_CPUES1S5.png", width=468, height=600) # write png to file
      par(mfcol=c(1,1))
 
      ggplot(tgc.02,aes(x=SET_YEAR,y=sable_cpue)) +
@@ -640,7 +640,17 @@
      facet_wrap(~strata,nrow=5)+
      xlab("Year")+
      ylab("Mean CPUE (kg/trap)")+
-     theme_bw()
+           #theme_bw()
+     theme(     panel.background = element_rect(fill = "white",
+                                colour = "grey50",
+                                size = 0.5, linetype = "solid"),
+                panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                colour = "grey90"), 
+                panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                colour = "grey90"),
+                strip.background =  element_rect(fill = "grey80", colour = "grey30"), 
+                plot.margin=unit(c(0.2,0.2,6,1),"cm")) 
+     
   
      while (!is.null(dev.list()))  dev.off()
      img <-   paste('C:/github/surveyreport/figures/Figure_6_CPUES1S5.png',sep="")   # -- retrieve png 
@@ -659,7 +669,7 @@
 
 ```{r figure7, fig.cap='(ref:figure7)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7, fig.align = "center"}
 
-    png("C:/github/surveyreport/figures/Figure_7_CPUE.png", width=468, height=400) # write png to file
+    png("C:/github/surveyreport/figures/Figure_7_CPUE.png", width=468, height=600) # write png to file
     par(mfcol=c(1,1))
     
     strs                   <- subset(raw_survey_data,SABLE_SET_TYPE=="StRS") 
@@ -702,7 +712,16 @@
     coord_cartesian(ylim=c(0,60))+ 
     xlab("Year")+
     ylab("Mean CPUE (#fish/trap)")+
-    theme_bw()
+          #theme_bw()
+     theme(     panel.background = element_rect(fill = "white",
+                                colour = "grey50",
+                                size = 0.5, linetype = "solid"),
+                panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                colour = "grey90"), 
+                panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                colour = "grey90"),
+                strip.background =  element_rect(fill = "grey80", colour = "grey30"), 
+                plot.margin=unit(c(0.2,0.2,6,1),"cm")) 
     
     while (!is.null(dev.list()))  dev.off()
     img <-    paste('C:/github/surveyreport/figures/Figure_7_CPUE.png',sep="")   # -- retrieve png 
@@ -711,9 +730,9 @@
 ``` 
 (ref:figure8) Average weight of Sablefish (mean +/- 95% CIs) by survey strata over time. Panels run shallow to deep (left to right) and south to north (top to bottom).
 
-```{r figure8, fig.cap='(ref:figure8)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7, fig.align = "center"}
+```{r figure8, fig.cap='(ref:figure8)', results='asis',out.width = "450px", out.height = "550px",, fig.align = "center"}
 
-    png("C:/github/surveyreport/figures/Figure_8_.png", width=468, height=400) # write png to file
+    png("C:/github/surveyreport/figures/Figure_8_.png", width=468, height=600) # write png to file
     par(mfcol=c(1,1))
 
     ggplot(tgcwg,aes(x= SET_YEAR,y=sable_wg))+
@@ -721,10 +740,19 @@
     geom_line(col="grey") +
     geom_point() +
     facet_wrap(~strata,nrow=5)+
-    coord_cartesian(ylim=c(1,6))+ 
+    coord_cartesian(ylim=c(1,6)) + 
     xlab("Year")+
-    ylab("Sablefish weight (kg)")+
-    theme_bw()
+    ylab("Sablefish weight (kg)") +
+      #theme_bw()
+     theme(     panel.background = element_rect(fill = "white",
+                                colour = "grey50",
+                                size = 0.5, linetype = "solid"),
+                panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                colour = "grey90"), 
+                panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                colour = "grey90"),
+                strip.background =  element_rect(fill = "grey80", colour = "grey30"), 
+                plot.margin=unit(c(0.2,0.2,6,1),"cm")) 
     
     while (!is.null(dev.list()))  dev.off()
     img <-    paste('C:/github/surveyreport/figures/Figure_8_.png',sep="")   # -- retrieve png 
