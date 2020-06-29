@@ -530,6 +530,8 @@
     # load survey data 
     strs01            <- subset(raw_survey_data,SABLE_SET_TYPE=="StRS")
     strs01$sable_cpue <- strs01$CPUE_SABLE_WEIGHT/strs01$CPUE_TRAPS           # changed from TOTAL_TRAPS to CPUE_TRAPS
+    strs01$sable_cnts <- strs01$CPUE_SABLE_COUNT/strs01$CPUE_TRAPS 
+    strs01$sable_wt   <- strs01$CPUE_SABLE_WEIGHT/strs01$CPUE_SABLE_COUNT
     strs01$strata     <- paste(strs01$SABLE_AREA_GROUP,strs01$SABLE_DEPTH_GROUP)
     strs02            <- arrange(transform(strs01,strata=factor(strata,levels=rev(unique(strs01$strata)))),strata)
     tgc01             <- summarySE(strs02, measurevar="sable_cpue", groupvars=c("SET_YEAR","strata"),na.rm = T)
@@ -558,7 +560,67 @@
     while (!is.null(dev.list()))  dev.off()
     img                <-  paste('C:/github/surveyreport/figures/Figure_5_cpuedepth.png',sep="")   # -- retrieve png 
                            knitr::include_graphics(img)
-                         
+                           
+                           
+    # this is extra code for describing the cpue by year in the ABSTRACT
+    strsRD1 <- strs01[strs01$DepthStrataID == "RD1",]                      
+    boxRD1 <-  arrange(transform(strsRD1[strsRD1$SET_YEAR>2014,],SET_YEAR=factor(SET_YEAR,levels=c(2015,2016,2017,
+                                                                                         2018,2019))),SET_YEAR)
+    strsRD2 <- strs01[strs01$DepthStrataID == "RD2",]                      
+    boxRD2 <-  arrange(transform(strsRD2[strsRD2$SET_YEAR>2014,],SET_YEAR=factor(SET_YEAR,levels=c(2015,2016,2017,
+                                                                                         2018,2019))),SET_YEAR)
+    strsRD3 <- strs01[strs01$DepthStrataID == "RD3",]                      
+    boxRD3 <-  arrange(transform(strsRD3[strsRD3$SET_YEAR>2014,],SET_YEAR=factor(SET_YEAR,levels=c(2015,2016,2017,
+                                                                                         2018,2019))),SET_YEAR)
+    pRD1 <- ggplot(boxRD1, aes(x=SET_YEAR, y=sable_cpue)) + 
+          geom_boxplot() +
+          xlab("Year") +      ylab("CPUE (kg/trap)") +
+          scale_y_continuous(limits=c(0,90))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw()
+    pRD1c<- ggplot(boxRD1, aes(x=SET_YEAR, y=sable_cnts)) + 
+          geom_boxplot() +
+          xlab("Year") +      ylab("CPUE (#/trap)") +
+          scale_y_continuous(limits=c(0,60))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw()
+    pRD1wt<- ggplot(boxRD1, aes(x=SET_YEAR, y=sable_wt)) + 
+          geom_boxplot() +
+          xlab("Year") +      ylab("sablefish kg") +
+          scale_y_continuous(limits=c(0,5))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw()
+    
+    pRD2 <- ggplot(boxRD2, aes(x=SET_YEAR, y=sable_cpue)) + 
+          geom_boxplot() +
+          xlab("Year") +    ylab("CPUE (kg/trap)") +
+          scale_y_continuous(limits=c(0,90))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw()
+    pRD2c<- ggplot(boxRD2, aes(x=SET_YEAR, y=sable_cnts)) + 
+          geom_boxplot() +
+          xlab("Year") +    ylab("CPUE (#/trap)") +
+          scale_y_continuous(limits=c(0,60))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw()
+    pRD2wt<- ggplot(boxRD2, aes(x=SET_YEAR, y=sable_wt)) + 
+          geom_boxplot() +
+          xlab("Year") +      ylab("sablefish kg") +
+          scale_y_continuous(limits=c(0,5))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw()  
+    
+    pRD3 <- ggplot(boxRD3, aes(x=SET_YEAR, y=sable_cpue)) + 
+          geom_boxplot() +
+          xlab("Year") +     ylab("CPUE (kg/trap)") +
+          scale_y_continuous(limits=c(0,90))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw()
+    pRD3c<- ggplot(boxRD3, aes(x=SET_YEAR, y=sable_cnts)) + 
+          geom_boxplot() +
+          xlab("Year") +     ylab("CPUE (#/trap)") +
+          scale_y_continuous(limits=c(0,60))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw() 
+    pRD3wt<- ggplot(boxRD3, aes(x=SET_YEAR, y=sable_wt)) + 
+          geom_boxplot() +
+          xlab("Year") +      ylab("sablefish kg") +
+          scale_y_continuous(limits=c(0,5))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw()
+    
+    plot_grid(pRD1, pRD2, pRD3, pRD1c, pRD2c, pRD3c, pRD1wt, pRD2wt, pRD3wt, nrow = 3)
   
 ```
 \clearpage
@@ -584,8 +646,11 @@
      img <-   paste('C:/github/surveyreport/figures/Figure_6_CPUES1S5.png',sep="")   # -- retrieve png 
               knitr::include_graphics(img)
               
-     #tgc.03<-tgc.02[tgc.02$SET_YEAR >= 2014,]
-     #tgc.04<-tgc.03[tgc.03$strata %like% 'RD3',]          
+     #  library(data.table)       
+     #  tgc.03<-tgc.02[tgc.02$SET_YEAR >= 2015,]
+     #  tgc.04<-tgc.03[tgc.03$strata %like% 'RD1',]
+     #  tgc.05<-tgc.03[tgc.03$strata %like% 'RD2',]
+     #  tgc.06<-tgc.03[tgc.03$strata %like% 'RD3',]              
 
 ```
 
