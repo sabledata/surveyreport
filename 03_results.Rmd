@@ -72,7 +72,7 @@ Of the 91 original blocks for the StRS portion of the survey, one was attempted 
 ## CATCH PER UNIT EFFORT (CPUE) 
 
 ### Stratified Random Set CPUE
-Across all years the highest annual CPUE (kg/trap) typically occured in the middle depths (450-850 m). In recent years, an increase in CPUE started in 2015 and a rapid rise in CPUE began in 2017 (Figure \@ref(fig:figure5)).  This increase occurred in most depth strata (RD~1~ to RD~2~) and area strata (SD~1~ to SD~5~) (Figure \@ref(fig:figure6)).  The observed catch by weight pattern was accompanied by an increase in the number of fish per trap.  However, the large estimated numbers of fish were high variable (+-95% CI) (Figure \@ref(fig:figure7)).   In contrast, the average weight of sablefish  all strata have decreased (Figure \@ref(fig:figure8)).
+Across all years, the highest annual CPUE (kg/trap) typically occured in the middle depths (450-850 m). In recent years, an increase in CPUE started in 2015 and a consistent rise in CPUE began in 2017 (Figure \@ref(fig:figure5)).  This increase was observed in nearly all depth strata (RD~1~ to RD~2~) and area strata (SD~1~ to SD~5~) (Figure \@ref(fig:figure6)).  The observed catch by weight pattern was accompanied by an increase in the number of fish per trap.  However, the large estimated numbers of fish were high variable (+-95% CI) (Figure \@ref(fig:figure7)).   In contrast, the average weight of sablefish  all strata have decreased (Figure \@ref(fig:figure8)).
 
 
 ### Mainland Inlet CPUE
