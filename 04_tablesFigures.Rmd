@@ -514,7 +514,8 @@
                "GFBioSQL.dbo.TRAP_SPECS AS fets ON fe_1.FISHING_EVENT_ID = fets.FISHING_EVENT_ID LEFT OUTER JOIN ",
                "(select  fec.FISHING_EVENT_ID, CATCH_1.SPECIES_CODE, SUM(CATCH_1.CATCH_WEIGHT) AS CATCH_WEIGHT,  ",
                "SUM(CATCH_1.CATCH_COUNT) AS CATCH_COUNT, AVG(ISNULL(CATCH_1.CATCH_VERIFICATION_CODE, 0)) AS VERIFICATION_METHOD ",
-               "from GFBioSQL.dbo.FISHING_EVENT_CATCH AS fec INNER JOIN              ",                                                                  "GFBioSQL.dbo.CATCH AS CATCH_1 ON fec.CATCH_ID = CATCH_1.CATCH_ID ",
+               "from GFBioSQL.dbo.FISHING_EVENT_CATCH AS fec INNER JOIN              ",                                                                  
+               "GFBioSQL.dbo.CATCH AS CATCH_1 ON fec.CATCH_ID = CATCH_1.CATCH_ID ",
                "where (CATCH_1.SPECIES_CODE = '455') ",
                "group by fec.FISHING_EVENT_ID, CATCH_1.SPECIES_CODE) AS fec_1 ON fe_1.FISHING_EVENT_ID = fec_1.FISHING_EVENT_ID ", 
                "where (YEAR(dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, fe_1.FE_END_DEPLOYMENT_TIME,  ",
@@ -620,12 +621,11 @@
           scale_y_continuous(limits=c(0,5))+
           theme(axis.text = element_text(size = 4)) +   theme_bw()
     
-    plot_grid(pRD1, pRD2, pRD3, pRD1c, pRD2c, pRD3c, pRD1wt, pRD2wt, pRD3wt, nrow = 3)
+    #plot_grid(pRD1, pRD2, pRD3, pRD1c, pRD2c, pRD3c, pRD1wt, pRD2wt, pRD3wt, nrow = 3)
   
 ```
 \clearpage
-\ \
-\ \
+
 (ref:figure6) Average Sablefish catch per unit effort (CPUE; mean +/- 95% CIs) by survey strata over time. Panels run deep to shallow (left to right) and north to south (top to bottom).
 
 ```{r figure6, fig.cap='(ref:figure6)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7,  fig.align = "center"}

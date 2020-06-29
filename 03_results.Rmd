@@ -12,16 +12,13 @@ history <-""
 The 2018 survey was 42 days long and divided into three legs of 14, 16 and 14 days for a total of 34 fishing days. 
 Inclement weather during the second leg required fishing to commence in Dean/Burke Channel, Finlayson Inlet and Gill Island prior to fishing the StRS sites in Queen Charlotte Sound.  This ensured that no fishing days were lost. 
 
-Of the 91 original blocks for the StRS portion of the survey, five were replaced at-sea.  One block was rejected after on-ground inspection and four were rejected based on absence of target depth requirements.
+Of the 91 original blocks for the StRS portion of the survey, five were replaced at-sea; one block was rejected after on-ground inspection and four were rejected as they did not meet the depth strata requirements.
 
 ### 2019 Survey 
 
-The 2019 survey was 46 days long and divided into three legs of 17, 14 and 17 days for a total of 34 fishing days.
-Inclement weather during the survey caused a loss of seven fishing days, five during the first leg and two during the third leg. 
-Two blocks were left unfished in strata five as the vessel moved to the inshore inlets.
+The 2019 survey was 46 days long and divided into three legs of 17, 14 and 17 days for a total of 34 fishing days.  Inclement weather during the survey caused a loss of seven fishing days, five during the first leg and two during the third leg. Two blocks were left unfished in strata five as the vessel moved to the inshore inlets.
 
-Of the 91 original blocks for the StRS portion of the survey, one was attempted but not successfully fished, one was replaced due to on-ground inspection, three were replaced due to skipper knowledge (unfishable habitat) and two more were replaced based on absence of target depth requirements.
-
+Of the 91 original blocks for the StRS portion of the survey, six were replaced at sea; one was rejected after on-ground inspection, three were rejected due to unfishable habitat, and two were rejected as they did not meet the depth strata requirements.
 
 ```{r CatchRateText, echo=FALSE}
   # -- generate the lowest uncertainity and corresponding year for catch rate paragraph
@@ -779,7 +776,7 @@ There have been distinct distribution patterns across strata of sub-legal sablef
 
 ## OTHER FISH SAMPLING
 
-Length, sex, maturity, otoliths and DNA samples were collected for the Rougheye/Blackspotted Rockfish complex.  Length, sex, maturity and otoliths were collected for Shortraker Rockfish.  In addition, length, sex, maturity, otoliths and DNA were collected for Yelloweye Rockfish.  For Pacific Halibut and Pacific Sleeper sharks, only length samples were collected (Appendix \@ref(app:nineth-appendix) and Appendix \@ref(app:tenth-appendix)).
+Length, sex, maturity, otoliths and DNA samples were collected for the rougheye/blackspotted rockfish complex.  Length, sex, maturity and otoliths were collected for shortraker rockfish.  In addition, length, sex, maturity, otoliths and DNA were collected for yelloweye rockfish.  For Pacific halibut and Pacific sleeper sharks, only length samples were collected (Appendix \@ref(app:nineth-appendix) and Appendix \@ref(app:tenth-appendix)).
 
 ## RECOVERED TAGGED SABLEFISH
 
