@@ -583,6 +583,9 @@
      while (!is.null(dev.list()))  dev.off()
      img <-   paste('C:/github/surveyreport/figures/Figure_6_CPUES1S5.png',sep="")   # -- retrieve png 
               knitr::include_graphics(img)
+              
+     #tgc.03<-tgc.02[tgc.02$SET_YEAR >= 2014,]
+     #tgc.04<-tgc.03[tgc.03$strata %like% 'RD3',]          
 
 ```
 

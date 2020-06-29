@@ -72,11 +72,10 @@ Of the 91 original blocks for the StRS portion of the survey, one was attempted 
 ## CATCH PER UNIT EFFORT (CPUE) 
 
 ### Stratified Random Set CPUE
-Across all years the highest annual CPUE (kg/trap) typically occured in the middle depths, with a rapid rise starting in 2017 (Figure \@ref(fig:figure5)).   In recent years, an increase in CPUE (kg/trap) occurred in the deep depth stratum (RD~3~) in area strata SD~2~, SD~3~ and SD~5~; in the middle depth stratum (RD~2~) across all area strata (SD~1~) to (SD~5~) ; and in the shallow depth stratum (RD~1~) in SD~1~ and SD~5~ (Figure \@ref(fig:figure6)).  There is a significant increase in the cpue (#fish/trap) and variability (+-95% CI) in recent years in the mid depth stratum across all area strata SD~1~ to SD~5~ (Figure \@ref(fig:figure7)).   In contrast, the average weight of sablefish in the mid-depth waters and all strata have decreased (Figure \@ref(fig:figure8)).
+Across all years the highest annual CPUE (kg/trap) typically occured in the middle depths, with a rapid rise starting in 2017 (Figure \@ref(fig:figure5)).   In recent years, an increase in CPUE (kg/trap) occurred in the deep depth stratum (RD~3~) in area strata SD~1~, SD~2~, SD~3~ and SD~5~; in the middle depth stratum (RD~2~) across all area strata SD~1~ to SD~5~ ; and in the shallow depth stratum (RD~1~) in SD~1~ and SD~5~ (Figure \@ref(fig:figure6)).  There is a significant increase in the cpue (#fish/trap) and variability (+-95% CI) in recent years in the mid depth stratum across all area strata SD~1~ to SD~5~ (Figure \@ref(fig:figure7)).   In contrast, the average weight of sablefish in the mid-depth waters and all strata have decreased (Figure \@ref(fig:figure8)).
 
 
 ### Mainland Inlet CPUE
-
 
 CPUE (kg/trap and #fish/trap) in the mainlaind inlets have varied in a predictable manner over time with peak CPUE occuring every 5-8 years (Figure \@ref(fig:figure9) a,b).  In 2018 and 2019, the trend has increased to record levels.  In contrast, the average weight of sablefish in 2018 and 2019 have show record lows (Figure \@ref(fig:figure9) c).  
 
