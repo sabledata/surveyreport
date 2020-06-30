@@ -91,10 +91,19 @@ Figure \@ref(fig:figure9)
 ### Deep depth stratum (RD~3~)
 *CPUE in the deep depth stratum (RD3) increased from 2003 to 2006 (~`r data.mn[1,4]` to `r data.mn[4,4]` fish per trap) but declined in 2007 (~`r data.mn[5,4]` fish per trap).  It rose again in 2008 (~`r data.mn[6,4]` fish per trap) but showed a significant drop in 2009 (~`r data.mn[7,4]` fish per trap).  In 2010, 2011 and 2013, CPUE averaged ~`r data.mn[8,4]` fish per trap, similar to those levels seen in the first two years of the survey. In 2012 and 2014, CPUE dropped again to ~`r data.mn[12,4]` fish per trap.   During 2015, 2016 and 2017, CPUE remained low (~`r data.mn[13,4]`, `r data.mn[14,4]` and `r data.mn[15,4]` fish per trap, respectively). Once again,  ~`r data.mn[16,4]` fish per trap (2008) were seen in 2018.  In 2019, CPUE was the highest at `r data.mn[17,4]` fish per trap. The deep depth stratum typically exhibited the least among block variability in CPUE with a cv=`r RD3.cvlow`.*
 
+<<<<<<< Updated upstream
 ### Mainland Inlets
 *CPUE in the mainlaind inlets have varied in a predictable manner over time with peak CPUE occuring every 5-8 years.  The mean CPUE remained consistent in the mid 1990s, from 1994 through 1997 (~8 to 10 fish per trap), then increased in 1998 (~15 fish per trap) and again in 1999 (~23 fish per trap) before declining from 2000 through 2002 (~8 to 11 fish per trap). CPUE peaked again in 2003 and 2004 (~20 and 21 fish per trap, respectively) and 2011 (~22 fish per trap). In 2018, CPUE returned (~23 fish per trap) to the high rates seen in early years. In 2019, the highest catches rates of the 26 year time series were seen (~35 fish per trap).*
+=======
+Catch per unit effort (CPUE), as indexed by kilograms of sablefish per trap, increased across most offshore survey strata in 2018, and again in 2019 (Figure \@ref(fig:figure5) and Figure \@ref(fig:figure6)). The most pronounced increases occured in the middle depth strata which recorded the largest CPUEs in 2018 and 2019 since the StRS began (Figure \@ref(fig:figure5)). These increases in CPUE were the result of realtively large increases in the number of small sablefish encountered on the survey (Figure \@ref(fig:figure7) and Figure \@ref(fig:figure8)), likely due to a large recent recruitment event that has occired coastwide [@DFO2020]. The combined consequences of these changes in CPUE across strata is an approximately X% increase in the offshore StRS CPUE index, relative to the 2015-2017 period.[I SUGGEST YOU INCLUDE A REFERENCE TO ONE MORE FIGURE HERE: AGGREGATE STRS INDEX COASTWIDE OVER TIME (I.E., FIGURE 4 IN THE SABLE_SURVEY_MP.PDF DOC AND REPO I SHARED)]
+>>>>>>> Stashed changes
 
 
+<<<<<<< Updated upstream
+=======
+CPUE in the mainlaind inlets has varied in a relatively predictable manner over time with peak CPUE occuring every 5-8 years (Figure \@ref(fig:figure9)). In the early part of the time series (mid-1990s) average CPUE remained relatively constant before a peak in CPUE was observed in 1999, followed by declines to conistent levels until another peak in 2003 and 2004, and again in 2011. In 2018, CPUE returned (~23 fish, and ~X kg, per trap) to the levels observed during previous peaks. In 2019, the highest catches rates of the 26 year time series were observed (~35 fish, and ~X kg, per trap).
+
+>>>>>>> Stashed changes
 ```{r SpeciesCompositionText, echo=FALSE}
   # -- taxonomic top 5 group count StRS year one
    topStRS      <- paste("select top (5) SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME, ",
