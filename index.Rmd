@@ -1,5 +1,5 @@
 ---
-title: "Summary of the Annual 2018 and 2019 Sablefish (*Anoplopoma fimbria*) Trap Surveys, October 9 - November 19, 2018 and October 8 - November 25, 2019"
+title: "Summary of the annual 2018 and 2019 sablefish (*Anoplopoma fimbria*) trap surveys, October 9 - November 19, 2018 and October 8 - November 25, 2019"
 year: 2020
 report_number: nnn
 author: |
