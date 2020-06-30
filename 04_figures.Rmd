@@ -1,0 +1,1076 @@
+# Figures
+(ref:figure1) Location of the boundaries of the mainland inlet localities, and the five spatial areas (S~1~-S~5~) of the stratified random survey design. The three depths strata (RD~1~-RD~3~) are colour-coded and nested within each of the five spatial strata. 
+
+```{r figure1, fig.cap='(ref:figure1)', out.width = "450px", out.height = "510px", fig.align="center", warning=FALSE, echo=FALSE, message=FALSE, error=FALSE}
+      img <- paste('C:/github/surveyreport/figures/Figure_1_Report_Overview_survey_',yr+1,'.png',sep="") 
+      knitr::include_graphics(img)
+```
+\clearpage
+
+(ref:figure2) Start locations of survey sets (red markers) conducted in `r yr` (A) and `r yr+1` (B) for the stratified random survey areas S~1~ through S~5~.
+
+```{r figure2, fig.cap='(ref:figure2)', echo=FALSE, out.width = "350px",out.height = "600px", fig.align="center", warning=FALSE}
+      img <- paste('C:/github/surveyreport/figures/Figure_2_Report_S1_S5_', yr,yr+1,'.png'  ,sep="")
+      knitr::include_graphics(img)
+```
+\clearpage
+
+(ref:figure3) Location of the traditional survey sets within the mainland inlet localities since 1994.  The setlines for `r yr` are shown in blue and setlines for `r yr+1` are shown in red.
+
+```{r figure3, fig.cap='(ref:figure3)', out.width = "450px", out.height = "570px", echo=FALSE, fig.align="center", warning=FALSE}
+      img  <- paste('C:/github/surveyreport/figures/Figure_3_Report_Inlets_',yr+1,'_2.png',sep="")
+      knitr::include_graphics(img)
+```
+\clearpage
+
+(ref:figure4) Trap elements (A).  Trap gear elements consisting of 25 baited traps snapped to beckets along a groundline (B).
+
+```{r figure4, fig.cap='(ref:figure4)', out.width = "400px", echo=FALSE, fig.align="center", warning=FALSE}
+      img  <- paste('C:/github/surveyreport/figures/Figure_4_GearAB.png',sep="") 
+      knitr::include_graphics(img)
+```
+\clearpage
+
+(ref:figure5) Sablefish catch per unit effort (CPUE) by depth and year for StRS sets. Dashed lines delineate depth strata (shallow(RD~1~) = 100-450m, mid(RD~2~) = 450-850m, deep(RD~3~) = 850-1400m).
+
+```{r figure5, fig.cap='(ref:figure5)',echo=FALSE, fig.align = "center",warning=FALSE}
+
+#   results='asis',echo=FALSE,include=FALSE,warning=FALSE,message = FALSE,error= FALSE
+    png("C:/github/surveyreport/figures/Figure_5_cpuedepth.png", width = 448, height = 648)  # write png to folder 
+
+#   query----------raw survey datafile for Landmark fisheries----------------
+
+    landmrk <- paste("select FishingEventCatchCPUE.TRIP_ID, FishingEventCatchCPUE.VESSEL_ID, FishingEventCatchCPUE.SUFFIX, ",                             "FishingEventCatchCPUE.CAPTAIN_ID, FishingEventCatchCPUE.FISHING_EVENT_ID, FishingEventCatchCPUE.FE_MAJOR_LEVEL_ID,",
+               "FishingEventCatchCPUE.SET_YEAR,   FishingEventCatchCPUE.SET_MONTH,        FishingEventCatchCPUE.SET_DAY, ",                               "FishingEventCatchCPUE.SET_TIME,   FishingEventCatchCPUE.DURATION_MINUTES, FishingEventCatchCPUE.SABLE_DEPTH_GROUP, ",                     "FishingEventCatchCPUE.SABLE_AREA_GROUP, FishingEventCatchCPUE.SABLE_SET_TYPE, ", 
+               "FishingEventCatchCPUE.GROUPING_CODE,    FishingEventCatchCPUE.REASON_CODE, FishingEventCatchCPUE.FE_REASON_COMMENT, ",                    "FishingEventCatchCPUE.GEAR_CODE,        FishingEventCatchCPUE.NS_AREA, ",
+               "FishingEventCatchCPUE.INSHORE_IND,      FishingEventCatchCPUE.SEAMOUNT_IND, FishingEventCatchCPUE.MAJOR_STAT_AREA_CODE, ",                "FishingEventCatchCPUE.MINOR_STAT_AREA_CODE, FishingEventCatchCPUE.LOCALITY_CODE, ",                                   
+               "FishingEventCatchCPUE.FE_FISHING_GROUND_COMMENT, ",
+               "FishingEventCatchCPUE.START_LATITUDE, FishingEventCatchCPUE.START_LONGITUDE, ",
+               "FishingEventCatchCPUE.END_LATITUDE, FishingEventCatchCPUE.END_LONGITUDE, ",
+               "FishingEventCatchCPUE.FE_BEGINNING_BOTTOM_DEPTH, FishingEventCatchCPUE.FE_END_BOTTOM_DEPTH, ",
+               "FishingEventCatchCPUE.FE_MODAL_BOTTOM_DEPTH, FishingEventCatchCPUE.TRAP_MODIFICATIONS_CODE, ",       
+               "FishingEventCatchCPUE.FE_USABILITY, FishingEventCatchCPUE.CPUE_SABLE_WEIGHT, ",
+               "FishingEventCatchCPUE.CPUE_SABLE_COUNT, FishingEventCatchCPUE.CPUE_TRAPS, FishingEventCatchCPUE.TOTAL_TRAPS, ",   
+               "ISNULL(FishingEventCatchCPUE.TOTAL_SABLE_COUNT, 0) AS TOTAL_SABLE_COUNT, ",
+               "ISNULL(FishingEventCatchCPUE.TOTAL_SABLE_WEIGHT, 0) AS TOTAL_SABLE_WEIGHT, ",
+               "FishingEventCatchCPUE.VERIFICATION_METHOD, FishingEventCatchCPUE.FE_START_LATTITUDE_DEGREE, ",
+               "FishingEventCatchCPUE.FE_START_LATTITUDE_MINUTE, FishingEventCatchCPUE.FE_START_LONGITUDE_DEGREE,",     
+               "FishingEventCatchCPUE.FE_START_LONGITUDE_MINUTE, FishingEventCatchCPUE.FE_END_LATTITUDE_DEGREE, ", 
+               "FishingEventCatchCPUE.FE_END_LATTITUDE_MINUTE, FishingEventCatchCPUE.FE_END_LONGITUDE_DEGREE,   ",
+               "FishingEventCatchCPUE.FE_END_LONGITUDE_MINUTE, FishingEventCatchCPUE.START_FATHOMS, ",
+               "FishingEventCatchCPUE.END_FATHOMS, FishingEventCatchCPUE.MODAL_DEPTH_FM, ",
+               "FishingEventCatchCPUE.DepthStrataID, dbo.SurveyBlock_countWeight.nBlocks AS Nh, dbo.SurveyBlock_countWeight.Wh,", 
+               "ISNULL(FishingEventCatchCPUE.CPUE_SABLE_WEIGHT / NULLIF (FishingEventCatchCPUE.CPUE_TRAPS, 0), 0) AS cpue,",   
+               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Proportion Males], ",
+               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Male Mean Fork Len(mm)],dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Female Mean Fork Len(mm)], ",                "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Tagged Mean Fork Len(mm)]  ",
+               "from (select trp.TRIP_ID, trp.VESSEL_ID, trp.SUFFIX, trp.CAPTAIN_ID, fe_1.FISHING_EVENT_ID, ",
+               "fe_1.FE_MAJOR_LEVEL_ID, YEAR(dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, ",
+               "fe_1.FE_END_DEPLOYMENT_TIME, fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME)) AS SET_YEAR,  ",     
+               "MONTH(dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, ",
+               "fe_1.FE_END_DEPLOYMENT_TIME, fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME)) AS SET_MONTH,  ", 
+               "DAY(dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, ",
+               "fe_1.FE_END_DEPLOYMENT_TIME, fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME)) AS SET_DAY, ",
+               "CAST(DATEPART(hh, dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, ",
+               "fe_1.FE_END_DEPLOYMENT_TIME, fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME)) AS varchar) + ",
+               "CAST(DATEPART(mi, dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, ",
+               "fe_1.FE_END_DEPLOYMENT_TIME, fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME)) AS varchar) AS SET_TIME, ",
+               "DATEDIFF(mi, ISNULL(fe_1.FE_END_DEPLOYMENT_TIME, fe_1.FE_BEGIN_DEPLOYMENT_TIME), ISNULL(fe_1.FE_BEGIN_RETRIEVAL_TIME, ",  
+               "fe_1.FE_END_RETRIEVAL_TIME)) AS DURATION_MINUTES, dbo.SableDepthGroup(fe_1.GROUPING_CODE) AS SABLE_DEPTH_GROUP, ",   
+               "dbo.SableAreaGroup(fe_1.GROUPING_CODE, fe_1.REASON_CODE, fe_1.FE_FISHING_GROUND_COMMENT) AS SABLE_AREA_GROUP, ",
+               "dbo.SableSetType(fe_1.REASON_CODE,fe_1.FE_REASON_COMMENT, ISNULL(GFBioSQL.dbo.Dater(fe_1.FE_BEGIN_DEPLOYMENT_TIME, ",  
+               "fe_1.FE_END_DEPLOYMENT_TIME, fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME),  ",
+               "trp.TRIP_START_DATE)) AS SABLE_SET_TYPE, fe_1.GROUPING_CODE, fe_1.REASON_CODE, fe_1.FE_REASON_COMMENT, ",
+               "fe_1.GEAR_CODE, sloc.NS_AREA, sloc.INSHORE_IND, sloc.SEAMOUNT_IND, ",
+               "fe_1.MAJOR_STAT_AREA_CODE, fe_1.MINOR_STAT_AREA_CODE, fe_1.LOCALITY_CODE, fe_1.FE_FISHING_GROUND_COMMENT, ",
+               "fe_1.FE_START_LATTITUDE_DEGREE + fe_1.FE_START_LATTITUDE_MINUTE / 60 AS START_LATITUDE, ",
+               "(fe_1.FE_START_LONGITUDE_DEGREE + fe_1.FE_START_LONGITUDE_MINUTE / 60)  * - 1 AS START_LONGITUDE, ",
+               "fe_1.FE_END_LATTITUDE_DEGREE + fe_1.FE_END_LATTITUDE_MINUTE / 60 AS END_LATITUDE, ",
+               "(fe_1.FE_END_LONGITUDE_DEGREE + fe_1.FE_END_LONGITUDE_MINUTE / 60) * - 1 AS END_LONGITUDE, ",
+               "fe_1.FE_BEGINNING_BOTTOM_DEPTH, fe_1.FE_END_BOTTOM_DEPTH, fe_1.FE_MODAL_BOTTOM_DEPTH, ",
+               "fe_1.FE_MISC_COMMENT, fets.TRAP_MODIFICATIONS_CODE, fets.USABILITY_CODE AS FE_USABILITY, ",
+               "CAST(CASE WHEN fe_1.REASON_CODE <> 14 AND fets.USABILITY_CODE <> 13 THEN isnull(traps.CPUE_WEIGHT, ",
+               "CASE WHEN fets.USABILITY_CODE IN (1, 12) THEN CASE WHEN fec_1.catch_weight IS NULL AND ",
+               "isnull(fec_1.VERIFICATION_METHOD,0) <> 9 THEN 0 ELSE fec_1.catch_weight END ELSE NULL END)  ",
+               "else NULL end AS numeric(7,1)) ",
+               "AS CPUE_SABLE_WEIGHT, CAST(CASE WHEN fe_1.REASON_CODE <> 14 AND fets.USABILITY_CODE <> 13 THEN isnull(traps.CPUE_COUNT, ",
+               "CASE WHEN fets.USABILITY_CODE IN (1, 12) THEN CASE WHEN fec_1.catch_count IS NULL AND ",
+               "isnull(fec_1.VERIFICATION_METHOD, 0) <> 3 THEN 0 ELSE fec_1.catch_count END ELSE NULL END) ELSE NULL END ",
+               "AS smallint) AS CPUE_SABLE_COUNT, ",
+               "CAST(CASE WHEN fe_1.reason_code <> 14 AND fets.USABILITY_CODE <> 13 THEN ",
+               "isnull(CPUE_TRAPS, CASE WHEN fets.USABILITY_CODE IN (1, 12) THEN fets.TRAPS_FISHED_COUNT ELSE NULL END) ",
+               "ELSE NULL END AS smallint) AS CPUE_TRAPS, ISNULL(traps.TOTAL_TRAPS, fets.TRAPS_FISHED_COUNT) AS TOTAL_TRAPS, ",              
+               "CAST(ISNULL(traps.total_count, fec_1.CATCH_COUNT) AS smallint) as TOTAL_SABLE_COUNT, ",
+               "CAST(ISNULL(traps.total_weight, fec_1.CATCH_WEIGHT) AS numeric(7, 1)) AS TOTAL_SABLE_WEIGHT, ",
+               "fec_1.VERIFICATION_METHOD, fe_1.FE_START_LATTITUDE_DEGREE, fe_1.FE_START_LATTITUDE_MINUTE, ",
+               "fe_1.FE_START_LONGITUDE_DEGREE, fe_1.FE_START_LONGITUDE_MINUTE, fe_1.FE_END_LATTITUDE_DEGREE, ",
+               "fe_1.FE_END_LATTITUDE_MINUTE, fe_1.FE_END_LONGITUDE_DEGREE, fe_1.FE_END_LONGITUDE_MINUTE, ",      
+               "ROUND(PacHarvest.dbo.m2fa(fe_1.FE_BEGINNING_BOTTOM_DEPTH), 0) AS START_FATHOMS, ",
+               "ROUND(PacHarvest.dbo.m2fa(fe_1.FE_END_BOTTOM_DEPTH), 0) AS END_FATHOMS, ",
+               "ROUND(PacHarvest.dbo.m2fa(fe_1.FE_MODAL_BOTTOM_DEPTH), 0) AS MODAL_DEPTH_FM, ",
+               "dbo.DepthStrataID(ROUND(fe_1.FE_MODAL_BOTTOM_DEPTH, 0), dbo.SableDepthGroup(fe_1.GROUPING_CODE)) AS DepthStrataID ",
+               "from GFBioSQL.dbo.TRIP AS trp INNER JOIN ",
+               "(select  TRIP_ID         ",
+               "from GFBioSQL.dbo.TRIP_ACTIVITY    ",
+               "where (ACTIVITY_CODE = 19)) AS act ON trp.TRIP_ID = act.TRIP_ID INNER JOIN  ",
+               "(select TRIP_ID,FISHING_EVENT_ID,FE_PARENT_EVENT_ID,FE_MAJOR_LEVEL_ID,FE_SUB_LEVEL_ID,FE_MINOR_LEVEL_ID,EMPLOYEE_ID, ",                  "FE_BEGIN_DEPLOYMENT_TIME, FE_END_DEPLOYMENT_TIME, FE_BEGIN_RETRIEVAL_TIME, FE_END_RETRIEVAL_TIME,  ",
+               "GROUPING_CODE, REASON_CODE, FE_REASON_COMMENT, MAJOR_STAT_AREA_CODE, ",
+               "MINOR_STAT_AREA_CODE, LOCALITY_CODE, DFO_STAT_AREA_CODE, DFO_STAT_SUBAREA_CODE, ",
+               "LOC_VRFN_METHOD_CODE, FE_FISHING_GROUND_COMMENT, ",
+               "FE_START_LATTITUDE_DEGREE, FE_START_LATTITUDE_MINUTE,  ",
+               "FE_END_LATTITUDE_DEGREE,   FE_END_LATTITUDE_MINUTE,      ",             
+               "FE_START_LONGITUDE_DEGREE, FE_START_LONGITUDE_MINUTE,     ",
+               "FE_END_LONGITUDE_DEGREE, FE_END_LONGITUDE_MINUTE, ",
+               "FE_START_LORAN_X, FE_START_LORAN_Y, FE_END_LORAN_X, FE_END_LORAN_Y, ",
+               "FE_DISTANCE_TRAVELLED, FE_DIRECTION_OF_SET, FE_PLOTTER_RECORD_INFOR, ",
+               "DEPTH_VRFN_METHOD_CODE, FE_BEGINNING_BOTTOM_DEPTH, FE_END_BOTTOM_DEPTH,  ",
+               "FE_MODAL_BOTTOM_DEPTH, FE_MIN_BOTTOM_DEPTH, FE_MAX_BOTTOM_DEPTH,  ",
+               "FE_BEGIN_TARGET_DEPTH, FE_END_TARGET_DEPTH, FE_MIN_TARGET_DEPTH, FE_MAX_TARGET_DEPTH,  ",
+               "FE_MODAL_TARGET_DEPTH, FE_BEGIN_CAPTURE_DEPTH, FE_END_CAPTURE_DEPTH,  ",
+               "FE_MIN_CAPTURE_DEPTH, FE_MAX_CAPTURE_DEPTH, FE_MODAL_CAPTURE_DEPTH,  ",
+               "FE_BEGINNING_GEAR_DEPTH, FE_END_GEAR_DEPTH, FE_MIN_GEAR_DEPTH, FE_MAX_GEAR_DEPTH, FE_MODAL_GEAR_DEPTH,  ",  
+               "FE_SURFACE_WATER_TEMPERATURE,  ",
+               "FE_SURFACE_WATER_TEMP_DEPTH, FE_SURFC_WATR_TEMP_TECH_CODE, FE_BOTTOM_WATER_TEMPERATURE,  ",
+               "FE_BOTTOM_WATER_TEMP_DEPTH, FE_BOTTM_WATR_TEMP_TECH_CODE,  ",
+               "FE_MODAL_DEPTH_TEMPERATURE, FE_GEAR_TEMP_TECH_CODE, FE_CTD_REF_NUMBER,  ",
+               "FE_WIND_DIRECTION, FE_WIND_SPEED, BEAUFORT_SCALE_CODE, FE_SWELL, TIDE_CODE,  ",
+               "FE_CLOUD_COVER, FE_LUMINESCENCE, FE_WEATHER_COMMENT, FE_SUN_SHINING_IND, GEAR_CODE,  ",
+               "EST_CATCH_METHOD_CODE, FE_TOTAL_CATCH_WEIGHT, FE_TOTAL_CATCH_PIECES,  ",
+               "FE_CATCH_WEIGHT_PER_PIECE, FE_SOUNDER_COMMENT, FE_EK500_TAPE_NUMBER,  ",
+               "FE_MISC_COMMENT, ROW_VERSION, BLOCK_DESIGNATION, FE_BEGIN_BOTTOM_CONTACT_TIME,  ",
+               "FE_END_BOTTOM_CONTACT_TIME, BOTTOM_CONTACT_METHOD_CODE, MODIFIED_DATE, MODIFIED_BY,  ",
+               "HAUL_RECORDER, FE_CATCH_COMMENT, PARTIAL_SORT_IND,  ",
+               "FE_CATCH_VERIFICATION_COMMENT, SCALE_ID, CAPTAIN_ID ",
+               "from GFBioSQL.dbo.FISHING_EVENT ",
+               "where (FE_PARENT_EVENT_ID IS NULL)) AS fe_1 ON trp.TRIP_ID = fe_1.TRIP_ID LEFT OUTER JOIN dbo.traps AS traps ",
+               "ON fe_1.TRIP_ID = traps.TRIP_ID AND fe_1.FE_MAJOR_LEVEL_ID = traps.FE_MAJOR_LEVEL_ID LEFT OUTER JOIN ",
+               "dbo.sablefish_locality AS sloc ON fe_1.MAJOR_STAT_AREA_CODE = sloc.MAJOR_STAT_AREA_CODE  ",
+               "and fe_1.MINOR_STAT_AREA_CODE = sloc.MINOR_STAT_AREA_CODE AND  ",
+               "fe_1.LOCALITY_CODE = sloc.LOCALITY_CODE LEFT OUTER JOIN ",
+               "GFBioSQL.dbo.TRAP_SPECS AS fets ON fe_1.FISHING_EVENT_ID = fets.FISHING_EVENT_ID LEFT OUTER JOIN ",
+               "(select  fec.FISHING_EVENT_ID, CATCH_1.SPECIES_CODE, SUM(CATCH_1.CATCH_WEIGHT) AS CATCH_WEIGHT,  ",
+               "SUM(CATCH_1.CATCH_COUNT) AS CATCH_COUNT, AVG(ISNULL(CATCH_1.CATCH_VERIFICATION_CODE, 0)) AS VERIFICATION_METHOD ",
+               "from GFBioSQL.dbo.FISHING_EVENT_CATCH AS fec INNER JOIN              ",                                                                  
+               "GFBioSQL.dbo.CATCH AS CATCH_1 ON fec.CATCH_ID = CATCH_1.CATCH_ID ",
+               "where (CATCH_1.SPECIES_CODE = '455') ",
+               "group by fec.FISHING_EVENT_ID, CATCH_1.SPECIES_CODE) AS fec_1 ON fe_1.FISHING_EVENT_ID = fec_1.FISHING_EVENT_ID ", 
+               "where (YEAR(dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, fe_1.FE_END_DEPLOYMENT_TIME,  ",
+               "fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME)) > 2002))  AS FishingEventCatchCPUE LEFT OUTER JOIN ",
+               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS ON FishingEventCatchCPUE.FE_MAJOR_LEVEL_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[SET] AND  ",
+               "FishingEventCatchCPUE.TRIP_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.TRIP_ID LEFT OUTER JOIN ",
+               "dbo.SurveyBlock_countWeight ON FishingEventCatchCPUE.SABLE_AREA_GROUP = dbo.SurveyBlock_countWeight.areaStrName AND   ",      
+               "FishingEventCatchCPUE.DepthStrataID = dbo.SurveyBlock_countWeight.depthStrName", sep="")
+
+    #landmrkRAW<- GetSQLData(landmrk,"Sablefish")
+    raw_survey_data <- read.csv("c:/github/surveyreport/standaloneData/figure05678_RawLandmarkSurveyData.csv",header=T)
+    
+    # load survey data 
+    strs01            <- subset(raw_survey_data,SABLE_SET_TYPE=="StRS")
+    strs01$sable_cpue <- strs01$CPUE_SABLE_WEIGHT/strs01$CPUE_TRAPS           # changed from TOTAL_TRAPS to CPUE_TRAPS
+    strs01$sable_cnts <- strs01$CPUE_SABLE_COUNT/strs01$CPUE_TRAPS 
+    strs01$sable_wt   <- strs01$CPUE_SABLE_WEIGHT/strs01$CPUE_SABLE_COUNT
+    strs01$strata     <- paste(strs01$SABLE_AREA_GROUP,strs01$SABLE_DEPTH_GROUP)
+    strs02            <- arrange(transform(strs01,strata=factor(strata,levels=rev(unique(strs01$strata)))),strata)
+    tgc01             <- summarySE(strs02, measurevar="sable_cpue", groupvars=c("SET_YEAR","strata"),na.rm = T)
+    tgc.02            <- arrange(transform(tgc01,strata=factor(strata,levels = c("S5 RD3", "S5 RD2", "S5 RD1", 
+                                                                             "S4 RD3", "S4 RD2", "S4 RD1", 
+                                                                             "S3 RD3", "S3 RD2", "S3 RD1", 
+                                                                             "S2 RD3", "S2 RD2", "S2 RD1",
+                                                                             "S1 RD3", "S1 RD2", "S1 RD1" ))),strata)
+  
+    # drop 2003 and set panel ordering for aesthetics
+    strs.02<-arrange(transform(strs01[strs01$SET_YEAR>2003,],SET_YEAR=factor(SET_YEAR,levels=c(2004,2008,2012,2016,
+                                                                                          2005,2009,2013,2017,
+                                                                                          2006,2010,2014,2018,
+                                                                                          2007,2011,2015,2019))),SET_YEAR)
+    
+    ggplot(strs.02,aes(x=FE_MODAL_BOTTOM_DEPTH,y=CPUE_SABLE_WEIGHT/CPUE_TRAPS))+
+    geom_point(alpha = 1/5)+
+    facet_wrap(~SET_YEAR,ncol=4)+
+    scale_x_continuous(breaks = c(100,450,850,1400),limits=c(0,1500))+ 
+    geom_vline(xintercept=c(450),linetype="dashed",color="red")+
+    geom_vline(xintercept=c(850),linetype="dashed",color="blue")+
+    xlab("Depth (m)")+
+    ylab("CPUE (kg/trap)")+
+    theme_bw()
+
+    while (!is.null(dev.list()))  dev.off()
+    img                <-  paste('C:/github/surveyreport/figures/Figure_5_cpuedepth.png',sep="")   # -- retrieve png 
+                           knitr::include_graphics(img)
+                           
+                           
+    # this is extra code for describing the cpue by year in the ABSTRACT
+    strsRD1 <- strs01[strs01$DepthStrataID == "RD1",]                      
+    boxRD1 <-  arrange(transform(strsRD1[strsRD1$SET_YEAR>2014,],SET_YEAR=factor(SET_YEAR,levels=c(2015,2016,2017,
+                                                                                         2018,2019))),SET_YEAR)
+    strsRD2 <- strs01[strs01$DepthStrataID == "RD2",]                      
+    boxRD2 <-  arrange(transform(strsRD2[strsRD2$SET_YEAR>2014,],SET_YEAR=factor(SET_YEAR,levels=c(2015,2016,2017,
+                                                                                         2018,2019))),SET_YEAR)
+    strsRD3 <- strs01[strs01$DepthStrataID == "RD3",]                      
+    boxRD3 <-  arrange(transform(strsRD3[strsRD3$SET_YEAR>2014,],SET_YEAR=factor(SET_YEAR,levels=c(2015,2016,2017,
+                                                                                         2018,2019))),SET_YEAR)
+    pRD1 <- ggplot(boxRD1, aes(x=SET_YEAR, y=sable_cpue)) + 
+          geom_boxplot() +
+          xlab("Year") +      ylab("CPUE (kg/trap)") +
+          scale_y_continuous(limits=c(0,90))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw()
+    pRD1c<- ggplot(boxRD1, aes(x=SET_YEAR, y=sable_cnts)) + 
+          geom_boxplot() +
+          xlab("Year") +      ylab("CPUE (#/trap)") +
+          scale_y_continuous(limits=c(0,60))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw()
+    pRD1wt<- ggplot(boxRD1, aes(x=SET_YEAR, y=sable_wt)) + 
+          geom_boxplot() +
+          xlab("Year") +      ylab("sablefish kg") +
+          scale_y_continuous(limits=c(0,5))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw()
+    
+    pRD2 <- ggplot(boxRD2, aes(x=SET_YEAR, y=sable_cpue)) + 
+          geom_boxplot() +
+          xlab("Year") +    ylab("CPUE (kg/trap)") +
+          scale_y_continuous(limits=c(0,90))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw()
+    pRD2c<- ggplot(boxRD2, aes(x=SET_YEAR, y=sable_cnts)) + 
+          geom_boxplot() +
+          xlab("Year") +    ylab("CPUE (#/trap)") +
+          scale_y_continuous(limits=c(0,60))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw()
+    pRD2wt<- ggplot(boxRD2, aes(x=SET_YEAR, y=sable_wt)) + 
+          geom_boxplot() +
+          xlab("Year") +      ylab("sablefish kg") +
+          scale_y_continuous(limits=c(0,5))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw()  
+    
+    pRD3 <- ggplot(boxRD3, aes(x=SET_YEAR, y=sable_cpue)) + 
+          geom_boxplot() +
+          xlab("Year") +     ylab("CPUE (kg/trap)") +
+          scale_y_continuous(limits=c(0,90))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw()
+    pRD3c<- ggplot(boxRD3, aes(x=SET_YEAR, y=sable_cnts)) + 
+          geom_boxplot() +
+          xlab("Year") +     ylab("CPUE (#/trap)") +
+          scale_y_continuous(limits=c(0,60))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw() 
+    pRD3wt<- ggplot(boxRD3, aes(x=SET_YEAR, y=sable_wt)) + 
+          geom_boxplot() +
+          xlab("Year") +      ylab("sablefish kg") +
+          scale_y_continuous(limits=c(0,5))+
+          theme(axis.text = element_text(size = 4)) +   theme_bw()
+    
+    #plot_grid(pRD1, pRD2, pRD3, pRD1c, pRD2c, pRD3c, pRD1wt, pRD2wt, pRD3wt, nrow = 3)
+  
+```
+\clearpage
+
+(ref:figure6) Average sablefish catch per unit effort (CPUE; mean +/- 95% CIs) by survey strata over time. Panels run deep to shallow (left to right) and north to south (top to bottom).
+
+```{r figure6, fig.cap='(ref:figure6)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7,  fig.align = "center"}
+
+     png("C:/github/surveyreport/figures/Figure_6_CPUES1S5.png", width=468, height=600) # write png to file
+     par(mfcol=c(1,1))
+
+     ggplot(tgc.02,aes(x=SET_YEAR,y=sable_cpue)) +
+     geom_errorbar(aes(ymin=sable_cpue-ci, ymax=sable_cpue+ci), width=0) +
+     geom_line(col="grey") +
+     geom_point() +
+     facet_wrap(~strata,nrow=5)+
+     xlab("Year")+
+     ylab("Mean CPUE (kg/trap)")+
+           #theme_bw()
+     theme(     panel.background = element_rect(fill = "white",
+                                colour = "grey50",
+                                size = 0.5, linetype = "solid"),
+                panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                colour = "grey90"), 
+                panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                colour = "grey90"),
+                strip.background =  element_rect(fill = "grey80", colour = "grey30"), 
+                plot.margin=unit(c(0.2,0.2,6,1),"cm")) 
+     
+  
+     while (!is.null(dev.list()))  dev.off()
+     img <-   paste('C:/github/surveyreport/figures/Figure_6_CPUES1S5.png',sep="")   # -- retrieve png 
+              knitr::include_graphics(img)
+              
+     #  library(data.table)       
+     #  tgc.03<-tgc.02[tgc.02$SET_YEAR >= 2015,]
+     #  tgc.04<-tgc.03[tgc.03$strata %like% 'RD1',]
+     #  tgc.05<-tgc.03[tgc.03$strata %like% 'RD2',]
+     #  tgc.06<-tgc.03[tgc.03$strata %like% 'RD3',]              
+
+```
+
+
+(ref:figure7) Average number of sablefish per trap (mean +/- 95% CIs) by survey strata over time. Panels run shallow to deep (left to right) and south to north (top to bottom).
+
+```{r figure7, fig.cap='(ref:figure7)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7, fig.align = "center"}
+
+    png("C:/github/surveyreport/figures/Figure_7_CPUE.png", width=468, height=600) # write png to file
+    par(mfcol=c(1,1))
+    
+    strs                   <- subset(raw_survey_data,SABLE_SET_TYPE=="StRS") 
+    strs$sable_cpue        <- strs$CPUE_SABLE_WEIGHT/strs$CPUE_TRAPS 
+    strs$sable_cnt         <- (strs$CPUE_SABLE_COUNT/strs$CPUE_TRAPS)
+    strs$sable_wg          <- (strs$CPUE_SABLE_WEIGHT/strs$CPUE_SABLE_COUNT) 
+    strs$sable_avwt_trap   <- (strs$sable_cpue/strs$sable_cnt)
+    strs$strata            <-  paste(strs$SABLE_AREA_GROUP,strs$SABLE_DEPTH_GROUP)
+ 
+    strs2 <- arrange(transform(strs,strata=factor(strata,levels=rev(unique(strs$strata)))),strata)
+    
+    tgc   <- summarySE(strs2, measurevar=("sable_cpue"),         groupvars=c("SET_YEAR","strata"),na.rm = T)
+    tgcwg <- summarySE(strs2, measurevar=("sable_wg"),           groupvars=c("SET_YEAR","strata"),na.rm = T)
+    tgcnt <- summarySE(strs2, measurevar=("sable_cnt"),          groupvars=c("SET_YEAR","strata"),na.rm = T)
+
+        tgc   <- arrange(transform(tgc,strata=factor(strata,levels=c("S5 RD3", "S5 RD2", "S5 RD1", 
+                                                                 "S4 RD3", "S4 RD2", "S4 RD1", 
+                                                                 "S3 RD3", "S3 RD2", "S3 RD1", 
+                                                                 "S2 RD3", "S2 RD2", "S2 RD1",
+                                                                 "S1 RD3", "S1 RD2", "S1 RD1"))),strata)
+    
+    tgcwg<-arrange(transform(tgcwg,strata=factor(strata,levels=c("S5 RD3", "S5 RD2", "S5 RD1", 
+                                                                 "S4 RD3", "S4 RD2", "S4 RD1", 
+                                                                 "S3 RD3", "S3 RD2", "S3 RD1", 
+                                                                 "S2 RD3", "S2 RD2", "S2 RD1",
+                                                                 "S1 RD3", "S1 RD2", "S1 RD1"))),strata)
+    
+    tgcnt<-arrange(transform(tgcnt,strata=factor(strata,levels=c("S5 RD3", "S5 RD2", "S5 RD1", 
+                                                                 "S4 RD3", "S4 RD2", "S4 RD1", 
+                                                                 "S3 RD3", "S3 RD2", "S3 RD1", 
+                                                                 "S2 RD3", "S2 RD2", "S2 RD1",
+                                                                 "S1 RD3", "S1 RD2", "S1 RD1"))),strata)
+
+
+    ggplot(tgcnt,aes(x=SET_YEAR,y=sable_cnt))+
+    geom_errorbar(aes(ymin=sable_cnt-ci, ymax=sable_cnt+ci), width=0) +
+    geom_line(col="grey") +
+    geom_point() +
+    facet_wrap(~rev(strata),nrow=5,labeller = )+
+    coord_cartesian(ylim=c(0,60))+ 
+    xlab("Year")+
+    ylab("Mean CPUE (#fish/trap)")+
+          #theme_bw()
+     theme(     panel.background = element_rect(fill = "white",
+                                colour = "grey50",
+                                size = 0.5, linetype = "solid"),
+                panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                colour = "grey90"), 
+                panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                colour = "grey90"),
+                strip.background =  element_rect(fill = "grey80", colour = "grey30"), 
+                plot.margin=unit(c(0.2,0.2,6,1),"cm")) 
+    
+    while (!is.null(dev.list()))  dev.off()
+    img <-    paste('C:/github/surveyreport/figures/Figure_7_CPUE.png',sep="")   # -- retrieve png 
+              knitr::include_graphics(img)
+    
+``` 
+(ref:figure8) Average weight of sablefish (mean +/- 95% CIs) by survey strata over time. Panels run shallow to deep (left to right) and south to north (top to bottom).
+
+```{r figure8, fig.cap='(ref:figure8)', results='asis',out.width = "450px", out.height = "550px",, fig.align = "center"}
+
+    png("C:/github/surveyreport/figures/Figure_8_.png", width=468, height=600) # write png to file
+    par(mfcol=c(1,1))
+
+    ggplot(tgcwg,aes(x= SET_YEAR,y=sable_wg))+
+    geom_errorbar(aes(ymin=sable_wg-ci, ymax=sable_wg+ci), width=0) +
+    geom_line(col="grey") +
+    geom_point() +
+    facet_wrap(~strata,nrow=5)+
+    coord_cartesian(ylim=c(1,6)) + 
+    xlab("Year")+
+    ylab("Sablefish weight (kg)") +
+      #theme_bw()
+     theme(     panel.background = element_rect(fill = "white",
+                                colour = "grey50",
+                                size = 0.5, linetype = "solid"),
+                panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                colour = "grey90"), 
+                panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                colour = "grey90"),
+                strip.background =  element_rect(fill = "grey80", colour = "grey30"), 
+                plot.margin=unit(c(0.2,0.2,6,1),"cm")) 
+    
+    while (!is.null(dev.list()))  dev.off()
+    img <-    paste('C:/github/surveyreport/figures/Figure_8_.png',sep="")   # -- retrieve png 
+              knitr::include_graphics(img)
+```    
+
+(ref:figure9) Average weight of sablefish per trap (kg/trap) at mainland Inlet localities over time (A). Average number of sablefish per trap (#fish/trap) at mainland Inlet localities over time (B).  Annual average weight of sablefish (kg) at mainland Inlets (C).
+
+```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width = "450px",out.height = "560px", fig.align="center"}
+
+  png("C:/github/surveyreport/figures/Figure_9_InletCPUE.png", width=600, height=800) # write png to file
+
+    library(Rmisc)                       
+    cpuedt <- "SELECT  * FROM dbo.GENERIC_GFBIO_TRAPS where year < 2020 and [Spatial.Stratum] not like '%Quatsino Sound%' "
+    #cpuedat<- GetSQLData(cpuedt,"Sablefish") 
+    cpuedat   <-  read.csv("c:/github/surveyreport/standaloneData/figure09_InletCPUE.csv",header=T)
+
+    #pick out the stand sets
+    dat <- cpuedat[ which(cpuedat$SABLE.SET.TYPE=="INLET STANDARDIZED" ), ]
+    dat <- dat[ which(is.na(dat$SABLE.SET.TYPE)==FALSE), ]
+    inlet <- dat[dat$year >=1994,]  
+    
+    inlet$sable_cpuew <-  inlet$CPUE.SABLE.WEIGHT/inlet$CPUE.TRAPS
+    itgcw             <-  summarySE(inlet, measurevar="sable_cpuew", groupvars=c("year"),na.rm = T) 
+    
+    inlet.2w          <-  arrange(transform(inlet[inlet$year>1993,],year=factor(year,levels=c(1994,1995,1996,1997,
+                                                                                              1998,1999,2000,2001,
+                                                                                              2002,2003,2004,2005,
+                                                                                              2006,2007,2008,2009,
+                                                                                              2010,2011,2012,2013,
+                                                                                              2014,2015,2016,2017,
+                                                                                              2018,2019))),year)
+
+    inlet$sable_cpue  <-  inlet$CPUE.SABLE.COUNT/inlet$CPUE.TRAPS
+    itgc              <-  summarySE(inlet, measurevar="sable_cpue", groupvars=c("year"),na.rm = T) 
+    inlet.2           <-  arrange(transform(inlet[inlet$year>1993,],year=factor(year,levels=c(1994,1995,1996,1997,
+                                                                                              1998,1999,2000,2001,
+                                                                                              2002,2003,2004,2005,
+                                                                                              2006,2007,2008,2009,
+                                                                                              2010,2011,2012,2013,
+                                                                                              2014,2015,2016,2017,
+                                                                                              2018,2019))),year)
+    inlet$sable_cpuwg <-  inlet$CPUE.SABLE.WEIGHT/inlet$CPUE.SABLE.COUNT
+    itgcwg            <-  summarySE(inlet, measurevar="sable_cpuwg", groupvars=c("year"),na.rm = T) 
+    inlet.2wg         <-  arrange(transform(inlet[inlet$year>1993,],year=factor(year,levels=c(1994,1995,1996,1997,
+                                                                                              1998,1999,2000,2001,
+                                                                                              2002,2003,2004,2005,
+                                                                                              2006,2007,2008,2009,
+                                                                                              2010,2011,2012,2013,
+                                                                                              2014,2015,2016,2017,
+                                                                                              2018,2019))),year)
+     
+     p <- ggplot(inlet.2w, aes(x=year, y=CPUE.SABLE.WEIGHT/CPUE.TRAPS),
+                           position =  position_dodge2(width = 0.5, preserve = "single")) + 
+          geom_boxplot() +
+          xlab("Year") +
+          ylab("CPUE (kg/trap)") +
+          scale_y_continuous(limits=c(0,100))+
+          theme(axis.text = element_text(size = 6)) + 
+          theme_bw()
+    
+     
+     p1 <- ggplot(inlet.2, aes(x=year, y=CPUE.SABLE.COUNT/CPUE.TRAPS),
+                          position =  position_dodge2(width = 0.5, preserve = "single")) + 
+          geom_boxplot() +
+          xlab("Year") +
+          ylab("CPUE (#fish/trap)") +
+          scale_y_continuous(limits=c(0,100))+
+          theme(axis.text = element_text(size = 6)) + 
+          theme_bw()
+     
+     p2 <- ggplot(inlet.2wg, aes(x=year, y=CPUE.SABLE.WEIGHT/CPUE.SABLE.COUNT),
+                          position =  position_dodge2(width = 0.5, preserve = "single")) + 
+          geom_boxplot() +
+          xlab("Year") +
+          ylab("Sablefish weight (kg)") +
+          theme(axis.text = element_text(size = 6)) + 
+          theme_bw()
+     
+     plot_grid(p, p1, p2, labels = "AUTO", nrow = 3)
+
+     while (!is.null(dev.list()))  dev.off()
+     img <-  paste('C:/github/surveyreport/figures/Figure_9_InletCPUE.png',sep="")   # -- retrieve png 
+          knitr::include_graphics(img)
+
+```
+\clearpage
+
+(ref:figure10) Length frequencies for female (fuchsia) and male sablefish (blue-violet) and up to `r yr+1` for all StRS sets.  The number of specimens is denoted by the letter n, the mean indicated by the xbar $\overline{x}$ and the standard deviation is represented by the symbol sigma $\Sigma$ (A). Average length and ratios of male and female sablefish by year. Counts by sex are shown across the top of the lines (B).
+
+```{r figure10, fig.cap='(ref:figure10)',results='asis', out.width = "450px",out.height = "550px", fig.align="center"}
+
+      knitr::opts_chunk$set(out.height = "\\textheight",  out.width = "\\textwidth")
+      #  L E N G T H    H I S T O G R A M  
+      #  Sablefish.dbo.procReport_Survey_LenMF pulls length data from table GFBIO_SABLEBIO_VW 
+      #  procedure:  Build_BIO_Sablefish_Tables 
+   
+      png("C:/github/surveyreport/figures/Figure_10_lengths.png", width = 800, height = 924) # write png to folder
+      
+      par(mfcol=c(2,1), mar=c(4,4,1,1), oma=c(3,2,1,1), cex=1.2)  # -- mar(bottom, left, top, and right)
+      par(xpd=NA)  # for placement of A,B
+     	a2    <-   hist(females2, breaks = brk2, plot=F)
+    	b2    <-   hist(males2,   breaks = brk2, plot=F)  # draw the histogram with the specified number of bins
+    	
+    	plot(b2, col=rgb(0,0,1,0.5), border="white", main="", xlab="Length (cm)", xlim=c(30,100))
+    	plot(a2, col=rgb(1,0,1,0.5), border="white", add = TRUE)
+    	box()
+    	
+      panLab(0.79,0.4,paste("StRS 2003-2019",  sep=""), cex=1.2)  # -- Labels
+    	panLab(0.79,0.98,"Sablefish males")
+    	panLab(0.19,0.98,"Sablefish females")
+    	
+    	panLab(0.79,0.9,bquote(bold(n)==.(tm2)))
+    	panLab(0.19,0.9,bquote(bold(n)==.(tf2)))
+    	
+    	panLab(0.79,0.8,bquote(bolditalic(bar(x))==.(mLm2)))
+    	panLab(0.19,0.8,bquote(bolditalic(bar(x))==.(mLf2)))
+    	
+    	panLab(0.79,0.7,bquote(bold(sigma)==.(stdm2)) )
+    	panLab(0.19,0.7,bquote(bold(sigma)==.(stdf2)) )
+    	
+    	 di <- dev.size("in")
+       x  <- grconvertX(c(0, di[1]), from="in", to="user")
+       y  <- grconvertY(c(0, di[2]), from="in", to="user")
+       fig <- par("fig")
+       x <- x[1] + (x[2] - x[1]) * fig[1:2]
+       y <- y[1] + (y[2] - y[1]) * fig[3:4]
+       txt <- "A"
+       x <- x[1] + strwidth(txt, cex=3) / 2
+       y <- y[2] - strheight(txt, cex=3)/ 2
+       text(x, y, txt, cex=1.5)
+
+     #  M E A N   L E N G T H   P L O T 
+     #  Sablefish.dbo.rocRReport_Survey_LenAvg pulls length data from table GFBIO_SABLEBIO_VW from 
+     #  procedure:  Build_BIO_Sablefish_Tables
+     
+     lenstats  <- "exec procRReport_Survey_LenAvg"
+     #dat       <- GetSQLData(lenstats,"Sablefish")                                                  # read from SQL Server
+     dat       <- read.csv("c:/github/surveyreport/standaloneData/figure10_MeanLength.csv",header=T) # read from csv
+     
+     
+     fdat      <- dat[dat$sex==2,]
+     mdat      <- dat[dat$sex==1,]
+     #format(fdat$count/(fdat$count+mdat$count),digits=2)
+     #format(mdat$count/(fdat$count+mdat$count),digits=2)
+     MxSeam    <- max(dat$AvL)
+    
+     plot(fdat$YEAR, fdat$AvL,pch=2, ylim=c(50,MxSeam+5),xlim=c(2003,yr+1), 
+          ylab="Average length (cm)",xlab="Year", 
+          col=rgb(1,0,1,0.6),xaxt="n")
+     axis(1, seq(2003,2019,1))
+     lines(fdat$YEAR,fdat$AvL,lwd=1, lty=2, col=rgb(1,0,1,0.6))    # -- plot points and lines
+     
+     points(mdat$YEAR,mdat$AvL,pch=16,col=rgb(0,0,1,0.6)) 
+     lines(mdat$YEAR, mdat$AvL,lwd=1,lty=1,col=rgb(0,0,1,0.6))
+
+     text(fdat$YEAR, fdat$AvL+1, fdat$count,cex=0.9)
+     text(mdat$YEAR, mdat$AvL+1, mdat$count,cex=0.9)
+     text(fdat$YEAR,53,format(mdat$count/fdat$count,digits=1),cex=1.1)
+     text(2003,51,"M:F",cex=1.0)
+     par(usr=c(0,1,0,1))  # -- set up the plot margins
+        
+     legend(0.035,1, c("  Sablefish females","  Sablefish males"), lty=c(2,1), lwd=1, bty="n", col=c(rgb(1,0,1,0.6), rgb(0,0,1,0.6)))
+     legend(0.035,1, c("",""), pch=c(2,16), bty="n", col=c(rgb(1,0,1,0.6),rgb(0,0,1,0.6)))
+     panLab(0.79,0.95,paste("StRS 2003-", yr+1, sep=""), cex=1.1)
+     
+       di <- dev.size("in")
+       x  <- grconvertX(c(0, di[1]), from="in", to="user")
+       y  <- grconvertY(c(0, di[2]), from="in", to="user")
+       fig <- par("fig")
+       x <- x[1] + (x[2] - x[1]) * fig[1:2]
+       y <- y[1] + (y[2] - y[1]) * fig[3:4]
+       txt <- "B"
+       x <- x[1] + strwidth(txt, cex=3) / 2
+       y <- y[2] - strheight(txt, cex=3)/ 2
+       text(x, y, txt, cex=1.5)
+     
+     while (!is.null(dev.list()))  dev.off()  
+     img6 <- paste('C:/github/surveyreport/figures/Figure_10_lengths.png',sep="") 
+            knitr::include_graphics(img6)
+``` 
+\clearpage
+
+(ref:figure11) Sablefish fork length (L in cm) vs weight (W in kg) for females and males for the `r yr` (A,C) and `r yr+1` (B,D) surveys.
+
+```{r figure11, fig.cap='(ref:figure11)',results='asis', out.width = "450px",out.height = "550px", fig.align="center"}
+    
+    # L E N G T H     W E I G H T 
+    # Sablefish.dbo.procR_Survey_Sablefish_LenWt_shiny queries table GFBIO_SABLEBIO_VW for survey length data	
+    png("C:/github/surveyreport/figures/Figure_11_Lenwt.png", width = 800, height = 924) # -- starts writing a png to figure folder
+    par(mfcol=c(2,2), mar=c(4,4,1,1), oma=c(2,2,3,1), cex=1.0)  # -- mar(bottom, left, top, and right)
+    par(xpd=NA)  # for placement of A,B,C,D
+
+    lenWT     <- "exec procR_Survey_Sablefish_LenWt_shiny"
+    #lenWTdat1 <- GetSQLData(lenWT,"Sablefish")                                                       # read from SQL Server
+    lenWTdat1 <- read.csv("c:/github/surveyreport/standaloneData/figure11_LengthWeight.csv",header=T) # read from csv
+    lenWTdat  <- lenWTdat1[lenWTdat1$YEAR==yr,]
+
+    for (i in c(2,1)) {
+         ylim <- c(min(lenWTdat$weight),max(lenWTdat$weight))
+         xlim <- c(min(lenWTdat$length),max(lenWTdat$length))    
+         lbls <- c(paste(yr,":  Males","",sep=""),paste(yr,":  Females","",sep=""))
+   
+         t    <- length(lenWTdat$length[lenWTdat$sex==i])                    
+         fit1 <- lm(log(weight)~log(length), data=lenWTdat[lenWTdat$sex==i ,])
+         a    <- round(exp(fit1$coef[1]),7)
+         b    <- round(fit1$coef[2],3)
+         Wt   <- (a * (0:xlim[2])^b)  
+
+      plot(jitter(lenWTdat$length[lenWTdat$sex==i],2), 
+           jitter(lenWTdat$weight[lenWTdat$sex==i],2), 
+           pch=16, col="black", cex=0.5,
+           xlab="     Fork length (cm)", ylab="   Round weight (kg)", 
+           main=paste(lbls[i]), xlim=c(20,100), ylim=c(0,12))      
+           lines(0:xlim[2], Wt, col="darkgrey", lwd=2) 
+           
+      mw     <- format(round(mean(lenWTdat$weight[lenWTdat$sex==i],na.rm=T),1),nsmall=1)
+      par(usr=c(0,1,0,1))
+      text(0.3,0.9, bquote(bold(n)==.(t)))   # -- number
+      text(0.3,0.8, bquote(bolditalic(bar(W))==.(mw))) # -- mean weight
+      text(0.33,0.7,bquote(bold(a)==.(a)))  # -- a
+      text(0.32,0.6,bquote(bold(b)==.(b)))  # -- b
+      
+      letter <- c("C","A")
+      di <- dev.size("in")
+      x  <- grconvertX(c(0, di[1]), from="in", to="user")
+      y  <- grconvertY(c(0, di[2]), from="in", to="user")
+      fig <- par("fig")
+      x <- x[1] + (x[2] - x[1]) * fig[1:2]
+      y <- y[1] + (y[2] - y[1]) * fig[3:4]
+      txt <- letter[i]
+      x <- x[1] + strwidth(txt, cex=3) / 2
+      y <- y[2] - strheight(txt, cex=3) *2
+      text(x, y, txt, cex=1.5)
+    }
+    
+    lenWTdat.2  <- lenWTdat1[lenWTdat1$YEAR==yr+1,]
+
+    for (i in c(2,1)) {
+      ylim.2 <- c(min(lenWTdat.2$weight),max(lenWTdat.2$weight))
+      xlim.2 <- c(min(lenWTdat.2$length),max(lenWTdat.2$length))    
+      lbls.2 <- c(paste(yr+1,":  Males","",sep=""),paste(yr+1,":  Females","",sep=""))
+   
+      t.2    <- length(lenWTdat.2$length[lenWTdat.2$sex==i])                    
+      fit1.2 <- lm(log(weight)~log(length), data=lenWTdat.2[lenWTdat.2$sex==i ,])
+      a.2    <- round(exp(fit1.2$coef[1]),7)
+      b.2    <- round(fit1.2$coef[2],3)
+      Wt.2   <- (a * (0:xlim.2[2])^b)  
+
+      plot(jitter(lenWTdat.2$length[lenWTdat.2$sex==i],2), 
+      jitter(lenWTdat.2$weight[lenWTdat.2$sex==i],2), pch=16, col="black", cex=0.7,
+         xlab="     Fork length (cm)", ylab="   Round weight (kg)", main=paste(lbls.2[i]), xlim=c(20,100), ylim=c(0,12))      
+         lines(0:xlim.2[2], Wt.2, col="darkgrey", lwd=2)      
+      mw.2   <-  format(round(mean(lenWTdat.2$weight[lenWTdat.2$sex==i],na.rm=T),1),nsmall=1)
+      par(usr=c(0,1,0,1))
+      text(0.3,0.9,bquote(bold(n)==.(t.2)))   # number
+      text(0.3,0.8,bquote(bolditalic(bar(W))==.(mw.2))) # mean weight                                                                                                                                                                                 
+      text(0.33,0.7,bquote(bold(a)==.(a.2)))  # a
+      text(0.32,0.6,bquote(bold(b)==.(b.2)))  # b
+    
+       letter <- c("D","B")
+       di <- dev.size("in")
+       x  <- grconvertX(c(0, di[1]), from="in", to="user")
+       y  <- grconvertY(c(0, di[2]), from="in", to="user")
+       fig <- par("fig")
+       x <- x[1] + (x[2] - x[1]) * fig[1:2]
+       y <- y[1] + (y[2] - y[1]) * fig[3:4]
+       txt <- letter[i]
+       x <- x[1] + strwidth(txt, cex=3) / 2
+       y <- y[2] - strheight(txt, cex=3) *2
+       text(x, y, txt, cex=1.5)
+    }
+    
+   while (!is.null(dev.list()))  dev.off() 
+   
+   img <- paste('C:/github/surveyreport/figures/Figure_11_Lenwt.png',sep="") 
+          knitr::include_graphics(img)
+          
+```
+
+\clearpage
+
+(ref:figure12) The percentage of sub-legal sablefish (<55 cm fork length) sampled by area and depth strata since the year 2014. Sub-legal specimen count above 50% sampled shown in blue.
+
+```{r figure12, fig.cap='(ref:figure12)',results='asis', out.width = "500px",out.height = "600px", fig.align="center"}
+
+# -----------Multiple plot function-----------------------------------
+# ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
+
+  png("C:/github/surveyreport/figures/Figure_12_polar.png", width = 800, height = 924)  # -- starts writing a png to figure folder
+
+  multiplot <- function(..., plotlist=NULL, file, cols=2, layout=NULL) {
+  library(grid)
+    library(ggplot2)
+
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+
+  numPlots = length(plots)
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                    ncol = cols, nrow = ceiling(numPlots/cols))     }
+
+ if (numPlots==1) {
+    print(plots[[1]])
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+
+ sqlpolar  <- paste("select YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP, ROUND(countSub / total * 100, 1) AS subL, ",
+             " ROUND(countLeg / total * 100, 1) AS Leg, combo,combo + cast(YEAR as varchar) as combo2,(cast(right(sable_area_group,1) as int) + ", 
+             " cast(right(sable_area_group,1) as int) + cast(right(sable_depth_group,1) as int) + ", 
+             " cast(right(sable_area_group,1)  as int)-4 )  as polarorder from   ", 
+             " (select YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP, SUM(NULLIF (subl, 0.0)) AS countSub, ",
+             " SUM(NULLIF (leg, 0.0)) AS countLeg, SUM(subl) + SUM(leg) AS total, SABLE_AREA_GROUP + SABLE_DEPTH_GROUP as combo ",
+             " from (select YEAR, SABLEFISH_SURVEY_IND, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP, SPECIMEN_ID, SPECIMEN_SEX_CODE,  ",  
+             " CASE when Fork_Length <= 550 then 1.0 ELSE 0.0 END AS subl, CASE when Fork_Length > 550 THEN 1.0 ELSE 0.0 END AS leg  ",
+             " from dbo.GFBIO_SABLEBIO_VW where (SABLEFISH_SURVEY_IND = 1) AND  ",
+             " (SABLE_AREA_GROUP IN (N's1', N's2', N's3', N's4', N's5')) ) AS LS group by SABLE_AREA_GROUP, SABLE_DEPTH_GROUP, YEAR ) AS LS1 ",
+             " order by YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP")
+
+ polarsumm <-   paste("select YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP from  (select YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP,  ",
+                      " SUM(NULLIF (subl, 0.0)) AS countSub, SUM(NULLIF (leg, 0.0)) AS countLeg, SUM(subl) + SUM(leg) AS total,  ",
+                      " SABLE_AREA_GROUP + SABLE_DEPTH_GROUP AS combo from (select YEAR, SABLEFISH_SURVEY_IND, SABLE_AREA_GROUP, ",
+                      " SABLE_DEPTH_GROUP, SPECIMEN_ID, SPECIMEN_SEX_CODE, CASE WHEN Fork_Length <= 550 THEN 1.0 ELSE 0.0 END AS subl, ",
+                      " case WHEN Fork_Length > 550 THEN 1.0 ELSE 0.0 END AS leg from dbo.GFBIO_SABLEBIO_VW ",
+                      " where (SABLEFISH_SURVEY_IND = 1) AND (SABLE_AREA_GROUP IN (N's1', N's2', N's3', N's4', N's5'))) AS LS ",
+                      " group by SABLE_AREA_GROUP, SABLE_DEPTH_GROUP, YEAR) AS LS1 ",
+                      " where (ROUND(countSub / total * 100, 1) > 50)  group by YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP ",
+                      " order by YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP")
+
+ #polar        <- GetSQLData(sqlpolar ,"Sablefish")     # read from SQL Server
+ #polarsummary <- GetSQLData(polarsumm ,"Sablefish")   # view the results to be able to type into the summary
+ 
+ polar        <-  read.csv("c:/github/surveyreport/standaloneData/figure12_Polar.csv",header=T)        # read from csv
+ polarsummary <-  read.csv("c:/github/surveyreport/standaloneData/figure12_PolarSummary.csv",header=T)
+ polar$cat    <-  ifelse(polar$subL>=50,">50%","<50%")
+ 
+ linea<-25.0
+ lineb<-50.0
+ linec<-75.0
+
+ sublabel  <-   (c("S1RD1","S1RD2","S1RD3",
+                   "S2RD1","S2RD2","S3RD3",
+                   "S3RD1","S3RD2","S3RD3",
+                   "S4RD1","S4RD2","S4RD3",
+                   "S5RD1","S5RD2","S5RD3"))
+ 
+  polar2019  <-  polar[polar$YEAR==2019,]
+  plot2019   <-  ggplot(polar2019, aes(polarorder, subL, fill = cat)) + 
+                 geom_bar(stat = "identity") + 
+                 theme_minimal() +
+                 scale_fill_manual(values=c("lightgray","steelblue")) +  xlab("2019 sublegals") +
+                 ylab("") + theme(axis.text.y=element_blank()) +
+                 theme(legend.title = element_blank())        + 
+                 theme(axis.text.x = element_text(size = 10))  +
+                 coord_polar(start=-48/360) +
+                 scale_x_continuous(limits=c(-0.5,14.5), breaks=0:14,
+                                 labels= sublabel) +
+  geom_hline(aes(yintercept=linea), colour="black", linetype="dashed",size = 0.5) +  
+  geom_hline(aes(yintercept=lineb), colour="red",       linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=linec), colour="blue",      linetype="dashed",size = 0.5) +
+  geom_text(data=polar2019, aes( x=0, y=25, label='25'),    
+            color="black",   size=4  ) +
+  geom_text(data=polar2019, aes( x=0, y=50, label='50'),    
+            color="red",         size=4  ) +
+  geom_text(data=polar2019, aes( x=0, y=75, label='75'),     
+            color="blue",         size=4  )
+
+
+  polar2018<-polar[polar$YEAR==2018,]
+  plot2018 <-
+  ggplot(polar2018, aes(polarorder, subL, fill = cat)) + 
+  geom_bar(stat = "identity") + 
+  theme_minimal() +
+   scale_fill_manual(values=c("lightgray","steelblue")) +   xlab("2018 sublegals") +
+  ylab("") + theme(axis.text.y=element_blank()) +
+  theme(legend.title = element_blank())         +   
+  theme(axis.text.x = element_text(size = 10))  +
+  coord_polar(start=-48/360) +
+  scale_x_continuous(limits=c(-0.5,14.5), breaks=0:14,
+                                 labels= sublabel) +
+  geom_hline(aes(yintercept=linea), colour="black", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=lineb), colour="red", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=linec), colour="blue", linetype="dashed",size = 0.5) +
+  geom_text(data=polar2018, aes( x=0, y=25, label='25'),    
+           color="black",   size=4  ) +
+  geom_text(data=polar2018, aes( x=0, y=50, label='50'),    
+           color="red",         size=4  ) +
+  geom_text(data=polar2018, aes( x=0, y=75, label='75'),     
+           color="blue",         size=4  )
+
+  polar2017<-polar[polar$YEAR==2017,]
+  plot2017 <-
+  ggplot(polar2017, aes(polarorder, subL, fill = cat)) + 
+  geom_bar(stat = "identity") + 
+  theme_minimal() +
+   scale_fill_manual(values=c("lightgray","steelblue")) +   xlab("2017 sublegals") +
+  ylab("") + theme(axis.text.y=element_blank()) +
+    theme(legend.title = element_blank())         +
+  theme(axis.text.x = element_text(size = 10)) +
+  coord_polar(start=-48/360) +
+  scale_x_continuous(limits=c(-0.5,14.5), breaks=0:14,
+                                 labels= sublabel) +
+  geom_hline(aes(yintercept=linea), colour="black", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=lineb), colour="red",       linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=linec), colour="blue",      linetype="dashed",size = 0.5) +
+  geom_text(data=polar2017, aes( x=0, y=25, label='25'),    
+           color="black",   size=4  ) +
+  geom_text(data=polar2017, aes( x=0, y=50, label='50'),    
+           color="red",         size=4  ) +
+  geom_text(data=polar2017, aes( x=0, y=75, label='75'),     
+           color="blue",         size=4  )
+
+
+  polar2016<-polar[polar$YEAR==2016,]
+  plot2016 <-
+  ggplot(polar2016, aes(polarorder, subL, fill = cat)) + 
+  geom_bar(stat = "identity") + 
+  theme_minimal() +
+  scale_fill_manual(values=c("lightgray","steelblue")) +  xlab("2016 sublegals") +
+  ylab("") + theme(axis.text.y=element_blank()) +
+    theme(legend.title = element_blank())         +
+  theme(axis.text.x = element_text(size = 10)) +
+  coord_polar(start=-48/360) +
+  scale_x_continuous(limits=c(-0.5,14.5), breaks=0:14,
+                                 labels= sublabel) +
+  geom_hline(aes(yintercept=linea), colour="black", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=lineb), colour="red", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=linec), colour="blue", linetype="dashed",size = 0.5) +
+  geom_text(data=polar2016, aes( x=0, y=25, label='25'),    
+           color="black",   size=4  ) +
+  geom_text(data=polar2016, aes( x=0, y=50, label='50'),    
+           color="red",         size=4  ) +
+  geom_text(data=polar2016, aes( x=0, y=75, label='75'),     
+           color="blue",         size=4  )
+  
+  
+  polar2015<-polar[polar$YEAR==2015,]
+  plot2015 <-
+  ggplot(polar2015, aes(polarorder, subL, fill = cat)) + 
+  geom_bar(stat = "identity") + 
+  theme_minimal() +
+   scale_fill_manual(values=c("lightgray","steelblue")) +   xlab("2015 sublegals") +
+  ylab("") + theme(axis.text.y=element_blank()) +
+    theme(legend.title = element_blank())         +
+  theme(axis.text.x = element_text(size = 10)) +
+  coord_polar(start=-48/360) +
+  scale_x_continuous(limits=c(-0.5,14.5), breaks=0:14,
+                                 labels= sublabel) +
+  geom_hline(aes(yintercept=linea), colour="black", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=lineb), colour="red",       linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=linec), colour="blue",      linetype="dashed",size = 0.5) +
+  geom_text(data=polar2015, aes( x=0, y=25, label='25'),    
+           color="black",   size=4  ) +
+  geom_text(data=polar2015, aes( x=0, y=50, label='50'),    
+           color="red",         size=4  ) +
+  geom_text(data=polar2015, aes( x=0, y=75, label='75'),     
+           color="blue",         size=4  )
+  
+  polar2014<-polar[polar$YEAR==2014,]
+  plot2014 <-
+  ggplot(polar2014, aes(polarorder, subL, fill = cat)) + 
+  geom_bar(stat = "identity") + 
+  theme_minimal() +
+  scale_fill_manual(values=c("lightgray","steelblue")) +  xlab("2014 sublegals") +
+  ylab("") + theme(axis.text.y=element_blank()) +
+  theme(axis.text.x = element_text(size = 10)) +
+    theme(legend.title = element_blank())         +
+  coord_polar(start=-48/360) +
+  scale_x_continuous(limits=c(-0.5,14.5), breaks=0:14,
+                                 labels= sublabel) +
+  geom_hline(aes(yintercept=linea), colour="black", linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=lineb), colour="red",       linetype="dashed",size = 0.5) +
+  geom_hline(aes(yintercept=linec), colour="blue",      linetype="dashed",size = 0.5) +
+  geom_text(data=polar2014, aes( x=0, y=25, label='25'),    
+           color="black",   size=4  ) +
+  geom_text(data=polar2014, aes( x=0, y=50, label='50'),    
+           color="red",         size=4  ) +
+  geom_text(data=polar2014, aes( x=0, y=75, label='75'),     
+           color="blue",         size=4  )
+
+
+  multiplot(plot2014,plot2015,plot2016,plot2017,plot2018,plot2019,cols=2)
+    
+  while (!is.null(dev.list()))  dev.off()  
+    img <-   paste('C:/github/surveyreport/figures/Figure_12_polar.png',sep="")   # -- retrieve png from figures folder
+             knitr::include_graphics(img)
+```
+\clearpage
+
+(ref:figure13) Bubble plot for female (A) and male (B) sablefish ages by survey year from StRS sets that have been aged.  The sizes of the circles are proportional to the number of fish with given ages. Fish age 35 and older are included in one bubble. The total number(n) of fish aged are listed across the top of each panel. The ages with the highest ratios are posted to the right of each bubble.
+
+```{r figure13, fig.cap='(ref:figure13)',results='asis', out.width = "450px",out.height = "570px", fig.align="center"}
+   # dt  <-  ("exec procRKnitr_Survey_proportions_at_age")  run this procedure to create table first.
+   # sql server procedure:  procRReport_Survey_proportions_at_age which pulls age data from 
+   # GFBIOSQL.dbo.b21_samples and b22_specimens
+
+   png("C:/github/surveyreport/figures/Figure_13_ages.png", width = 800, height = 924)  # -- starts writing a png to figure folder
+
+   dt   <-  paste("select * from Report_Survey_GFBIO_Age_MF_Prop where SetType='StRS' and Year<", yr, sep="")
+   #dat  <-  GetSQLData(dt,"Sablefish")                                                            # read from SQL Server
+   dat  <-  read.csv("c:/github/surveyreport/standaloneData/figure13_AgeBubblePlot.csv",header=T) # read from csv
+
+   par(mfrow=c(2,1),cex=1.1)     # -- two vertical plots
+   par(xpd=NA)
+   
+   involve  <-  c()
+   involve  <-  unique(dat$Year)
+   maxyr    <-  max(involve)
+   minyr    <-  min(involve)
+
+
+    
+   # -- plot bubbles for females
+   plot(dat$Year, dat$Age, type="n",xlab=" Year", ylab="", main="Females", ylim=c(0,42), xlim=c(minyr,maxyr),xaxt="n")
+   axis(1, seq(2003,2018,1))            
+   symbols(dat$Year, dat$Age, circles=pi*(dat$Female_Proportion),inches=0.3, add=T,col="light grey")
+
+   for (femaleyr in involve){
+    h   <-   unique(dat$Female_Yr_Total[dat$Year==femaleyr])
+    text(femaleyr + 0.15, 40, bquote(.(h)))   
+    text(femaleyr + 0.15, dat$Age[dat$f==1 & dat$Year==femaleyr],dat$Age[dat$f==1 & dat$Year==femaleyr],col="red",cex=1.1, font=2)}
+
+    mtext(paste("Age","",sep=""), SOUTH<-2,  line=-1, adj=0.5,cex=1.2,  outer=TRUE)  # -- outside label
+    
+    di <- dev.size("in")
+    x  <- grconvertX(c(0, di[1]), from="in", to="user")
+    y  <- grconvertY(c(0, di[2]), from="in", to="user")
+    fig <- par("fig")
+    x <- x[1] + (x[2] - x[1]) * fig[1:2]
+    y <- y[1] + (y[2] - y[1]) * fig[3:4]
+    txt <- "A"
+    x <- x[1] + strwidth(txt, cex=3) / 2
+    y <- y[2] - strheight(txt, cex=3) / 2
+    text(x, y, txt, cex=1.5)
+    
+       # -- plot bubbles for males
+   plot(dat$Year, dat$Age, type="n", xlab=" Year", ylab="",main="Males", ylim=c(0,42), xlim=c(minyr,maxyr),xaxt="n")
+   axis(1, seq(2003,2018,1))      
+   symbols(dat$Year, dat$Age, circles=pi*(dat$Male_Proportion),inches=0.3, add=T, col="light grey")
+
+   for (maleyr in involve){
+    h      <-  unique(dat$Male_Yr_Total[dat$Year==maleyr])
+    text(maleyr + 0.15, 40, bquote(.(h)))    
+    text(maleyr + 0.35, dat$Age[dat$m==1 & dat$Year==maleyr],dat$Age[dat$m==1 & dat$Year==maleyr],col="red",cex=1.1, font=2)}
+   
+    di <- dev.size("in")
+    x  <- grconvertX(c(0, di[1]), from="in", to="user")
+    y  <- grconvertY(c(0, di[2]), from="in", to="user")
+    fig <- par("fig")
+    x <- x[1] + (x[2] - x[1]) * fig[1:2]
+    y <- y[1] + (y[2] - y[1]) * fig[3:4]
+    txt <- "B"
+    x <- x[1] + strwidth(txt, cex=3) / 2
+    y <- y[2] - strheight(txt, cex=3) * 2
+    text(x, y, txt, cex=1.5)
+   
+    while (!is.null(dev.list()))  dev.off()  
+    img <-   paste('C:/github/surveyreport/figures/Figure_13_ages.png',sep="")   # -- retrieve png from figures folder
+             knitr::include_graphics(img)
+```
+\clearpage
+
+(ref:figure14) Coplot of average depth (m) vs average temperature ($^\circ$C) for a given 1-degree latitude range (blue bands) for `r yr` and `r yr+1`.  The number of fishing sets deployed with a SBE 39 recorder are represented by n.
+
+```{r figure14, fig.cap='(ref:figure14)',results='asis', out.width = "500px",out.height = "600px", fig.align="center"}
+   png("C:/github/surveyreport/figures/Figure_14a_coplot.png", width=920, height=424) # write png to file
+   
+      # table SEABIRD_ReportCoplot created in the Sablefish.dbo.Build_Seabird_tables procedure
+      sbecp     <- paste("select * from SEABIRD_ReportCoplot where Year in(",yr,",",yr+1,")",sep="")
+      #ctddat    <- GetSQLData(sbecp,"Sablefish")                                                         # read from SQL Server
+      ctddat    <- read.csv("c:/github/surveyreport/standaloneData/figure14_SeaBirdCoplot.csv",header=T)  # read from csv
+
+      par(mar=c(1,1,1,1.4),cex=2.2)           # -- par(mar=c(bottom,left,top,right) 
+      yrdat     <-  ctddat[ctddat$Year==yr,]
+      given.lat <-  matrix(c(48,48,49,49,50,50,51,51,52,52,53,53,54,54), nrow = 7, ncol=2, byrow=TRUE)
+      coplot(temperature  ~ depth| lat, data = yrdat, 
+             col = "red",  pch = 19, xlim=c(200,1400), ylim=c(2,10),
+             given.v = given.lat,
+             show.given=FALSE, rows=1, cex=1.8,
+             xlab=c("Average Depth (m)",""),  
+             ylab= expression(Average~Temperature~degree~C))
+
+             n48 <- length(unique(yrdat$Sets[yrdat$lat == 48]))  # count number of sets in lat band
+             n49 <- length(unique(yrdat$Sets[yrdat$lat == 49]))
+             n50 <- length(unique(yrdat$Sets[yrdat$lat == 50]))
+             n51 <- length(unique(yrdat$Sets[yrdat$lat == 51]))
+             n52 <- length(unique(yrdat$Sets[yrdat$lat == 52]))
+             n53 <- length(unique(yrdat$Sets[yrdat$lat == 53]))
+             n54 <- length(unique(yrdat$Sets[yrdat$lat == 54]))
+
+      labels   <-   c(n48,n49,n50,n51,n52,n53,n54)
+      for(j in 1:7) { text((280*j)-(100*(j-1)),8,paste("n=",labels[j],sep=""))  }
+      text(1350, 9, yr, font=2)                 # make year bold =2
+      while (!is.null(dev.list()))  dev.off()
+
+      png("C:/github/surveyreport/figures/Figure_14b_coplot.png", width = 920, height = 424) # write png to file
+      yrdat<-ctddat[ctddat$Year==yr + 1,]
+      given.lat <-matrix(c(48,48,49,49,50,50,51,51,52,52,53,53,54,54),nrow = 7, ncol=2, byrow=TRUE)
+      coplot(temperature  ~ depth| lat, data = yrdat, 
+             col = "red",  pch = 19, xlim=c(200,1400), ylim=c(2,10),
+             given.v = given.lat,
+             show.given=FALSE, rows=1, cex=1.8,
+             xlab=c("Average Depth (m)",""),
+             ylab=expression(Average~Temperature~degree~C))
+
+             n48<-length(unique(yrdat$Sets[yrdat$lat == 48]))  # count number of sets in lat band
+             n49<-length(unique(yrdat$Sets[yrdat$lat == 49]))
+             n50<-length(unique(yrdat$Sets[yrdat$lat == 50]))
+             n51<-length(unique(yrdat$Sets[yrdat$lat == 51]))
+             n52<-length(unique(yrdat$Sets[yrdat$lat == 52]))
+             n53<-length(unique(yrdat$Sets[yrdat$lat == 53]))
+             n54<-length(unique(yrdat$Sets[yrdat$lat == 54]))
+
+     labels <- c(n48,n49,n50,n51,n52,n53,n54)
+     for(j in 1:7) { text((280*j)-(100*(j-1)),8,paste("n=",labels[j],sep=""))  }
+     text(1350, 9, yr + 1, font=2) 
+     while (!is.null(dev.list()))  dev.off()
+     
+     require('magick')   # in order to stack images
+     uno <- image_read("C:/github/surveyreport/figures/CoPlotTopMain.png")      # Read external images
+     one <- image_read("C:/github/surveyreport/figures/Figure_14a_coplot.png")
+     two <- image_read("C:/github/surveyreport/figures/Figure_14b_coplot.png")
+     imgs = c(uno, one, two)
+
+     # concatenate them left-to-right (use 'stack=T' to do it top-to-bottom)
+     side_by_side = image_append(imgs, stack=T)
+     image_write(side_by_side, path = "C:/github/surveyreport/figures/Figure_14_coplot.png", format = "png")  # save png
+
+     while (!is.null(dev.list()))  dev.off()
+     img <-   paste('C:/github/surveyreport/figures/Figure_14_coplot.png',sep="")   # -- retrieve png 
+              knitr::include_graphics(img)
+
+```
+\clearpage
+
+(ref:figure15) Average temperatures as reported from the Sea-bird SBE 39 loggers at 1-degree latitude intervals and three depth intervals: shallow: 100-250 fathoms (183 to 457 meters), medium:  250-450 fathoms (458-823 meters) and deep:  450-750 fathoms (824-1372 meters). 
+
+```{r figure15, fig.cap='(ref:figure15)', results='asis', out.width = "440px",out.height = "570px", fig.align = "center"}
+      # table SEABIRD_ReportLinePlot created in the Sablefish.dbo.Build_Seabird_tables procedure
+    
+       png("C:/github/surveyreport/figures/Figure_15_seabirdavg.png", width=800, height=1000) # write png to file
+       ctddt  <-  "select * from SEABIRD_ReportLinePlot"
+       #ctd   <-  GetSQLData(ctddt,"Sablefish")                                                            # read from SQL Server
+       ctd    <-  read.csv("c:/github/surveyreport/standaloneData/figure15_SeaBirdLineplot.csv",header=T)  # read from csv
+       
+       ctd2             <-  arrange(transform(ctd,strata=factor(depth,levels=rev(unique(ctd$depth)))),depth)
+       ctgc             <-  summarySE(ctd2, measurevar="avgtemp", groupvars=c("Year","depth"),na.rm = T)
+       ctgc.2           <-  arrange(transform(ctgc,depth=factor(depth,levels=c("Deep", "Mid", "Shallow"))),depth)
+       # drop 2003 and set panel ordering for aesthetics
+       ctd.2            <-  arrange(transform(ctd[ctd$Year>2005,],Year=factor(Year, levels=c(2006,2007,
+                                                                                             2008,2009,2010,2011,
+                                                                                             2012,2013,2014,2015,
+                                                                                             2016,2017,2018,2019))),Year)
+       ggplot(ctd.2,aes(x=latitude,y=avgtemp, color=depth))+
+       geom_point(size=1.5)+
+       geom_line(aes(group = depth)) +
+       facet_wrap(~Year,ncol=2)+
+       ylab("Celcius")+
+       xlab("Latitude band")+
+       theme_bw(base_size = 18)
+       
+       while (!is.null(dev.list()))  dev.off()
+       img <-   paste('C:/github/surveyreport/figures/Figure_15_seabirdavg.png',sep="")   # -- retrieve png 
+                knitr::include_graphics(img)
+
+```
+\clearpage
+

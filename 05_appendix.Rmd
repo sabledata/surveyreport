@@ -162,7 +162,7 @@ Details of sets completed during the `r yr+1` survey program (F/V `r boat2`).  S
                     longtable = T,
                     linesep   = "",
                     format = "latex") %>%
-   kableExtra::kable_styling(font_size = 8, latex_options = "repeat_header",
+   kableExtra::kable_styling(font_size = 8, latex_options = "repeat_header", 
                repeat_header_text = "continued.", repeat_header_method = "replace") %>%
    kableExtra::landscape() %>%
       
@@ -191,7 +191,7 @@ Details of sets completed during the `r yr+1` survey program (F/V `r boat2`).  S
 \clearpage
 # SUMMARY OF BASKET USE BY TRAP `r yr`.{#app:fifth-appendix} 
 
-Summary of the basket use by trap number for sets during the `r yr` sablefish survey. Sets that did not retain sablefish are not listed.  The set numbers highlighted in green indicate standardized sets at mainland inlet localities.  All other sets are of the StRS type.  The fate of the sablefish catch for each set and trap is indicated using the following abbreviations:
+Summary of the basket use by trap number for sets during the `r yr` sablefish survey. Sets that did not retain sablefish are not listed.  Lines in blue font represent sets at mainland inlet localities. All other sets are of the StRS type.  The fate of the sablefish catch for each set and trap is indicated using the following abbreviations:
 D = Discarded after weighing (processed as commercial catch), A = Sampled for LSMWO, T = Tagged and released, SD = Sublegal discarded, F= Frames, NA = No sablefish catch/Trap missing. 
 
 ```{r appendixE, echo=FALSE}
@@ -204,8 +204,7 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
    trapdat    <- read.csv("c:/github/surveyreport/standaloneData/appendixE.csv",header=T)
    trapuse    <- trapdat[,c(-1)] 
    trapuse2   <- trapuse[,c(-28)] 
-
-  
+   
    kableExtra::kable(trapuse2,
                      booktabs = TRUE, 
                      longtable = T,
@@ -218,6 +217,12 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
                      repeat_header_method = "replace") %>%  
       
    kableExtra::landscape()  %>%
+       row_spec(38:52, color="blue"  )       %>%      # unique rows as bold for 2018
+       #row_spec(37, hline_after = TRUE)  %>%
+       #row_spec(52, hline_after = TRUE)  %>%
+       row_spec(98:102, color="blue" )      %>%
+       #row_spec(97, hline_after = TRUE)  %>%
+       #row_spec(102, hline_after = TRUE) %>%
        column_spec(1,width      = "0.3cm") %>%
        column_spec(2,width      = "0.3cm") %>%
        column_spec(3,width      = "0.3cm") %>%
@@ -250,19 +255,21 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
 
 # SUMMARY OF BASKET USE BY TRAP `r yr+1`. {#app:sixth-appendix} 
 
-Summary of the basket use by trap number for sets during the `r yr+1` sablefish survey. Sets that did not retain sablefish are not listed.  The set numbers highlighted in green indicate standardized sets at mainland inlet localities.  All other sets are of the StRS type.  The fate of the sablefish catch for each set and trap is indicated using the following abbreviations:
+Summary of the basket use by trap number for sets during the `r yr+1` sablefish survey. Sets that did not retain sablefish are not listed.  Lines in blue font represent sets at mainland inlet localities.  All other sets are of the StRS type.  The fate of the sablefish catch for each set and trap is indicated using the following abbreviations:
 D = Discarded after weighing (processed as commercial catch), A = Sampled for LSMWO, T = Tagged and released, SD = Sublegal discarded, F= Frames, NA = No sablefish catch/Trap missing. 
 
 
 ```{r appendixF, echo=FALSE}
    # Sablefish.dbo.procRReport_Survey_TrapUse procedure pulls data from table dbo.GFBIO_TRAPS_USE created by procedure 
    # Sablefish.dbo.Build_BIO_Sablefish_Tables
-   options(knitr.kable.NA = '')
+   #options(knitr.kable.NA = '')
    trap       <- paste("dbo.procRReport_Survey_TrapUse ",yr+1,",1,",setcnt, sep="")
    #trapdat    <- GetSQLData(trap,"Sablefish")
    trapdat    <- read.csv("c:/github/surveyreport/standaloneData/appendixF.csv",header=T)
    trapuse    <- trapdat[,c(-1)] 
    trapuse2   <- trapuse[,c(-28)] 
+   
+   library(kableExtra)
 
    kableExtra::kable(trapuse2,
                      booktabs = TRUE, 
@@ -271,11 +278,14 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
                      format = "latex") %>%
       
    kableExtra::kable_styling(font_size = 6, 
+                     full_width = FALSE,        
                      latex_options = "repeat_header",
                      repeat_header_text = "continued.", 
                      repeat_header_method = "replace") %>%
       
    kableExtra::landscape()  %>%
+   row_spec(90:109, color="blue"  ) %>%              # unique rows as bold for 2019 
+   #row_spec(89, hline_after = TRUE) %>%
    column_spec(1,width      = "0.3cm") %>%
    column_spec(2,width      = "0.3cm") %>%
    column_spec(3,width      = "0.3cm") %>%
@@ -303,11 +313,15 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
    column_spec(25,width     = "0.4cm") %>%
    column_spec(26,width     = "0.4cm") %>%      
    column_spec(27,width     = "0.4cm") %>%  
-   column_spec(28,width     = "0.4cm") 
+   column_spec(28,width     = "0.4cm")
+   
 ```
 \clearpage
 
-# SUMMARY OF SABLEFISH BIOLOGICAL DATA `r yr` BY SET. {#app:seventh-appendix} 
+# SUMMARY OF SABLEFISH BIOLOGICAL DATA `r yr`. {#app:seventh-appendix} 
+Biological data collected for sablefish by set, including catch weight in kilograms and numbers of fish.  Details include a tally of specimens recovered, tagged and sampled.  Mean fork lengths for tagged sablefish and sampled male and female sablefish are listed.  Lines in blue font represent sets at mainland inlet localities.
+
+
 
 ```{r appendixG, echo=FALSE}
    #  sql query for inline text
@@ -338,6 +352,12 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
                     repeat_header_text = "continued.", repeat_header_method = "replace") %>%     
    
    kableExtra::landscape()  %>%
+       row_spec(38:52,  color="blue"  )       %>%      # unique rows as bold for 2018
+       #row_spec(37, hline_after = TRUE)  %>%
+       #row_spec(52, hline_after = TRUE)  %>%
+       row_spec(98:102, color="blue"  )      %>%
+       #row_spec(97, hline_after = TRUE)  %>%
+       #row_spec(102, hline_after = TRUE) %>%
    column_spec(1,width    = "0.4cm") %>%  # set
    column_spec(2,width    = "0.7cm") %>%  # kg
    column_spec(3,width    = "0.9cm") %>%  # count
@@ -360,7 +380,8 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
 ```
 \clearpage
 
-# SUMMARY OF SABLEFISH BIOLOGICAL DATA `r yr+1` BY SET. {#app:eighth-appendix} 
+# SUMMARY OF SABLEFISH BIOLOGICAL DATA `r yr+1`. {#app:eighth-appendix} 
+Biological data collected for sablefish by set, including catch weight in kilograms and numbers of fish.  Details include a tally of specimens recovered, tagged and sampled.  Mean fork lengths for tagged sablefish and sampled male and female sablefish are listed.  Lines in blue font represent sets at mainland inlet localities.
 
 
 ```{r appendixH, echo=FALSE}
@@ -378,9 +399,10 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
                               "Mean", "Fork Length", "Sex", "Maturity", "Otoliths",
                               "Weight", "Count", 
                               "Proportion Males", "Males", "Females")
-   
+ 
    kableExtra::kable(surveyspec2,
-                     booktabs = TRUE, 
+                     booktabs = TRUE,
+                     escape = F,
                      longtable = T,
                      linesep   = "",
                      align=rep('r', 17),
@@ -399,6 +421,8 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
                      repeat_header_method = "replace") %>% 
       
    kableExtra::landscape()  %>%
+   row_spec(90:109, color="blue" ) %>%              # unique rows as bold for 2019
+   #row_spec(89,     hline_after = TRUE ) %>%   
    column_spec(1,width    = "0.4cm") %>%  # set
    column_spec(2,width    = "0.7cm") %>%  # kg
    column_spec(3,width    = "0.9cm") %>%  # count
@@ -419,32 +443,35 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
    row_spec(setcnt2,  hline_after = T)
 ```
 
-# SUMMARY OF BIOLOGICAL DATA `r yr` BY SET FOR OTHER FISH. {#app:nineth-appendix} 
-<br>
-<br>
+# SUMMARY OF BIOLOGICAL DATA `r yr` FOR OTHER FISH. {#app:nineth-appendix} 
+Biological data collected for fish other than sablefish.  Each set is listed with counts of specimens sampled, calculations of mean fork lengths and number of species visually identified.
+
 ```{r appendixI, echo=FALSE}
 
-   othersamples          <-  paste( "select species_name, [SET], [Len Sample Count], [weight_count], [Sex Sample Count], ",
-                                    "[Maturity Sample Count], [Otolith Sample Count], [DNA Sample Count], ",
-                                    "Sample_count, [Proportion Males],  ",
-                                    "round([Male Mean Fork Len(mm)],0) as malelen, round([Female Mean Fork Len(mm)],0) as femlen,  ", 
-                                    " round([NoSexMeanLen(mm)],0) as nosexlen, bsre.Rougheye, bsre.Blackspotted, bsre.Hybrid ",
-                                    "FROM  (SELECT  year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE, ",
-                                    "SUM(re) AS Rougheye, SUM(bs) AS Blackspotted, SUM(hyb) AS Hybrid ",
-                                    "FROM  (SELECT  year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE, ",
-                                    "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 16 THEN 1 ELSE 0 END AS re, ",
-                                    "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 17 THEN 1 ELSE 0 END AS bs, ",
-                                    "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 31 THEN 1 ELSE 0 END AS hyb, ",
-                                    "SPECIMEN_ID ",
-                                    "FROM  dbo.gfbio_species_guess) AS bs ",
-                                    "GROUP BY year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE) AS bsre RIGHT OUTER JOIN ",
-                                    "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH ON bsre.TRIP_ID = ",              
-                                    "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.TRIP_ID ",
-                                    "AND bsre.FE_MAJOR_LEVEL_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.[SET] AND bsre.SPECIES_CODE = ",                                                               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.species ", 
-                                    "where (dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.Year = ",yr, 
-                                    ") order by species,[SET]", sep="")
-   #otherspec             <-  GetSQLData(othersamples,"Sablefish")
-   otherspec             <-  read.csv("c:/github/surveyreport/standaloneData/appendixI.csv",header=T)
+   othersamples <-  paste( "select species_name, [SET], [Len Sample Count], [weight_count], [Sex Sample Count], ",
+                           "[Maturity Sample Count], [Otolith Sample Count], [DNA Sample Count], ",
+                           "Sample_count, [Proportion Males],  ",
+                           "round([Male Mean Fork Len(mm)],0) as malelen, ",
+                           "round([Female Mean Fork Len(mm)],0) as femlen,  ", 
+                           "round([NoSexMeanLen(mm)],0) as nosexlen, bsre.Rougheye, bsre.Blackspotted, bsre.Hybrid ",
+                           "from  (select year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE, ",
+                           "SUM(re) AS Rougheye, SUM(bs) AS Blackspotted, SUM(hyb) AS Hybrid ",
+                           "from  (select year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE, ",
+                           "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 16 THEN 1 ELSE 0 END AS re, ",
+                           "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 17 THEN 1 ELSE 0 END AS bs, ",
+                           "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 31 THEN 1 ELSE 0 END AS hyb, ",
+                           "SPECIMEN_ID ",
+                           "from dbo.gfbio_species_guess) AS bs ",
+                           "group by year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE) AS bsre RIGHT OUTER JOIN ",
+                           "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH ON bsre.TRIP_ID = ",              
+                           "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.TRIP_ID ",
+                           "and bsre.FE_MAJOR_LEVEL_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.[SET] ",
+                           "AND bsre.SPECIES_CODE = ",                       
+                           "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.species ",            
+                           "where (dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.Year = ",yr, 
+                           ") order by species,[SET]", sep="")
+   #otherspec            <-  GetSQLData(othersamples,"Sablefish")   # read from SQL Server
+   otherspec             <-  read.csv("c:/github/surveyreport/standaloneData/appendixI.csv",header=T) # read from csv
    
    otherspec$species_name<-  cleanf(otherspec$species_name) 
    colnames(otherspec)   <-  c("Species Name", "Set", "Fork Length","Weight", "Sex", "Maturity", "Otolith", 
@@ -464,11 +491,12 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
                       "Sampler Visual id Count" = 3)) %>%
    
       kableExtra::kable_styling(font_size = 8, 
-                     latex_options = "repeat_header",
-                     repeat_header_text = "continued.", 
-                     repeat_header_method = "replace") %>%
+                      latex_options = "repeat_header",
+                      repeat_header_text = "continued.", 
+                      repeat_header_method = "replace") %>%
       
       kableExtra::landscape()  %>% 
+         
       column_spec(1,width     = "3.5cm") %>% # species
       column_spec(2,width     = "0.7cm") %>% # set
       column_spec(3,width     = "0.7cm") %>% # fl 
@@ -478,21 +506,21 @@ D = Discarded after weighing (processed as commercial catch), A = Sampled for LS
       column_spec(7,width     = "0.7cm") %>% # oto
       column_spec(8,width     = "0.7cm") %>% # dna
       column_spec(9,width     = "0.7cm") %>% # cnt        
-      column_spec(10,width     = "1.1cm") %>% # prop m
+      column_spec(10,width    = "1.1cm") %>% # prop m
       column_spec(11,width    = "0.7cm") %>% # male
       column_spec(12,width    = "0.7cm") %>% # female
       column_spec(13,width    = "0.7cm") %>% #  no sex  
       column_spec(14,width    = "1.0cm") %>% # re
       column_spec(15,width    = "1.2cm") %>% # bc
-      column_spec(16,width    = "0.8cm") %>%   #  hybrid 
+      column_spec(16,width    = "0.8cm") %>% #  hybrid 
       row_spec(19,  hline_after = T)     %>%
       row_spec(31,  hline_after = T)     %>%
       row_spec(43,  hline_after = T)
 ```
 
 # SUMMARY OF BIOLOGICAL DATA `r yr+1` BY SET FOR OTHER FISH. {#app:tenth-appendix} 
-<br>
-<br>
+Biological data collected for fish other than sablefish.  Each set is listed with counts of specimens sampled, calculations of mean fork lengths and number of species visually identified.
+
 ```{r appendixJ, echo=FALSE}
 
    othersamples          <-  paste( "select species_name, [SET], [Len Sample Count], [weight_count], [Sex Sample Count], ",
