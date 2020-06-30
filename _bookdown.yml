@@ -3,7 +3,8 @@ rmd_files: ["index.Rmd",
             "01_introduction.Rmd",
             "02_methods.Rmd",
             "03_results.Rmd",
-            "04_tablesFigures.Rmd",
+            "04_tables.Rmd",
+            "04_figures.Rmd",
             "05_appendix.Rmd",
             "06_bibliography.Rmd"]
 delete_merged_file: true
