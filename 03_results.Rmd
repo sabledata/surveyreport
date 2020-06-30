@@ -72,11 +72,13 @@ The sablefish surveys of `r yr` and `r yr+1` have documented recent changes in t
 
 ### Stratified Random Set CPUE
 
-Across all years, the highest annual CPUE (kg/trap) typically occured in the middle depths (450-850 m). In recent years, an increase in CPUE started in 2015 and a consistent rise in CPUE began in 2017 (Figure \@ref(fig:figure5)).  This increase was observed in nearly all depth strata (RD~1~ to RD~2~) and area strata (SD~1~ to SD~5~) (Figure \@ref(fig:figure6)).  The observed catch by weight pattern was accompanied by an increase in the number of fish per trap.  However, the large estimated numbers of fish were highly variable (+-95% CI) (Figure \@ref(fig:figure7)).  The observed mean weights indicated a three year declining trend beginning in 2017 in half of the area-depth strata. Little or no trend was seen in the remaining strata (Figure \@ref(fig:figure8)).
+Catch per unit effort (CPUE), as indexed by kilograms of sablefish per trap, increased across most offshore survey strata in 2018, and again in 2019 (Figure \@ref(fig:figure5) and Figure \@ref(fig:figure6)). The most pronounced increases occured in the middle depth strata which recorded the largest CPUEs in 2018 and 2019 since the StRS began (Figure \@ref(fig:figure5)). These increases in CPUE were the result of realtively large increases in the number of small sablefish encountered on the survey (Figure \@ref(fig:figure7) and Figure \@ref(fig:figure8)), likely due to a large recent recruitment event that has occurred coastwide [@DFO2020]. The combined consequences of these changes in CPUE across strata is an approximately X% increase in the offshore StRS CPUE index, relative to the 2015-2017 period.
 
 ### Mainland Inlet CPUE
 
-CPUE (kg/trap and #fish/trap) in the mainlaind inlets have varied in a predictable manner over time with peak CPUE occuring every 5-8 years (Figure \@ref(fig:figure9)a,b).  In 2018 and 2019, the trend has increased to record levels.  In contrast, the average weight of sablefish in 2018 and 2019 have showed record mean lows (Figure \@ref(fig:figure9)c).  
+CPUE in the mainlaind inlets has varied in a relatively predictable manner over time with peak CPUE occuring every 5-8 years (Figure \@ref(fig:figure9)a,b). In the early part of the time series (mid-1990s) average CPUE remained relatively constant before a peak in CPUE was observed in 1999, followed by declines to conistent levels until another peak in 2003 and 2004, and again in 2011.  In 2018, CPUE returned (~23 fish, and ~X kg, per trap) to the levels observed during previous peaks. In 2019, the highest catches rates of the 26 year time series were observed (~35 fish, and ~X kg, per trap).
+
+
 ```{r SpeciesCompositionText, echo=FALSE}
   # -- taxonomic top 5 group count StRS year one
    topStRS      <- paste("select top (5) SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME, ",
