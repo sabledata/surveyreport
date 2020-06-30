@@ -3,7 +3,7 @@ title: "Summary of the Annual 2018 and 2019 Sablefish (*Anoplopoma fimbria*) Tra
 year: 2020
 report_number: nnn
 author: |
-  Lacko. C. Lisa and
+  Lisa C. Lacko, 
   Schon M. Acheson and
   Brendan M. Connors
 author_list: "Lacko, L.C. and Acheson, S.M. and Connors, B.M."
