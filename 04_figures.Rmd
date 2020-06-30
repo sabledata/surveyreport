@@ -261,7 +261,7 @@
 ```
 \clearpage
 
-(ref:figure6) Average Sablefish catch per unit effort (CPUE; mean +/- 95% CIs) by survey strata over time. Panels run deep to shallow (left to right) and north to south (top to bottom).
+(ref:figure6) Average sablefish catch per unit effort (CPUE; mean +/- 95% CIs) by survey strata over time. Panels run deep to shallow (left to right) and north to south (top to bottom).
 
 ```{r figure6, fig.cap='(ref:figure6)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7,  fig.align = "center"}
 
@@ -300,7 +300,7 @@
 ```
 
 
-(ref:figure7) Average number of Sablefish per trap (mean +/- 95% CIs) by survey strata over time. Panels run shallow to deep (left to right) and south to north (top to bottom).
+(ref:figure7) Average number of sablefish per trap (mean +/- 95% CIs) by survey strata over time. Panels run shallow to deep (left to right) and south to north (top to bottom).
 
 ```{r figure7, fig.cap='(ref:figure7)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7, fig.align = "center"}
 
@@ -363,7 +363,7 @@
               knitr::include_graphics(img)
     
 ``` 
-(ref:figure8) Average weight of Sablefish (mean +/- 95% CIs) by survey strata over time. Panels run shallow to deep (left to right) and south to north (top to bottom).
+(ref:figure8) Average weight of sablefish (mean +/- 95% CIs) by survey strata over time. Panels run shallow to deep (left to right) and south to north (top to bottom).
 
 ```{r figure8, fig.cap='(ref:figure8)', results='asis',out.width = "450px", out.height = "550px",, fig.align = "center"}
 
@@ -394,7 +394,7 @@
               knitr::include_graphics(img)
 ```    
 
-(ref:figure9) Average weight of Sablefish per trap (kg/trap) at mainland Inlet localities over time (A). Average number of sablefish per trap (#fish/trap) at mainland Inlet localities over time (B).  Annual average weight of Sablefish (kg) at mainland Inlets (C).
+(ref:figure9) Average weight of sablefish per trap (kg/trap) at mainland Inlet localities over time (A). Average number of sablefish per trap (#fish/trap) at mainland Inlet localities over time (B).  Annual average weight of sablefish (kg) at mainland Inlets (C).
 
 ```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width = "450px",out.height = "560px", fig.align="center"}
 
