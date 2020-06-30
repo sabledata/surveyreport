@@ -1,7 +1,7 @@
 # Figures
 (ref:figure1) Location of the boundaries of the mainland inlet localities, and the five spatial areas (S~1~-S~5~) of the stratified random survey design. The three depths strata (RD~1~-RD~3~) are colour-coded and nested within each of the five spatial strata. 
 
-```{r figure1, fig.cap='(ref:figure1)', out.width = "450px", out.height = "550px", fig.align="center", warning=FALSE, echo=FALSE, message=FALSE, error=FALSE}
+```{r figure1, fig.cap='(ref:figure1)', out.width = "450px", out.height = "510px", fig.align="center", warning=FALSE, echo=FALSE, message=FALSE, error=FALSE}
       img <- paste('C:/github/surveyreport/figures/Figure_1_Report_Overview_survey_',yr+1,'.png',sep="") 
       knitr::include_graphics(img)
 ```
