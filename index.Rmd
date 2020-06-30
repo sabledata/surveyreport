@@ -16,7 +16,8 @@ address: |
 phone: "(555) 555-5555"
 author_footnote: "Email: Lisa.Lacko@dfo-mpo.gc.ca | telephone: (250) 756-5555"
 abstract: |
-  This document describes sampling activities and summarizes results from the 2018 and 2019 British Columbia Sablefish research and assessment surveys. It is intended to provide a historical reference for researchers and industry. These annual surveys utilized the same sampling strategies at stratified random (StRS) sites and all traditional inlet sites.  The random component was comprised of StRS sets at five depth-stratified areas and the traditional component employed standardized sets at four inlet localities on the mainland. 
+    This document describes sampling activities and summarizes results from the 2018 and 2019 British Columbia Sablefish research and assessment surveys. It is intended to provide a historical reference for researchers and industry. These annual surveys utilized the same sampling strategies at stratified random (StRS) sites and all traditional inlet sites.  The random component was comprised of StRS sets at five depth-stratified areas and the traditional component employed standardized sets at four inlet localities on the mainland. 
+    
   As in previous surveys, biological sampling for sablefish included collection of length, weight, sex, maturity and age structures. Sablefish were randomly sampled from every third trap on all sets, up to  a maximum sample size of 60 sablefish. Biological samples (length, weight, sex, maturity and otoliths) were taken for yelloweye rockfish, shortraker rockfish and rougheye/blackspotted rockfish species from catch in all traps.  In addition, genetic samples were taken for the rougheye/blackspotted rockfish complex and yelloweye rockfish.  Length and weight measurements were collected from all Pacific halibut while only lengths were obtained from Pacific sleeper sharks. The tag and release study has been conducted annually since 1991 and was continued in 2018 and 2019. Sablefish were selected randomly for tag and release from every third trap up to a maximum of 125 fish. 
   
   In total, 58,415 sablefish were caught in 2018, of which 5,741 were used for biological samples and 10,965 were tagged and released.  Of those released, 213 were recaptured tagged fish.  Five recaptured fish were retained for samples and the remaining 208 were fitted with a new tag and released back into the water. In 2019, a total of 78,836 sablefish were caught, of which 5,659 were used for biological samples and 12,042 were tagged and released.  Of those released, 156 were recaptured tagged fish.  Two recaptured fish were retained for samples and the remaining 154 were fitted with a new tag and released back into the water.  
@@ -91,7 +92,7 @@ options(kableExtra.latex.load_packages = FALSE)
 library(csasdown)
 message("year = ", rmarkdown::metadata$year)
 #browser()
-yr  <-  2018
+yr  <-  2018   # aka 2020
 
 library(RODBC)
 library(knitr)
