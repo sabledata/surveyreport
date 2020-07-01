@@ -517,7 +517,7 @@
       #  Sablefish.dbo.procReport_Survey_LenMF pulls length data from table GFBIO_SABLEBIO_VW 
       #  procedure:  Build_BIO_Sablefish_Tables 
    
-      png("C:/github/surveyreport/figures/Figure_11_lengths.png", width = 800, height = 924) # write png to folder
+      png("C:/github/surveyreport/figures/Figure11.png", width = 800, height = 924) # write png to folder
       
       par(mfcol=c(2,1), mar=c(4,4,1,1), oma=c(3,2,1,1), cex=1.2)  # -- mar(bottom, left, top, and right)
       par(xpd=NA)  # for placement of A,B
@@ -598,7 +598,7 @@
        text(x, y, txt, cex=1.5)
      
      while (!is.null(dev.list()))  dev.off()  
-     img6 <- paste('C:/github/surveyreport/figures/Figure_10_lengths.png',sep="") 
+     img6 <- paste('C:/github/surveyreport/figures/Figure11.png',sep="") 
             knitr::include_graphics(img6)
 ``` 
 \clearpage
@@ -609,7 +609,7 @@
     
     # L E N G T H     W E I G H T 
     # Sablefish.dbo.procR_Survey_Sablefish_LenWt_shiny queries table GFBIO_SABLEBIO_VW for survey length data	
-    png("C:/github/surveyreport/figures/Figure_12_Lenwt.png", width = 800, height = 924) # -- starts writing a png to figure folder
+    png("C:/github/surveyreport/figures/Figure12.png", width = 800, height = 924) # -- starts writing a png to figure folder
     par(mfcol=c(2,2), mar=c(4,4,1,1), oma=c(2,2,3,1), cex=1.0)  # -- mar(bottom, left, top, and right)
     par(xpd=NA)  # for placement of A,B,C,D
 
@@ -695,7 +695,7 @@
     
    while (!is.null(dev.list()))  dev.off() 
    
-   img <- paste('C:/github/surveyreport/figures/Figure_12_Lenwt.png',sep="") 
+   img <- paste('C:/github/surveyreport/figures/Figure12.png',sep="") 
           knitr::include_graphics(img)
           
 ```
