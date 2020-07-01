@@ -369,7 +369,7 @@
 
 ```{r figure8, fig.cap='(ref:figure8)', results='asis',fig.height = 6, fig.width = 7, fig.align = "center"}
 
-    png("C:/github/surveyreport/figures/Figure_8_.png", width=468, height=600) # write png to file
+    png("C:/github/surveyreport/figures/Figure8.png", width=468, height=600) # write png to file
     par(mfcol=c(1,1))
 
     ggplot(tgcwg,aes(x= SET_YEAR,y=sable_wg))+
@@ -392,7 +392,7 @@
                 plot.margin=unit(c(0.2,0.2,6,1),"cm")) 
     
     while (!is.null(dev.list()))  dev.off()
-    img <-    paste('C:/github/surveyreport/figures/Figure_8_.png',sep="")   # -- retrieve png 
+    img <-    paste('C:/github/surveyreport/figures/Figure8.png',sep="")   # -- retrieve png 
               knitr::include_graphics(img)
 ```    
 
@@ -401,7 +401,7 @@
 
 ```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width = "450px",out.height = "560px", fig.align="center"}
 
-  png("C:/github/surveyreport/figures/Figure_9_YearStRSCPUE.png", width=600, height=300) # write png to file
+  png("C:/github/surveyreport/figures/Figure9.png", width=600, height=300) # write png to file
 
   ggplot(tgc,aes(x=as.factor(SET_YEAR),y=sable_cpue))+
   geom_boxplot(fill="white") +
@@ -420,7 +420,7 @@
                 plot.margin=unit(c(0.2,0.2,6,1),"cm")) 
   
   while (!is.null(dev.list()))  dev.off()
-    img <-    paste('C:/github/surveyreport/figures/Figure_9_YearStRSCPUE.png',sep="")   # -- retrieve png 
+    img <-    paste('C:/github/surveyreport/figures/Figure9.png',sep="")   # -- retrieve png 
               knitr::include_graphics(img)
 
 ```
@@ -430,7 +430,7 @@
 
 ```{r figure10, fig.cap='(ref:figure10)', results='asis', out.width = "450px",out.height = "560px", fig.align="center"}
 
-  png("C:/github/surveyreport/figures/Figure_9_InletCPUE.png", width=600, height=800) # write png to file
+  png("C:/github/surveyreport/figures/Figure10.png", width=600, height=800) # write png to file
 
     library(Rmisc)                       
     cpuedt <- "SELECT  * FROM dbo.GENERIC_GFBIO_TRAPS where year < 2020 and [Spatial.Stratum] not like '%Quatsino Sound%' "
@@ -502,7 +502,7 @@
      plot_grid(p, p1, p2, labels = "AUTO", nrow = 3)
 
      while (!is.null(dev.list()))  dev.off()
-     img <-  paste('C:/github/surveyreport/figures/Figure_9_InletCPUE.png',sep="")   # -- retrieve png 
+     img <-  paste('C:/github/surveyreport/figures/Figure10.png',sep="")   # -- retrieve png 
           knitr::include_graphics(img)
 
 ```
