@@ -2,7 +2,7 @@
 (ref:figure1) Location of the boundaries of the mainland inlet localities, and the five spatial areas (S~1~-S~5~) of the stratified random survey design. The three depths strata (RD~1~-RD~3~) are colour-coded and nested within each of the five spatial strata. 
 
 ```{r figure1, fig.cap='(ref:figure1)', out.width = "450px", out.height = "510px", fig.align="center", warning=FALSE, echo=FALSE, message=FALSE, error=FALSE}
-      img <- paste('C:/github/surveyreport/figures/Figure_1_Report_Overview_survey_',yr+1,'.png',sep="") 
+      img <- paste('C:/github/surveyreport/figures/Figure1.png',sep="") 
       knitr::include_graphics(img)
 ```
 \clearpage
@@ -10,7 +10,7 @@
 (ref:figure2) Start locations of survey sets (red markers) conducted in `r yr` (A) and `r yr+1` (B) for the stratified random survey areas S~1~ through S~5~.
 
 ```{r figure2, fig.cap='(ref:figure2)', echo=FALSE, out.width = "350px",out.height = "600px", fig.align="center", warning=FALSE}
-      img <- paste('C:/github/surveyreport/figures/Figure_2_Report_S1_S5_', yr,yr+1,'.png'  ,sep="")
+      img <- paste('C:/github/surveyreport/figures/Figure2.png'  ,sep="")
       knitr::include_graphics(img)
 ```
 \clearpage
@@ -18,7 +18,7 @@
 (ref:figure3) Location of the traditional survey sets within the mainland inlet localities since 1994.  The setlines for `r yr` are shown in blue and setlines for `r yr+1` are shown in red.
 
 ```{r figure3, fig.cap='(ref:figure3)', out.width = "450px", out.height = "570px", echo=FALSE, fig.align="center", warning=FALSE}
-      img  <- paste('C:/github/surveyreport/figures/Figure_3_Report_Inlets_',yr+1,'_2.png',sep="")
+      img  <- paste('C:/github/surveyreport/figures/Figure3.png',sep="")
       knitr::include_graphics(img)
 ```
 \clearpage
@@ -399,7 +399,7 @@
 
 (ref:figure9) Sablefish catch per unit effort (CPUE) by offshore survey strata over time. Horizontal line is median and blue dots are arithmetic mean.
 
-```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width = "450px",out.height = "200px", fig.align="center"}
+```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width = "450px",out.height = "560px", fig.align="center"}
 
   png("C:/github/surveyreport/figures/Figure_9_YearStRSCPUE.png", width=600, height=300) # write png to file
 
@@ -408,16 +408,16 @@
   stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="black")+
   xlab("Year")+
   ylab("StRS CPUE (kg/trap)")+
-    theme_bw()
-    # theme(     panel.background = element_rect(fill = "white",
-     #                           colour = "grey50",
-      #                          size = 0.5, linetype = "solid"),
-       #         panel.grid.major = element_line(size = 0.5, linetype = 'solid',
-        #                        colour = "grey90"), 
-         #       panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-          #                      colour = "grey90"),
-           #     strip.background =  element_rect(fill = "grey80", colour = "grey30"), 
-            #    plot.margin=unit(c(0.2,0.2,6,1),"cm")) 
+    #theme_bw()
+     theme(     panel.background = element_rect(fill = "white",
+                                colour = "grey50",
+                                size = 0.5, linetype = "solid"),
+                panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                colour = "grey90"), 
+                panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                colour = "grey90"),
+                strip.background =  element_rect(fill = "grey80", colour = "grey30"), 
+                plot.margin=unit(c(0.2,0.2,6,1),"cm")) 
   
   while (!is.null(dev.list()))  dev.off()
     img <-    paste('C:/github/surveyreport/figures/Figure_9_YearStRSCPUE.png',sep="")   # -- retrieve png 
