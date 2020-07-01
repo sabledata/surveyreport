@@ -709,7 +709,7 @@
 # -----------Multiple plot function-----------------------------------
 # ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
 
-  png("C:/github/surveyreport/figures/Figure_13_polar.png", width = 800, height = 924)  # -- starts writing a png to figure folder
+  png("C:/github/surveyreport/figures/Figure13.png", width = 800, height = 924)  # -- starts writing a png to figure folder
 
   multiplot <- function(..., plotlist=NULL, file, cols=2, layout=NULL) {
   library(grid)
@@ -922,7 +922,7 @@
   multiplot(plot2014,plot2015,plot2016,plot2017,plot2018,plot2019,cols=2)
     
   while (!is.null(dev.list()))  dev.off()  
-    img <-   paste('C:/github/surveyreport/figures/Figure_13_polar.png',sep="")   # -- retrieve png from figures folder
+    img <-   paste('C:/github/surveyreport/figures/Figure13.png',sep="")   # -- retrieve png from figures folder
              knitr::include_graphics(img)
 ```
 \clearpage
@@ -934,7 +934,7 @@
    # sql server procedure:  procRReport_Survey_proportions_at_age which pulls age data from 
    # GFBIOSQL.dbo.b21_samples and b22_specimens
 
-   png("C:/github/surveyreport/figures/Figure_14_ages.png", width = 800, height = 924)  # -- starts writing a png to figure folder
+   png("C:/github/surveyreport/figures/Figure14.png", width = 800, height = 924)  # -- starts writing a png to figure folder
 
    dt   <-  paste("select * from Report_Survey_GFBIO_Age_MF_Prop where SetType='StRS' and Year<", yr, sep="")
    #dat  <-  GetSQLData(dt,"Sablefish")                                                            # read from SQL Server
@@ -993,7 +993,7 @@
     text(x, y, txt, cex=1.5)
    
     while (!is.null(dev.list()))  dev.off()  
-    img <-   paste('C:/github/surveyreport/figures/Figure_14_ages.png',sep="")   # -- retrieve png from figures folder
+    img <-   paste('C:/github/surveyreport/figures/Figure14.png',sep="")   # -- retrieve png from figures folder
              knitr::include_graphics(img)
 ```
 \clearpage
@@ -1001,7 +1001,7 @@
 (ref:figure15) Coplot of average depth (m) vs average temperature ($^\circ$C) for a given 1-degree latitude range (blue bands) for `r yr` and `r yr+1`.  The number of fishing sets deployed with a SBE 39 recorder are represented by n.
 
 ```{r figure15, fig.cap='(ref:figure15)',results='asis', out.width = "500px",out.height = "600px", fig.align="center"}
-   png("C:/github/surveyreport/figures/Figure_15a_coplot.png", width=920, height=424) # write png to file
+   png("C:/github/surveyreport/figures/Figure15a.png", width=920, height=424) # write png to file
    
       # table SEABIRD_ReportCoplot created in the Sablefish.dbo.Build_Seabird_tables procedure
       sbecp     <- paste("select * from SEABIRD_ReportCoplot where Year in(",yr,",",yr+1,")",sep="")
@@ -1031,7 +1031,7 @@
       text(1350, 9, yr, font=2)                 # make year bold =2
       while (!is.null(dev.list()))  dev.off()
 
-      png("C:/github/surveyreport/figures/Figure_15b_coplot.png", width = 920, height = 424) # write png to file
+      png("C:/github/surveyreport/figures/Figure15b.png", width = 920, height = 424) # write png to file
       yrdat<-ctddat[ctddat$Year==yr + 1,]
       given.lat <-matrix(c(48,48,49,49,50,50,51,51,52,52,53,53,54,54),nrow = 7, ncol=2, byrow=TRUE)
       coplot(temperature  ~ depth| lat, data = yrdat, 
@@ -1056,16 +1056,16 @@
      
      require('magick')   # in order to stack images
      uno <- image_read("C:/github/surveyreport/figures/CoPlotTopMain.png")      # Read external images
-     one <- image_read("C:/github/surveyreport/figures/Figure_14a_coplot.png")
-     two <- image_read("C:/github/surveyreport/figures/Figure_14b_coplot.png")
+     one <- image_read("C:/github/surveyreport/figures/Figure15a.png")
+     two <- image_read("C:/github/surveyreport/figures/Figure15b.png")
      imgs = c(uno, one, two)
 
      # concatenate them left-to-right (use 'stack=T' to do it top-to-bottom)
      side_by_side = image_append(imgs, stack=T)
-     image_write(side_by_side, path = "C:/github/surveyreport/figures/Figure_15_coplot.png", format = "png")  # save png
+     image_write(side_by_side, path = "C:/github/surveyreport/figures/Figure15.png", format = "png")  # save png
 
      while (!is.null(dev.list()))  dev.off()
-     img <-   paste('C:/github/surveyreport/figures/Figure_15_coplot.png',sep="")   # -- retrieve png 
+     img <-   paste('C:/github/surveyreport/figures/Figure15.png',sep="")   # -- retrieve png 
               knitr::include_graphics(img)
 
 ```
@@ -1076,7 +1076,7 @@
 ```{r figure16, fig.cap='(ref:figure16)', results='asis', out.width = "440px",out.height = "570px", fig.align = "center"}
       # table SEABIRD_ReportLinePlot created in the Sablefish.dbo.Build_Seabird_tables procedure
     
-       png("C:/github/surveyreport/figures/Figure_16_seabirdavg.png", width=800, height=1000) # write png to file
+       png("C:/github/surveyreport/figures/Figure16.png", width=800, height=1000) # write png to file
        ctddt  <-  "select * from SEABIRD_ReportLinePlot"
        #ctd   <-  GetSQLData(ctddt,"Sablefish")                                                            # read from SQL Server
        ctd    <-  read.csv("c:/github/surveyreport/standaloneData/figure15_SeaBirdLineplot.csv",header=T)  # read from csv
@@ -1098,7 +1098,7 @@
        theme_bw(base_size = 18)
        
        while (!is.null(dev.list()))  dev.off()
-       img <-   paste('C:/github/surveyreport/figures/Figure_16_seabirdavg.png',sep="")   # -- retrieve png 
+       img <-   paste('C:/github/surveyreport/figures/Figure16.png',sep="")   # -- retrieve png 
                 knitr::include_graphics(img)
 
 ```
