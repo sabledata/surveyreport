@@ -16,17 +16,6 @@ GetSQLData <- function(strSQL,strDbName) {
    return(dat) 
 }
 
-# temporary -------------------------------
-
-history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo.SURVEY_SITE_HISTORIC.SURVEY_START_DATE) AS Year,  ",
-                       " dbo.SURVEY_SITE_HISTORIC.BLOCK_DESIGNATION,  dbo.SURVEY_SITE_HISTORIC.SELECTION_TYPE_CODE, dbo.SURVEY_SITE_HISTORIC.SELECTION_IND, ",
-                      "dbo.SITE_STATUS.SITE_STATUS_CODE AS Count,    dbo.SITE_STATUS.SITE_STATUS_DESCRIPTION  ", 
-                      "FROM     dbo.SURVEY_SITE_HISTORIC INNER JOIN  dbo.SITE_STATUS ON dbo.SURVEY_SITE_HISTORIC.STATUS_CODE ",
-                     "= dbo.SITE_STATUS.SITE_STATUS_CODE  WHERE  (dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID = 43)  AND ",
-                     "(YEAR(dbo.SURVEY_SITE_HISTORIC.SURVEY_START_DATE)  in(2018, 2019))", sep="")
-   hist          <- GetSQLData(history,"GFBioSQL")  
-   write.table( hist, file = paste(path,"history.csv",sep=''),row.names=FALSE, na="",col.names=TRUE,  sep=",")
-
 #index -----------------------------
 
    details     <- paste("select VESSEL_NAME as Vessel, CAPTAIN, ",
@@ -379,11 +368,22 @@ history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo
 
 # -- results-----------------------------------------------------------------
 
+# temporary -------------------------------
+
+  history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo.SURVEY_SITE_HISTORIC.SURVEY_START_DATE) AS Year,  ",
+                       " dbo.SURVEY_SITE_HISTORIC.BLOCK_DESIGNATION,  dbo.SURVEY_SITE_HISTORIC.SELECTION_TYPE_CODE, dbo.SURVEY_SITE_HISTORIC.SELECTION_IND, ",
+                      "dbo.SITE_STATUS.SITE_STATUS_CODE AS Count,    dbo.SITE_STATUS.SITE_STATUS_DESCRIPTION  ", 
+                      "FROM     dbo.SURVEY_SITE_HISTORIC INNER JOIN  dbo.SITE_STATUS ON dbo.SURVEY_SITE_HISTORIC.STATUS_CODE ",
+                     "= dbo.SITE_STATUS.SITE_STATUS_CODE  WHERE  (dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID = 43)  AND ",
+                     "(YEAR(dbo.SURVEY_SITE_HISTORIC.SURVEY_START_DATE)  in(2018, 2019))", sep="")
+   hist          <- GetSQLData(history,"GFBioSQL")  
+   write.table( hist, file = paste(path,"results0.csv",sep=''),row.names=FALSE, na="",col.names=TRUE,  sep=",")
+
   dtStRS   <-   " select  * from dbo.GENERIC_GFBIO_TRAPS order by year"  # -- must update view GENERIC_GFBIO_TRAPS
   datStRS  <-   GetSQLData(dtStRS,"Sablefish") 
-   write.table(datStRS, file = paste(path,"results01_GenericTrapsCatchRates.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+   write.table(datStRS, file = paste(path,"results1.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
-    # -- 1. Species composition StRS-Inlets year 1
+    # --    Species composition StRS-Inlets year 1
    topStRS      <- paste("select top (5) SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME, ",
                          "sum(CATCH_WEIGHT) AS catchkg ",
                          "from dbo.GFBIO_RESEARCH_CATCH ",
@@ -393,7 +393,7 @@ history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo
                          "(SPECIES_CODE <> N'455') and (Year = ",yr,") ",
                          "order by catchkg DESC", sep="") 
    topStRSsp    <- GetSQLData(topStRS,"Sablefish") 
-   write.table( topStRSsp, file = paste(path,"results02_Top5GroupStRS.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+   write.table( topStRSsp, file = paste(path,"results2.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
    topInlet     <- paste("select top (2) SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME, sum(CATCH_WEIGHT) AS catchkg
                           from dbo.GFBIO_RESEARCH_CATCH 

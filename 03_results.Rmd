@@ -25,7 +25,7 @@ Of the 91 original blocks for the StRS portion of the survey, six were replaced 
 
   dtStRS   <-   " select  * from dbo.GENERIC_GFBIO_TRAPS order by year"  # -- must update view GENERIC_GFBIO_TRAPS
   #datStRS  <-   GetSQLData(dtStRS,"Sablefish")                          # read from SQL Server
-  datStRS  <-  read.csv("c:/github/surveyreport/standaloneData/results01_GenericTrapsCatchRates.csv",header=T)  # read from csv
+  datStRS  <-  read.csv("c:/github/surveyreport/standaloneData/results1.csv",header=T)  # read from csv
   #odbcCloseAll()
 
   datRD    <-   datStRS[ datStRS$SABLE.SET.TYPE=="StRS", ] # --  pick out the random sets
@@ -92,7 +92,7 @@ CPUE in the mainlaind inlets has varied in a relatively predictable manner over 
                          "(SPECIES_CODE <> N'455') and (Year = ",yr,") ",
                          "order by catchkg DESC", sep="") 
    #topStRSsp    <- GetSQLData(topStRS,"Sablefish") 
-   topStRSsp  <-  read.csv("c:/github/surveyreport/standaloneData/results02_Top5GroupStRS.csv",header=T) 
+   topStRSsp  <-  read.csv("c:/github/surveyreport/standaloneData/results2.csv",header=T) 
    
    topStRSsp1   <- tolower(as.character(topStRSsp[1,1]))                     # -- StRS top 5 species names
    topStRSsc1   <- firstup(tolower(as.character(topStRSsp[1,2])))    # -- StRS top 5 species science names
