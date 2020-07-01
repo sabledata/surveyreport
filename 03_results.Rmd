@@ -877,7 +877,7 @@ SBE 39 recorders have been placed on survey fishing sets since 2006. In the shal
     
     names2    <-  paste(" select keyid, Association, year, Names from  dbo.ReportSurvey_Acknowlegdements where year=", yr+1, sep="")
     #credits2  <-  GetSQLData(names2,"Sablefish")
-    credits2  <-  read.csv("c:/github/surveyreport/standaloneData/results25s.csv",header=T)
+    credits2  <-  read.csv("c:/github/surveyreport/standaloneData/results25.csv",header=T)
     
 ```    
                                                                                                         

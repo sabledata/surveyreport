@@ -49,20 +49,20 @@ header-includes: \usepackage{pdflscape}
 ```{r setup, echo=FALSE, cache=FALSE, message=FALSE, results='hide', warning=FALSE}
 library(knitr)
 if (is_latex_output()) {
-  knitr_figs_dir <- "knitr-figs-pdf/"
+  knitr_figs_dir  <- "knitr-figs-pdf/"
   knitr_cache_dir <- "knitr-cache-pdf/"
-  fig_out_type <- "png"
+  fig_out_type    <- "png"
 } else {
-  knitr_figs_dir <- "knitr-figs-docx/"
+  knitr_figs_dir  <- "knitr-figs-docx/"
   knitr_cache_dir <- "knitr-cache-docx/"
-  fig_out_type <- "png"
+  fig_out_type    <- "png"
 }
-fig_asp <- 0.618
+fig_asp   <- 0.618
 fig_width <- 9
 fig_out_width <- "6in"
-fig_dpi <- 180
+fig_dpi   <- 180
 fig_align <- "center"
-fig_pos <- "htb"
+fig_pos   <- "htb"
 opts_chunk$set(
   collapse = TRUE,
   warning = FALSE,
@@ -129,7 +129,7 @@ library(cowplot)
             }
   
   cleanf <- function(x){                            # function to remove duplicates
-            oldx <- c(FALSE, x[-1]==x[-length(x)])  # is the value equal to the previous
+            oldx <- c(FALSE, x[-1]==x[-length(x)])  # is value equal to previous value
             res <- x
             res[oldx] <- NA
             return(res)
@@ -154,7 +154,7 @@ library(cowplot)
             
             for (r in rows){
                   for(c in cols){
-                      df[[c]] <- as.character( df[[c]])  # -- make sure values are not factors
+                      df[[c]] <- as.character( df[[c]])  # -- make sure values not factors
                       df[r, c] <- paste0(markup, df[r, c], markup)  # -- Update formatting
                                 }
                            }
@@ -164,9 +164,9 @@ library(cowplot)
   fig_label <- function(text, region="figure", pos="topleft", cex=NULL, ...) {
            
             region <- match.arg(region, c("figure", "plot", "device"))
-            pos <- match.arg(pos, c("topleft", "top", "topright", 
-                                    "left", "center", "right", 
-                                    "bottomleft", "bottom", "bottomright"))
+            pos    <- match.arg(pos,    c("topleft",    "top", "topright", 
+                                          "left",       "center", "right", 
+                                          "bottomleft", "bottom", "bottomright"))
            
             if(region %in% c("figure", "device")) {
               ds <- dev.size("in")
@@ -237,7 +237,7 @@ library(cowplot)
 ```
 
 ```{r SurveyDetails, echo=FALSE}  
-   # -- INTRODUCTION DETAILS --
+   # -- GLOBAL DETAILS FROM SQL SERVER QUERIES/STAND ALONE CSV FILES--
    details     <- paste("select VESSEL_NAME as Vessel, CAPTAIN, ",
                         "LEFT(CONVERT(varchar, START_DATE, 100), 7) + ' - ' ",
                         "+ LEFT(CONVERT(varchar, END_DATE, 100), 7) AS [Trip Dates], ",
@@ -249,49 +249,50 @@ library(cowplot)
                         "LEFT(CONVERT(varchar, START_DATE, 100),7) + ' - ' + ",
                         "LEFT(CONVERT(varchar, END_DATE, 100),7)", 
                          sep="")
-   #sd          <- GetSQLData(details,"Sablefish")  # -- survey details
-   sd     <- read.csv("c:/github/surveyreport/standaloneData/index1.csv",header=T)
+   #sd          <- GetSQLData(details,"Sablefish")  # -- survey details query SQL Server
+   sd     <- read.csv("c:/github/surveyreport/standaloneData/index1.csv",header=T)  
    
-   boat        <- simpleCap(tolower(sd[1,1]))      # -- vessel name 1
-   boat2       <- simpleCap(tolower(sd[2,1]))      # -- vessel name 2
+   boat        <- simpleCap(tolower(sd[1,1]))      # -- vessel name year 1
+   boat2       <- simpleCap(tolower(sd[2,1]))      # -- vessel name year 2
    
-   captain     <- simpleCap(tolower(sd[1,2]))      # -- captain name 1
-   captain2    <- simpleCap(tolower(sd[2,2]))      # -- captain name 2
+   captain     <- simpleCap(tolower(sd[1,2]))      # -- captain name year 1
+   captain2    <- simpleCap(tolower(sd[2,2]))      # -- captain name year 2
    captain2    <- "Albert (Deacon) Melnychuk"
    
-   dates       <- sd[1,3]           # -- survey start and end dates 1
-   dates2      <- sd[2,3]           # -- survey start and end dates 2
+   dates       <- sd[1,3]           # -- survey start and end dates year 1
+   dates2      <- sd[2,3]           # -- survey start and end dates year 2
    
-   setcnt      <- sd[1,4]           # -- survey set count 1
-   setcnt2     <- sd[2,4]           # -- survey set count 2
+   setcnt      <- sd[1,4]           # -- survey set count year 1
+   setcnt2     <- sd[2,4]           # -- survey set count year 2
    
    avgC        <- paste("select ROUND(AVG(TOTAL), 0) AS YrAvg ",
                         "from   dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",
                         "where (year <= ", yr+1, ") and (year >= ",yr - 8,")", sep="")
-   #avgTen      <- GetSQLData(avgC,"Sablefish")    # -- average catch last 10 years               
+   #avgTen     <- GetSQLData(avgC,"Sablefish")    # -- average catch last 10 years query SQL Server              
    avgTen      <- read.csv("c:/github/surveyreport/standaloneData/index2.csv",header=T)
    
-   tp          <- paste("select ROUND(TRAP / TOTAL * 100, 0) AS TrapPer ",
-                        "from dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",  
+   tp          <- paste("select  ROUND(TRAP / TOTAL * 100, 0) AS TrapPer ",
+                        "from    dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",  
                         "where  (year = ", yr, ")  group by ROUND(TRAP / TOTAL * 100, 0), TOTAL", sep="")
-   #trapP       <- GetSQLData(tp,"Sablefish")        # -- trap gear catch ratio
+   #trapP     <- GetSQLData(tp,"Sablefish")        # -- trap gear catch ratio year 1
    trapP      <- read.csv("c:/github/surveyreport/standaloneData/index3.csv",header=T)
    
-   lp          <- paste("select  ROUND(LONGLINE / TOTAL * 100, 0) AS LonglinePer from ",  
-                         " dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2  ",
+   lp          <- paste("select  ROUND(LONGLINE / TOTAL * 100, 0) AS LonglinePer ",  
+                         "from   dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2  ",
                          "where  (year = ", yr, ") group by ROUND(LONGLINE / TOTAL * 100, 0), TOTAL", sep="")
-   #LonglineP   <- GetSQLData(lp,"Sablefish")        # -- longline gear catch ratio
+   #LonglineP  <- GetSQLData(lp,"Sablefish")        # -- longline gear catch ratio year 1
    LonglineP   <- read.csv("c:/github/surveyreport/standaloneData/index4.csv",header=T)
-   tp2         <- paste("select ROUND(TRAP / TOTAL * 100, 0) AS TrapPer ",
-                        "from dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",  
+   
+   tp2         <- paste("select  ROUND(TRAP / TOTAL * 100, 0) AS TrapPer ",
+                        "from    dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",  
                         "where  (year = ", yr + 1, ")  group by ROUND(TRAP / TOTAL * 100, 0), TOTAL", sep="")
-   #trapP2     <- GetSQLData(tp2,"Sablefish")      # -- trap gear catch ratio
+   #trapP2     <- GetSQLData(tp2,"Sablefish")      # -- trap gear catch ratio year 2
    trapP2      <- read.csv("c:/github/surveyreport/standaloneData/index5.csv",header=T)
    
-   lp2         <-  paste("select  ROUND(LONGLINE / TOTAL * 100, 0) AS LonglinePer from ",  
-                         "dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2  ",
+   lp2         <-  paste("select  ROUND(LONGLINE / TOTAL * 100, 0) AS LonglinePer  ",  
+                         "from    dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2  ",
                          "where  (year = ", yr + 1, ") group by ROUND(LONGLINE / TOTAL * 100, 0), TOTAL", sep="")
-   #LonglineP2 <- GetSQLData(lp2,"Sablefish")      # -- longline gear catch ratio 
+   #LonglineP2 <- GetSQLData(lp2,"Sablefish")      # -- longline gear catch ratio  year 2
    LonglineP2  <- read.csv("c:/github/surveyreport/standaloneData/index6.csv",header=T)
    
    # -- F I G U R E   C A P T I O N S  function ------------------------------------------------

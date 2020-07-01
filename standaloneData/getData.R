@@ -364,11 +364,7 @@ GetSQLData <- function(strSQL,strDbName) {
    otherspec             <-  GetSQLData(othersamples,"Sablefish")
    write.table( otherspec , file = paste(path,"appendixJ.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
-
-
 # -- results-----------------------------------------------------------------
-
-# temporary -------------------------------
 
   history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo.SURVEY_SITE_HISTORIC.SURVEY_START_DATE) AS Year,  ",
                        " dbo.SURVEY_SITE_HISTORIC.BLOCK_DESIGNATION,  dbo.SURVEY_SITE_HISTORIC.SELECTION_TYPE_CODE, dbo.SURVEY_SITE_HISTORIC.SELECTION_IND, ",
