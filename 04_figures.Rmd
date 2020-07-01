@@ -161,7 +161,7 @@
                "FishingEventCatchCPUE.DepthStrataID = dbo.SurveyBlock_countWeight.depthStrName", sep="")
 
     #landmrkRAW<- GetSQLData(landmrk,"Sablefish")
-    raw_survey_data <- read.csv("c:/github/surveyreport/standaloneData/figure05678_RawLandmarkSurveyData.csv",header=T)
+    raw_survey_data <- read.csv("c:/github/surveyreport/standaloneData/figure56789.csv",header=T)
     
     # load survey data 
     strs01            <- subset(raw_survey_data,SABLE_SET_TYPE=="StRS")
@@ -435,7 +435,7 @@
     library(Rmisc)                       
     cpuedt <- "SELECT  * FROM dbo.GENERIC_GFBIO_TRAPS where year < 2020 and [Spatial.Stratum] not like '%Quatsino Sound%' "
     #cpuedat<- GetSQLData(cpuedt,"Sablefish") 
-    cpuedat   <-  read.csv("c:/github/surveyreport/standaloneData/figure09_InletCPUE.csv",header=T)
+    cpuedat   <-  read.csv("c:/github/surveyreport/standaloneData/figure10.csv",header=T)
 
     #pick out the stand sets
     dat <- cpuedat[ which(cpuedat$SABLE.SET.TYPE=="INLET STANDARDIZED" ), ]
@@ -558,7 +558,7 @@
      
      lenstats  <- "exec procRReport_Survey_LenAvg"
      #dat       <- GetSQLData(lenstats,"Sablefish")                                                  # read from SQL Server
-     dat       <- read.csv("c:/github/surveyreport/standaloneData/figure10_MeanLength.csv",header=T) # read from csv
+     dat       <- read.csv("c:/github/surveyreport/standaloneData/figure11.csv",header=T) # read from csv
      
      
      fdat      <- dat[dat$sex==2,]
@@ -615,7 +615,7 @@
 
     lenWT     <- "exec procR_Survey_Sablefish_LenWt_shiny"
     #lenWTdat1 <- GetSQLData(lenWT,"Sablefish")                                                       # read from SQL Server
-    lenWTdat1 <- read.csv("c:/github/surveyreport/standaloneData/figure11_LengthWeight.csv",header=T) # read from csv
+    lenWTdat1 <- read.csv("c:/github/surveyreport/standaloneData/figure12.csv",header=T) # read from csv
     lenWTdat  <- lenWTdat1[lenWTdat1$YEAR==yr,]
 
     for (i in c(2,1)) {
@@ -770,8 +770,8 @@
  #polar        <- GetSQLData(sqlpolar ,"Sablefish")     # read from SQL Server
  #polarsummary <- GetSQLData(polarsumm ,"Sablefish")   # view the results to be able to type into the summary
  
- polar        <-  read.csv("c:/github/surveyreport/standaloneData/figure12_Polar.csv",header=T)        # read from csv
- polarsummary <-  read.csv("c:/github/surveyreport/standaloneData/figure12_PolarSummary.csv",header=T)
+ polar        <-  read.csv("c:/github/surveyreport/standaloneData/figure13a.csv",header=T)        # read from csv
+ polarsummary <-  read.csv("c:/github/surveyreport/standaloneData/figure13b.csv",header=T)
  polar$cat    <-  ifelse(polar$subL>=50,">50%","<50%")
  
  linea<-25.0
@@ -938,7 +938,7 @@
 
    dt   <-  paste("select * from Report_Survey_GFBIO_Age_MF_Prop where SetType='StRS' and Year<", yr, sep="")
    #dat  <-  GetSQLData(dt,"Sablefish")                                                            # read from SQL Server
-   dat  <-  read.csv("c:/github/surveyreport/standaloneData/figure13_AgeBubblePlot.csv",header=T) # read from csv
+   dat  <-  read.csv("c:/github/surveyreport/standaloneData/figure14.csv",header=T) # read from csv
 
    par(mfrow=c(2,1),cex=1.1)     # -- two vertical plots
    par(xpd=NA)
@@ -1006,7 +1006,7 @@
       # table SEABIRD_ReportCoplot created in the Sablefish.dbo.Build_Seabird_tables procedure
       sbecp     <- paste("select * from SEABIRD_ReportCoplot where Year in(",yr,",",yr+1,")",sep="")
       #ctddat    <- GetSQLData(sbecp,"Sablefish")                                                         # read from SQL Server
-      ctddat    <- read.csv("c:/github/surveyreport/standaloneData/figure14_SeaBirdCoplot.csv",header=T)  # read from csv
+      ctddat    <- read.csv("c:/github/surveyreport/standaloneData/figure15.csv",header=T)  # read from csv
 
       par(mar=c(1,1,1,1.4),cex=2.2)           # -- par(mar=c(bottom,left,top,right) 
       yrdat     <-  ctddat[ctddat$Year==yr,]
@@ -1079,7 +1079,7 @@
        png("C:/github/surveyreport/figures/Figure16.png", width=800, height=1000) # write png to file
        ctddt  <-  "select * from SEABIRD_ReportLinePlot"
        #ctd   <-  GetSQLData(ctddt,"Sablefish")                                                            # read from SQL Server
-       ctd    <-  read.csv("c:/github/surveyreport/standaloneData/figure15_SeaBirdLineplot.csv",header=T)  # read from csv
+       ctd    <-  read.csv("c:/github/surveyreport/standaloneData/figure16.csv",header=T)  # read from csv
        
        ctd2             <-  arrange(transform(ctd,strata=factor(depth,levels=rev(unique(ctd$depth)))),depth)
        ctgc             <-  summarySE(ctd2, measurevar="avgtemp", groupvars=c("Year","depth"),na.rm = T)

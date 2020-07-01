@@ -145,7 +145,7 @@ history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo
 
   dtSP   <- paste("exec procRReport_SpeciesSummary ",yr," ,'StRS'",sep="")
   datSP  <- GetSQLData(dtSP,"Sablefish")
-  write.table(datSP, file = paste(path,"table03_StRSspecies.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+  write.table(datSP, file = paste(path,"table03.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
   dtSP   <- paste("exec procRReport_SpeciesSummary ",yr," ,'INLET STANDARDIZED'",sep="")
   datSP  <- GetSQLData(dtSP,"Sablefish")
@@ -746,7 +746,7 @@ history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo
 
   dtSP   <- paste("exec procRReport_SpeciesSummary ",yr," ,'StRS'",sep="")
   datSP  <- GetSQLData(dtSP,"Sablefish")
-  write.table(datSP, file = paste(path,"table03_StRSspecies.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+  write.table(datSP, file = paste(path,"table3.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
   dtSP   <- paste("exec procRReport_SpeciesSummary ",yr," ,'INLET STANDARDIZED'",sep="")
   datSP  <- GetSQLData(dtSP,"Sablefish")
@@ -780,7 +780,7 @@ history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo
    write.table(tagGMU, file = paste(path,"table10_TagGMU.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
 #---figures -------------------------------------------------------------------------------------------------------------------------------------
-#-- figure 05 06 07 08 ---------------------
+#-- figure 05 06 07 08 09---------------------
   landmrk <- paste("select FishingEventCatchCPUE.TRIP_ID, FishingEventCatchCPUE.VESSEL_ID, FishingEventCatchCPUE.SUFFIX, ",                                  
                "FishingEventCatchCPUE.CAPTAIN_ID, FishingEventCatchCPUE.FISHING_EVENT_ID, FishingEventCatchCPUE.FE_MAJOR_LEVEL_ID,",
                "FishingEventCatchCPUE.SET_YEAR,   FishingEventCatchCPUE.SET_MONTH,        FishingEventCatchCPUE.SET_DAY, ",                                    
@@ -908,19 +908,19 @@ history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo
                "FishingEventCatchCPUE.DepthStrataID = dbo.SurveyBlock_countWeight.depthStrName", sep="")
 
     landmrkRAW<- GetSQLData(landmrk,"Sablefish")
-    write.table(landmrkRAW, file = paste(path,"figure05678_RawLandmarkSurveyData.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+    write.table(landmrkRAW, file = paste(path,"figure56789.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
   cpuedt <- "SELECT  * FROM dbo.GENERIC_GFBIO_TRAPS where [Spatial.Stratum] not like '%Quatsino Sound%' "
   cpuedat<- GetSQLData(cpuedt,"Sablefish") 
-  write.table(cpuedat, file = paste(path,"figure09_InletCPUE.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+  write.table(cpuedat, file = paste(path,"figure10.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
      lenstats  <- "exec procRReport_Survey_LenAvg"
      dat       <- GetSQLData(lenstats,"Sablefish")
-    write.table(dat , file = paste(path,"figure10_MeanLength.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+    write.table(dat , file = paste(path,"figure11.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
     lenWT           <-   "exec procR_Survey_Sablefish_LenWt_shiny"
     lenWTdat1  <-    GetSQLData(lenWT,"Sablefish")
-    write.table(lenWTdat1, file = paste(path,"figure11_LengthWeight.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+    write.table(lenWTdat1, file = paste(path,"figure12.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
     sqlpolar  <- paste("select YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP, ROUND(countSub / total * 100, 1) AS subL, ",
              " ROUND(countLeg / total * 100, 1) AS Leg, combo,combo + cast(YEAR as varchar) as combo2,(cast(right(sable_area_group,1) as int) + ", 
@@ -947,20 +947,20 @@ history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo
     polar        <- GetSQLData(sqlpolar ,"Sablefish")
     polarsummary <- GetSQLData(polarsumm ,"Sablefish")   # view the results to be able to type into the summary
 
-    write.table( polar , file = paste(path,"figure10_Polar.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
-    write.table(polarsummary, file = paste(path,"figure12_PolarSummary.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+    write.table( polar , file = paste(path,"figure13a.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+    write.table(polarsummary, file = paste(path,"figure13b.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
    dt   <-  paste("select * from Report_Survey_GFBIO_Age_MF_Prop where SetType='StRS' and Year<=", yr + 1, sep="")
    dat  <-  GetSQLData(dt,"Sablefish")
-   write.table(dat, file = paste(path,"figure13_AgeBubblePlot.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+   write.table(dat, file = paste(path,"figure14.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
     sbecp        <- paste("select * from SEABIRD_ReportCoplot where Year in(",yr,",",yr+1,")",sep="")
     ctddat       <- GetSQLData(sbecp,"Sablefish")
-    write.table(ctddat, file = paste(path,"figure14_SeaBirdCoplot.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+    write.table(ctddat, file = paste(path,"figure15.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
        ctddt  <-  "select * from SEABIRD_ReportLinePlot"
        ctd    <-  GetSQLData(ctddt,"Sablefish") 
-      write.table(ctd , file = paste(path,"figure15_SeaBirdLineplot.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+      write.table(ctd , file = paste(path,"figure16.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
 # ---- methods---------------------------------------------------------------------------------------------------------------------------------
    sense  <-  paste("select Year, SUM(SBE39) AS SBE39, SUM(HOBO) AS HOBO, SUM(CTD) AS CTD, SUM(CAM) AS CAM ",
