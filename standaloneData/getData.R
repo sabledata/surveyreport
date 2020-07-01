@@ -448,7 +448,7 @@ GetSQLData <- function(strSQL,strDbName) {
                           " order by ",
                           " catchkg DESC", sep="") 
    topStRSsp.2    <- GetSQLData(topStRS.2,"Sablefish") 
-   write.table(topStRSsp.2 , file = paste(path,"results06_Top5GroupStRS.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+   write.table(topStRSsp.2 , file = paste(path,"results6.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
    topInlet.2     <- paste("select top (2) SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME, sum(CATCH_WEIGHT) AS catchkg ",
                            "from dbo.GFBIO_RESEARCH_CATCH  ",
@@ -457,7 +457,7 @@ GetSQLData <- function(strSQL,strDbName) {
                            "and (SPECIES_CODE <> N'455') and (Year = ",yr+1,") ",
                            "order by catchkg DESC", sep="") 
    topInletsp.2   <- GetSQLData(topInlet.2,"Sablefish")
-   write.table(topInletsp.2 , file = paste(path,"results07_Top2GroupInlets.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+   write.table(topInletsp.2 , file = paste(path,"results7.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
    spc.2        <- paste("select dbo.fnIntegerToWords(SUM(CAST(Roundfish AS int))) AS tRound,   ",
                                  "dbo.fnIntegerToWords(ISNULL(SUM(Rockfish),0))     AS tRock,    ",
@@ -475,7 +475,7 @@ GetSQLData <- function(strSQL,strDbName) {
                                  "having (SABLE_SET_TYPE = N'StRS')       ",
                                  "and (Year = ",yr+1,")) AS RC",sep="")
    strsSpCom.2    <- GetSQLData(spc.2,"Sablefish")
-   write.table( strsSpCom.2 , file = paste(path,"results08_TaxGroupStRS.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+   write.table( strsSpCom.2 , file = paste(path,"results8.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
 
    spc.2          <- paste("select dbo.fnIntegerToWords(SUM(CAST(Roundfish AS int))) AS tRound,   ",
@@ -494,7 +494,7 @@ GetSQLData <- function(strSQL,strDbName) {
                                  "having (SABLE_SET_TYPE = N'INLET STANDARDIZED')       ",
                                  "and (Year = ",yr+1,")) AS RC",sep="")
    strsSpCom.2    <- GetSQLData(spc.2,"Sablefish")
-    write.table( strsSpCom.2 , file = paste(path,"results09_TaxGroupInlets.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+    write.table( strsSpCom.2 , file = paste(path,"results9.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
     catchStRS   <- paste("select rt.SABLE_SET_TYPE, ",
                          "SUM(sd.[Total Count])                           AS count, ",
@@ -508,7 +508,7 @@ GetSQLData <- function(strSQL,strDbName) {
                          "sd.TRIP_ID = rt.TRIP_ID AND  sd.[SET] = rt.SET_NUMBER " ,
                          "where (sd.Year =", yr,") group by rt.SABLE_SET_TYPE",sep="") 
     countStRS   <- GetSQLData(catchStRS,"Sablefish")
-    write.table( countStRS , file = paste(path,"results10_CountSamplesStRS.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+    write.table( countStRS , file = paste(path,"results10.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
     
     catchStRS2 <- paste("select rt.SABLE_SET_TYPE, ",
                          "SUM(sd.[Total Count])                           AS count, ",
