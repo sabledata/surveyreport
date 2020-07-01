@@ -145,19 +145,19 @@ history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo
 
   dtSP   <- paste("exec procRReport_SpeciesSummary ",yr," ,'StRS'",sep="")
   datSP  <- GetSQLData(dtSP,"Sablefish")
-  write.table(datSP, file = paste(path,"table03.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+  write.table(datSP, file = paste(path,"table3.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
   dtSP   <- paste("exec procRReport_SpeciesSummary ",yr," ,'INLET STANDARDIZED'",sep="")
   datSP  <- GetSQLData(dtSP,"Sablefish")
-  write.table(datSP, file = paste(path,"table04_InletSpecies.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+  write.table(datSP, file = paste(path,"table4.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
   dtSP   <- paste("exec procRReport_SpeciesSummary ", yr+1," ,'StRS'",sep="")
   datSP  <- GetSQLData(dtSP,"Sablefish")
-  write.table(datSP, file = paste(path,"table05_StRSspecies.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+  write.table(datSP, file = paste(path,"table5.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
   dtSP   <- paste("exec procRReport_SpeciesSummary ",yr+1," ,'INLET STANDARDIZED'",sep="")
   datSP  <- GetSQLData(dtSP,"Sablefish")
-  write.table(datSP, file = paste(path,"table06_InletSpecies.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+  write.table(datSP, file = paste(path,"table6.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
   dtBW  <-  paste("select [Release year] as [Year], Total_released as [Release], ",
                           "Rec_1991 as [91], Rec_1992 as [92], Rec_1993 as [93], ",
@@ -172,11 +172,11 @@ history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo
                           "Rec_2018 as [18], Rec_2019 as [19], Total_recovered as [Total], No_recovery_year as [No Year] ",
                           "from dbo.WEB_TAG_REVIEW order by [Release year]",sep="")
    datag <-  GetSQLData(dtBW,"FishTag")
-   write.table(datag, file = paste(path,"table09_TaggedFishCounts.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+   write.table(datag, file = paste(path,"table9.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
    tagGMUc       <-  paste("select * from q_Fish_Tag_Rel_Rec_by_GMU ")
    tagGMU        <-  GetSQLData(tagGMUc,"FishTag")
-   write.table(tagGMU, file = paste(path,"table10_TagGMU.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+  # write.table(tagGMU, file = paste(path,"table.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
 #---figures -------------------------------------------------------------------------------------------------------------------------------------
 #-- figure 05 06 07 08 ---------------------
@@ -672,7 +672,7 @@ history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo
 
   dtBW   <- paste("exec dbo.procRKnitr_SurveyTrips ",yr+1,sep="")
    trip   <- GetSQLData(dtBW,"Sablefish")
-   write.table(trip, file = paste(path,"appendixA.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+   write.table(trip, file = paste(path,"appendixB.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
    srvyset <-  paste("dbo.procRReport_Survey_SetDetails ",yr,",1,",setcnt, sep="")
    ssdat   <-  GetSQLData(srvyset,"Sablefish")

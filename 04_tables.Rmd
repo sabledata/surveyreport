@@ -92,7 +92,7 @@
   options(knitr.kable.NA = '')
   dtSP   <- paste("exec procRReport_SpeciesSummary ",yr," ,'StRS'",sep="")
   #datSP  <- GetSQLData(dtSP,"Sablefish")
-  datSP   <-  read.csv("c:/github/surveyreport/standaloneData/table03_StRSspecies.csv",header=T)
+  datSP   <-  read.csv("c:/github/surveyreport/standaloneData/table3.csv",header=T)
      
   dat1SP <- datSP[,c(-1)] 
   dat1SP <- dat1SP[,c(-3)]
@@ -122,7 +122,7 @@
   options(knitr.kable.NA = '')
   dtSP   <- paste("exec procRReport_SpeciesSummary ",yr," ,'INLET STANDARDIZED'",sep="")
   #datSP  <- GetSQLData(dtSP,"Sablefish")
-  datSP   <-  read.csv("c:/github/surveyreport/standaloneData/table04_InletSpecies.csv",header=T)
+  datSP   <-  read.csv("c:/github/surveyreport/standaloneData/table4.csv",header=T)
   
   dat1SP <- datSP[,c(-1)] 
   dat1SP <- dat1SP[,c(-3)]
@@ -152,7 +152,7 @@
   options(knitr.kable.NA = '')
   dtSP   <- paste("exec procRReport_SpeciesSummary ", yr+1," ,'StRS'",sep="")
   #datSP  <- GetSQLData(dtSP,"Sablefish")
-  datSP   <-  read.csv("c:/github/surveyreport/standaloneData/table05_StRSspecies.csv",header=T)
+  datSP   <-  read.csv("c:/github/surveyreport/standaloneData/table5.csv",header=T)
   
   dat1SP <- datSP[,c(-1)] 
   dat1SP <- dat1SP[,c(-3)]
@@ -181,7 +181,7 @@
   options(knitr.kable.NA = '')
   dtSP   <- paste("exec procRReport_SpeciesSummary ",yr+1," ,'INLET STANDARDIZED'",sep="")
   #datSP  <- GetSQLData(dtSP,"Sablefish")
-  datSP   <-  read.csv("c:/github/surveyreport/standaloneData/table06_InletSpecies.csv",header=T)
+  datSP   <-  read.csv("c:/github/surveyreport/standaloneData/table6.csv",header=T)
   
   dat1SP <- datSP[,c(-1)] 
   dat1SP <- dat1SP[,c(-3)]
@@ -287,7 +287,7 @@
                   "Total_recovered as [Total], No_recovery_year as [No Year] ",
                   "from dbo.WEB_TAG_REVIEW order by [Release year]",sep="")
    #datag <-  GetSQLData(dtBW,"FishTag")
-   datag   <-  read.csv("c:/github/surveyreport/standaloneData/table09_TaggedFishCounts.csv",header=T)
+   datag   <-  read.csv("c:/github/surveyreport/standaloneData/table9.csv",header=T)
    
    names(datag)[3]     <-  "91"
    names(datag)[4]     <-  "92"

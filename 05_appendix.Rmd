@@ -29,7 +29,7 @@ List of localities visited in the traditional component of the sablefish researc
 
    dtBW   <- paste("exec dbo.procRKnitr_SurveyTrips ",yr+1,sep="")
    #trip   <- GetSQLData(dtBW,"Sablefish")
-   trip   <-  read.csv("c:/github/surveyreport/standaloneData/appendixA.csv",header=T)
+   trip   <-  read.csv("c:/github/surveyreport/standaloneData/appendixB.csv",header=T)
    
    kableExtra::kable(trip,
                      booktabs = TRUE, 

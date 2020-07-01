@@ -343,7 +343,7 @@ A total of `r totalI.2` taxonomic groups were represented in the catches from tr
     #lendata    <-   GetSQLData(lendat,"Sablefish")
     lendata   <-    read.csv("c:/github/surveyreport/standaloneData/results12_lengthMFData.csv",header=T) 
     # late addition for the average lengths per year in text
-    dat       <- read.csv("c:/github/surveyreport/standaloneData/figure10_MeanLength.csv",header=T)
+    dat       <- read.csv("c:/github/surveyreport/standaloneData/figure11.csv",header=T)
     mavgyr1   <- dat[dat$sex==1 & dat$YEAR==yr,]   # round(mavgyr1$AvL,1)
     mavgyr2   <- dat[dat$sex==1 & dat$YEAR==yr+1,] # round(mavgyr2$AvL,1)
     favgyr1   <- dat[dat$sex==2 & dat$YEAR==yr,]   # round(favgyr1$AvL,1)
