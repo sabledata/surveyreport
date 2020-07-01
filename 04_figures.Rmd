@@ -40,29 +40,37 @@
 
 #   query----------raw survey datafile for Landmark fisheries----------------
 
-    landmrk <- paste("select FishingEventCatchCPUE.TRIP_ID, FishingEventCatchCPUE.VESSEL_ID, FishingEventCatchCPUE.SUFFIX, ",                             "FishingEventCatchCPUE.CAPTAIN_ID, FishingEventCatchCPUE.FISHING_EVENT_ID, FishingEventCatchCPUE.FE_MAJOR_LEVEL_ID,",
-               "FishingEventCatchCPUE.SET_YEAR,   FishingEventCatchCPUE.SET_MONTH,        FishingEventCatchCPUE.SET_DAY, ",                               "FishingEventCatchCPUE.SET_TIME,   FishingEventCatchCPUE.DURATION_MINUTES, FishingEventCatchCPUE.SABLE_DEPTH_GROUP, ",                     "FishingEventCatchCPUE.SABLE_AREA_GROUP, FishingEventCatchCPUE.SABLE_SET_TYPE, ", 
-               "FishingEventCatchCPUE.GROUPING_CODE,    FishingEventCatchCPUE.REASON_CODE, FishingEventCatchCPUE.FE_REASON_COMMENT, ",                    "FishingEventCatchCPUE.GEAR_CODE,        FishingEventCatchCPUE.NS_AREA, ",
-               "FishingEventCatchCPUE.INSHORE_IND,      FishingEventCatchCPUE.SEAMOUNT_IND, FishingEventCatchCPUE.MAJOR_STAT_AREA_CODE, ",                "FishingEventCatchCPUE.MINOR_STAT_AREA_CODE, FishingEventCatchCPUE.LOCALITY_CODE, ",                                   
-               "FishingEventCatchCPUE.FE_FISHING_GROUND_COMMENT, ",
-               "FishingEventCatchCPUE.START_LATITUDE, FishingEventCatchCPUE.START_LONGITUDE, ",
-               "FishingEventCatchCPUE.END_LATITUDE, FishingEventCatchCPUE.END_LONGITUDE, ",
-               "FishingEventCatchCPUE.FE_BEGINNING_BOTTOM_DEPTH, FishingEventCatchCPUE.FE_END_BOTTOM_DEPTH, ",
-               "FishingEventCatchCPUE.FE_MODAL_BOTTOM_DEPTH, FishingEventCatchCPUE.TRAP_MODIFICATIONS_CODE, ",       
-               "FishingEventCatchCPUE.FE_USABILITY, FishingEventCatchCPUE.CPUE_SABLE_WEIGHT, ",
-               "FishingEventCatchCPUE.CPUE_SABLE_COUNT, FishingEventCatchCPUE.CPUE_TRAPS, FishingEventCatchCPUE.TOTAL_TRAPS, ",   
-               "ISNULL(FishingEventCatchCPUE.TOTAL_SABLE_COUNT, 0) AS TOTAL_SABLE_COUNT, ",
-               "ISNULL(FishingEventCatchCPUE.TOTAL_SABLE_WEIGHT, 0) AS TOTAL_SABLE_WEIGHT, ",
-               "FishingEventCatchCPUE.VERIFICATION_METHOD, FishingEventCatchCPUE.FE_START_LATTITUDE_DEGREE, ",
-               "FishingEventCatchCPUE.FE_START_LATTITUDE_MINUTE, FishingEventCatchCPUE.FE_START_LONGITUDE_DEGREE,",     
-               "FishingEventCatchCPUE.FE_START_LONGITUDE_MINUTE, FishingEventCatchCPUE.FE_END_LATTITUDE_DEGREE, ", 
-               "FishingEventCatchCPUE.FE_END_LATTITUDE_MINUTE, FishingEventCatchCPUE.FE_END_LONGITUDE_DEGREE,   ",
-               "FishingEventCatchCPUE.FE_END_LONGITUDE_MINUTE, FishingEventCatchCPUE.START_FATHOMS, ",
-               "FishingEventCatchCPUE.END_FATHOMS, FishingEventCatchCPUE.MODAL_DEPTH_FM, ",
-               "FishingEventCatchCPUE.DepthStrataID, dbo.SurveyBlock_countWeight.nBlocks AS Nh, dbo.SurveyBlock_countWeight.Wh,", 
-               "ISNULL(FishingEventCatchCPUE.CPUE_SABLE_WEIGHT / NULLIF (FishingEventCatchCPUE.CPUE_TRAPS, 0), 0) AS cpue,",   
+    landmrk <- paste("select ", 
+               "FEC_CPUE.TRIP_ID, FEC_CPUE.VESSEL_ID, FEC_CPUE.SUFFIX, ",                                                                   
+               "FEC_CPUE.CAPTAIN_ID, FEC_CPUE.FISHING_EVENT_ID, FEC_CPUE.FE_MAJOR_LEVEL_ID,",
+               "FEC_CPUE.SET_YEAR,   FEC_CPUE.SET_MONTH,        FEC_CPUE.SET_DAY, ",                                         
+               "FEC_CPUE.SET_TIME,   FEC_CPUE.DURATION_MINUTES, FEC_CPUE.SABLE_DEPTH_GROUP, ",                               
+               "FEC_CPUE.SABLE_AREA_GROUP, FEC_CPUE.SABLE_SET_TYPE, ", 
+               "FEC_CPUE.GROUPING_CODE,    FEC_CPUE.REASON_CODE, FEC_CPUE.FE_REASON_COMMENT, ",                              
+               "FEC_CPUE.GEAR_CODE,        FEC_CPUE.NS_AREA, ",
+               "FEC_CPUE.INSHORE_IND,      FEC_CPUE.SEAMOUNT_IND, FEC_CPUE.MAJOR_STAT_AREA_CODE, ",                          
+               "FEC_CPUE.MINOR_STAT_AREA_CODE,   FEC_CPUE.LOCALITY_CODE, ",                                   
+               "FEC_CPUE.FE_FISHING_GROUND_COMMENT, ",
+               "FEC_CPUE.START_LATITUDE,   FEC_CPUE.START_LONGITUDE, ",
+               "FEC_CPUE.END_LATITUDE,     FEC_CPUE.END_LONGITUDE, ",
+               "FEC_CPUE.FE_BEGINNING_BOTTOM_DEPTH, FEC_CPUE.FE_END_BOTTOM_DEPTH, ",
+               "FEC_CPUE.FE_MODAL_BOTTOM_DEPTH,     FEC_CPUE.TRAP_MODIFICATIONS_CODE, ",       
+               "FEC_CPUE.FE_USABILITY,     FEC_CPUE.CPUE_SABLE_WEIGHT, ",
+               "FEC_CPUE.CPUE_SABLE_COUNT, FEC_CPUE.CPUE_TRAPS, FEC_CPUE.TOTAL_TRAPS, ",   
+               "ISNULL(FEC_CPUE.TOTAL_SABLE_COUNT, 0) AS TOTAL_SABLE_COUNT, ",
+               "ISNULL(FEC_CPUE.TOTAL_SABLE_WEIGHT, 0) AS TOTAL_SABLE_WEIGHT, ",
+               "FEC_CPUE.VERIFICATION_METHOD,       FEC_CPUE.FE_START_LATTITUDE_DEGREE, ",
+               "FEC_CPUE.FE_START_LATTITUDE_MINUTE, FEC_CPUE.FE_START_LONGITUDE_DEGREE,",     
+               "FEC_CPUE.FE_START_LONGITUDE_MINUTE, FEC_CPUE.FE_END_LATTITUDE_DEGREE, ", 
+               "FEC_CPUE.FE_END_LATTITUDE_MINUTE,   FEC_CPUE.FE_END_LONGITUDE_DEGREE,   ",
+               "FEC_CPUE.FE_END_LONGITUDE_MINUTE,   FEC_CPUE.START_FATHOMS, ",
+               "FEC_CPUE.END_FATHOMS,               FEC_CPUE.MODAL_DEPTH_FM, ",
+               "FEC_CPUE.DepthStrataID, dbo.SurveyBlock_countWeight.nBlocks AS Nh, dbo.SurveyBlock_countWeight.Wh,", 
+               "ISNULL(FEC_CPUE.CPUE_SABLE_WEIGHT / NULLIF (FEC_CPUE.CPUE_TRAPS, 0), 0) AS cpue,",   
                "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Proportion Males], ",
-               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Male Mean Fork Len(mm)],dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Female Mean Fork Len(mm)], ",                "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Tagged Mean Fork Len(mm)]  ",
+               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Male Mean Fork Len(mm)],   ",
+               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Female Mean Fork Len(mm)], ",                         
+               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Tagged Mean Fork Len(mm)]  ",
                "from (select trp.TRIP_ID, trp.VESSEL_ID, trp.SUFFIX, trp.CAPTAIN_ID, fe_1.FISHING_EVENT_ID, ",
                "fe_1.FE_MAJOR_LEVEL_ID, YEAR(dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, ",
                "fe_1.FE_END_DEPLOYMENT_TIME, fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME)) AS SET_YEAR,  ",     
@@ -112,7 +120,7 @@
                "(select  TRIP_ID         ",
                "from GFBioSQL.dbo.TRIP_ACTIVITY    ",
                "where (ACTIVITY_CODE = 19)) AS act ON trp.TRIP_ID = act.TRIP_ID INNER JOIN  ",
-               "(select TRIP_ID,FISHING_EVENT_ID,FE_PARENT_EVENT_ID,FE_MAJOR_LEVEL_ID,FE_SUB_LEVEL_ID,FE_MINOR_LEVEL_ID,EMPLOYEE_ID, ",                  "FE_BEGIN_DEPLOYMENT_TIME, FE_END_DEPLOYMENT_TIME, FE_BEGIN_RETRIEVAL_TIME, FE_END_RETRIEVAL_TIME,  ",
+               "(select TRIP_ID,FISHING_EVENT_ID,FE_PARENT_EVENT_ID,FE_MAJOR_LEVEL_ID,FE_SUB_LEVEL_ID,FE_MINOR_LEVEL_ID,EMPLOYEE_ID, ",                             "FE_BEGIN_DEPLOYMENT_TIME, FE_END_DEPLOYMENT_TIME, FE_BEGIN_RETRIEVAL_TIME, FE_END_RETRIEVAL_TIME,  ",
                "GROUPING_CODE, REASON_CODE, FE_REASON_COMMENT, MAJOR_STAT_AREA_CODE, ",
                "MINOR_STAT_AREA_CODE, LOCALITY_CODE, DFO_STAT_AREA_CODE, DFO_STAT_SUBAREA_CODE, ",
                "LOC_VRFN_METHOD_CODE, FE_FISHING_GROUND_COMMENT, ",
@@ -149,48 +157,50 @@
                "GFBioSQL.dbo.TRAP_SPECS AS fets ON fe_1.FISHING_EVENT_ID = fets.FISHING_EVENT_ID LEFT OUTER JOIN ",
                "(select  fec.FISHING_EVENT_ID, CATCH_1.SPECIES_CODE, SUM(CATCH_1.CATCH_WEIGHT) AS CATCH_WEIGHT,  ",
                "SUM(CATCH_1.CATCH_COUNT) AS CATCH_COUNT, AVG(ISNULL(CATCH_1.CATCH_VERIFICATION_CODE, 0)) AS VERIFICATION_METHOD ",
-               "from GFBioSQL.dbo.FISHING_EVENT_CATCH AS fec INNER JOIN              ",                                                                  
-               "GFBioSQL.dbo.CATCH AS CATCH_1 ON fec.CATCH_ID = CATCH_1.CATCH_ID ",
-               "where (CATCH_1.SPECIES_CODE = '455') ",
+               "from     GFBioSQL.dbo.FISHING_EVENT_CATCH AS fec INNER JOIN               ",                                                         
+               "         GFBioSQL.dbo.CATCH AS CATCH_1 ON fec.CATCH_ID = CATCH_1.CATCH_ID ",
+               "where    (CATCH_1.SPECIES_CODE = '455') ",
                "group by fec.FISHING_EVENT_ID, CATCH_1.SPECIES_CODE) AS fec_1 ON fe_1.FISHING_EVENT_ID = fec_1.FISHING_EVENT_ID ", 
-               "where (YEAR(dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, fe_1.FE_END_DEPLOYMENT_TIME,  ",
-               "fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME)) > 2002))  AS FishingEventCatchCPUE LEFT OUTER JOIN ",
-               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS ON FishingEventCatchCPUE.FE_MAJOR_LEVEL_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[SET] AND  ",
-               "FishingEventCatchCPUE.TRIP_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.TRIP_ID LEFT OUTER JOIN ",
-               "dbo.SurveyBlock_countWeight ON FishingEventCatchCPUE.SABLE_AREA_GROUP = dbo.SurveyBlock_countWeight.areaStrName AND   ",      
-               "FishingEventCatchCPUE.DepthStrataID = dbo.SurveyBlock_countWeight.depthStrName", sep="")
+               "where    (YEAR(dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, fe_1.FE_END_DEPLOYMENT_TIME,  ",
+               "fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME)) > 2002))  AS FEC_CPUE LEFT OUTER JOIN ",
+               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS ON FEC_CPUE.FE_MAJOR_LEVEL_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[SET] AND  ",
+               "FEC_CPUE.TRIP_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.TRIP_ID LEFT OUTER JOIN ",
+               "dbo.SurveyBlock_countWeight ON FEC_CPUE.SABLE_AREA_GROUP = dbo.SurveyBlock_countWeight.areaStrName AND   ",      
+               "FEC_CPUE.DepthStrataID = dbo.SurveyBlock_countWeight.depthStrName", sep="")
 
-    #landmrkRAW<- GetSQLData(landmrk,"Sablefish")
+    landmrkRAW<- GetSQLData(landmrk,"Sablefish")
     raw_survey_data <- read.csv("c:/github/surveyreport/standaloneData/figure56789.csv",header=T)
     
     # load survey data 
-    strs01            <- subset(raw_survey_data,SABLE_SET_TYPE=="StRS")
-    strs01$sable_cpue <- strs01$CPUE_SABLE_WEIGHT/strs01$CPUE_TRAPS           # changed from TOTAL_TRAPS to CPUE_TRAPS
-    strs01$sable_cnts <- strs01$CPUE_SABLE_COUNT/strs01$CPUE_TRAPS 
-    strs01$sable_wt   <- strs01$CPUE_SABLE_WEIGHT/strs01$CPUE_SABLE_COUNT
-    strs01$strata     <- paste(strs01$SABLE_AREA_GROUP,strs01$SABLE_DEPTH_GROUP)
+    strs01            <- subset(raw_survey_data,SABLE_SET_TYPE=="StRS")           # subset on StRS sets
+    strs01$sable_cpue <- strs01$CPUE_SABLE_WEIGHT/strs01$CPUE_TRAPS               # wt/trap, changed from TOTAL_TRAPS to CPUE_TRAPS
+    strs01$sable_cnts <- strs01$CPUE_SABLE_COUNT/strs01$CPUE_TRAPS                # count/trap,
+    strs01$sable_wt   <- strs01$CPUE_SABLE_WEIGHT/strs01$CPUE_SABLE_COUNT         # average weight
+    strs01$strata     <- paste(strs01$SABLE_AREA_GROUP,strs01$SABLE_DEPTH_GROUP)  # area + depth strata
+    
     strs02            <- arrange(transform(strs01,strata=factor(strata,levels=rev(unique(strs01$strata)))),strata)
     tgc01             <- summarySE(strs02, measurevar="sable_cpue", groupvars=c("SET_YEAR","strata"),na.rm = T)
-    tgc.02            <- arrange(transform(tgc01,strata=factor(strata,levels = c("S5 RD3", "S5 RD2", "S5 RD1", 
-                                                                             "S4 RD3", "S4 RD2", "S4 RD1", 
-                                                                             "S3 RD3", "S3 RD2", "S3 RD1", 
-                                                                             "S2 RD3", "S2 RD2", "S2 RD1",
-                                                                             "S1 RD3", "S1 RD2", "S1 RD1" ))),strata)
-  
-    # drop 2003 and set panel ordering for aesthetics
-    strs.02<-arrange(transform(strs01[strs01$SET_YEAR>2003,],SET_YEAR=factor(SET_YEAR,levels=c(2004,2008,2012,2016,
-                                                                                          2005,2009,2013,2017,
-                                                                                          2006,2010,2014,2018,
-                                                                                          2007,2011,2015,2019))),SET_YEAR)
+    tgc.02            <- arrange(transform(tgc01,strata=factor(strata,
+                                                               levels = c("S5 RD3", "S5 RD2", "S5 RD1", 
+                                                                          "S4 RD3", "S4 RD2", "S4 RD1", 
+                                                                          "S3 RD3", "S3 RD2", "S3 RD1", 
+                                                                          "S2 RD3", "S2 RD2", "S2 RD1",
+                                                                          "S1 RD3", "S1 RD2", "S1 RD1" ))),strata)
     
-    ggplot(strs.02,aes(x=FE_MODAL_BOTTOM_DEPTH,y=CPUE_SABLE_WEIGHT/CPUE_TRAPS))+
-    geom_point(alpha = 1/5)+
-    facet_wrap(~SET_YEAR,ncol=4)+
-    scale_x_continuous(breaks = c(100,450,850,1400),limits=c(0,1500))+ 
-    geom_vline(xintercept=c(450),linetype="dashed",color="red")+
-    geom_vline(xintercept=c(850),linetype="dashed",color="blue")+
-    xlab("Depth (m)")+
-    ylab("CPUE (kg/trap)")+
+    strs.02<-arrange(transform(strs01[strs01$SET_YEAR>2003,],        # drop 2003 and set panel ordering 
+                               SET_YEAR=factor(SET_YEAR,levels=c(2004,2008,2012,2016,
+                                                                 2005,2009,2013,2017,
+                                                                 2006,2010,2014,2018,
+                                                                 2007,2011,2015,2019))),SET_YEAR)
+    
+    ggplot(strs.02,aes(x=FE_MODAL_BOTTOM_DEPTH,y=CPUE_SABLE_WEIGHT/CPUE_TRAPS)) +
+    geom_point(alpha = 1/5 )+
+    facet_wrap(~SET_YEAR,ncol=4) +
+    scale_x_continuous(breaks = c(100,450,850,1400),limits=c(0,1500)) + 
+    geom_vline(xintercept=c(450),linetype="dashed",color="red") +
+    geom_vline(xintercept=c(850),linetype="dashed",color="blue") +
+    xlab("Depth (m)") +
+    ylab("CPUE (kg/trap)") +
     theme_bw()
 
     while (!is.null(dev.list()))  dev.off()
@@ -198,64 +208,54 @@
                            knitr::include_graphics(img)
                            
                            
-    # this is extra code for describing the cpue by year in the ABSTRACT
+    # extra code for viewing only the cpue by year 
     strsRD1 <- strs01[strs01$DepthStrataID == "RD1",]                      
-    boxRD1 <-  arrange(transform(strsRD1[strsRD1$SET_YEAR>2014,],SET_YEAR=factor(SET_YEAR,levels=c(2015,2016,2017,
-                                                                                         2018,2019))),SET_YEAR)
+    boxRD1 <-  arrange(transform(strsRD1[strsRD1$SET_YEAR>2014,],
+                                 SET_YEAR=factor(SET_YEAR,levels=c(2015,2016,2017,2018,2019))),SET_YEAR)
     strsRD2 <- strs01[strs01$DepthStrataID == "RD2",]                      
-    boxRD2 <-  arrange(transform(strsRD2[strsRD2$SET_YEAR>2014,],SET_YEAR=factor(SET_YEAR,levels=c(2015,2016,2017,
-                                                                                         2018,2019))),SET_YEAR)
+    boxRD2 <-  arrange(transform(strsRD2[strsRD2$SET_YEAR>2014,],
+                                 SET_YEAR=factor(SET_YEAR,levels=c(2015,2016,2017,2018,2019))),SET_YEAR)
     strsRD3 <- strs01[strs01$DepthStrataID == "RD3",]                      
-    boxRD3 <-  arrange(transform(strsRD3[strsRD3$SET_YEAR>2014,],SET_YEAR=factor(SET_YEAR,levels=c(2015,2016,2017,
-                                                                                         2018,2019))),SET_YEAR)
-    pRD1 <- ggplot(boxRD1, aes(x=SET_YEAR, y=sable_cpue)) + 
-          geom_boxplot() +
-          xlab("Year") +      ylab("CPUE (kg/trap)") +
-          scale_y_continuous(limits=c(0,90))+
-          theme(axis.text = element_text(size = 4)) +   theme_bw()
-    pRD1c<- ggplot(boxRD1, aes(x=SET_YEAR, y=sable_cnts)) + 
-          geom_boxplot() +
-          xlab("Year") +      ylab("CPUE (#/trap)") +
-          scale_y_continuous(limits=c(0,60))+
-          theme(axis.text = element_text(size = 4)) +   theme_bw()
-    pRD1wt<- ggplot(boxRD1, aes(x=SET_YEAR, y=sable_wt)) + 
-          geom_boxplot() +
-          xlab("Year") +      ylab("sablefish kg") +
-          scale_y_continuous(limits=c(0,5))+
-          theme(axis.text = element_text(size = 4)) +   theme_bw()
+    boxRD3 <-  arrange(transform(strsRD3[strsRD3$SET_YEAR>2014,],
+                                 SET_YEAR=factor(SET_YEAR,levels=c(2015,2016,2017,2018,2019))),SET_YEAR)
+    pRD1 <- ggplot(boxRD1, aes(x=SET_YEAR, y=sable_cpue)) +                # RD1 sable kg/trap
+            geom_boxplot() +   xlab("Year")    +  ylab("CPUE (kg/trap)") +
+            scale_y_continuous(limits=c(0,90)) +
+            theme(axis.text = element_text(size = 4)) +   theme_bw()
+    pRD1c<- ggplot(boxRD1, aes(x=SET_YEAR, y=sable_cnts)) +               # RD1 sable #/trap
+            geom_boxplot() +   xlab("Year")   +   ylab("CPUE (#/trap)") +
+            scale_y_continuous(limits=c(0,60)) +
+            theme(axis.text = element_text(size = 4)) +   theme_bw()
+    pRD1wt<-ggplot(boxRD1, aes(x=SET_YEAR, y=sable_wt)) +                # RD1 sable wt
+            geom_boxplot() +   xlab("Year") +    ylab("sablefish kg") +
+            scale_y_continuous(limits=c(0,5)) +
+            theme(axis.text = element_text(size = 4)) +   theme_bw()
+    pRD2 <- ggplot(boxRD2, aes(x=SET_YEAR, y=sable_cpue)) +              # RD2 sable kg/trap
+            geom_boxplot() +  xlab("Year") +    ylab("CPUE (kg/trap)") +
+            scale_y_continuous(limits=c(0,90))+
+            theme(axis.text = element_text(size = 4)) +   theme_bw()
+    pRD2c<- ggplot(boxRD2, aes(x=SET_YEAR, y=sable_cnts)) +              # RD2 sable #/trap
+            geom_boxplot() + xlab("Year") +    ylab("CPUE (#/trap)") +
+            scale_y_continuous(limits=c(0,60))+
+            theme(axis.text = element_text(size = 4)) +   theme_bw()
+    pRD2wt<-ggplot(boxRD2, aes(x=SET_YEAR, y=sable_wt)) +                # RD2 sable wt
+            geom_boxplot() +  xlab("Year") +      ylab("sablefish kg") +
+            scale_y_continuous(limits=c(0,5))+
+            theme(axis.text = element_text(size = 4)) +   theme_bw()  
     
-    pRD2 <- ggplot(boxRD2, aes(x=SET_YEAR, y=sable_cpue)) + 
-          geom_boxplot() +
-          xlab("Year") +    ylab("CPUE (kg/trap)") +
-          scale_y_continuous(limits=c(0,90))+
-          theme(axis.text = element_text(size = 4)) +   theme_bw()
-    pRD2c<- ggplot(boxRD2, aes(x=SET_YEAR, y=sable_cnts)) + 
-          geom_boxplot() +
-          xlab("Year") +    ylab("CPUE (#/trap)") +
-          scale_y_continuous(limits=c(0,60))+
-          theme(axis.text = element_text(size = 4)) +   theme_bw()
-    pRD2wt<- ggplot(boxRD2, aes(x=SET_YEAR, y=sable_wt)) + 
-          geom_boxplot() +
-          xlab("Year") +      ylab("sablefish kg") +
-          scale_y_continuous(limits=c(0,5))+
-          theme(axis.text = element_text(size = 4)) +   theme_bw()  
-    
-    pRD3 <- ggplot(boxRD3, aes(x=SET_YEAR, y=sable_cpue)) + 
-          geom_boxplot() +
-          xlab("Year") +     ylab("CPUE (kg/trap)") +
-          scale_y_continuous(limits=c(0,90))+
-          theme(axis.text = element_text(size = 4)) +   theme_bw()
-    pRD3c<- ggplot(boxRD3, aes(x=SET_YEAR, y=sable_cnts)) + 
-          geom_boxplot() +
-          xlab("Year") +     ylab("CPUE (#/trap)") +
-          scale_y_continuous(limits=c(0,60))+
-          theme(axis.text = element_text(size = 4)) +   theme_bw() 
-    pRD3wt<- ggplot(boxRD3, aes(x=SET_YEAR, y=sable_wt)) + 
-          geom_boxplot() +
-          xlab("Year") +      ylab("sablefish kg") +
-          scale_y_continuous(limits=c(0,5))+
-          theme(axis.text = element_text(size = 4)) +   theme_bw()
-    
+    pRD3 <- ggplot(boxRD3, aes(x=SET_YEAR, y=sable_cpue)) +               # RD3 sable kg/trap
+            geom_boxplot() +  xlab("Year") +     ylab("CPUE (kg/trap)") +
+            scale_y_continuous(limits=c(0,90))+
+            theme(axis.text = element_text(size = 4)) +   theme_bw()
+    pRD3c<- ggplot(boxRD3, aes(x=SET_YEAR, y=sable_cnts)) +               # RD3 sable #/trap
+            geom_boxplot() +  xlab("Year") +     ylab("CPUE (#/trap)") +
+            scale_y_continuous(limits=c(0,60))+
+            theme(axis.text = element_text(size = 4)) +   theme_bw() 
+    pRD3wt<- ggplot(boxRD3, aes(x=SET_YEAR, y=sable_wt)) +                # RD3 sable wt
+            geom_boxplot() +
+            xlab("Year") +      ylab("sablefish kg") +
+            scale_y_continuous(limits=c(0,5))+
+            theme(axis.text = element_text(size = 4)) +   theme_bw()
     #plot_grid(pRD1, pRD2, pRD3, pRD1c, pRD2c, pRD3c, pRD1wt, pRD2wt, pRD3wt, nrow = 3)
   
 ```
@@ -426,7 +426,7 @@
 ```
 \clearpage
 
-(ref:figur10) Average weight of sablefish per trap (kg/trap) at mainland Inlet localities over time (A). Average number of sablefish per trap (#fish/trap) at mainland Inlet localities over time (B).  Annual average weight of sablefish (kg) at mainland Inlets (C).
+(ref:figure10) Average weight of sablefish per trap (kg/trap) at mainland Inlet localities over time (A). Average number of sablefish per trap (#fish/trap) at mainland Inlet localities over time (B).  Annual average weight of sablefish (kg) at mainland Inlets (C).
 
 ```{r figure10, fig.cap='(ref:figure10)', results='asis', out.width = "450px",out.height = "560px", fig.align="center"}
 
