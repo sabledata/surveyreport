@@ -155,7 +155,7 @@ CPUE in the mainlaind inlets has varied in a relatively predictable manner over 
    
   # -- species composition counts inlet sets year one
    spcI           <- paste("select dbo.fnIntegerToWords(SUM(CAST(Roundfish AS int))) AS tRound,   ",
-                                 "dbo.fnIntegerToWords(ISNULL(SUM(Rockfish),0))     AS tRock,    ",
+                                 "dbo.fnIntegerToWords(ISNULL(SUM(Rockfish),0))     AS tRock, ",
                                  "dbo.fnIntegerToWords(ISNULL(SUM(Flatfish),0))     AS tFlat,    ",
                                  "dbo.fnIntegerToWords(ISNULL(SUM(Invertebrate),0)) AS tInvert,  ",
                                  "dbo.fnIntegerToWords(ISNULL(SUM(Mammal),0))       AS tMammal,  ",
@@ -333,7 +333,7 @@ A total of `r totalI.2` taxonomic groups were represented in the catches from tr
                          "where (sd.Year =", yr+1,") group by rt.SABLE_SET_TYPE",sep="") 
     
     #countStRS2   <- GetSQLData(catchStRS2,"Sablefish")
-    countStRS2   <-  read.csv("c:/github/surveyreport/standaloneData/results11_CountSamplesStRS.csv",header=T) 
+    countStRS2   <-  read.csv("c:/github/surveyreport/standaloneData/results11.csv",header=T) 
     
 
     # -- Sablefish.dbo.procReport_Survey_LenMF pulls length data from table GFBIO_SABLEBIO_VW 
@@ -341,7 +341,7 @@ A total of `r totalI.2` taxonomic groups were represented in the catches from tr
     
     lendat     <-   "exec procReport_Survey_LenMF"
     #lendata    <-   GetSQLData(lendat,"Sablefish")
-    lendata   <-    read.csv("c:/github/surveyreport/standaloneData/results12_lengthMFData.csv",header=T) 
+    lendata   <-    read.csv("c:/github/surveyreport/standaloneData/results12.csv",header=T) 
     # late addition for the average lengths per year in text
     dat       <- read.csv("c:/github/surveyreport/standaloneData/figure11.csv",header=T)
     mavgyr1   <- dat[dat$sex==1 & dat$YEAR==yr,]   # round(mavgyr1$AvL,1)
@@ -402,7 +402,7 @@ A total of `r totalI.2` taxonomic groups were represented in the catches from tr
                          "where depth is not null and year = ",yr,
                          "order by Locality,Depth", sep="")
      #biosumm  <-   GetSQLData(bio,"Sablefish")
-     biosumm   <-    read.csv("c:/github/surveyreport/standaloneData/results13_BioSampleSummary.csv",header=T) 
+     biosumm   <-    read.csv("c:/github/surveyreport/standaloneData/results13.csv",header=T) 
 
      colnames(biosumm) <-  c("Spatial","Depth","Males","Females","Males","Females","Tagged")
      biosumm$Spatial   <-  cleanf(biosumm$Spatial)  # use the remove duplicates function
@@ -532,7 +532,7 @@ A total of `r totalI.2` taxonomic groups were represented in the catches from tr
                             "where depth is not null and year = ",yr + 1,
                             "order by Locality,Depth", sep="")
       #biosumm.2  <-   GetSQLData(bio,"Sablefish")
-      biosumm.2   <-    read.csv("c:/github/surveyreport/standaloneData/results14_BioSampleSummary.csv",header=T) 
+      biosumm.2   <-    read.csv("c:/github/surveyreport/standaloneData/results14.csv",header=T) 
 
       colnames(biosumm.2) <-  c("Spatial","Depth","Males","Females","Males","Females","Tagged")
       biosumm.2$Spatial   <-  cleanf(biosumm.2$Spatial)  #use the remove duplicates function
@@ -659,7 +659,7 @@ A total of `r totalI.2` taxonomic groups were represented in the catches from tr
                             "from  gfbio_sable_bio_summary ",
                             "where depth is null and   year = ",yr," order by Locality", sep="")
       #biosumm2   <-   GetSQLData(bio2,"Sablefish")
-      biosumm2   <-    read.csv("c:/github/surveyreport/standaloneData/results15_BioSampleSummaryInlet.csv",header=T)
+      biosumm2   <-    read.csv("c:/github/surveyreport/standaloneData/results15.csv",header=T)
 
       colnames(biosumm2) <-  c("Spatial","Depth", "Males","Females","Males","Females","Tagged")
 
@@ -701,7 +701,7 @@ A total of `r totalI.2` taxonomic groups were represented in the catches from tr
                              "from  gfbio_sable_bio_summary ",
                              "where depth is null and   year = ",yr+1," order by Locality", sep="")
       #biosumm2.2  <-   GetSQLData(bio2.2,"Sablefish")
-      biosumm2.2   <-    read.csv("c:/github/surveyreport/standaloneData/results16_BioSampleSummaryInlet.csv",header=T)
+      biosumm2.2   <-    read.csv("c:/github/surveyreport/standaloneData/results16.csv",header=T)
 
       colnames(biosumm2.2) <-  c("Spatial","Depth", "Males","Females","Males","Females","Tagged")
 
@@ -741,14 +741,14 @@ A total of `r totalI.2` taxonomic groups were represented in the catches from tr
                              " where (Year = ", yr, ") group by species_name, species ",
                              " ORDER BY species", sep="")
      #otherfish    <-   GetSQLData(othfish,"Sablefish")
-     otherfish    <-   read.csv("c:/github/surveyreport/standaloneData/results17_OtheFishSamples.csv",header=T)
+     otherfish    <-   read.csv("c:/github/surveyreport/standaloneData/results17.csv",header=T)
      
      othfish2      <-   paste(" select species_name, SUM(Sample_count) AS count   ",
                              " from dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH ",
                              " where (Year = ", yr+1, ") group by species_name, species ",
                              " ORDER BY species", sep="")
      #otherfish2    <-   GetSQLData(othfish2,"Sablefish")
-     otherfish2    <-   read.csv("c:/github/surveyreport/standaloneData/results18_OtheFishSamples.csv",header=T)      
+     otherfish2    <-   read.csv("c:/github/surveyreport/standaloneData/results18.csv",header=T)      
 
 ```
 ## SABLEFISH SAMPLING
@@ -794,15 +794,15 @@ During the `r yr` and `r yr+1` sablefish surveys, `r countStRS[2,3] + countStRS[
    age         <-  paste("select Female_Yr_Total,Age from Report_Survey_GFBIO_Age_MF_Prop where ", 
                          "SetType='StRS' and f=1 and Year=",yr,sep="")
    #agedat     <-  GetSQLData(age,"Sablefish")    # --  female age total and count of most aged text captions
-   agedat      <-    read.csv("c:/github/surveyreport/standaloneData/results19_SableAgesMF.csv",header=T)
+   agedat      <-    read.csv("c:/github/surveyreport/standaloneData/results19.csv",header=T)
    
    oldageF     <-  "exec procRReport_Survey_oldAgeFish 2"  # -- oldest female text caption
    #oldageFem   <-  GetSQLData(oldageF,"Sablefish") 
-   oldageFem    <-    read.csv("c:/github/surveyreport/standaloneData/results20_OldAgeFem.csv",header=T)
+   oldageFem    <-    read.csv("c:/github/surveyreport/standaloneData/results20.csv",header=T)
    
    oldageM     <-  "exec procRReport_Survey_oldAgeFish 1"  # -- oldest male text caption
    #oldageMale  <-  GetSQLData(oldageM,"sablefish") 
-   oldageMale  <-    read.csv("c:/github/surveyreport/standaloneData/results21_OldAgeMale.csv",header=T)   
+   oldageMale  <-    read.csv("c:/github/surveyreport/standaloneData/results21.csv",header=T)   
    
    oldFem      <-  oldageFem[1,2]                # -- oldest female age
    oldFemYr    <-  oldageFem[1,3]                # -- year captured
@@ -823,11 +823,11 @@ Historic data from all samples lists the oldest female sablefish at `r oldFem` y
      # provide the number values for the inline text
      whatTrap  <-  paste("select * from SEABIRD_ACCEL_byTrap where year =",yr," order by [set]",sep="")
      #whatTraps <-  GetSQLData(whatTrap ,"Sablefish")  # in order to be able to comment on which traps the sensors were placed
-     whatTraps <-  read.csv("c:/github/surveyreport/standaloneData/results22_TrapSeabirds.csv",header=T) 
+     whatTraps <-  read.csv("c:/github/surveyreport/standaloneData/results22.csv",header=T) 
      
      seabrd    <-  "select * from SEABIRD_ReportLinePlot"
      #seabird   <-  GetSQLData(seabrd ,"Sablefish") 
-     seabird   <-  read.csv("c:/github/surveyreport/standaloneData/results23_YearSeabirds.csv",header=T)
+     seabird   <-  read.csv("c:/github/surveyreport/standaloneData/results23.csv",header=T)
      
      yrs         <-  unique(seabird$Year)
      lavtmin     <-  min(seabird$avgtemp[seabird$depth=="Shallow"])
@@ -872,12 +872,12 @@ SBE 39 recorders have been placed on survey fishing sets since 2006. In the shal
 
     names      <-  paste(" select keyid, Association, year, Names from  dbo.ReportSurvey_Acknowlegdements where year=", yr, sep="")
     #credits    <-  GetSQLData(names,"Sablefish")
-    credits    <-  read.csv("c:/github/surveyreport/standaloneData/results24_Credits.csv",header=T)
+    credits    <-  read.csv("c:/github/surveyreport/standaloneData/results24.csv",header=T)
     
     
     names2    <-  paste(" select keyid, Association, year, Names from  dbo.ReportSurvey_Acknowlegdements where year=", yr+1, sep="")
     #credits2  <-  GetSQLData(names2,"Sablefish")
-    credits2  <-  read.csv("c:/github/surveyreport/standaloneData/results25_Credits.csv",header=T)
+    credits2  <-  read.csv("c:/github/surveyreport/standaloneData/results25s.csv",header=T)
     
 ```    
                                                                                                         
