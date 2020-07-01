@@ -77,14 +77,14 @@ During survey years 1992 through 1997 and 2004, previously tagged sablefish were
                     "from dbo.Report_SBE_HOBO_IND ",
                     "group by Year having (Year =", yr,")", sep="")
    #sensor  <-  GetSQLData(sense,"Sablefish")
-   sensor <-  read.csv("c:/github/surveyreport/standaloneData/methods01_hobo.csv",header=T)
+   sensor <-  read.csv("c:/github/surveyreport/standaloneData/methods1.csv",header=T)
    
    sense2 <-  paste("select Year, SUM(SBE39) AS SBE39, SUM(HOBO) AS HOBO, ",
                     "SUM(CTD) AS CTD, SUM(CAM) AS CAM ",
                     "from dbo.Report_SBE_HOBO_IND ",
                     "group by Year having (Year =", yr+1,")", sep="")
    #sensor2<-  GetSQLData(sense2,"Sablefish")
-   sensor2<-  read.csv("c:/github/surveyreport/standaloneData/methods02_hobo2.csv",header=T)
+   sensor2<-  read.csv("c:/github/surveyreport/standaloneData/methods2.csv",header=T)
  
 ```
 

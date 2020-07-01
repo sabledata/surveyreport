@@ -67,79 +67,18 @@ history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo
    LonglineP2   <- GetSQLData(lp,"Sablefish")        # -- longline gear catch ratio
   write.table( LonglineP2, file = paste(path,"index06_LonglineRatio.csv",sep=''),row.names=FALSE, na="",col.names=TRUE,  sep=",")
 
-#  appendix--------------------------------------
 
-  dtBW   <- paste("exec dbo.procRKnitr_SurveyTrips ",yr+1,sep="")
-   trip   <- GetSQLData(dtBW,"Sablefish")
-   write.table(trip, file = paste(path,"appendixA.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+# ---- methods---------------------------------------------------------------------------------------------------------------------------------
+   sense  <-  paste("select Year, SUM(SBE39) AS SBE39, SUM(HOBO) AS HOBO, SUM(CTD) AS CTD, SUM(CAM) AS CAM ",
+                      "from dbo.Report_SBE_HOBO_IND group by Year having (Year =", yr,")", sep="")
+   sensor  <-  GetSQLData(sense,"Sablefish")
+  write.table(sensor, file = paste(path,"methods1.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
-   srvyset <-  paste("dbo.procRReport_Survey_SetDetails ",yr,",1,",setcnt, sep="")
-   ssdat   <-  GetSQLData(srvyset,"Sablefish")
-   write.table( ssdat, file = paste(path,"appendixC.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+   sense2 <-  paste("select Year, SUM(SBE39) AS SBE39, SUM(HOBO) AS HOBO, SUM(CTD) AS CTD, SUM(CAM) AS CAM ",
+                      "from dbo.Report_SBE_HOBO_IND group by Year having (Year =", yr+1,")", sep="")
+   sensor2  <-  GetSQLData(sense2,"Sablefish")
+   write.table(sensor2, file = paste(path,"methods2.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
-   srvyset <-  paste("dbo.procRReport_Survey_SetDetails ",yr+1,",1,",setcnt, sep="")
-   ssdat   <-  GetSQLData(srvyset,"Sablefish")
-   write.table( ssdat, file = paste(path,"appendixD.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
-
-   trap       <- paste("dbo.procRReport_Survey_TrapUse ",yr,",1,",setcnt, sep="")
-   trapdat    <- GetSQLData(trap,"Sablefish")
-   write.table(trapdat, file = paste(path,"appendixE.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
-
-   trap       <- paste("dbo.procRReport_Survey_TrapUse ",yr+1,",1,",setcnt, sep="")
-   trapdat    <- GetSQLData(trap,"Sablefish")
-   write.table(trapdat, file = paste(path,"appendixF.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
-
-   samples              <-  paste("dbo.procReport_Survey_SampleDetails ",yr,",1,",setcnt, sep="")
-   surveyspec           <-  GetSQLData(samples,"Sablefish")
-   write.table( surveyspec, file = paste(path,"appendixG.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
-
-   yr2 <- yr + 1
-   samples2       <-  paste("dbo.procReport_Survey_SampleDetails ",yr2,",1,",setcnt2, sep="")
-   surveyspec2    <-  GetSQLData(samples2,"Sablefish")
-   write.table(surveyspec2, file = paste(path,"appendixH.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
-
-     othersamples    <-  paste( "select species_name, [SET], [Len Sample Count], [weight_count],[Sex Sample Count], ",
-                                    "[Maturity Sample Count], [Otolith Sample Count], [DNA Sample Count], ",
-                                    "Sample_count, [Proportion Males],  ",
-                                    "round([Male Mean Fork Len(mm)],0) as malelen, round([Female Mean Fork Len(mm)],0) as femlen,  ", 
-                                    " round([NoSexMeanLen(mm)],0) as nosexlen, bsre.Rougheye, bsre.Blackspotted, bsre.Hybrid ",
-                                    "FROM  (SELECT  year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE, ",
-                                    "SUM(re) AS Rougheye, SUM(bs) AS Blackspotted, SUM(hyb) AS Hybrid ",
-                                    "FROM  (SELECT  year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE, ",
-                                    "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 16 THEN 1 ELSE 0 END AS re, ",
-                                    "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 17 THEN 1 ELSE 0 END AS bs, ",
-                                    "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 31 THEN 1 ELSE 0 END AS hyb, ",
-                                    "SPECIMEN_ID ",
-                                    "FROM  dbo.gfbio_species_guess) AS bs ",
-                                    "GROUP BY year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE) AS bsre RIGHT OUTER JOIN ",
-                                    "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH ON bsre.TRIP_ID = ",              
-                                    "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.TRIP_ID ",
-                                    "AND bsre.FE_MAJOR_LEVEL_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.[SET] AND bsre.SPECIES_CODE = ",                                        "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.species ", 
-                                    "where (dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.Year = ",yr, 
-                                    ") order by species,[SET]", sep="")
-   otherspec             <-  GetSQLData(othersamples,"Sablefish")
-   write.table( otherspec , file = paste(path,"appendixI.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
-
-   othersamples          <-  paste( "select species_name, [SET], [Len Sample Count], [weight_count],[Sex Sample Count], ",
-                                    "[Maturity Sample Count], [Otolith Sample Count], [DNA Sample Count], ",
-                                    "Sample_count, [Proportion Males],  ",
-                                    "round([Male Mean Fork Len(mm)],0) as malelen, round([Female Mean Fork Len(mm)],0) as femlen,  ", 
-                                    " round([NoSexMeanLen(mm)],0) as nosexlen, bsre.Rougheye, bsre.Blackspotted, bsre.Hybrid ",
-                                    "FROM  (SELECT  year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE, ",
-                                    "SUM(re) AS Rougheye, SUM(bs) AS Blackspotted, SUM(hyb) AS Hybrid ",
-                                    "FROM  (SELECT  year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE, ",
-                                    "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 16 THEN 1 ELSE 0 END AS re, ",
-                                    "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 17 THEN 1 ELSE 0 END AS bs, ",
-                                    "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 31 THEN 1 ELSE 0 END AS hyb, ",
-                                    "SPECIMEN_ID ",
-                                    "FROM  dbo.gfbio_species_guess) AS bs ",
-                                    "GROUP BY year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE) AS bsre RIGHT OUTER JOIN ",
-                                    "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH ON bsre.TRIP_ID = ", 
-                                    "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.TRIP_ID ",
-                                    "AND bsre.FE_MAJOR_LEVEL_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.[SET] AND bsre.SPECIES_CODE = ",                                        " dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.species ", 
-                                    " WHERE (dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.Year = ",yr+1, ") order by species,[SET]", sep="")
-   otherspec             <-  GetSQLData(othersamples,"Sablefish")
-   write.table( otherspec , file = paste(path,"appendixJ.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
 #---tables  -----------------------------------------------------------
 
@@ -361,16 +300,81 @@ history     <- paste("select dbo.SURVEY_SITE_HISTORIC.SURVEY_SERIES_ID, YEAR(dbo
        ctd    <-  GetSQLData(ctddt,"Sablefish") 
       write.table(ctd , file = paste(path,"figure15_SeaBirdLineplot.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
-# ---- methods---------------------------------------------------------------------------------------------------------------------------------
-   sense  <-  paste("select Year, SUM(SBE39) AS SBE39, SUM(HOBO) AS HOBO, SUM(CTD) AS CTD, SUM(CAM) AS CAM ",
-                      "from dbo.Report_SBE_HOBO_IND group by Year having (Year =", yr,")", sep="")
-   sensor  <-  GetSQLData(sense,"Sablefish")
-  write.table(sensor, file = paste(path,"methods01_hobo.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
-   sense2 <-  paste("select Year, SUM(SBE39) AS SBE39, SUM(HOBO) AS HOBO, SUM(CTD) AS CTD, SUM(CAM) AS CAM ",
-                      "from dbo.Report_SBE_HOBO_IND group by Year having (Year =", yr+1,")", sep="")
-   sensor2  <-  GetSQLData(sense2,"Sablefish")
-   write.table(sensor2, file = paste(path,"methods02_hobo2.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+#  appendix--------------------------------------
+
+  dtBW   <- paste("exec dbo.procRKnitr_SurveyTrips ",yr+1,sep="")
+   trip   <- GetSQLData(dtBW,"Sablefish")
+   write.table(trip, file = paste(path,"appendixA.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+
+   srvyset <-  paste("dbo.procRReport_Survey_SetDetails ",yr,",1,",setcnt, sep="")
+   ssdat   <-  GetSQLData(srvyset,"Sablefish")
+   write.table( ssdat, file = paste(path,"appendixC.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+
+   srvyset <-  paste("dbo.procRReport_Survey_SetDetails ",yr+1,",1,",setcnt, sep="")
+   ssdat   <-  GetSQLData(srvyset,"Sablefish")
+   write.table( ssdat, file = paste(path,"appendixD.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+
+   trap       <- paste("dbo.procRReport_Survey_TrapUse ",yr,",1,",setcnt, sep="")
+   trapdat    <- GetSQLData(trap,"Sablefish")
+   write.table(trapdat, file = paste(path,"appendixE.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+
+   trap       <- paste("dbo.procRReport_Survey_TrapUse ",yr+1,",1,",setcnt, sep="")
+   trapdat    <- GetSQLData(trap,"Sablefish")
+   write.table(trapdat, file = paste(path,"appendixF.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+
+   samples              <-  paste("dbo.procReport_Survey_SampleDetails ",yr,",1,",setcnt, sep="")
+   surveyspec           <-  GetSQLData(samples,"Sablefish")
+   write.table( surveyspec, file = paste(path,"appendixG.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+
+   yr2 <- yr + 1
+   samples2       <-  paste("dbo.procReport_Survey_SampleDetails ",yr2,",1,",setcnt2, sep="")
+   surveyspec2    <-  GetSQLData(samples2,"Sablefish")
+   write.table(surveyspec2, file = paste(path,"appendixH.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+
+     othersamples    <-  paste( "select species_name, [SET], [Len Sample Count], [weight_count],[Sex Sample Count], ",
+                                    "[Maturity Sample Count], [Otolith Sample Count], [DNA Sample Count], ",
+                                    "Sample_count, [Proportion Males],  ",
+                                    "round([Male Mean Fork Len(mm)],0) as malelen, round([Female Mean Fork Len(mm)],0) as femlen,  ", 
+                                    " round([NoSexMeanLen(mm)],0) as nosexlen, bsre.Rougheye, bsre.Blackspotted, bsre.Hybrid ",
+                                    "FROM  (SELECT  year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE, ",
+                                    "SUM(re) AS Rougheye, SUM(bs) AS Blackspotted, SUM(hyb) AS Hybrid ",
+                                    "FROM  (SELECT  year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE, ",
+                                    "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 16 THEN 1 ELSE 0 END AS re, ",
+                                    "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 17 THEN 1 ELSE 0 END AS bs, ",
+                                    "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 31 THEN 1 ELSE 0 END AS hyb, ",
+                                    "SPECIMEN_ID ",
+                                    "FROM  dbo.gfbio_species_guess) AS bs ",
+                                    "GROUP BY year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE) AS bsre RIGHT OUTER JOIN ",
+                                    "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH ON bsre.TRIP_ID = ",              
+                                    "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.TRIP_ID ",
+                                    "AND bsre.FE_MAJOR_LEVEL_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.[SET] AND bsre.SPECIES_CODE = ",                                        "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.species ", 
+                                    "where (dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.Year = ",yr, 
+                                    ") order by species,[SET]", sep="")
+   otherspec             <-  GetSQLData(othersamples,"Sablefish")
+   write.table( otherspec , file = paste(path,"appendixI.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+
+   othersamples          <-  paste( "select species_name, [SET], [Len Sample Count], [weight_count],[Sex Sample Count], ",
+                                    "[Maturity Sample Count], [Otolith Sample Count], [DNA Sample Count], ",
+                                    "Sample_count, [Proportion Males],  ",
+                                    "round([Male Mean Fork Len(mm)],0) as malelen, round([Female Mean Fork Len(mm)],0) as femlen,  ", 
+                                    " round([NoSexMeanLen(mm)],0) as nosexlen, bsre.Rougheye, bsre.Blackspotted, bsre.Hybrid ",
+                                    "FROM  (SELECT  year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE, ",
+                                    "SUM(re) AS Rougheye, SUM(bs) AS Blackspotted, SUM(hyb) AS Hybrid ",
+                                    "FROM  (SELECT  year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE, ",
+                                    "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 16 THEN 1 ELSE 0 END AS re, ",
+                                    "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 17 THEN 1 ELSE 0 END AS bs, ",
+                                    "CASE WHEN EXISTENCE_ATTRIBUTE_CODE = 31 THEN 1 ELSE 0 END AS hyb, ",
+                                    "SPECIMEN_ID ",
+                                    "FROM  dbo.gfbio_species_guess) AS bs ",
+                                    "GROUP BY year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE) AS bsre RIGHT OUTER JOIN ",
+                                    "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH ON bsre.TRIP_ID = ", 
+                                    "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.TRIP_ID ",
+                                    "AND bsre.FE_MAJOR_LEVEL_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.[SET] AND bsre.SPECIES_CODE = ",                                        " dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.species ", 
+                                    " WHERE (dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.Year = ",yr+1, ") order by species,[SET]", sep="")
+   otherspec             <-  GetSQLData(othersamples,"Sablefish")
+   write.table( otherspec , file = paste(path,"appendixJ.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+
 
 
 # -- results-----------------------------------------------------------------
