@@ -250,7 +250,7 @@ library(cowplot)
                         "LEFT(CONVERT(varchar, END_DATE, 100),7)", 
                          sep="")
    #sd          <- GetSQLData(details,"Sablefish")  # -- survey details
-   sd     <- read.csv("c:/github/surveyreport/standaloneData/index01_SurveyDetails.csv",header=T)
+   sd     <- read.csv("c:/github/surveyreport/standaloneData/index1.csv",header=T)
    
    boat        <- simpleCap(tolower(sd[1,1]))      # -- vessel name 1
    boat2       <- simpleCap(tolower(sd[2,1]))      # -- vessel name 2
@@ -269,30 +269,30 @@ library(cowplot)
                         "from   dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",
                         "where (year <= ", yr+1, ") and (year >= ",yr - 8,")", sep="")
    #avgTen      <- GetSQLData(avgC,"Sablefish")    # -- average catch last 10 years               
-   avgTen      <- read.csv("c:/github/surveyreport/standaloneData/index02_10YearAvgCatch.csv",header=T)
+   avgTen      <- read.csv("c:/github/surveyreport/standaloneData/index2.csv",header=T)
    
    tp          <- paste("select ROUND(TRAP / TOTAL * 100, 0) AS TrapPer ",
                         "from dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",  
                         "where  (year = ", yr, ")  group by ROUND(TRAP / TOTAL * 100, 0), TOTAL", sep="")
    #trapP       <- GetSQLData(tp,"Sablefish")        # -- trap gear catch ratio
-   trapP      <- read.csv("c:/github/surveyreport/standaloneData/index03_TrapRatio.csv",header=T)
+   trapP      <- read.csv("c:/github/surveyreport/standaloneData/index3.csv",header=T)
    
    lp          <- paste("select  ROUND(LONGLINE / TOTAL * 100, 0) AS LonglinePer from ",  
                          " dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2  ",
                          "where  (year = ", yr, ") group by ROUND(LONGLINE / TOTAL * 100, 0), TOTAL", sep="")
    #LonglineP   <- GetSQLData(lp,"Sablefish")        # -- longline gear catch ratio
-   LonglineP   <- read.csv("c:/github/surveyreport/standaloneData/index04_LonglineRatio.csv",header=T)
+   LonglineP   <- read.csv("c:/github/surveyreport/standaloneData/index4.csv",header=T)
    tp2         <- paste("select ROUND(TRAP / TOTAL * 100, 0) AS TrapPer ",
                         "from dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",  
                         "where  (year = ", yr + 1, ")  group by ROUND(TRAP / TOTAL * 100, 0), TOTAL", sep="")
    #trapP2     <- GetSQLData(tp2,"Sablefish")      # -- trap gear catch ratio
-   trapP2      <- read.csv("c:/github/surveyreport/standaloneData/index05_TrapRatio.csv",header=T)
+   trapP2      <- read.csv("c:/github/surveyreport/standaloneData/index5.csv",header=T)
    
    lp2         <-  paste("select  ROUND(LONGLINE / TOTAL * 100, 0) AS LonglinePer from ",  
                          "dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2  ",
                          "where  (year = ", yr + 1, ") group by ROUND(LONGLINE / TOTAL * 100, 0), TOTAL", sep="")
    #LonglineP2 <- GetSQLData(lp2,"Sablefish")      # -- longline gear catch ratio 
-   LonglineP2  <- read.csv("c:/github/surveyreport/standaloneData/index06_LonglineRatio.csv",header=T)
+   LonglineP2  <- read.csv("c:/github/surveyreport/standaloneData/index6.csv",header=T)
    
    # -- F I G U R E   C A P T I O N S  function ------------------------------------------------
    figure_nums <-  captioner::captioner(prefix = "Figure")
