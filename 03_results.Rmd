@@ -95,7 +95,7 @@ CPUE in the mainlaind inlets has varied in a relatively predictable manner over 
    topStRSsp  <-  read.csv("c:/github/surveyreport/standaloneData/results2.csv",header=T) 
    
    topStRSsp1   <- tolower(as.character(topStRSsp[1,1]))                     # -- StRS top 5 species names
-   topStRSsc1   <- firstup(tolower(as.character(topStRSsp[1,2])))    # -- StRS top 5 species science names
+   topStRSsc1   <- firstup(tolower(as.character(topStRSsp[1,2])))            # -- StRS top 5 species science names
    
    topStRSsp2   <- as.character(topStRSsp[2,1])                       
    topStRSsc2   <- firstup(tolower(as.character(topStRSsp[2,2])))   
@@ -117,7 +117,7 @@ CPUE in the mainlaind inlets has varied in a relatively predictable manner over 
                           order by catchkg DESC", sep="") 
    
    #topInletsp   <- GetSQLData(topInlet,"Sablefish")     
-   topInletsp   <-  read.csv("c:/github/surveyreport/standaloneData/results03_Top2GroupInlets.csv",header=T)    
+   topInletsp   <-  read.csv("c:/github/surveyreport/standaloneData/results3.csv",header=T)    
    
    
    topInletsp1  <- tolower(as.character(topInletsp[1,1]))    # -- inlet top 2 species names
@@ -142,7 +142,7 @@ CPUE in the mainlaind inlets has varied in a relatively predictable manner over 
                                 "case when Fish = Rockfish or Fish = Flatfish then 0 ELSE Fish end, SPECIES_CODE  ",
                                 "having (SABLE_SET_TYPE = N'StRS') and (Year = ",yr,")) AS RC", sep="")
    #strsSpCom    <- GetSQLData(spc,"Sablefish")
-   strsSpCom   <-  read.csv("c:/github/surveyreport/standaloneData/results04_TaxGroupStRS.csv",header=T) 
+   strsSpCom   <-  read.csv("c:/github/surveyreport/standaloneData/results4.csv",header=T) 
    
    roundfishS   <- strsSpCom[1,1]
    rockfishS    <- strsSpCom[1,2]
@@ -170,7 +170,7 @@ CPUE in the mainlaind inlets has varied in a relatively predictable manner over 
                                  "having (SABLE_SET_TYPE = N'INLET STANDARDIZED')       ",
                                  "and (Year = ",yr,")) AS RC",sep="")
    #strsSpComI    <- GetSQLData(spcI,"Sablefish")
-   strsSpComI   <-  read.csv("c:/github/surveyreport/standaloneData/results05_TaxGroupInlet.csv",header=T) 
+   strsSpComI   <-  read.csv("c:/github/surveyreport/standaloneData/results5.csv",header=T) 
    
    roundfishI   <- strsSpComI[1,1]
    rockfishI    <- strsSpComI[1,2]

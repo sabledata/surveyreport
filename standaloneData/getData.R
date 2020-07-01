@@ -401,7 +401,7 @@ GetSQLData <- function(strSQL,strDbName) {
                           having (SABLE_SET_TYPE = N'INLET STANDARDIZED') and (SPECIES_CODE <> N'455') and (Year = ",yr,")
                           order by catchkg DESC", sep="")    
    topInletsp   <- GetSQLData(topInlet,"Sablefish")
-  write.table(topStRSsp, file = paste(path,"results03_Top2GroupInlets.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+  write.table(topStRSsp, file = paste(path,"results3.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
  
    spc          <- paste("select dbo.fnIntegerToWords(SUM(CAST(Roundfish as int))) as tRound,  ",
@@ -419,7 +419,7 @@ GetSQLData <- function(strSQL,strDbName) {
                                 "case when Fish = Rockfish or Fish = Flatfish then 0 ELSE Fish end, SPECIES_CODE  ",
                                 "having (SABLE_SET_TYPE = N'StRS') and (Year = ",yr,")) AS RC", sep="")
    strsSpCom    <- GetSQLData(spc,"Sablefish")
-  write.table(strsSpCom , file = paste(path,"results04_TaxGroupStRS.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+  write.table(strsSpCom , file = paste(path,"results4.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
    spcI           <- paste("select dbo.fnIntegerToWords(SUM(CAST(Roundfish AS int))) AS tRound,   ",
                                  "dbo.fnIntegerToWords(ISNULL(SUM(Rockfish),0))     AS tRock,    ",
@@ -437,7 +437,7 @@ GetSQLData <- function(strSQL,strDbName) {
                                  "having (SABLE_SET_TYPE = N'INLET STANDARDIZED')       ",
                                  "and (Year = ",yr,")) AS RC",sep="")
    SpComI    <- GetSQLData(spcI,"Sablefish")
-   write.table( SpComI, file = paste(path,"results05_TaxGroupInlet.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+   write.table( SpComI, file = paste(path,"results5.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
     # -- 2. Species composition StRS-Inlets year 2
    topStRS.2      <- paste("select top (5) SPECIES_COMMON_NAME, SPECIES_SCIENCE_NAME, sum(CATCH_WEIGHT) AS catchkg ",
