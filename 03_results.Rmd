@@ -74,7 +74,7 @@ The sablefish surveys of `r yr` and `r yr+1` have documented recent changes in t
 
 ### Stratified Random Set CPUE
 
-Catch per unit effort (CPUE), as indexed by kilograms of sablefish per trap, increased across most offshore survey strata in 2018, and again in 2019 (Figure \@ref(fig:figure5) and Figure \@ref(fig:figure6)). The most pronounced increases occured in the middle depth strata which recorded the largest CPUEs in 2018 and 2019 since the StRS began (Figure \@ref(fig:figure5)). These increases in CPUE were the result of realtively large increases in the number of small sablefish encountered on the survey (Figure \@ref(fig:figure7) and Figure \@ref(fig:figure8)), likely due to a large recent recruitment event that has occurred coastwide. The combined consequences of these changes in CPUE across strata is an approximately X% increase in the offshore StRS CPUE index, relative to the 2015-2017 period.
+Catch per unit effort (CPUE), as indexed by kilograms of sablefish per trap, increased across most offshore survey strata in 2018, and again in 2019 (Figure \@ref(fig:figure5) and Figure \@ref(fig:figure6)). The most pronounced increases occured in the middle depth strata which recorded the largest CPUEs in 2018 and 2019 since the StRS began (Figure \@ref(fig:figure5)). These increases in CPUE were the result of realtively large increases in the number of small sablefish encountered on the survey (Figure \@ref(fig:figure7) and Figure \@ref(fig:figure8)), likely due to a large recent recruitment event that has occurred coastwide [@DFO2020]. The combined consequences of these changes in CPUE across strata is an approximately X% increase in the offshore StRS CPUE index, relative to the 2015-2017 period.
 
 ### Mainland Inlet CPUE
 

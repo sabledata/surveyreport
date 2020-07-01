@@ -36,7 +36,7 @@
 ```{r figure5, fig.cap='(ref:figure5)',echo=FALSE, fig.align = "center",warning=FALSE}
 
 #   results='asis',echo=FALSE,include=FALSE,warning=FALSE,message = FALSE,error= FALSE
-    png("C:/github/surveyreport/figures/Figure_5_cpuedepth.png", width = 448, height = 648)  # write png to folder 
+    png("C:/github/surveyreport/figures/Figure_5_cpuedepth.png", width = 448, height = 628)  # write png to folder 
 
 #   query----------raw survey datafile for Landmark fisheries----------------
 
@@ -367,7 +367,7 @@
 
 (ref:figure8) Average weight of sablefish (mean +/- 95% CIs) by survey strata over time. Panels run shallow to deep (left to right) and south to north (top to bottom).
 
-```{r figure8, fig.cap='(ref:figure8)', results='asis',out.width = "450px", out.height = "550px",, fig.align = "center"}
+```{r figure8, fig.cap='(ref:figure8)', results='asis',fig.height = 6, fig.width = 7, fig.align = "center"}
 
     png("C:/github/surveyreport/figures/Figure_8_.png", width=468, height=600) # write png to file
     par(mfcol=c(1,1))
@@ -380,7 +380,7 @@
     coord_cartesian(ylim=c(1,6)) + 
     xlab("Year")+
     ylab("Sablefish weight (kg)") +
-      #theme_bw()
+          #theme_bw()
      theme(     panel.background = element_rect(fill = "white",
                                 colour = "grey50",
                                 size = 0.5, linetype = "solid"),
@@ -395,20 +395,29 @@
     img <-    paste('C:/github/surveyreport/figures/Figure_8_.png',sep="")   # -- retrieve png 
               knitr::include_graphics(img)
 ```    
-\clearpage
+
 
 (ref:figure9) Sablefish catch per unit effort (CPUE) by offshore survey strata over time. Horizontal line is median and blue dots are arithmetic mean.
 
-```{r figure9, echo=FALSE, fig.align = "center",out.width='80%'}
+```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width = "450px",out.height = "200px", fig.align="center"}
 
-  png("C:/github/surveyreport/figures/Figure_9_YearStRSCPUE.png", width=600, height=800) # write png to file
+  png("C:/github/surveyreport/figures/Figure_9_YearStRSCPUE.png", width=600, height=300) # write png to file
 
   ggplot(tgc,aes(x=as.factor(SET_YEAR),y=sable_cpue))+
-  geom_boxplot(fill="grey") +
-  stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="blue")+
+  geom_boxplot(fill="white") +
+  stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="black")+
   xlab("Year")+
   ylab("StRS CPUE (kg/trap)")+
-  theme_bw()
+    theme_bw()
+    # theme(     panel.background = element_rect(fill = "white",
+     #                           colour = "grey50",
+      #                          size = 0.5, linetype = "solid"),
+       #         panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+        #                        colour = "grey90"), 
+         #       panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+          #                      colour = "grey90"),
+           #     strip.background =  element_rect(fill = "grey80", colour = "grey30"), 
+            #    plot.margin=unit(c(0.2,0.2,6,1),"cm")) 
   
   while (!is.null(dev.list()))  dev.off()
     img <-    paste('C:/github/surveyreport/figures/Figure_9_YearStRSCPUE.png',sep="")   # -- retrieve png 

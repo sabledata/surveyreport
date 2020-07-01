@@ -37,7 +37,7 @@
 \contentsline {subsection}{\numberline {3.10}ACKNOWLEDGEMENTS}{11}{subsection.3.10}%
 \contentsline {section}{\numberline {4}Tables}{12}{section.4}%
 \contentsline {section}{\numberline {5}Figures}{19}{section.5}%
-\contentsline {section}{Appendices}{35}{section*.27}%
+\contentsline {section}{Appendices}{35}{section*.28}%
 \contentsline {section}{\numberline {A}LIST OF TRADITIONAL LOCALITIES.}{35}{appendix.1.A}%
 \contentsline {section}{\numberline {B}LIST OF SABLEFISH RESEARCH AND ASSESSMENT SURVEYS.}{36}{appendix.1.B}%
 \contentsline {section}{\numberline {C}SET DETAILS 2018.}{37}{appendix.1.C}%
