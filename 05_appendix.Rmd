@@ -15,7 +15,7 @@ List of localities visited in the traditional component of the sablefish researc
 ```{r appendixA,out.width = "400px", out.height = "400px", fig.align="center"}
 
       if(knitr:::is_latex_output())
-      img <-  paste('c:/github/surveyreport/figures/AppendixSurveyHistory2.png',sep="")
+      img <-  paste('c:/github/surveyreport/figures/AppendixA.png',sep="")
       knitr::include_graphics(img) 
       
 ```
