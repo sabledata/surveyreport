@@ -399,26 +399,16 @@
 
 (ref:figure9) Sablefish catch per unit effort (CPUE) by offshore survey strata over time. Horizontal line is median and blue dots are arithmetic mean.
 
-```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width = "450px",out.height = "560px", fig.align="center"}
+```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width='80%', fig.align="center"}
 
-  png("C:/github/surveyreport/figures/Figure9.png", width=600, height=300) # write png to file
+  png("C:/github/surveyreport/figures/Figure9.png", width=500, height=300) # write png to file
 
   ggplot(tgc,aes(x=as.factor(SET_YEAR),y=sable_cpue))+
-  geom_boxplot(fill="white") +
-  stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="black")+
+  geom_boxplot(fill="grey") +
+  stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="blue")+
   xlab("Year")+
   ylab("StRS CPUE (kg/trap)")+
-    #theme_bw()
-     theme(     panel.background = element_rect(fill = "white",
-                                colour = "grey50",
-                                size = 0.5, linetype = "solid"),
-                panel.grid.major = element_line(size = 0.5, linetype = 'solid',
-                                colour = "grey90"), 
-                panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                colour = "grey90"),
-                strip.background =  element_rect(fill = "grey80", colour = "grey30"), 
-                plot.margin=unit(c(0.2,0.2,6,1),"cm")) 
-  
+  theme_bw()
   while (!is.null(dev.list()))  dev.off()
     img <-    paste('C:/github/surveyreport/figures/Figure9.png',sep="")   # -- retrieve png 
               knitr::include_graphics(img)
@@ -440,7 +430,7 @@
     #pick out the stand sets
     dat <- cpuedat[ which(cpuedat$SABLE.SET.TYPE=="INLET STANDARDIZED" ), ]
     dat <- dat[ which(is.na(dat$SABLE.SET.TYPE)==FALSE), ]
-    inlet <- dat[dat$year >=1994,]  
+    inlet <- dat[dat$year >=1993,]  
     
     inlet$sable_cpuew <-  inlet$CPUE.SABLE.WEIGHT/inlet$CPUE.TRAPS
     itgcw             <-  summarySE(inlet, measurevar="sable_cpuew", groupvars=c("year"),na.rm = T) 
@@ -474,7 +464,8 @@
      
      p <- ggplot(inlet.2w, aes(x=year, y=CPUE.SABLE.WEIGHT/CPUE.TRAPS),
                            position =  position_dodge2(width = 0.5, preserve = "single")) + 
-          geom_boxplot() +
+          geom_boxplot(fill="grey") +
+          stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="blue")+
           xlab("Year") +
           ylab("CPUE (kg/trap)") +
           scale_y_continuous(limits=c(0,100))+
@@ -484,7 +475,8 @@
      
      p1 <- ggplot(inlet.2, aes(x=year, y=CPUE.SABLE.COUNT/CPUE.TRAPS),
                           position =  position_dodge2(width = 0.5, preserve = "single")) + 
-          geom_boxplot() +
+          geom_boxplot(fill="grey") +
+          stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="blue")+
           xlab("Year") +
           ylab("CPUE (#fish/trap)") +
           scale_y_continuous(limits=c(0,100))+
@@ -493,7 +485,8 @@
      
      p2 <- ggplot(inlet.2wg, aes(x=year, y=CPUE.SABLE.WEIGHT/CPUE.SABLE.COUNT),
                           position =  position_dodge2(width = 0.5, preserve = "single")) + 
-          geom_boxplot() +
+          geom_boxplot(fill="grey") +
+          stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="blue")+
           xlab("Year") +
           ylab("Sablefish weight (kg)") +
           theme(axis.text = element_text(size = 6)) + 
