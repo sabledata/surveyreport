@@ -379,7 +379,7 @@
     facet_wrap(~strata,nrow=5)+
     coord_cartesian(ylim=c(1,6)) + 
     xlab("Year")+
-    ylab("Sablefish weight (kg)") +
+    ylab("Mean weight (kg)") +
           #theme_bw()
      theme(     panel.background = element_rect(fill = "white",
                                 colour = "grey50",
@@ -403,32 +403,29 @@
 
   png("C:/github/surveyreport/figures/Figure9.png", width=600, height=800) # write png to file
 
-       p <- ggplot(tgc,aes(x=as.factor(SET_YEAR),y=sable_cpue),
-                          position =  position_dodge2(width = 0.2, preserve = "single")) + 
-          geom_boxplot(fill="grey") +
+       p <- ggplot(tgc,aes(x=as.factor(SET_YEAR),y=sable_cpue)) + 
+          geom_boxplot(fill="grey90", width=0.5) +
           stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="blue")+
           xlab("Year")+
           ylab("StRS CPUE (kg/trap)")+
-          scale_y_continuous(limits=c(0,100))+
+          scale_y_continuous(limits=c(0,75))+
           theme(axis.text = element_text(size = 6)) + 
           theme_bw()
   
-       p1 <- ggplot(tgcnt, aes(x=as.factor(SET_YEAR), y=sable_cnt),
-                          position =  position_dodge2(width = 0.5, preserve = "single")) + 
-          geom_boxplot(fill="grey") +
+       p1 <- ggplot(tgcnt, aes(x=as.factor(SET_YEAR), y=sable_cnt)) + 
+          geom_boxplot(fill="grey90", width=0.5) +
           stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="blue")+
           xlab("Year") +
           ylab("CPUE (#fish/trap)") +
-          scale_y_continuous(limits=c(0,100))+
+          scale_y_continuous(limits=c(0,75))+
           theme(axis.text = element_text(size = 6)) + 
           theme_bw()
      
-     p2 <- ggplot(tgcwg, aes(x=as.factor(SET_YEAR), y=sable_wg ),
-                          position =  position_dodge2(width = 0.5, preserve = "single")) + 
-          geom_boxplot(fill="grey") +
+     p2 <- ggplot(tgcwg, aes(x=as.factor(SET_YEAR), y=sable_wg )) + 
+          geom_boxplot(fill="grey90", width=0.5) +
           stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="blue")+
           xlab("Year") +
-          ylab("Sablefish weight (kg)") +
+          ylab("Mean weight (kg)") +
           theme(axis.text = element_text(size = 6)) + 
           theme_bw()
 
@@ -487,20 +484,20 @@
                                                                                               2014,2015,2016,2017,
                                                                                               2018,2019))),year)
      
-     p <- ggplot(inlet.2w, aes(x=year, y=CPUE.SABLE.WEIGHT/CPUE.TRAPS),
-                           position =  position_dodge2(width = 0.5, preserve = "single")) + 
-          geom_boxplot(fill="grey") +
+     p <- ggplot(inlet.2w, aes(x=year, y=CPUE.SABLE.WEIGHT/CPUE.TRAPS)) +
+          geom_boxplot(fill="grey90", width=0.4) +
           stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="blue")+
           xlab("Year") +
           ylab("CPUE (kg/trap)") +
           scale_y_continuous(limits=c(0,100))+
           theme(axis.text = element_text(size = 6)) + 
+          scale_x_continuous(breaks =seq(1994,2019,5)) +
           theme_bw()
     
      
      p1 <- ggplot(inlet.2, aes(x=year, y=CPUE.SABLE.COUNT/CPUE.TRAPS),
                           position =  position_dodge2(width = 0.5, preserve = "single")) + 
-          geom_boxplot(fill="grey") +
+          geom_boxplot(fill="grey90", width=0.4) +
           stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="blue")+
           xlab("Year") +
           ylab("CPUE (#fish/trap)") +
@@ -510,10 +507,10 @@
      
      p2 <- ggplot(inlet.2wg, aes(x=year, y=CPUE.SABLE.WEIGHT/CPUE.SABLE.COUNT),
                           position =  position_dodge2(width = 0.5, preserve = "single")) + 
-          geom_boxplot(fill="grey") +
+          geom_boxplot(fill="grey90", width=0.4) +
           stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="blue")+
           xlab("Year") +
-          ylab("Sablefish weight (kg)") +
+          ylab("Mean weight (kg)") +
           theme(axis.text = element_text(size = 6)) + 
           theme_bw()
      
