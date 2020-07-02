@@ -416,7 +416,7 @@
 ```
 \clearpage
 
-(ref:figure10) Average weight of sablefish per trap (kg/trap) at mainland Inlet localities over time (A). Average number of sablefish per trap (#fish/trap) at mainland Inlet localities over time (B).  Annual average weight of sablefish (kg) at mainland Inlets (C).
+(ref:figure10) Average weight of sablefish per trap (kg/trap) (A);  average number of sablefish per trap (#fish/trap) (B); annual average weight of sablefish (kg) (C) at mainland inlets over time.
 
 ```{r figure10, fig.cap='(ref:figure10)', results='asis', out.width = "450px",out.height = "560px", fig.align="center"}
 
