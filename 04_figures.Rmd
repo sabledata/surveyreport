@@ -261,7 +261,7 @@
 ```
 \clearpage
 
-(ref:figure6) Average sablefish catch per unit effort (CPUE; mean +/- 95% CIs) by survey strata over time. Panels run deep to shallow (left to right) and north to south (top to bottom).
+(ref:figure6) Average sablefish catch per unit effort (CPUE; mean +/- 95% CIs) by StRS survey strata over time. Panels run deep to shallow (left to right) and north to south (top to bottom).
 
 ```{r figure6, fig.cap='(ref:figure6)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7,  fig.align = "center"}
 
@@ -300,7 +300,7 @@
 ```
 \clearpage
 
-(ref:figure7) Average number of sablefish per trap (mean +/- 95% CIs) by survey strata over time. Panels run shallow to deep (left to right) and south to north (top to bottom).
+(ref:figure7) Average number of sablefish per trap (mean +/- 95% CIs) by StRS survey strata over time. Panels run shallow to deep (left to right) and south to north (top to bottom).
 
 ```{r figure7, fig.cap='(ref:figure7)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7, fig.align = "center"}
 
@@ -365,7 +365,7 @@
 ```
 \clearpage
 
-(ref:figure8) Average weight of sablefish (mean +/- 95% CIs) by survey strata over time. Panels run shallow to deep (left to right) and south to north (top to bottom).
+(ref:figure8) Average weight of sablefish (mean +/- 95% CIs) by StRS survey strata over time. Panels run shallow to deep (left to right) and south to north (top to bottom).
 
 ```{r figure8, fig.cap='(ref:figure8)', results='asis',fig.height = 6, fig.width = 7, fig.align = "center"}
 
@@ -397,26 +397,51 @@
 ```    
 
 
-(ref:figure9) Sablefish catch per unit effort (CPUE) by offshore survey strata over time. Horizontal line is median and blue dots are arithmetic mean.
+(ref:figure9) Average weight of sablefish per trap (kg/trap) (A);  average number of sablefish per trap (#fish/trap) (B); annual average weight of sablefish (kg) (C) by StRS survey strata over time. Horizontal line is median and blue dots are arithmetic mean.
 
-```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width='80%', fig.align="center"}
+```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width = "450px",out.height = "560px", fig.align="center"}
 
-  png("C:/github/surveyreport/figures/Figure9.png", width=500, height=300) # write png to file
+  png("C:/github/surveyreport/figures/Figure9.png", width=600, height=800) # write png to file
 
-  ggplot(tgc,aes(x=as.factor(SET_YEAR),y=sable_cpue))+
-  geom_boxplot(fill="grey") +
-  stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="blue")+
-  xlab("Year")+
-  ylab("StRS CPUE (kg/trap)")+
-  theme_bw()
-  while (!is.null(dev.list()))  dev.off()
+       p <- ggplot(tgc,aes(x=as.factor(SET_YEAR),y=sable_cpue),
+                          position =  position_dodge2(width = 0.2, preserve = "single")) + 
+          geom_boxplot(fill="grey") +
+          stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="blue")+
+          xlab("Year")+
+          ylab("StRS CPUE (kg/trap)")+
+          scale_y_continuous(limits=c(0,100))+
+          theme(axis.text = element_text(size = 6)) + 
+          theme_bw()
+  
+       p1 <- ggplot(tgcnt, aes(x=as.factor(SET_YEAR), y=sable_cnt),
+                          position =  position_dodge2(width = 0.5, preserve = "single")) + 
+          geom_boxplot(fill="grey") +
+          stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="blue")+
+          xlab("Year") +
+          ylab("CPUE (#fish/trap)") +
+          scale_y_continuous(limits=c(0,100))+
+          theme(axis.text = element_text(size = 6)) + 
+          theme_bw()
+     
+     p2 <- ggplot(tgcwg, aes(x=as.factor(SET_YEAR), y=sable_wg ),
+                          position =  position_dodge2(width = 0.5, preserve = "single")) + 
+          geom_boxplot(fill="grey") +
+          stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="blue")+
+          xlab("Year") +
+          ylab("Sablefish weight (kg)") +
+          theme(axis.text = element_text(size = 6)) + 
+          theme_bw()
+
+  plot_grid(p, p1, p2, labels = "AUTO", nrow = 3)    
+  
+    while (!is.null(dev.list()))  dev.off()
     img <-    paste('C:/github/surveyreport/figures/Figure9.png',sep="")   # -- retrieve png 
               knitr::include_graphics(img)
 
 ```
 \clearpage
 
-(ref:figure10) Average weight of sablefish per trap (kg/trap) (A);  average number of sablefish per trap (#fish/trap) (B); annual average weight of sablefish (kg) (C) at mainland inlets over time.
+(ref:figure10) Average weight of sablefish per trap (kg/trap) (A);  average number of sablefish per trap (#fish/trap) (B); annual average weight of sablefish (kg) (C) at mainland inlets over time.  Horizontal line is median and blue dots are arithmetic mean.
 
 ```{r figure10, fig.cap='(ref:figure10)', results='asis', out.width = "450px",out.height = "560px", fig.align="center"}
 
