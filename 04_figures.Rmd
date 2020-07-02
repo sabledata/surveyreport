@@ -484,16 +484,15 @@
                                                                                               2014,2015,2016,2017,
                                                                                               2018,2019))),year)
     
-      
-    
+
      p <- ggplot(inlet.2w, aes(x=year, y=CPUE.SABLE.WEIGHT/CPUE.TRAPS)) +
           geom_boxplot(fill="grey90", width=0.4) +
           stat_summary(fun.y=mean, geom="point", shape=16, size=2,col="blue")+
           xlab("Year") +
           ylab("CPUE (kg/trap)") +
           scale_y_continuous(limits=c(0,100))+
+          scale_x_discrete(breaks = seq(1994, 2019, by = 5)) +
           theme(axis.text = element_text(size = 5)) + 
-          scale_x_continuous(as.numeric(year))  + 
           theme_bw()
     
      
@@ -504,6 +503,7 @@
           xlab("Year") +
           ylab("CPUE (#fish/trap)") +
           scale_y_continuous(limits=c(0,100))+
+          scale_x_discrete(breaks = seq(1994, 2019, by = 5)) +
           theme(axis.text = element_text(size = 5)) + 
           theme_bw()
      
@@ -514,6 +514,7 @@
           xlab("Year") +
           ylab("Mean weight (kg)") +
           theme(axis.text = element_text(size = 5)) + 
+          scale_x_discrete(breaks = seq(1994, 2019, by = 5)) +
           theme_bw()
      
      plot_grid(p, p1, p2, labels = "AUTO", nrow = 3)
