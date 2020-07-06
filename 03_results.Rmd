@@ -55,8 +55,6 @@ Of the 91 original blocks for the StRS portion of the survey, six were replaced 
           data.mn        <- rbind(data.mn,c(yrs[i],round(dpth.mean,0)))
       }
   
-          data.mn18      <- 
-  
           RD1.cvlow      <- min(data.cv$RD1)
           RD1.cvlowyr    <- data.cv$year[data.cv$RD1==RD1.cvlow]
           RD2.cvlow      <- min(data.cv$RD2)
@@ -66,6 +64,17 @@ Of the 91 original blocks for the StRS portion of the survey, six were replaced 
           
     # -- type data.mn in the Console to view the shallow, middle and deep depth stratums CPUE for 
     # -- descriptive paragraph below
+       
+    # INLET TEXT for 2018 and 2019          
+     cpuedt <- "SELECT  * FROM dbo.GENERIC_GFBIO_TRAPS where year < 2020 and [Spatial.Stratum] not like '%Quatsino Sound%' "
+    #cpuedat<- GetSQLData(cpuedt,"Sablefish") 
+    cpuedat   <-  read.csv("c:/github/surveyreport/standaloneData/figure10.csv",header=T)
+
+    #pick out the stand sets
+    dat       <- cpuedat[ which(cpuedat$SABLE.SET.TYPE=="INLET STANDARDIZED" ), ]
+    dat       <- dat[ which(is.na(dat$SABLE.SET.TYPE)==FALSE), ]
+    inlet     <- dat[dat$year == yr,]
+    data18.mn <- 
   
 ```
 ## CATCH PER UNIT EFFORT (CPUE) 
@@ -74,11 +83,11 @@ The sablefish surveys of `r yr` and `r yr+1` have documented recent changes in t
 
 ### Stratified Random Set CPUE
 
-Catch per unit effort (CPUE), as indexed by kilograms of sablefish per trap, increased across most offshore survey strata in 2018, and again in 2019 (Figure \@ref(fig:figure5) and Figure \@ref(fig:figure6)). The most pronounced increases occured in the middle depth strata which recorded the largest CPUEs in 2018 and 2019 since the StRS began (Figure \@ref(fig:figure5)). These increases in CPUE were the result of realtively large increases in the number of small sablefish encountered on the survey (Figure \@ref(fig:figure7) and Figure \@ref(fig:figure8)), likely due to a large recent recruitment event that has occurred coastwide [@DFO2020]. The combined consequences of these changes in CPUE across strata is an approximately X% increase in the offshore StRS CPUE index, relative to the 2015-2017 period.
+Catch per unit effort (CPUE), as indexed by kilograms of sablefish per trap, increased across most offshore survey strata in 2018, and again in 2019 (Figure \@ref(fig:figure5). The most pronounced increases occured in the middle depth strata which recorded the largest CPUEs in 2018 and 2019 since the StRS began (Figure \@ref(fig:figure6)). These increases in CPUE were the result of realtively large increases in the number of small sablefish encountered on the survey (Figure \@ref(fig:figure7) and Figure \@ref(fig:figure8)), likely due to a large recent recruitment event that has occurred coastwide [@DFO2020]. The combined consequences of these changes in CPUE across strata is an approximately X% increase in the offshore StRS CPUE index, relative to the 2015-2017 period.
 
 ### Mainland Inlet CPUE
 
-CPUE in the mainlaind inlets has varied in a relatively predictable manner over time with peak CPUE occuring every 5-8 years (Figure \@ref(fig:figure9)a,b). In the early part of the time series (mid-1990s) average CPUE remained relatively constant before a peak in CPUE was observed in 1999, followed by declines to conistent levels until another peak in 2003 and 2004, and again in 2011.  In 2018, CPUE returned (~23 fish, and ~X kg, per trap) to the levels observed during previous peaks. In 2019, the highest catches rates of the 26 year time series were observed (~35 fish, and ~X kg, per trap).
+CPUE in the mainlaind inlets has varied in a relatively predictable manner over time with peak CPUE occuring every 5-8 years (Figure \@ref(fig:figure10)a, b). In the early part of the time series (mid-1990s) average CPUE remained relatively constant before a peak in CPUE was observed in 1999, followed by declines to conistent levels until another peak in 2003 and 2004, and again in 2011.  In 2018, CPUE returned (~23 fish, and ~X kg, per trap) to the levels observed during previous peaks. In 2019, the highest catches rates of the 26 year time series were observed (~35 fish, and ~X kg, per trap).
 
 
 ```{r SpeciesCompositionText, echo=FALSE}
@@ -767,16 +776,16 @@ Out of the `r format(countStRS2[1,2], big.mark=",")` sablefish captured during t
 
 Overall, the StRS design sets had a higher proportion of females to males over the spatial strata `r stratafemale.2` (Table \@ref(tab:table8)).  The sex ratio was females biased in the shallow depth stratum within the spatial strata `r shallsfemale.2`.  In the mid depth stratum, there were more males than females in `r midsmale.2`.  The deepest depth stratum saw more females in spatial strata `r deepsfemale.2`.  More females than males were sampled in `r inletw.2` traditional mainland inlet localities and samples ranged from `r femaleRange.2[1]` to `r femaleRange.2[2]` percent females (Table \@ref(tab:table8)).  
 
-Significant differences in length distributions between female and male sablefish are exhibited in the data collected from the StRS portion of the 2003 - 2019 surveys. The mean fork length ($\bar{x}$) for females was `r mLf2` cm and the mean fork length ($\bar{x}$) for males was `r mLm2` cm (Figure \@ref(fig:figure10)a). 
+Significant differences in length distributions between female and male sablefish are exhibited in the data collected from the StRS portion of the 2003 - 2019 surveys. The mean fork length ($\bar{x}$) for females was `r mLf2` cm and the mean fork length ($\bar{x}$) for males was `r mLm2` cm (Figure \@ref(fig:figure11)a). 
 
-In `r yr`, the average mean fork length for the `r format(length(firstyrfem$sex), big.mark=",")` females was `r round(favgyr1$AvL,1)` cm  and the average mean fork length for the `r format(length(firstyrmal$sex), big.mark=",")` males was `r round(mavgyr1$AvL,1) ` cm. In `r yr+1`, the average mean fork length for the `r format(length(secondyrfem$sex), big.mark=",")` females was `r round(favgyr2$AvL,1)` cm and the average mean fork length for the `r format(length(secondyrmal$sex), big.mark=",")` males was `r round(mavgyr2$AvL,1)` cm.   The mean length of both females and males reached their lowest mean size since 2003 (Figure \@ref(fig:figure10)b). 
+In `r yr`, the average mean fork length for the `r format(length(firstyrfem$sex), big.mark=",")` females was `r round(favgyr1$AvL,1)` cm  and the average mean fork length for the `r format(length(firstyrmal$sex), big.mark=",")` males was `r round(mavgyr1$AvL,1) ` cm. In `r yr+1`, the average mean fork length for the `r format(length(secondyrfem$sex), big.mark=",")` females was `r round(favgyr2$AvL,1)` cm and the average mean fork length for the `r format(length(secondyrmal$sex), big.mark=",")` males was `r round(mavgyr2$AvL,1)` cm.   The mean length of both females and males reached their lowest mean size since 2003 (Figure \@ref(fig:figure11)b). 
 
-On average, female sablefish grow faster and reach far greater size (Figure \@ref(fig:figure11)a,b) compared to males (Figure \@ref(fig:figure11)c,d).
+On average, female sablefish grow faster and reach far greater size (Figure \@ref(fig:figure12)a,b) compared to males (Figure \@ref(fig:figure12)c,d).
 
 
 ## SABLEFISH SUB-LEGAL ENCOUNTERS
 
-There have been distinct distribution patterns across strata of sub-legal sablefish (<55 cm fork length), following the highly anomalous warm ocean conditions of the “The Blob” [@Bond2015].   More than half of the sub-legal specimens were captured in the southern strata (S~1~) mid-depth waters (RD~2~) in 2014 and shallow waters (RD~1~) in 2015. The sub-legal specimen count was above 50% in both 2017 and 2018 in the northern strata of S~4~ and S~5~  mid-depth waters (RD~2~). In 2019, the sub-legal specimens dominated in all StRS survey strata (S~1~ to S~5~) mid-depth waters (RD~2~) (Figure \@ref(fig:figure12)). 
+There have been distinct distribution patterns across strata of sub-legal sablefish (<55 cm fork length), following the highly anomalous warm ocean conditions of the “The Blob” [@Bond2015].   More than half of the sub-legal specimens were captured in the southern strata (S~1~) mid-depth waters (RD~2~) in 2014 and shallow waters (RD~1~) in 2015. The sub-legal specimen count was above 50% in both 2017 and 2018 in the northern strata of S~4~ and S~5~  mid-depth waters (RD~2~). In 2019, the sub-legal specimens dominated in all StRS survey strata (S~1~ to S~5~) mid-depth waters (RD~2~) (Figure \@ref(fig:figure13)). 
 
 ## OTHER FISH SAMPLING
 
@@ -812,9 +821,9 @@ During the `r yr` and `r yr+1` sablefish surveys, `r countStRS[2,3] + countStRS[
 
 ## SABLEFISH AGES
 
-The highest proportion of male ages in StRS sets for 2003 through to 2011 were 3, 5, 5, 6, 8, 8, 8, 10 and 12 years of age, respectively.  Another cohort appeared in 2012 through to 2016 as 4, 5, 7, 7 and 8 year olds.  A cohort appeared to arrive in 2017 which was dominated by 3 year olds and in 2018 by 5 year olds (Figure \@ref(fig:figure13)a).
+The highest proportion of male ages in StRS sets for 2003 through to 2011 were 3, 5, 5, 6, 8, 8, 8, 10 and 12 years of age, respectively.  Another cohort appeared in 2012 through to 2016 as 4, 5, 7, 7 and 8 year olds.  A cohort appeared to arrive in 2017 which was dominated by 3 year olds and in 2018 by 5 year olds (Figure \@ref(fig:figure14)a).
 
-The highest proportion of female ages in the StRS sets for 2003 through to 2010 were 3, 4, 5, 6, 7, 8, 9 and 10 years of age, respectively. Then, another cohort appeared in 2011 through to 2015, showing up as 3, 4, 5, 6 and 7 year olds.  In 2016, 2017 and 2018, the highest proportion of female sablefish were ages 3, 4 and 5 (Figure \@ref(fig:figure13)b).
+The highest proportion of female ages in the StRS sets for 2003 through to 2010 were 3, 4, 5, 6, 7, 8, 9 and 10 years of age, respectively. Then, another cohort appeared in 2011 through to 2015, showing up as 3, 4, 5, 6 and 7 year olds.  In 2016, 2017 and 2018, the highest proportion of female sablefish were ages 3, 4 and 5 (Figure \@ref(fig:figure14)b).
 
 Historic data from all samples lists the oldest female sablefish at `r oldFem` years of age collected in `r oldFemYr` where as the oldest male sablefish with the age of `r oldMale` years old was documented for the year `r oldMaleYr`.
 
@@ -863,9 +872,9 @@ Historic data from all samples lists the oldest female sablefish at `r oldFem` y
 ```
 
 ## OCEANOGRAPHIC TEMPERATURES AND DEPTHS
-Co-plots of average temperatures and average depths by 1-degree latitude intervals from south-west Vancouver Island to northwest Haida Gwaii can be found in Figure \@ref(fig:figure14).  The `r yr` and `r yr+1` survey data exhibit a general trend of decreasing temperature with depth. 
+Co-plots of average temperatures and average depths by 1-degree latitude intervals from south-west Vancouver Island to northwest Haida Gwaii can be found in Figure \@ref(fig:figure15).  The `r yr` and `r yr+1` survey data exhibit a general trend of decreasing temperature with depth. 
 
-SBE 39 recorders have been placed on survey fishing sets since 2006. In the shallow waters, the lowest average temperature was `r round(lavtmin,1)` $^\circ$C (`r lavtyr`) within the `r lavtband1`$^\circ$- `r lavtband2`$^\circ$ latitude band.  The highest average temperature was `r round(lavtmax,1)` $^\circ$C (`r lavtyrmx`) in the southern `r lavtband1mx`$^\circ$ - `r lavtband2mx`$^\circ$ latitude band. Moving into the mid-depth waters, from 458-823 meters, the lowest average temperature was `r round(mavt,1)` $^\circ$C (`r mavtyr`) within the `r mavtband1`$^\circ$-`r mavtband2` $^\circ$ latitude band.  The highest average temperature was `r round(mavtmx,1)` $^\circ$C (`r mavtyrmx`) in the southern `r mavtband1mx`$^\circ$- `r mavtband2mx`$^\circ$ latitude band.  In the deepest waters, the lowest average temperature of `r round(davt,1)` $^\circ$C  (`r davtyr`) was found in the `r davtband1`$^\circ$- `r davtband2`$^\circ$ latitude band and the highest average temperature was `r round(davtmx,1)`$^\circ$C (`r davtyrmx`) in the southern `r davtband1mx`$^\circ$-`r davtband2mx`$^\circ$ latitude band (Figure \@ref(fig:figure15)).
+SBE 39 recorders have been placed on survey fishing sets since 2006. In the shallow waters, the lowest average temperature was `r round(lavtmin,1)` $^\circ$C (`r lavtyr`) within the `r lavtband1`$^\circ$- `r lavtband2`$^\circ$ latitude band.  The highest average temperature was `r round(lavtmax,1)` $^\circ$C (`r lavtyrmx`) in the southern `r lavtband1mx`$^\circ$ - `r lavtband2mx`$^\circ$ latitude band. Moving into the mid-depth waters, from 458-823 meters, the lowest average temperature was `r round(mavt,1)` $^\circ$C (`r mavtyr`) within the `r mavtband1`$^\circ$-`r mavtband2` $^\circ$ latitude band.  The highest average temperature was `r round(mavtmx,1)` $^\circ$C (`r mavtyrmx`) in the southern `r mavtband1mx`$^\circ$- `r mavtband2mx`$^\circ$ latitude band.  In the deepest waters, the lowest average temperature of `r round(davt,1)` $^\circ$C  (`r davtyr`) was found in the `r davtband1`$^\circ$- `r davtband2`$^\circ$ latitude band and the highest average temperature was `r round(davtmx,1)`$^\circ$C (`r davtyrmx`) in the southern `r davtband1mx`$^\circ$-`r davtband2mx`$^\circ$ latitude band (Figure \@ref(fig:figure16)).
 
 
 ```{r acknowledge, echo=FALSE}
