@@ -168,7 +168,7 @@
                "dbo.SurveyBlock_countWeight ON FEC_CPUE.SABLE_AREA_GROUP = dbo.SurveyBlock_countWeight.areaStrName AND   ",      
                "FEC_CPUE.DepthStrataID = dbo.SurveyBlock_countWeight.depthStrName", sep="")
 
-    landmrkRAW<- GetSQLData(landmrk,"Sablefish")
+    # raw_survey_data<- GetSQLData(landmrk,"Sablefish")
     raw_survey_data <- read.csv("c:/github/surveyreport/standaloneData/figure56789.csv",header=T)
     
     # load survey data 
@@ -308,8 +308,8 @@
     par(mfcol=c(1,1))
     
     strs                   <- subset(raw_survey_data,SABLE_SET_TYPE=="StRS") 
-    strs$sable_cpue        <- strs$CPUE_SABLE_WEIGHT/strs$CPUE_TRAPS 
-    strs$sable_cnt         <- (strs$CPUE_SABLE_COUNT/strs$CPUE_TRAPS)
+    strs$sable_cpue        <- strs$CPUE_SABLE_WEIGHT/strs$TOTAL_TRAPS 
+    strs$sable_cnt         <- (strs$CPUE_SABLE_COUNT/strs$TOTAL_TRAPS)
     strs$sable_wg          <- (strs$CPUE_SABLE_WEIGHT/strs$CPUE_SABLE_COUNT) 
     strs$sable_avwt_trap   <- (strs$sable_cpue/strs$sable_cnt)
     strs$strata            <-  paste(strs$SABLE_AREA_GROUP,strs$SABLE_DEPTH_GROUP)
@@ -397,7 +397,7 @@
 ```    
 
 
-(ref:figure9) Average weight of sablefish per trap (kg/trap) (A);  average number of sablefish per trap (#fish/trap) (B); annual average weight of sablefish (kg) (C) by StRS survey strata over time. Horizontal line is median and blue dots are arithmetic mean.
+(ref:figure9) Annual mean weight of sablefish per trap (kg/trap) (A);  annual mean number of sablefish per trap (#fish/trap) (B); annual mean weight of sablefish (kg) (C) by StRS survey strata over time. Horizontal line is median and blue dots are arithmetic mean.
 
 ```{r figure9, fig.cap='(ref:figure9)', results='asis', out.width = "450px",out.height = "560px", fig.align="center"}
 
