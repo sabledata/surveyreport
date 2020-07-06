@@ -73,9 +73,15 @@ Of the 91 original blocks for the StRS portion of the survey, six were replaced 
     #pick out the stand sets
     dat         <- cpuedat[ which(cpuedat$SABLE.SET.TYPE=="INLET STANDARDIZED" ), ]
     dat         <- dat[ which(is.na(dat$SABLE.SET.TYPE)==FALSE), ]
-    inlet18     <- dat[dat$year == yr,]
+    inlet18     <- dat[dat$year == yr,]                                     # text for cpue mean year one
     data18.mn   <- round(mean(inlet18$CPUE.SABLE.COUNT/inlet18$CPUE.TRAPS),0)
     data18kg.mn <- round(mean(inlet18$CPUE.SABLE.WEIGHT/inlet18$CPUE.TRAPS),0)
+    data18kg    <- round(mean(inlet18$CPUE.SABLE.WEIGHT/inlet18$CPUE.SABLE.COUNT),1)
+    
+    inlet19     <- dat[dat$year == yr+1,]                                   # text for cpue mean year two
+    data19.mn   <- round(mean(inlet19$CPUE.SABLE.COUNT/inlet19$CPUE.TRAPS),0)
+    data19kg.mn <- round(mean(inlet19$CPUE.SABLE.WEIGHT/inlet19$CPUE.TRAPS),0)
+    data19kg    <- round(mean(inlet19$CPUE.SABLE.WEIGHT/inlet19$CPUE.SABLE.COUNT),1)
   
 ```
 ## CATCH PER UNIT EFFORT (CPUE) 
@@ -88,7 +94,7 @@ Catch per unit effort (CPUE), as indexed by kilograms of sablefish per trap, inc
 
 ### Mainland Inlet CPUE
 
-CPUE in the mainlaind inlets has varied in a relatively predictable manner over time with peak CPUE occuring every 5-8 years (Figure \@ref(fig:figure10)a, b). In the early part of the time series (mid-1990s) average CPUE remained relatively constant before a peak in CPUE was observed in 1999, followed by declines to conistent levels until another peak in 2003 and 2004, and again in 2011.  In 2018, CPUE returned (~`r data18.mn` fish, and ~X kg, per trap) to the levels observed during previous peaks. In 2019, the highest catches rates of the 26 year time series were observed (~35 fish, and ~`r data18kg.mn` kg, per trap).
+CPUE in the mainlaind inlets has varied in a relatively predictable manner over time with peak CPUE occuring every 5-8 years (Figure \@ref(fig:figure10)). In the early part of the time series (mid-1990s) average CPUE remained relatively constant before a peak in CPUE was observed in 1999, followed by declines to consistent levels until another peak in 2003 and 2004, and again in 2011.  In `r yr`, CPUE returned (~`r data18.mn` fish, and ~`r data18kg.mn` kg, per trap) to the levels observed during previous peaks. In `r yr+1`, the highest catch rates of the 26 year time series were observed (~`r data19.mn` fish, and ~`r data19kg.mn` kg, per trap).  Notably, the `r yr`-`r yr+1` mean weight (~`r data19kg` kg) declined to an all time low due to large number of small fish becoming available to the survey.
 
 
 ```{r SpeciesCompositionText, echo=FALSE}
