@@ -44,7 +44,7 @@ Fishing sets in inlet localities had a targeted soak time of 18 hours. These set
 
 Haulback speed allowed the science crew to accurately record catch. Two science staff were positioned on deck at the haul card station; one recorded the catch and the other managed the movement of baskets. In addition, the catch recorder entered the haul start and end times into the GFBioField Bridge Log.  As the groundline was hauled, each becket and trap were entered in the GFBioField Trap Catch form. Crew members alerted the recorder about any damage to a trap (i.e. holes) which was then recorded in the GFBioField Trap Usability form.
 
-Catch by species from each trap was sorted into baskets by the crew. Baskets were then weighed to the nearest 0.2 kg on a motion compensating scale and given a basket use code of D, A, T, L, SD or F.  Code D designated fish species as discards or commercial catch; code A allocated sablefish for age samples; code T allocated sablefish to be tagged and released; code L allocated fish for length samples; code SD identified sublegal sablefish discards; code F represented fish frames with amphipod or hagfish damage.  
+Catch by species from each trap was sorted into baskets by the crew. Baskets were then weighed to the nearest 0.2 kg on a motion compensating scale and given a basket use code of D, A, T, L, SD or F.  Code D designated fish species as discards or commercial catch; code A allocated fish to age samples; code T allocated sablefish to be tagged and released; code L allocated fish for length samples; code SD identified sublegal sablefish discards; code F represented fish frames with amphipod or hagfish damage.  
 
 ### Sablefish Allocation Details
  
