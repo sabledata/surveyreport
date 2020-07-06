@@ -21,52 +21,27 @@ The `r yr+1` survey was 46 days long and divided into three legs of 17, 14 and 1
 Of the 91 original blocks for the StRS portion of the survey, six were replaced at sea; one was rejected after on-ground inspection, three were rejected due to unfishable habitat, and two were rejected as they did not meet the depth strata requirements.
 
 ```{r CatchRateText, echo=FALSE}
-  # -- generate the lowest uncertainity and corresponding year for catch rate paragraph
-
-  dtStRS   <-   " select  * from dbo.GENERIC_GFBIO_TRAPS order by year"  # -- must update view GENERIC_GFBIO_TRAPS
-  #datStRS  <-   GetSQLData(dtStRS,"Sablefish")                          # read from SQL Server
-  datStRS  <-  read.csv("c:/github/surveyreport/standaloneData/results1.csv",header=T)  # read from csv
-  #odbcCloseAll()
-
-  datRD    <-   datStRS[ datStRS$SABLE.SET.TYPE=="StRS", ] # --  pick out the random sets
-  dat      <-   datRD[ ! is.na(datRD$SABLE.SET.TYPE), ]
-  yrs      <-   unique(datRD$year)   # -- get unique years
-  nyrs     <-   length(yrs)
-  
-  data.cv  <- data.frame( year   <- numeric(),
-                          value1 <- numeric(),
-                          value2 <- numeric(),
-                          value3 <- numeric() )
-  
-  data.mn <- data.frame(  year   <- numeric(),
-                          value1 <- numeric(),
-                          value2 <- numeric(),
-                          value3 <- numeric() )
-
-  # -- iterate through the years building depth boxplots to get cv's and mean counts
-  for (i in 1:nyrs)
-     {    yrdat          <- datRD[datRD$year==yrs[i],]      # -- get the year dataset
-          bxdat          <- split(yrdat$CPUE.SABLE.COUNT / yrdat$CPUE.TRAPS, as.character(yrdat$SABLE.DEPTH.GROUP))  # split by depth
-          dpth.mean      <- sapply(bxdat, mean, na.rm=T)    # -- add the mean by depth  points
-          std.dev        <- sapply(bxdat, sd, na.rm=T)
-          names(data.cv) <- c("year", "RD1", "RD2", "RD3")  # -- store cv's
-          names(data.mn) <- c("year", "RD1", "RD2", "RD3")  # -- store mean counts by depth
-          data.cv        <- rbind(data.cv,c(yrs[i],round(std.dev/dpth.mean,2)))
-          data.mn        <- rbind(data.mn,c(yrs[i],round(dpth.mean,0)))
-      }
-  
-          RD1.cvlow      <- min(data.cv$RD1)
-          RD1.cvlowyr    <- data.cv$year[data.cv$RD1==RD1.cvlow]
-          RD2.cvlow      <- min(data.cv$RD2)
-          RD2.cvlowyr    <- data.cv$year[data.cv$RD2==RD2.cvlow]
-          RD3.cvlow      <- min(data.cv$RD3)
-          RD3.cvlowyr    <- data.cv$year[data.cv$RD3==RD3.cvlow]
+    raw_survey_data <- read.csv("c:/github/surveyreport/standaloneData/RawLandmarkSurveyData.csv",header=T)
+    
+    # load survey data 
+    strs01            <- subset(raw_survey_data,SABLE_SET_TYPE=="StRS")           # subset on StRS sets
+    strscurrent       <- strs01[strs01$SET_YEAR==yr+1,]
+    strscurrentv      <- mean(sum(strscurrent$CPUE_SABLE_WEIGHT)/sum(strscurrent$CPUE_TRAPS))   # wt/trap, changed from TOTAL_TRAPS to CPUE_TRAPS
+    
+    strsyrb4          <- strs01[strs01$SET_YEAR==yr,]
+    strsyrb4v         <- mean(sum(strsyrb4$CPUE_SABLE_WEIGHT)/sum(strsyrb4$CPUE_TRAPS))
+    
+    strs2yrb4          <- strs01[strs01$SET_YEAR==yr-1,]
+    strs2yrb4v         <- mean(sum(strs2yrb4$CPUE_SABLE_WEIGHT)/sum(strs2yrb4$CPUE_TRAPS))
+    
+    percentchng1      <- round(((strscurrentv-strsyrb4v)/strscurrentv)*100,0) 
+    percentchng2      <- round((strscurrentv-(strsyrb4v+strs2yrb4v)/2)/strscurrentv*100,0)
           
     # -- type data.mn in the Console to view the shallow, middle and deep depth stratums CPUE for 
     # -- descriptive paragraph below
        
     # INLET TEXT for 2018 and 2019          
-     cpuedt <- "SELECT  * FROM dbo.GENERIC_GFBIO_TRAPS where year < 2020 and [Spatial.Stratum] not like '%Quatsino Sound%' "
+    cpuedt <- "SELECT  * FROM dbo.GENERIC_GFBIO_TRAPS where year < 2020 and [Spatial.Stratum] not like '%Quatsino Sound%' "
     #cpuedat<- GetSQLData(cpuedt,"Sablefish") 
     cpuedat   <-  read.csv("c:/github/surveyreport/standaloneData/figure10.csv",header=T)
 
@@ -90,7 +65,7 @@ The sablefish surveys of `r yr` and `r yr+1` have documented recent changes in t
 
 ### Stratified Random Set CPUE
 
-Catch per unit effort (CPUE), as indexed by kilograms of sablefish per trap, increased across most offshore survey strata in 2018, and again in 2019 (Figure \@ref(fig:figure5)). The most pronounced increases occured in the middle depth strata which recorded the largest CPUEs in 2018 and 2019 since the StRS began (Figure \@ref(fig:figure6)). These increases in CPUE were the result of a relatively large increase in the number of small sablefish encountered on the survey (Figure \@ref(fig:figure7) and Figure \@ref(fig:figure8)), likely due to a large recent recruitment event that has occurred coastwide [@DFO2020].  The stratified mean survey abundance in `r yr+1` was  42 kg/trap, which is up 10% from 2018 and 25% from the `r yr-1`-`r yr` average (Figure \@ref(fig:figure9)).
+Catch per unit effort (CPUE), as indexed by kilograms of sablefish per trap, increased across most offshore survey strata in 2018, and again in 2019 (Figure \@ref(fig:figure5)). The most pronounced increases occured in the middle depth strata which recorded the largest CPUEs in 2018 and 2019 since the StRS began (Figure \@ref(fig:figure6)). These increases in CPUE were the result of a relatively large increase in the number of small sablefish encountered on the survey (Figure \@ref(fig:figure7) and Figure \@ref(fig:figure8)), likely due to a large recent recruitment event that has occurred coastwide [@DFO2020].  The stratified mean survey abundance in `r yr+1` was  `r strscurrentv` kg/trap, which is up `r percentchng1`% from 2018 and `r percentchng2`% from the `r yr-1`-`r yr` average (Figure \@ref(fig:figure9)).
 
 ### Mainland Inlet CPUE
 
