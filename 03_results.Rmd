@@ -21,21 +21,19 @@ The `r yr+1` survey was 46 days long and divided into three legs of 17, 14 and 1
 Of the 91 original blocks for the StRS portion of the survey, six were replaced at sea; one was rejected after on-ground inspection, three were rejected due to unfishable habitat, and two were rejected as they did not meet the depth strata requirements.
 
 ```{r CatchRateText, echo=FALSE}
-    raw_survey_data <- read.csv("c:/github/surveyreport/standaloneData/RawLandmarkSurveyData.csv",header=T)
+    cpueVar <- read.csv("c:/github/surveyreport/standaloneData/LandmarkCPUEVarianceCVs_StRS.csv",header=T)
     
-    # load survey data 
-    strs01            <- subset(raw_survey_data,SABLE_SET_TYPE=="StRS")           # subset on StRS sets
-    strscurrent       <- strs01[strs01$SET_YEAR==yr+1,]
-    strscurrentv      <- mean(sum(strscurrent$CPUE_SABLE_WEIGHT)/sum(strscurrent$CPUE_TRAPS))   # wt/trap, changed from TOTAL_TRAPS to CPUE_TRAPS
+    strscurrent       <- cpueVar[cpueVar$SET_YEAR==yr+1,]
+    strscurrentv      <- round(strscurrent$yStr,0)
     
-    strsyrb4          <- strs01[strs01$SET_YEAR==yr,]
-    strsyrb4v         <- mean(sum(strsyrb4$CPUE_SABLE_WEIGHT)/sum(strsyrb4$CPUE_TRAPS))
+    strsyrb4          <- cpueVar[cpueVar$SET_YEAR==yr,]
+    strsyrb4v         <- round(strsyrb4$yStr,0)
     
-    strs2yrb4          <- strs01[strs01$SET_YEAR==yr-1,]
-    strs2yrb4v         <- mean(sum(strs2yrb4$CPUE_SABLE_WEIGHT)/sum(strs2yrb4$CPUE_TRAPS))
+    strs2yrb4          <- cpueVar[cpueVar$SET_YEAR==yr-1,]
+    strs2yrb4v         <- round(strs2yrb4$yStr,0)
     
     percentchng1      <- round(((strscurrentv-strsyrb4v)/strscurrentv)*100,0) 
-    percentchng2      <- round((strscurrentv-(strsyrb4v+strs2yrb4v)/2)/strscurrentv*100,0)
+    percentchng2      <- round(((strscurrentv-strs2yrb4v)/strscurrentv)*100,0)
           
     # -- type data.mn in the Console to view the shallow, middle and deep depth stratums CPUE for 
     # -- descriptive paragraph below
@@ -65,7 +63,7 @@ The sablefish surveys of `r yr` and `r yr+1` have documented recent changes in t
 
 ### Stratified Random Set CPUE
 
-Catch per unit effort (CPUE), as indexed by kilograms of sablefish per trap, increased across most offshore survey strata in 2018, and again in 2019 (Figure \@ref(fig:figure5)). The most pronounced increases occured in the middle depth strata which recorded the largest CPUEs in 2018 and 2019 since the StRS began (Figure \@ref(fig:figure6)). These increases in CPUE were the result of a relatively large increase in the number of small sablefish encountered on the survey (Figure \@ref(fig:figure7) and Figure \@ref(fig:figure8)), likely due to a large recent recruitment event that has occurred coastwide [@DFO2020].  The stratified mean survey abundance in `r yr+1` was  `r strscurrentv` kg/trap, which is up `r percentchng1`% from 2018 and `r percentchng2`% from the `r yr-1`-`r yr` average (Figure \@ref(fig:figure9)).
+Catch per unit effort (CPUE), as indexed by kilograms of sablefish per trap, increased across most offshore survey strata in 2018, and again in 2019 (Figure \@ref(fig:figure5)). The most pronounced increases occured in the middle depth strata which recorded the largest CPUEs in 2018 and 2019 since the StRS began (Figure \@ref(fig:figure6)). These increases in CPUE were the result of a relatively large increase in the number of small sablefish encountered on the survey (Figure \@ref(fig:figure7) and Figure \@ref(fig:figure8)), likely due to a large recent recruitment event that has occurred coastwide [@DFO2020].  The stratified mean survey abundance in `r yr+1` was  `r strscurrentv` kg/trap, which is up `r percentchng1`% from 2018 and 25% from the `r yr-1`-`r yr` average (Figure \@ref(fig:figure9)).
 
 ### Mainland Inlet CPUE
 

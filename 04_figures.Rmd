@@ -193,7 +193,7 @@
                                                                  2006,2010,2014,2018,
                                                                  2007,2011,2015,2019))),SET_YEAR)
     
-    ggplot(strs.02,aes(x=FE_MODAL_BOTTOM_DEPTH,y=CPUE_SABLE_WEIGHT/TOTAL_TRAPS)) +
+    ggplot(strs.02,aes(x=FE_MODAL_BOTTOM_DEPTH,y=CPUE_SABLE_WEIGHT/CPUE_TRAPS)) +
     geom_point(alpha = 1/5 )+
     facet_wrap(~SET_YEAR,ncol=4) +
     scale_x_continuous(breaks = c(100,450,850,1400),limits=c(0,1500)) + 
@@ -308,8 +308,8 @@
     par(mfcol=c(1,1))
     
     strs                   <- subset(raw_survey_data,SABLE_SET_TYPE=="StRS") 
-    strs$sable_cpue        <- strs$CPUE_SABLE_WEIGHT/strs$TOTAL_TRAPS 
-    strs$sable_cnt         <- (strs$CPUE_SABLE_COUNT/strs$TOTAL_TRAPS)
+    strs$sable_cpue        <- strs$CPUE_SABLE_WEIGHT/strs$CPUE_TRAPS 
+    strs$sable_cnt         <- (strs$CPUE_SABLE_COUNT/strs$CPUE_TRAPS)
     strs$sable_wg          <- (strs$CPUE_SABLE_WEIGHT/strs$CPUE_SABLE_COUNT) 
     strs$sable_avwt_trap   <- (strs$sable_cpue/strs$sable_cnt)
     strs$strata            <-  paste(strs$SABLE_AREA_GROUP,strs$SABLE_DEPTH_GROUP)
