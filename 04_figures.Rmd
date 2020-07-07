@@ -169,7 +169,7 @@
                "FEC_CPUE.DepthStrataID = dbo.SurveyBlock_countWeight.depthStrName", sep="")
 
     # raw_survey_data<- GetSQLData(landmrk,"Sablefish")
-    raw_survey_data <- read.csv("c:/github/surveyreport/standaloneData/RawLandmarkSurveyData.csv",header=T)
+    raw_survey_data <- read.csv("c:/github/surveyreport/standaloneData/figure56789.csv",header=T)
     
     # load survey data 
     strs01            <- subset(raw_survey_data,SABLE_SET_TYPE=="StRS")           # subset on StRS sets
