@@ -108,146 +108,21 @@ GetSQLData <- function(strSQL,strDbName) {
 
 #---figures -------------------------------------------------------------------------------------------------------------------------------------
 #-- figure 05 06 07 08 ---------------------
-  landmrk <- paste("select FishingEventCatchCPUE.TRIP_ID, FishingEventCatchCPUE.VESSEL_ID, FishingEventCatchCPUE.SUFFIX, ",                                  
-               "FishingEventCatchCPUE.CAPTAIN_ID, FishingEventCatchCPUE.FISHING_EVENT_ID, FishingEventCatchCPUE.FE_MAJOR_LEVEL_ID,",
-               "FishingEventCatchCPUE.SET_YEAR,   FishingEventCatchCPUE.SET_MONTH,        FishingEventCatchCPUE.SET_DAY, ",                                    
-               "FishingEventCatchCPUE.SET_TIME,   FishingEventCatchCPUE.DURATION_MINUTES, FishingEventCatchCPUE.SABLE_DEPTH_GROUP, ",                         
-               "FishingEventCatchCPUE.SABLE_AREA_GROUP, FishingEventCatchCPUE.SABLE_SET_TYPE, ", 
-               "FishingEventCatchCPUE.GROUPING_CODE,    FishingEventCatchCPUE.REASON_CODE, FishingEventCatchCPUE.FE_REASON_COMMENT, ",                         
-               "FishingEventCatchCPUE.GEAR_CODE,        FishingEventCatchCPUE.NS_AREA, ",
-               "FishingEventCatchCPUE.INSHORE_IND,      FishingEventCatchCPUE.SEAMOUNT_IND, FishingEventCatchCPUE.MAJOR_STAT_AREA_CODE, ",                    
-              "FishingEventCatchCPUE.MINOR_STAT_AREA_CODE, FishingEventCatchCPUE.LOCALITY_CODE, ",                                   
-               "FishingEventCatchCPUE.FE_FISHING_GROUND_COMMENT, ",
-               "FishingEventCatchCPUE.START_LATITUDE, FishingEventCatchCPUE.START_LONGITUDE, ",
-               "FishingEventCatchCPUE.END_LATITUDE, FishingEventCatchCPUE.END_LONGITUDE, ",
-               "FishingEventCatchCPUE.FE_BEGINNING_BOTTOM_DEPTH, FishingEventCatchCPUE.FE_END_BOTTOM_DEPTH, ",
-               "FishingEventCatchCPUE.FE_MODAL_BOTTOM_DEPTH, FishingEventCatchCPUE.TRAP_MODIFICATIONS_CODE, ",       
-               "FishingEventCatchCPUE.FE_USABILITY, FishingEventCatchCPUE.CPUE_SABLE_WEIGHT, ",
-               "FishingEventCatchCPUE.CPUE_SABLE_COUNT, FishingEventCatchCPUE.CPUE_TRAPS, FishingEventCatchCPUE.TOTAL_TRAPS, ",   
-               "ISNULL(FishingEventCatchCPUE.TOTAL_SABLE_COUNT, 0) AS TOTAL_SABLE_COUNT, ",
-               "ISNULL(FishingEventCatchCPUE.TOTAL_SABLE_WEIGHT, 0) AS TOTAL_SABLE_WEIGHT, ",
-               "FishingEventCatchCPUE.VERIFICATION_METHOD, FishingEventCatchCPUE.FE_START_LATTITUDE_DEGREE, ",
-               "FishingEventCatchCPUE.FE_START_LATTITUDE_MINUTE, FishingEventCatchCPUE.FE_START_LONGITUDE_DEGREE,",     
-               "FishingEventCatchCPUE.FE_START_LONGITUDE_MINUTE, FishingEventCatchCPUE.FE_END_LATTITUDE_DEGREE, ", 
-               "FishingEventCatchCPUE.FE_END_LATTITUDE_MINUTE, FishingEventCatchCPUE.FE_END_LONGITUDE_DEGREE,   ",
-               "FishingEventCatchCPUE.FE_END_LONGITUDE_MINUTE, FishingEventCatchCPUE.START_FATHOMS, ",
-               "FishingEventCatchCPUE.END_FATHOMS, FishingEventCatchCPUE.MODAL_DEPTH_FM, ",
-               "FishingEventCatchCPUE.DepthStrataID, dbo.SurveyBlock_countWeight.nBlocks AS Nh, dbo.SurveyBlock_countWeight.Wh,", 
-               "ISNULL(FishingEventCatchCPUE.CPUE_SABLE_WEIGHT / NULLIF (FishingEventCatchCPUE.CPUE_TRAPS, 0), 0) AS cpue,",   
-               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Proportion Males], ",
-               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Male Mean Fork Len(mm)], dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Female Mean Fork Len(mm)], ",    
-               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[Tagged Mean Fork Len(mm)]  ",
-               "from (select trp.TRIP_ID, trp.VESSEL_ID, trp.SUFFIX, trp.CAPTAIN_ID, fe_1.FISHING_EVENT_ID, ",
-               "fe_1.FE_MAJOR_LEVEL_ID, YEAR(dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, ",
-               "fe_1.FE_END_DEPLOYMENT_TIME, fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME)) AS SET_YEAR,  ",     
-               "MONTH(dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, ",
-               "fe_1.FE_END_DEPLOYMENT_TIME, fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME)) AS SET_MONTH,  ", 
-               "DAY(dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, ",
-               "fe_1.FE_END_DEPLOYMENT_TIME, fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME)) AS SET_DAY, ",
-               "CAST(DATEPART(hh, dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, ",
-               "fe_1.FE_END_DEPLOYMENT_TIME, fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME)) AS varchar) + ",
-               "CAST(DATEPART(mi, dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, ",
-               "fe_1.FE_END_DEPLOYMENT_TIME, fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME)) AS varchar) AS SET_TIME, ",
-               "DATEDIFF(mi, ISNULL(fe_1.FE_END_DEPLOYMENT_TIME, fe_1.FE_BEGIN_DEPLOYMENT_TIME), ISNULL(fe_1.FE_BEGIN_RETRIEVAL_TIME, ",  
-               "fe_1.FE_END_RETRIEVAL_TIME)) AS DURATION_MINUTES, dbo.SableDepthGroup(fe_1.GROUPING_CODE) AS SABLE_DEPTH_GROUP, ",   
-               "dbo.SableAreaGroup(fe_1.GROUPING_CODE, fe_1.REASON_CODE, fe_1.FE_FISHING_GROUND_COMMENT) AS SABLE_AREA_GROUP, ",
-               "dbo.SableSetType(fe_1.REASON_CODE,fe_1.FE_REASON_COMMENT, ISNULL(GFBioSQL.dbo.Dater(fe_1.FE_BEGIN_DEPLOYMENT_TIME, ",  
-               "fe_1.FE_END_DEPLOYMENT_TIME, fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME),  ",
-               "trp.TRIP_START_DATE)) AS SABLE_SET_TYPE, fe_1.GROUPING_CODE, fe_1.REASON_CODE, fe_1.FE_REASON_COMMENT, ",
-               "fe_1.GEAR_CODE, sloc.NS_AREA, sloc.INSHORE_IND, sloc.SEAMOUNT_IND, ",
-               "fe_1.MAJOR_STAT_AREA_CODE, fe_1.MINOR_STAT_AREA_CODE, fe_1.LOCALITY_CODE, fe_1.FE_FISHING_GROUND_COMMENT, ",
-               "fe_1.FE_START_LATTITUDE_DEGREE + fe_1.FE_START_LATTITUDE_MINUTE / 60 AS START_LATITUDE, ",
-               "(fe_1.FE_START_LONGITUDE_DEGREE + fe_1.FE_START_LONGITUDE_MINUTE / 60)  * - 1 AS START_LONGITUDE, ",
-               "fe_1.FE_END_LATTITUDE_DEGREE + fe_1.FE_END_LATTITUDE_MINUTE / 60 AS END_LATITUDE, ",
-               "(fe_1.FE_END_LONGITUDE_DEGREE + fe_1.FE_END_LONGITUDE_MINUTE / 60) * - 1 AS END_LONGITUDE, ",
-               "fe_1.FE_BEGINNING_BOTTOM_DEPTH, fe_1.FE_END_BOTTOM_DEPTH, fe_1.FE_MODAL_BOTTOM_DEPTH, ",
-               "fe_1.FE_MISC_COMMENT, fets.TRAP_MODIFICATIONS_CODE, fets.USABILITY_CODE AS FE_USABILITY, ",
-               "CAST(CASE WHEN fe_1.REASON_CODE <> 14 AND fets.USABILITY_CODE <> 13 THEN isnull(traps.CPUE_WEIGHT, ",
-               "CASE WHEN fets.USABILITY_CODE IN (1, 12) THEN CASE WHEN fec_1.catch_weight IS NULL AND ",
-               "isnull(fec_1.VERIFICATION_METHOD, 0) <> 9 THEN 0 ELSE fec_1.catch_weight END ELSE NULL END) ELSE NULL END AS numeric(7, 1)) ",
-               "AS CPUE_SABLE_WEIGHT, CAST(CASE WHEN fe_1.REASON_CODE <> 14 AND fets.USABILITY_CODE <> 13 THEN isnull(traps.CPUE_COUNT, ",
-               "CASE WHEN fets.USABILITY_CODE IN (1, 12) THEN CASE WHEN fec_1.catch_count IS NULL AND ",
-               "isnull(fec_1.VERIFICATION_METHOD, 0) <> 3 THEN 0 ELSE fec_1.catch_count END ELSE NULL END) ELSE NULL END ",
-               "AS smallint) AS CPUE_SABLE_COUNT, ",
-               "CAST(CASE WHEN fe_1.reason_code <> 14 AND fets.USABILITY_CODE <> 13 THEN ",
-               "isnull(CPUE_TRAPS, CASE WHEN fets.USABILITY_CODE IN (1, 12) THEN fets.TRAPS_FISHED_COUNT ELSE NULL END) ",
-               "ELSE NULL END AS smallint) AS CPUE_TRAPS, ISNULL(traps.TOTAL_TRAPS, fets.TRAPS_FISHED_COUNT) AS TOTAL_TRAPS, ",              
-               "CAST(ISNULL(traps.total_count, fec_1.CATCH_COUNT) AS smallint) as TOTAL_SABLE_COUNT, ",
-               "CAST(ISNULL(traps.total_weight, fec_1.CATCH_WEIGHT) AS numeric(7, 1)) AS TOTAL_SABLE_WEIGHT, ",
-               "fec_1.VERIFICATION_METHOD, fe_1.FE_START_LATTITUDE_DEGREE, fe_1.FE_START_LATTITUDE_MINUTE, ",
-               "fe_1.FE_START_LONGITUDE_DEGREE, fe_1.FE_START_LONGITUDE_MINUTE, fe_1.FE_END_LATTITUDE_DEGREE, ",
-               "fe_1.FE_END_LATTITUDE_MINUTE, fe_1.FE_END_LONGITUDE_DEGREE, fe_1.FE_END_LONGITUDE_MINUTE, ",      
-               "ROUND(PacHarvest.dbo.m2fa(fe_1.FE_BEGINNING_BOTTOM_DEPTH), 0) AS START_FATHOMS, ",
-               "ROUND(PacHarvest.dbo.m2fa(fe_1.FE_END_BOTTOM_DEPTH), 0) AS END_FATHOMS, ",
-               "ROUND(PacHarvest.dbo.m2fa(fe_1.FE_MODAL_BOTTOM_DEPTH), 0) AS MODAL_DEPTH_FM, ",
-               "dbo.DepthStrataID(ROUND(fe_1.FE_MODAL_BOTTOM_DEPTH, 0), dbo.SableDepthGroup(fe_1.GROUPING_CODE)) AS DepthStrataID ",
-               "from GFBioSQL.dbo.TRIP AS trp INNER JOIN ",
-               "(select  TRIP_ID         ",
-               "from GFBioSQL.dbo.TRIP_ACTIVITY    ",
-               "where (ACTIVITY_CODE = 19)) AS act ON trp.TRIP_ID = act.TRIP_ID INNER JOIN  ",
-               "(select TRIP_ID, FISHING_EVENT_ID, FE_PARENT_EVENT_ID, FE_MAJOR_LEVEL_ID, FE_SUB_LEVEL_ID, FE_MINOR_LEVEL_ID, EMPLOYEE_ID, ",                  
-               "FE_BEGIN_DEPLOYMENT_TIME, FE_END_DEPLOYMENT_TIME, FE_BEGIN_RETRIEVAL_TIME, FE_END_RETRIEVAL_TIME,  ",
-               "GROUPING_CODE, REASON_CODE, FE_REASON_COMMENT, MAJOR_STAT_AREA_CODE, ",
-               "MINOR_STAT_AREA_CODE, LOCALITY_CODE, DFO_STAT_AREA_CODE, DFO_STAT_SUBAREA_CODE, ",
-               "LOC_VRFN_METHOD_CODE, FE_FISHING_GROUND_COMMENT, ",
-               "FE_START_LATTITUDE_DEGREE, FE_START_LATTITUDE_MINUTE,  ",
-               "FE_END_LATTITUDE_DEGREE,   FE_END_LATTITUDE_MINUTE,      ",             
-               "FE_START_LONGITUDE_DEGREE, FE_START_LONGITUDE_MINUTE,     ",
-               "FE_END_LONGITUDE_DEGREE, FE_END_LONGITUDE_MINUTE, ",
-               "FE_START_LORAN_X, FE_START_LORAN_Y, FE_END_LORAN_X, FE_END_LORAN_Y, ",
-               "FE_DISTANCE_TRAVELLED, FE_DIRECTION_OF_SET, FE_PLOTTER_RECORD_INFOR, ",
-               "DEPTH_VRFN_METHOD_CODE, FE_BEGINNING_BOTTOM_DEPTH, FE_END_BOTTOM_DEPTH,  ",
-               "FE_MODAL_BOTTOM_DEPTH, FE_MIN_BOTTOM_DEPTH, FE_MAX_BOTTOM_DEPTH,  ",
-               "FE_BEGIN_TARGET_DEPTH, FE_END_TARGET_DEPTH, FE_MIN_TARGET_DEPTH, FE_MAX_TARGET_DEPTH,  ",
-               " FE_MODAL_TARGET_DEPTH, FE_BEGIN_CAPTURE_DEPTH, FE_END_CAPTURE_DEPTH,  ",
-               " FE_MIN_CAPTURE_DEPTH, FE_MAX_CAPTURE_DEPTH, FE_MODAL_CAPTURE_DEPTH,  ",
-               "FE_BEGINNING_GEAR_DEPTH, FE_END_GEAR_DEPTH, FE_MIN_GEAR_DEPTH, FE_MAX_GEAR_DEPTH, FE_MODAL_GEAR_DEPTH,  ",  
-               " FE_SURFACE_WATER_TEMPERATURE,  ",
-               " FE_SURFACE_WATER_TEMP_DEPTH, FE_SURFC_WATR_TEMP_TECH_CODE, FE_BOTTOM_WATER_TEMPERATURE,  ",
-               " FE_BOTTOM_WATER_TEMP_DEPTH, FE_BOTTM_WATR_TEMP_TECH_CODE,  ",
-               " FE_MODAL_DEPTH_TEMPERATURE, FE_GEAR_TEMP_TECH_CODE, FE_CTD_REF_NUMBER,  ",
-               "  FE_WIND_DIRECTION, FE_WIND_SPEED, BEAUFORT_SCALE_CODE, FE_SWELL, TIDE_CODE,  ",
-               " FE_CLOUD_COVER, FE_LUMINESCENCE, FE_WEATHER_COMMENT, FE_SUN_SHINING_IND, GEAR_CODE,  ",
-               " EST_CATCH_METHOD_CODE, FE_TOTAL_CATCH_WEIGHT, FE_TOTAL_CATCH_PIECES,  ",
-               " FE_CATCH_WEIGHT_PER_PIECE, FE_SOUNDER_COMMENT, FE_EK500_TAPE_NUMBER,  ",
-               " FE_MISC_COMMENT, ROW_VERSION, BLOCK_DESIGNATION, FE_BEGIN_BOTTOM_CONTACT_TIME,  ",
-               " FE_END_BOTTOM_CONTACT_TIME, BOTTOM_CONTACT_METHOD_CODE, MODIFIED_DATE, MODIFIED_BY,  ",
-               " HAUL_RECORDER, FE_CATCH_COMMENT, PARTIAL_SORT_IND,  ",
-               " FE_CATCH_VERIFICATION_COMMENT, SCALE_ID, CAPTAIN_ID ",
-               " from GFBioSQL.dbo.FISHING_EVENT ",
-               " where (FE_PARENT_EVENT_ID IS NULL)) AS fe_1 ON trp.TRIP_ID = fe_1.TRIP_ID LEFT OUTER JOIN ",
-               " dbo.traps AS traps ON fe_1.TRIP_ID = traps.TRIP_ID AND fe_1.FE_MAJOR_LEVEL_ID = traps.FE_MAJOR_LEVEL_ID LEFT OUTER JOIN ",
-               " dbo.sablefish_locality AS sloc ON fe_1.MAJOR_STAT_AREA_CODE = sloc.MAJOR_STAT_AREA_CODE  ",
-               " AND fe_1.MINOR_STAT_AREA_CODE = sloc.MINOR_STAT_AREA_CODE AND  ",
-               " fe_1.LOCALITY_CODE = sloc.LOCALITY_CODE LEFT OUTER JOIN ",
-               " GFBioSQL.dbo.TRAP_SPECS AS fets ON fe_1.FISHING_EVENT_ID = fets.FISHING_EVENT_ID LEFT OUTER JOIN ",
-               " (select  fec.FISHING_EVENT_ID, CATCH_1.SPECIES_CODE, SUM(CATCH_1.CATCH_WEIGHT) AS CATCH_WEIGHT,  ",
-               " SUM(CATCH_1.CATCH_COUNT) AS CATCH_COUNT, AVG(ISNULL(CATCH_1.CATCH_VERIFICATION_CODE, 0)) AS VERIFICATION_METHOD ",
-               " from GFBioSQL.dbo.FISHING_EVENT_CATCH AS fec INNER JOIN              ",                                                                      
-              "GFBioSQL.dbo.CATCH AS CATCH_1 ON fec.CATCH_ID = CATCH_1.CATCH_ID ",
-               "where (CATCH_1.SPECIES_CODE = '455') ",
-               "group by fec.FISHING_EVENT_ID, CATCH_1.SPECIES_CODE) AS fec_1 ON fe_1.FISHING_EVENT_ID = fec_1.FISHING_EVENT_ID ", 
-               "where (YEAR(dbo.SableSetDate(fe_1.FE_BEGIN_DEPLOYMENT_TIME, fe_1.FE_END_DEPLOYMENT_TIME,  ",
-               "fe_1.FE_BEGIN_RETRIEVAL_TIME, fe_1.FE_END_RETRIEVAL_TIME)) > 2002))  AS FishingEventCatchCPUE LEFT OUTER JOIN ",
-               "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS ON FishingEventCatchCPUE.FE_MAJOR_LEVEL_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.[SET] AND  ",
-               "FishingEventCatchCPUE.TRIP_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS.TRIP_ID LEFT OUTER JOIN ",
-               "dbo.SurveyBlock_countWeight ON FishingEventCatchCPUE.SABLE_AREA_GROUP = dbo.SurveyBlock_countWeight.areaStrName AND   ",      
-               "FishingEventCatchCPUE.DepthStrataID = dbo.SurveyBlock_countWeight.depthStrName", sep="")
-
+    landmrk <- paste("select  * from OM_RawLandmarkSurveyData", sep="")
     landmrkRAW<- GetSQLData(landmrk,"Sablefish")
-    write.table(landmrkRAW, file = paste(path,"figure05678_RawLandmarkSurveyData.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+    write.table(landmrkRAW, file = paste(path,"figure56789.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
   cpuedt <- "SELECT  * FROM dbo.GENERIC_GFBIO_TRAPS where [Spatial.Stratum] not like '%Quatsino Sound%' "
   cpuedat<- GetSQLData(cpuedt,"Sablefish") 
-  write.table(cpuedat, file = paste(path,"figure09_InletCPUE.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+  write.table(cpuedat, file = paste(path,"figure10.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
      lenstats  <- "exec procRReport_Survey_LenAvg"
      dat       <- GetSQLData(lenstats,"Sablefish")
-    write.table(dat , file = paste(path,"figure10_MeanLength.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+    write.table(dat , file = paste(path,"figure11.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
     lenWT           <-   "exec procR_Survey_Sablefish_LenWt_shiny"
     lenWTdat1  <-    GetSQLData(lenWT,"Sablefish")
-    write.table(lenWTdat1, file = paste(path,"figure11_LengthWeight.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+    write.table(lenWTdat1, file = paste(path,"figure12.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
     sqlpolar  <- paste("select YEAR, SABLE_AREA_GROUP, SABLE_DEPTH_GROUP, ROUND(countSub / total * 100, 1) AS subL, ",
              " ROUND(countLeg / total * 100, 1) AS Leg, combo,combo + cast(YEAR as varchar) as combo2,(cast(right(sable_area_group,1) as int) + ", 
@@ -274,20 +149,20 @@ GetSQLData <- function(strSQL,strDbName) {
     polar        <- GetSQLData(sqlpolar ,"Sablefish")
     polarsummary <- GetSQLData(polarsumm ,"Sablefish")   # view the results to be able to type into the summary
 
-    write.table( polar , file = paste(path,"figure12_Polar.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
-    write.table(polarsummary, file = paste(path,"figure12_PolarSummary.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+    write.table( polar , file = paste(path,"figure13a.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+    write.table(polarsummary, file = paste(path,"figure13b.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
    dt   <-  paste("select * from Report_Survey_GFBIO_Age_MF_Prop where SetType='StRS' and Year<=", yr, sep="")
    dat  <-  GetSQLData(dt,"Sablefish")
-   write.table(dat, file = paste(path,"figure13_AgeBubblePlot.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+   write.table(dat, file = paste(path,"figure14.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
     sbecp        <- paste("select * from SEABIRD_ReportCoplot where Year in(",yr,",",yr+1,")",sep="")
     ctddat       <- GetSQLData(sbecp,"Sablefish")
-    write.table(ctddat, file = paste(path,"figure14_SeaBirdCoplot.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+    write.table(ctddat, file = paste(path,"figure15.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
        ctddt  <-  "select * from SEABIRD_ReportLinePlot"
        ctd    <-  GetSQLData(ctddt,"Sablefish") 
-      write.table(ctd , file = paste(path,"figure15_SeaBirdLineplot.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
+      write.table(ctd , file = paste(path,"figure16.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
 
 
 #  appendix--------------------------------------
@@ -359,7 +234,8 @@ GetSQLData <- function(strSQL,strDbName) {
                                     "GROUP BY year, TRIP_ID, FE_MAJOR_LEVEL_ID, SPECIES_CODE) AS bsre RIGHT OUTER JOIN ",
                                     "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH ON bsre.TRIP_ID = ", 
                                     "dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.TRIP_ID ",
-                                    "AND bsre.FE_MAJOR_LEVEL_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.[SET] AND bsre.SPECIES_CODE = ",                                        " dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.species ", 
+                                    "AND bsre.FE_MAJOR_LEVEL_ID = dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.[SET] AND bsre.SPECIES_CODE = ",                                        
+                                    " dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.species ", 
                                     " WHERE (dbo.GFBIO_RESEARCH_SAMPLE_DETAILS_OTHER_FISH.Year = ",yr+1, ") order by species,[SET]", sep="")
    otherspec             <-  GetSQLData(othersamples,"Sablefish")
    write.table( otherspec , file = paste(path,"appendixJ.csv",sep=''),row.names=FALSE, na="",col.names=TRUE, sep=",")
