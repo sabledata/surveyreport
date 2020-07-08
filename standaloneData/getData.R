@@ -1,9 +1,8 @@
 #  source("c:/github/surveyreport/standaloneData/getData.R")
 
 if(!(require(RODBC))) install.packages("RODBC") 
-
-path<-"c:/github/surveyreport/standaloneData/"
-yr <- 2018
+path   <-  "c:/github/surveyreport/standaloneData/"
+yr        <-  2018
 
 # ------------SQL SERVER LOAD-------------------------
 
@@ -16,32 +15,32 @@ GetSQLData <- function(strSQL,strDbName) {
    return(dat) 
 }
 
-#index -----------------------------
+#index ------------------------------------------------------------------------------------------------------------------------------
 
-   details     <- paste("select VESSEL_NAME as Vessel, CAPTAIN, ",
-                        "LEFT(CONVERT(varchar, START_DATE, 100), 7) + ' - ' ",
-                        "+ LEFT(CONVERT(varchar, END_DATE, 100), 7) AS [Trip Dates], ",
-                        "COUNT([SET]) AS [Count of Sets] from  dbo.GFBIO_RESEARCH_TRIPS ",
-                        "where year IN( ",yr,",",yr+1,") group by ",
-                        "VESSEL_NAME, CAPTAIN,  ",
-                        "LEFT(CONVERT(varchar, START_DATE, 100),7) + ' - ' + ",
-                        "LEFT(CONVERT(varchar, END_DATE, 100),7)", sep="")
-   sd          <- GetSQLData(details,"Sablefish")  # -- survey details
-   write.table( sd, file = paste(path,"index1.csv",sep=''),row.names=FALSE, na="",col.names=TRUE,  sep=",")
+   details     <-   paste("select VESSEL_NAME as Vessel, CAPTAIN, ",
+                            "LEFT(CONVERT(varchar, START_DATE, 100), 7) + ' - ' ",
+                            "+ LEFT(CONVERT(varchar, END_DATE, 100), 7) AS [Trip Dates], ",
+                            "COUNT([SET]) AS [Count of Sets] from  dbo.GFBIO_RESEARCH_TRIPS ",
+                            "where year IN( ",yr,",",yr+1,") group by ",
+                            "VESSEL_NAME, CAPTAIN,  ",
+                            "LEFT(CONVERT(varchar, START_DATE, 100),7) + ' - ' + ",
+                            "LEFT(CONVERT(varchar, END_DATE, 100),7)", sep="")
+   sd             <-    GetSQLData(details,"Sablefish")  # -- survey details
+   write.table( sd, file = paste(path,"index1.csv", sep=''), row.names=FALSE, na="",col.names=TRUE,  sep=",")
 
-   avgC        <- paste("select ROUND(AVG(TOTAL), 0) AS YrAvg from dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",
-                        " where (year <= ", yr+1, ") and (year >= ",yr - 8,")", sep="")
-   avgTen       <- GetSQLData(avgC,"Sablefish")    # -- average catch last 10 years
-  write.table( avgTen, file = paste(path,"index2.csv",sep=''),row.names=FALSE, na="",col.names=TRUE,  sep=",")
+   avgC        <-    paste("select ROUND(AVG(TOTAL), 0) AS YrAvg from dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",
+                            " where (year <= ", yr+1, ") and (year >= ",yr - 8,")", sep="")
+   avgTen   <-    GetSQLData(avgC,"Sablefish")    # -- average catch last 10 years
+   write.table( avgTen, file = paste(path, "index2.csv", sep=''), row.names=FALSE, na="",col.names=TRUE,  sep=",")
 
-   tp          <- paste("select ROUND(TRAP / TOTAL * 100, 0) AS TrapPer from dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",  
-                        " where  (year = ", yr, ")  group by ROUND(TRAP / TOTAL * 100, 0), TOTAL", sep="")
-   trapP       <- GetSQLData(tp,"Sablefish")        # -- trap gear catch ratio
-  write.table( trapP, file = paste(path,"index3.csv",sep=''),row.names=FALSE, na="",col.names=TRUE,  sep=",")
+   tp            <-     paste("select ROUND(TRAP / TOTAL * 100, 0) AS TrapPer from dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2 ",  
+                            " where  (year = ", yr, ")  group by ROUND(TRAP / TOTAL * 100, 0), TOTAL", sep="")
+   trapP     <-      GetSQLData(tp,"Sablefish")        # -- trap gear catch ratio
+   write.table( trapP, file = paste(path,"index3.csv",sep=''),row.names=FALSE, na="",col.names=TRUE,  sep=",")
 
-   lp          <- paste("select  ROUND(LONGLINE / TOTAL * 100, 0) AS LonglinePer from ",  
-                         " dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2  where  (year = ", yr, 
-                         ") group by ROUND(LONGLINE / TOTAL * 100, 0), TOTAL", sep="")
+   lp            <-     paste("select  ROUND(LONGLINE / TOTAL * 100, 0) AS LonglinePer from ",  
+                           " dbo.TableA2_Annual_sablefish_Landing_in_Can_waters_2  where  (year = ", yr, 
+                           ") group by ROUND(LONGLINE / TOTAL * 100, 0), TOTAL", sep="")
    LonglineP   <- GetSQLData(lp,"Sablefish")        # -- longline gear catch ratio
   write.table( LonglineP, file = paste(path,"index4.csv",sep=''),row.names=FALSE, na="",col.names=TRUE,  sep=",")
 
