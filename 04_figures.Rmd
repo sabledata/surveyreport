@@ -319,13 +319,13 @@
   png("C:/github/surveyreport/figures/Figure10.png", width=600, height=800) # write png to file
 
     library(Rmisc)                       
-    cpuedt <- "SELECT  * FROM dbo.GENERIC_GFBIO_TRAPS where year < 2020 and [Spatial.Stratum] not like '%Quatsino Sound%' "
-    #cpuedat<- GetSQLData(cpuedt,"Sablefish") 
+    cpuedt    <-  "SELECT  * from dbo.GENERIC_GFBIO_TRAPS where year < 2020 and [Spatial.Stratum] not like '%Quatsino Sound%' "
+    #cpuedat  <-  GetSQLData(cpuedt,"Sablefish") 
     cpuedat   <-  read.csv("c:/github/surveyreport/standaloneData/figure10.csv",header=T)
 
     #pick out the stand sets
-    dat <- cpuedat[ which(cpuedat$SABLE.SET.TYPE=="INLET STANDARDIZED" ), ]
-    dat <- dat[ which(is.na(dat$SABLE.SET.TYPE)==FALSE), ]
+    dat   <- cpuedat[ which(cpuedat$SABLE.SET.TYPE=="INLET STANDARDIZED" ), ]
+    dat   <- dat[ which(is.na(dat$SABLE.SET.TYPE)==FALSE), ]
     inlet <- dat[dat$year >=1993,]  
     
     inlet$sable_cpuew <-  inlet$CPUE.SABLE.WEIGHT/inlet$CPUE.TRAPS
@@ -970,7 +970,7 @@
     
        png("C:/github/surveyreport/figures/Figure16.png", width=800, height=1000) # write png to file
        ctddt  <-  "select * from SEABIRD_ReportLinePlot"
-       #ctd   <-  GetSQLData(ctddt,"Sablefish")                                                            # read from SQL Server
+       ctd   <-  GetSQLData(ctddt,"Sablefish")                                                            # read from SQL Server
        ctd    <-  read.csv("c:/github/surveyreport/standaloneData/figure16.csv",header=T)  # read from csv
        
        ctd2             <-  arrange(transform(ctd,strata=factor(depth,levels=rev(unique(ctd$depth)))),depth)
@@ -991,7 +991,10 @@
        
        while (!is.null(dev.list()))  dev.off()
        img <-   paste('C:/github/surveyreport/figures/Figure16.png',sep="")   # -- retrieve png 
-                knitr::include_graphics(img)
+             knitr::include_graphics(img)
+
+      #img  <- paste('C:/github/surveyreport/figures/Figure16b.png',sep="") # -- replace with standalone
+      #knitr::include_graphics(img)
 
 ```
 \clearpage
