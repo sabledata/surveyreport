@@ -258,8 +258,8 @@ library(cowplot)
                         "LEFT(CONVERT(varchar, START_DATE, 100),7) + ' - ' + ",
                         "LEFT(CONVERT(varchar, END_DATE, 100),7)", 
                          sep="")
-   #sd          <- GetSQLData(details,"Sablefish")  # -- survey details query SQL Server
-   sd     <- read.csv("c:/github/surveyreport/standaloneData/index1.csv",header=T)  
+   #sd        <- GetSQLData(details,"Sablefish")  # -- survey details query SQL Server
+   sd         <- read.csv("c:/github/surveyreport/standaloneData/index1.csv",header=T)  
    
    boat        <- simpleCap(tolower(sd[1,1]))      # -- vessel name year 1
    boat2       <- simpleCap(tolower(sd[2,1]))      # -- vessel name year 2

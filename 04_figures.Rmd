@@ -1,7 +1,8 @@
 # Figures
+
 (ref:figure1) Location of the boundaries of the mainland inlet localities, and the five spatial areas (S~1~-S~5~) of the stratified random survey design. The three depths strata (RD~1~-RD~3~) are colour-coded and nested within each of the five spatial strata. 
 
-```{r figure1, fig.cap='(ref:figure1)', out.width = "450px", out.height = "510px", fig.align="center", warning=FALSE, echo=FALSE, message=FALSE, error=FALSE}
+```{r figure1, fig.cap='(ref:figure1)', warning=FALSE, echo=FALSE, dpi=500, out.width = "450px", out.height = "530px", fig.align="center"}
       img <- paste('C:/github/surveyreport/figures/Figure1.png',sep="") 
       knitr::include_graphics(img)
 ```
@@ -9,7 +10,7 @@
 
 (ref:figure2) Start locations of survey sets (red markers) conducted in `r yr` (A) and `r yr+1` (B) for the stratified random survey areas S~1~ through S~5~.
 
-```{r figure2, fig.cap='(ref:figure2)', echo=FALSE, out.width = "350px",out.height = "600px", fig.align="center", warning=FALSE}
+```{r figure2, fig.cap='(ref:figure2)', echo=FALSE,  warning=FALSE, dpi=500, out.width = "350px",out.height = "600px", fig.align="center"}
       img <- paste('C:/github/surveyreport/figures/Figure2.png'  ,sep="")
       knitr::include_graphics(img)
 ```
@@ -35,13 +36,12 @@
 
 ```{r figure5, fig.cap='(ref:figure5)',echo=FALSE, fig.align = "center",warning=FALSE}
 
-#   results='asis',echo=FALSE,include=FALSE,warning=FALSE,message = FALSE,error= FALSE
-    png("C:/github/surveyreport/figures/Figure5.png", width = 448, height = 628)  # write png to folder 
+    #   results='asis',echo=FALSE,include=FALSE,warning=FALSE,message = FALSE,error= FALSE
+    png("C:/github/surveyreport/figures/Figure5.png", width = 448, height = 628)  # write png to folder
 
-#   query----------raw survey datafile for Landmark fisheries----------------
+    #   query----------raw survey datafile for Landmark fisher  ies----------------
 
     landmrk <- paste("select * from OM_RawLandmarkSurveyData", sep="")
-
     # raw_survey_data<- GetSQLData(landmrk,"Sablefish")
     raw_survey_data <- read.csv("c:/github/surveyreport/standaloneData/figure56789.csv",header=T)
     
@@ -75,7 +75,8 @@
     geom_vline(xintercept=c(850),linetype="dashed",color="blue") +
     xlab("Depth (m)") +
     ylab("CPUE (kg/trap)") +
-    theme_bw()
+    theme_bw() + theme(axis.title.y=element_text(size=10),
+                       axis.title.x=element_text(size=10))
 
     while (!is.null(dev.list()))  dev.off()
     img                <-  paste('C:/github/surveyreport/figures/Figure5.png',sep="")   # -- retrieve png 
@@ -116,7 +117,6 @@
             geom_boxplot() +  xlab("Year") +      ylab("sablefish kg") +
             scale_y_continuous(limits=c(0,5))+
             theme(axis.text = element_text(size = 4)) +   theme_bw()  
-    
     pRD3 <- ggplot(boxRD3, aes(x=SET_YEAR, y=sable_cpue)) +               # RD3 sable kg/trap
             geom_boxplot() +  xlab("Year") +     ylab("CPUE (kg/trap)") +
             scale_y_continuous(limits=c(0,90))+
@@ -137,10 +137,12 @@
 
 (ref:figure6) Average sablefish catch per unit effort (CPUE; mean +/- 95% CIs) by StRS survey strata over time. Panels run deep to shallow (left to right) and north to south (top to bottom).
 
-```{r figure6, fig.cap='(ref:figure6)', results='asis',echo=FALSE,fig.height = 6, fig.width = 7,  fig.align = "center"}
+```{r figure6, fig.cap='(ref:figure6)', results='asis', echo=FALSE, fig.height = 6, fig.width = 7,  fig.align = "center"}
 
      png("C:/github/surveyreport/figures/Figure6.png", width=468, height=600) # write png to file
      par(mfcol=c(1,1))
+     
+     
 
      ggplot(tgc.02,aes(x=SET_YEAR,y=sable_cpue)) +
      geom_errorbar(aes(ymin=sable_cpue-ci, ymax=sable_cpue+ci), width=0) +
