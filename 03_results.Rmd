@@ -60,7 +60,7 @@ Catch per unit effort (CPUE), as indexed by kilograms of sablefish per trap, inc
 
 ### Mainland Inlet CPUE
 
-CPUE in the mainlaind inlets has varied in a relatively predictable manner over time with peak CPUE occuring every 5-8 years (Figure \@ref(fig:figure10)). In the early part of the time series (mid-1990s) average CPUE remained relatively constant before a peak in CPUE was observed in 1999, followed by declines to consistent levels until another peak in 2003 and 2004, and again in 2011.  In `r yr`, CPUE returned (~`r data18.mn` fish, and ~`r data18kg.mn` kg, per trap) to the levels observed during previous peaks. In `r yr+1`, the highest catch rates of the 26 year time series were observed (~`r data19.mn` fish, and ~`r data19kg.mn` kg, per trap).  Notably, the `r yr`-`r yr+1` mean weight (~`r data19kg` kg) declined to an all time low due to large number of small fish becoming available to the survey.
+CPUE in the mainlaind inlets has varied in a relatively predictable manner over time with peak CPUE occuring every 5-8 years (Figure \@ref(fig:figure10)). In the early part of the time series (mid-1990s) average CPUE remained relatively constant before a peak in CPUE was observed in 1999, followed by declines to consistent levels until another peak in 2003 and 2004, and again in 2011.  In `r yr`, CPUE returned (~`r data18.mn` fish, and ~`r data18kg.mn` kg per trap) to the levels observed during previous peaks. In `r yr+1`, the highest catch rates of the 26 year time series were observed (~`r data19.mn` fish, and ~`r data19kg.mn` kg per trap).  Notably, the `r yr`-`r yr+1` mean weight (~`r data19kg` kg) declined to an all time low due to large number of small fish becoming available to the survey.
 
 
 ```{r SpeciesCompositionText, echo=FALSE}
