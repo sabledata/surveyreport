@@ -13,8 +13,8 @@ address: |
      Pacific Biological Station\
      Fisheries and Oceans Canada, 3190 Hammond Bay Road\
      Nanaimo, British Columbia, V9T 6N7, Canada\
-phone: "(555) 555-5555"
-author_footnote: "Email: Lisa.Lacko@dfo-mpo.gc.ca | telephone: (250) 756-5555"
+phone: "(250) 756-7000"
+author_footnote: "Email: Lisa.Lacko@dfo-mpo.gc.ca | telephone: (250) 756-7385"
 abstract: |
   This document describes sampling activities and summarizes results from the 2018 and 2019 British Columbia sablefish research and assessment surveys. It is intended to provide a historical reference for researchers and industry. These annual surveys utilized the same sampling strategies at stratified random (StRS) sites and traditional inlet sites. The random component was comprised of StRS sets at five depth-stratified areas and the traditional component employed standardized sets at four inlet localities on the mainland.
   
