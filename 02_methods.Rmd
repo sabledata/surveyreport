@@ -2,7 +2,7 @@
 
 ## SURVEY DESIGN
 
-Methodology for the `r yr` and `r yr+1`  sablefish  research and  assessment surveys employed a stratified random sampling (StRS) design component and a traditional standardized inlet component.  The standard survey protocol requires the StRS component to be completed first, fishing from South to North.  Next, the traditional inlet component to be completed, fishing from North to South. If weather impacts the survey plan, the inlet sites are fished before completing the northern StRS sites in order to reduce the total number of fishing days.
+Methodology for the `r yr` and `r yr+1`  sablefish  research and  assessment surveys employed a stratified random sampling (StRS) design component and a traditional standardized inlet component.  The standard survey protocol requires the StRS component to be completed first, fishing from south to north.  Next, the traditional inlet component to be completed, fishing from north to south. If weather impacts the survey plan, the inlet sites are fished before completing the northern StRS sites in order to reduce the total number of fishing days.
 
 ### STRATIFIED RANDOM SAMPLING SURVEY DESIGN COMPONENT
 
